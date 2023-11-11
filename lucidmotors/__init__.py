@@ -189,10 +189,20 @@ class LucidAPI:
 
     async def wakeup_vehicle(self, vehicle: Vehicle) -> None:
         """
-        Refresh the list (and status) of vehicles from the API.
+        Wake up a specific vehicle.
         """
 
         async with self._session.post('/v1/wakeup', json={'vehicle_id': vehicle.vehicle_id}) as resp:
             raw_reply = await _check_for_api_error(resp)
 
         _LOGGER.debug('Raw /wakeup API response: %r', raw_reply)
+
+    async def honk_horn(self, vehicle: Vehicle) -> None:
+        """
+        Honk the horn of a specific vehicle.
+        """
+
+        async with self._session.post('/v1/honk_horn', json={'vehicle_id': vehicle.vehicle_id}) as resp:
+            raw_reply = await _check_for_api_error(resp)
+
+        _LOGGER.debug('Raw /honk_horn API response: %r', raw_reply)
