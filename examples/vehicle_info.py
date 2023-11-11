@@ -25,13 +25,23 @@ if len(sys.argv) < 2:
             await lucid.login(username, password)
             print('Logged in. User profile:')
             rich.print(lucid.user)
+
             print('Vehicles:')
             rich.print(lucid.vehicles)
 
+            print('Waking up vehicle')
+            await lucid.wakeup_vehicle(lucid.vehicles[0])
+
+            print('... Sleeping 10s to be nice ...')
+            time.sleep(10)
+
+            print('Honking horn')
+            await lucid.honk_horn(lucid.vehicles[0])
+
             print('... Sleeping 5s to be nice ...')
-            print('Then refreshing vehicle info')
             time.sleep(5)
 
+            print('Then refreshing vehicle info')
             await lucid.fetch_vehicles()
             rich.print(lucid.vehicles)
 
