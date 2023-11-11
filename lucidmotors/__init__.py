@@ -1,16 +1,11 @@
 """The Lucid Motors mobile app API"""
 from __future__ import annotations
-from enum import Enum, auto
-from typing import Optional, Any, TypeVar
-from dataclasses import dataclass
+from typing import Optional, Any
 from datetime import datetime
-from aiohttp import ClientConnectionError
 from pydantic import BaseModel, Field
 
-import asyncio
 import aiohttp
 import logging
-import importlib.metadata
 
 from .const import MOBILE_API
 from .user import User
@@ -136,10 +131,12 @@ class LucidAPI:
         self._token_expiry_time = datetime.fromtimestamp(sess.expiry_time_sec)
 
         _LOGGER.debug(
-            "API authentication succeeded. Token expires at %s", self._token_expiry_time
+            "API authentication succeeded. Token expires at %s",
+            self._token_expiry_time,
         )
 
-        # Save authentication token in our ClientSession - it is sent as an HTTP header.
+        # Save authentication token in our ClientSession - it is sent as an
+        # HTTP header.
         self._session.headers.update({"authorization": f"Bearer {sess.id_token}"})
 
         self._user_profile = reply.user_profile

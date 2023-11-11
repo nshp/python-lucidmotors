@@ -1,8 +1,6 @@
 """Lucid vehicle configuration, state and controls."""
 
-from typing import Any
-from enum import Enum, auto
-from dataclasses import dataclass
+from enum import Enum
 from datetime import datetime
 from pydantic import BaseModel, Field
 
@@ -251,7 +249,8 @@ class SoftwareUpdateState(BaseModel):
     percent_complete: int = Field(alias="percentComplete")
     rollback_percent_complete: int = Field(alias="rollbackPercentComplete")
     rollback_state: RollbackState = Field(alias="rollbackState")
-    # what is this? it's 0 for me. maybe epoch, maybe seconds/minutes in the future?
+    # what is this? it's 0 for me. maybe epoch, maybe seconds/minutes in the
+    # future?
     scheduled_start_time_sec: int = Field(alias="scheduledStartTimeSec")
     update_available: UpdateAvailableState = Field(alias="updateAvailable")
     state: UpdateState = Field(alias="updateState")
@@ -330,7 +329,8 @@ class InteriorStyle(str, Enum):
     # Guessing with these
     MOJAVE = "MOJAVE"
     SANTA_CRUZ = "SANTA_CRUZ"
-    # TODO: mojave purluxe? mojave purluxe leather alternative? sapphire mojave?
+    # TODO: mojave purluxe? mojave purluxe leather alternative? sapphire
+    # mojave?
 
 
 class Model(str, Enum):

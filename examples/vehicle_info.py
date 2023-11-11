@@ -8,9 +8,9 @@ import time
 import logging
 
 # Allow running straight out of the repo
-sys.path.insert(0, str(pathlib.Path(__file__).parent.parent.absolute()))  # noqa: E402
+sys.path.insert(0, str(pathlib.Path(__file__).parent.parent.absolute()))
 
-from lucidmotors import LucidAPI, LoginResponse
+from lucidmotors import LucidAPI, LoginResponse  # noqa: E402
 
 logging.basicConfig(level=logging.DEBUG)
 
