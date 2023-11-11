@@ -60,6 +60,7 @@ class LockState(str, Enum):
 class DoorState(str, Enum):
     CLOSED = 'CLOSED'
     AJAR = 'AJAR'
+    OPEN = 'OPEN'
     # TODO: Other values?
 
 
@@ -191,6 +192,7 @@ class GPS(BaseModel):
 
 class HvacPower(str, Enum):
     OFF = 'HVAC_OFF'
+    ON = 'HVAC_ON'
     PRECONDITION = 'HVAC_PRECONDITION'
     # TODO: Other values?
 
@@ -217,6 +219,8 @@ class PowerState(str, Enum):
     SLEEP = 'SLEEP'
     MONITOR = 'MONITOR'
     WINK = 'WINK'
+    DRIVE = 'DRIVE'
+    ACCESSORY = 'ACCESSORY'
     # TODO: Figure out possible values for this
 
 
