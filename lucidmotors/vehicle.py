@@ -70,6 +70,7 @@ class WalkawayState(str, Enum):
 
 class AccessTypeStatus(str, Enum):
     ACTIVE_ACCESS_REQQUEST = 'ACTIVE_ACCESS_REQUEST'
+    PASSIVE_ACCESS_REQUEST = 'PASSIVE_ACCESS_REQUEST'
     # TODO: Other values?
 
 
@@ -318,6 +319,7 @@ class FrunkStrutType(str, Enum):
 
 
 class InteriorStyle(str, Enum):
+    SANTA_MONICA = 'SANTA_MONICA'
     TAHOE = 'TAHOE'
     # Guessing with these
     MOJAVE = 'MOJAVE'
@@ -331,13 +333,16 @@ class Model(str, Enum):
 
 
 class ModelVariant(str, Enum):
+    DREAM_EDITION = 'DREAM_EDITION'
     TOURING = 'TOURING'
     # Guessing at the rest
     PURE = 'PURE'
     GRAND_TOURING = 'GRAND_TOURING'
-    DREAM = 'DREAM'
     SAPPHIRE = 'SAPPHIRE'
 
+class Edition(str, Enum):
+    PERFORMANCE_EDITION = 'EDITION_PERFORMANCE'
+    PERFORMANCE_RANGE = 'EDITION_RANGE'
 
 class VehicleConfig(BaseModel):
     country_code: str = Field(alias='countryCode')
@@ -348,6 +353,7 @@ class VehicleConfig(BaseModel):
     look: str # TODO: Enum-ize?
     model: str
     variant: ModelVariant = Field(alias='modelVariant')
+    edition: Edition = Field(alias='edition')
     nickname: str
     # TODO: Enum-ize?
     paint_color: str = Field(alias='paintColor')
