@@ -133,6 +133,8 @@ class LucidAPI:
         async with self._session.post('/v1/login', json=request) as resp:
             raw_reply = await _check_for_api_error(resp)
 
+        _LOGGER.debug('Raw /login API response: %r', raw_reply)
+
         reply = LoginResponse.model_validate(raw_reply)
         sess = reply.session_info
 
@@ -178,6 +180,8 @@ class LucidAPI:
 
         async with self._session.get('/v1/user_vehicles') as resp:
             raw_reply = await _check_for_api_error(resp)
+
+        _LOGGER.debug('Raw /user_vehicles API response: %r', raw_reply)
 
         reply = UserVehiclesResponse.model_validate(raw_reply)
         self._vehicles = reply.user_vehicle_data
