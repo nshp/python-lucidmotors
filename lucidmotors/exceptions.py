@@ -9,6 +9,7 @@ class APIError(Exception):
     """
     Represents an error returned by the API
     """
+
     http_status: int
     code: Optional[int]
     message: Optional[str]
