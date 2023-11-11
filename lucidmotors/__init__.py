@@ -22,7 +22,6 @@ __version__ = '0.1.0'
 
 _LOGGER = logging.getLogger(__name__)
 
-
 async def _check_for_api_error(resp: aiohttp.ClientResponse) -> dict[str, Any]:
     """Check if an API response is an error, and if so, raise an exception"""
 
@@ -187,3 +186,13 @@ class LucidAPI:
         self._vehicles = reply.user_vehicle_data
 
         return self._vehicles
+
+    async def wakeup_vehicle(self, vehicle: Vehicle) -> None:
+        """
+        Refresh the list (and status) of vehicles from the API.
+        """
+
+        async with self._session.post('/v1/wakeup', json={'vehicle_id': vehicle.vehicle_id}) as resp:
+            raw_reply = await _check_for_api_error(resp)
+
+        _LOGGER.debug('Raw /wakeup API response: %r', raw_reply)
