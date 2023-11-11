@@ -6,7 +6,7 @@ authors = ["Nick Shipp <git@segbrk.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 aiohttp = "^3.8.6"
 pydantic = "^2.4.2"
 
