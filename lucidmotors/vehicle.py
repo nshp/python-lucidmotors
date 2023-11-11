@@ -344,9 +344,12 @@ class ModelVariant(str, Enum):
     GRAND_TOURING = 'GRAND_TOURING'
     SAPPHIRE = 'SAPPHIRE'
 
+
 class Edition(str, Enum):
+    STANDARD_EDITION = 'EDITION_STANDARD'
     PERFORMANCE_EDITION = 'EDITION_PERFORMANCE'
     PERFORMANCE_RANGE = 'EDITION_RANGE'
+
 
 class VehicleConfig(BaseModel):
     country_code: str = Field(alias='countryCode')

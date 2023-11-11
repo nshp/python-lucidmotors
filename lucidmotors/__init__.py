@@ -187,6 +187,7 @@ class LucidAPI:
 
         return self._vehicles
 
+
     async def wakeup_vehicle(self, vehicle: Vehicle) -> None:
         """
         Wake up a specific vehicle.
@@ -196,6 +197,7 @@ class LucidAPI:
             raw_reply = await _check_for_api_error(resp)
 
         _LOGGER.debug('Raw /wakeup API response: %r', raw_reply)
+
 
     async def honk_horn(self, vehicle: Vehicle) -> None:
         """
