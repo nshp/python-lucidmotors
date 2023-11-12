@@ -96,11 +96,13 @@ class CabinState(BaseModel):
 
 class ChargeState(str, Enum):
     NOT_CONNECTED = "NOT_CONNECTED"
+    CHARGING = 'CHARGING'
     # TODO: Figure out possible values for this
 
 
 class EnergyType(str, Enum):
     UNKNOWN = "UNKNOWN_ENERGY_TYPE"
+    AC = 'AC'
     # TODO: Figure out possible values for this
 
 
@@ -114,16 +116,16 @@ class ChargingState(BaseModel):
     # what unit is this?
     charge_limit: int = Field(alias="chargeLimit")
     charge_limit_percent: float = Field(alias="chargeLimitPercent")
-    charge_rate_kwh_precise: int = Field(alias="chargeRateKwhPrecise")
-    charge_rate_miles_min_precise: int = Field(alias="chargeRateMilesMinPrecise")
-    charge_rate_mph_precise: int = Field(alias="chargeRateMphPrecise")
+    charge_rate_kwh_precise: float = Field(alias="chargeRateKwhPrecise")
+    charge_rate_miles_min_precise: float = Field(alias="chargeRateMilesMinPrecise")
+    charge_rate_mph_precise: float = Field(alias="chargeRateMphPrecise")
     charge_scheduled_status: ChargeScheduledStatus = Field(
         alias="chargeScheduledStatus"
     )
     # what unit is this?
     charge_scheduled_time: int = Field(alias="chargeScheduledTime")
-    charge_session_kwh: int = Field(alias="chargeSessionKwh")
-    charge_session_mi: int = Field(alias="chargeSessionMi")
+    charge_session_kwh: float = Field(alias="chargeSessionKwh")
+    charge_session_mi: float = Field(alias="chargeSessionMi")
     charge_state: ChargeState = Field(alias="chargeState")
     energy_type: EnergyType = Field(alias="energyType")
     # TODO: Figure out possible values for this
@@ -222,6 +224,7 @@ class PowerState(str, Enum):
     WINK = "WINK"
     DRIVE = "DRIVE"
     ACCESSORY = "ACCESSORY"
+    SLEEP_CHARGE = "SLEEP_CHARGE"
     # TODO: Figure out possible values for this
 
 
