@@ -66,6 +66,11 @@ class ClosureState(str, Enum):
     CLOSED = 'CLOSED'
 
 
+class LockState(str, Enum):
+    LOCKED = 'LOCKED'
+    UNLOCKED = 'UNLOCKED'
+
+
 class LucidAPI:
     """A wrapper around the API used by the Lucid mobile apps"""
 
@@ -277,3 +282,33 @@ class LucidAPI:
         """
 
         await self.charge_port_control(vehicle, ClosureState.CLOSED)
+
+    async def door_locks_control(self, vehicle: Vehicle, state: LockState, doors: list[int] = list(range(1,5))) -> None:
+        """
+        Control the charge port door of a specific vehicle.
+        """
+
+        request = {
+            "vehicle_id": vehicle.vehicle_id,
+            "lock_state": state,
+            "door_location": doors
+        }
+
+        async with self._session.post("/v1/door_locks_control", json=request) as resp:
+            raw_reply = await _check_for_api_error(resp)
+
+        _LOGGER.debug("Raw /door_locks_control API response: %r", raw_reply)
+
+    async def doors_unlock(self, vehicle: Vehicle, doors: list[int] = list(range(1,5))) -> None:
+        """
+        Open the doors of a specific vehicle.
+        """
+
+        await self.door_locks_control(vehicle, LockState.UNLOCKED, doors)
+
+    async def doors_lock(self, vehicle: Vehicle, doors: list[int] = list(range(1,5))) -> None:
+        """
+        Close the doors of a specific vehicle.
+        """
+
+        await self.door_locks_control(vehicle, LockState.LOCKED, doors)
