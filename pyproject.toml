@@ -10,9 +10,14 @@ python = "^3.10"
 aiohttp = "^3.8.6"
 pydantic = "^2.4.2"
 
-
 [tool.poetry.group.dev.dependencies]
 rich = "^13.6.0"
+pytest = "^7.4.3"
+pytest-cases = "^3.8.1"
+black = "^23.11.0"
+flake8 = "^6.1.0"
+flake8-black = "^0.3.6"
+pyjwt = "^2.8.0"
 
 [tool.black]
 line-length = 88

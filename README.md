@@ -18,6 +18,11 @@ It may fail due to validation errors the first few times, because the types in
 values from all different Lucid trims/styles in all kinds of different states, which 
 will take some time.
 
-If you're feeling adventurous, try playing wiht `examples/test_all_actions.py` which
+To generate an anonymized test case from your data, use
+`examples/anonymize_login_response.py`. This will log in, remove identifying
+information from the API response, and write it to a file. Check the file to
+ensure anonymization actually worked, then you can share it as a test case.
+
+If you're feeling adventurous, try playing with `examples/test_all_actions.py` which
 will run through every action we have figured out out thus far. A "stress test" of 
 sorts.

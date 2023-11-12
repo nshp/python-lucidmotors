@@ -114,8 +114,8 @@ class LucidAPI:
     async def __aexit__(self, *exc: Any) -> None:
         await self._session.__aexit__(*exc)
 
-    async def login(self, username: str, password: str) -> None:
-        """Authenticate to the API using your Lucid account credentials"""
+    async def _login_request(self, username: str, password: str) -> Any:
+        """Authenticate to the API, returning the raw result."""
 
         # The API responds with helpful schema validation messages if these
         # fields are wrong. If the API requirements change in the future, try
@@ -146,6 +146,13 @@ class LucidAPI:
             raw_reply = await _check_for_api_error(resp)
 
         _LOGGER.debug("Raw /login API response: %r", raw_reply)
+
+        return raw_reply
+
+    async def login(self, username: str, password: str) -> None:
+        """Authenticate to the API using your Lucid account credentials"""
+
+        raw_reply = await self._login_request(username, password)
 
         reply = LoginResponse.model_validate(raw_reply)
         sess = reply.session_info
@@ -289,10 +296,8 @@ class LucidAPI:
         await self.charge_port_control(vehicle, ClosureState.CLOSED)
 
     async def door_locks_control(
-            self,
-            vehicle: Vehicle,
-            state: LockState,
-            doors: list[int] = list(range(1, 5))) -> None:
+        self, vehicle: Vehicle, state: LockState, doors: list[int] = list(range(1, 5))
+    ) -> None:
         """
         Control the charge port door of a specific vehicle.
         """
@@ -300,7 +305,7 @@ class LucidAPI:
         request = {
             "vehicle_id": vehicle.vehicle_id,
             "lock_state": state,
-            "door_location": doors
+            "door_location": doors,
         }
 
         async with self._session.post("/v1/door_locks_control", json=request) as resp:
@@ -309,9 +314,8 @@ class LucidAPI:
         _LOGGER.debug("Raw /door_locks_control API response: %r", raw_reply)
 
     async def doors_unlock(
-            self,
-            vehicle: Vehicle,
-            doors: list[int] = list(range(1, 5))) -> None:
+        self, vehicle: Vehicle, doors: list[int] = list(range(1, 5))
+    ) -> None:
         """
         Open the doors of a specific vehicle.
         """
@@ -319,9 +323,8 @@ class LucidAPI:
         await self.door_locks_control(vehicle, LockState.UNLOCKED, doors)
 
     async def doors_lock(
-            self,
-            vehicle: Vehicle,
-            doors: list[int] = list(range(1, 5))) -> None:
+        self, vehicle: Vehicle, doors: list[int] = list(range(1, 5))
+    ) -> None:
         """
         Close the doors of a specific vehicle.
         """

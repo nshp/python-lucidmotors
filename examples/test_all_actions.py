@@ -110,4 +110,5 @@ async def main():
         await lucid.fetch_vehicles()
         rich.print(lucid.vehicles)
 
+
 asyncio.run(main())

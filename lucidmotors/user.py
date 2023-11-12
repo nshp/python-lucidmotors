@@ -1,7 +1,7 @@
 """Lucid user account / profile information."""
 
 from typing import Optional
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 
 
 class User(BaseModel):
@@ -14,13 +14,13 @@ class User(BaseModel):
     locale: Optional[str]
     photo_url: Optional[str] = Field(alias="photoUrl")
 
-    @validator("locale", pre=True)
+    @field_validator("locale")
     def locale_none_to_empty(cls, v: object) -> object:
         if v is None:
             return ""
         return v
 
-    @validator("photo_url", pre=True)
+    @field_validator("photo_url")
     def photo_url_none_to_empty(cls, v: object) -> object:
         if v is None:
             return ""
