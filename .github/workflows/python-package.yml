@@ -27,12 +27,11 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install mypy flake8 pytest
         python -m pip install '.[dev]'
     - name: Check with mypy
       run: |
         python --version
-        mypy lucidmotors examples
+        mypy --install-types lucidmotors examples
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
