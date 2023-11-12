@@ -1,5 +1,6 @@
 """The Lucid Motors mobile app API"""
 from __future__ import annotations
+from enum import Enum
 from typing import Optional, Any
 from datetime import datetime
 from pydantic import BaseModel, Field
@@ -33,7 +34,7 @@ async def _check_for_api_error(resp: aiohttp.ClientResponse) -> dict[str, Any]:
 class SessionInfo(BaseModel):
     """API login session information"""
 
-    expiry_time_sec: int = Field(alias="expiryTimeSec")
+    expiry_time: datetime = Field(alias="expiryTimeSec")
     gigya_jwt: str = Field(alias="gigyaJwt")
     id_token: str = Field(alias="idToken")
     refresh_token: str = Field(alias="refreshToken")
@@ -52,6 +53,12 @@ class UserVehiclesResponse(BaseModel):
     """Response to the /user_vehicles API request."""
 
     user_vehicle_data: list[Vehicle] = Field(alias="userVehicleData")
+
+
+class LightsAction(str, Enum):
+    ON = 'LIGHTS_ON'
+    OFF = 'LIGHTS_OFF'
+    FLASH = 'LIGHTS_FLASH'
 
 
 class LucidAPI:
@@ -128,7 +135,7 @@ class LucidAPI:
         reply = LoginResponse.model_validate(raw_reply)
         sess = reply.session_info
 
-        self._token_expiry_time = datetime.fromtimestamp(sess.expiry_time_sec)
+        self._token_expiry_time = sess.expiry_time
 
         _LOGGER.debug(
             "API authentication succeeded. Token expires at %s",
@@ -200,3 +207,39 @@ class LucidAPI:
             raw_reply = await _check_for_api_error(resp)
 
         _LOGGER.debug("Raw /honk_horn API response: %r", raw_reply)
+
+    async def lights_control(self, vehicle: Vehicle, action: LightsAction) -> None:
+        """
+        Control the lights of a specific vehicle.
+        """
+
+        request = {
+            "vehicle_id": vehicle.vehicle_id,
+            "action": action,
+        }
+
+        async with self._session.post("/v1/lights_control", json=request) as resp:
+            raw_reply = await _check_for_api_error(resp)
+
+        _LOGGER.debug("Raw /lights_control API response: %r", raw_reply)
+
+    async def lights_on(self, vehicle: Vehicle) -> None:
+        """
+        Turn on the lights of a specific vehicle.
+        """
+
+        await self.lights_control(vehicle, LightsAction.ON)
+
+    async def lights_off(self, vehicle: Vehicle) -> None:
+        """
+        Turn off the lights of a specific vehicle.
+        """
+
+        await self.lights_control(vehicle, LightsAction.OFF)
+
+    async def lights_flash(self, vehicle: Vehicle) -> None:
+        """
+        Flash the lights of a specific vehicle.
+        """
+
+        await self.lights_control(vehicle, LightsAction.FLASH)

@@ -16,6 +16,7 @@ rich = "^13.6.0"
 
 [tool.black]
 line-length = 88
+skip-string-normalization = true
 
 [build-system]
 requires = ["poetry-core"]

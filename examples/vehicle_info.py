@@ -29,14 +29,22 @@ if len(sys.argv) < 2:
             print("Vehicles:")
             rich.print(lucid.vehicles)
 
+            time.sleep(1)
+
             print("Waking up vehicle")
             await lucid.wakeup_vehicle(lucid.vehicles[0])
 
-            print("... Sleeping 10s to be nice ...")
-            time.sleep(10)
+            print("... Sleeping 5s to be nice ...")
+            time.sleep(5)
 
             print("Honking horn")
             await lucid.honk_horn(lucid.vehicles[0])
+
+            print("... Sleeping 5s to be nice ...")
+            time.sleep(5)
+
+            print("Flashing lights")
+            await lucid.lights_flash(lucid.vehicles[0])
 
             print("... Sleeping 5s to be nice ...")
             time.sleep(5)
