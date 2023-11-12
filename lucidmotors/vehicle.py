@@ -143,14 +143,14 @@ class LightState(str, Enum):
 
 
 class ChassisState(BaseModel):
-    front_left_tire_pressure_bar: float = Field("frontLeftTirePressureBar")
-    front_right_tire_pressure_bar: float = Field("frontRightTirePressureBar")
-    rear_left_tire_pressure_bar: float = Field("rearLeftTirePressureBar")
-    rear_right_tire_pressure_bar: float = Field("rearRightTirePressureBar")
+    front_left_tire_pressure_bar: float = Field(alias="frontLeftTirePressBar")
+    front_right_tire_pressure_bar: float = Field(alias="frontRightTirePressBar")
+    rear_left_tire_pressure_bar: float = Field(alias="rearLeftTirePressBar")
+    rear_right_tire_pressure_bar: float = Field(alias="rearRightTirePressBar")
     headlights: LightState = Field(alias="headlightState")
     indicators: LightState = Field(alias="indicatorState")
     odometer_km: float = Field(alias="odometer")
-    software_version: str = Field("softwareVersion")
+    software_version: str = Field(alias="softwareVersion")
     # Tire pressure high/low warnings I'm guessing?
     hard_warn_left_front: WarningState = Field(alias="hardWarnLeftFront")
     hard_warn_right_front: WarningState = Field(alias="hardWarnRightFront")
