@@ -225,6 +225,7 @@ class PowerState(str, Enum):
     DRIVE = "DRIVE"
     ACCESSORY = "ACCESSORY"
     SLEEP_CHARGE = "SLEEP_CHARGE"
+    CLOUD_2 = 'CLOUD_2'
     # TODO: Figure out possible values for this
 
 

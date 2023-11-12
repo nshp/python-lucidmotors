@@ -125,13 +125,13 @@ class LucidAPI:
         request = {
             "username": username,
             "password": password,
-            # This is some sort of enum - probably iOS or Android, but no idea
-            # which value is which.
+            # Either 1 or 2 - probably iOS or Android, but no idea which value
+            # is which.
             "os": 1,
-            # Again no idea what this means, but it is a required enum value
-            # and cannot be 0.
+            # Again no idea what this means, but it is a required enum value. 1
+            # and 2 are accepted.
             "notification_channel_type": 1,
-            # Ditto. Required string, not sure what it is used for exactly.
+            # Required string, not sure what it is used for exactly.
             "notification_device_token": "1234",
             # TODO: Make this configurable, assuming other values are actually
             # accepted by the API.
