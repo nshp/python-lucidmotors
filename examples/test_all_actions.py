@@ -2,7 +2,6 @@ import sys
 import pathlib
 import asyncio
 import getpass
-import json
 import rich
 import time
 import logging
@@ -10,7 +9,7 @@ import logging
 # Allow running straight out of the repo
 sys.path.insert(0, str(pathlib.Path(__file__).parent.parent.absolute()))
 
-from lucidmotors import LucidAPI, LoginResponse  # noqa: E402
+from lucidmotors import LucidAPI  # noqa: E402
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -18,6 +17,7 @@ print("Please enter your Lucid account credentials.")
 
 username = input("Username: ")
 password = getpass.getpass()
+
 
 async def main():
     async with LucidAPI() as lucid:
