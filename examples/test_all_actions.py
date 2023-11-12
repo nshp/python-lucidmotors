@@ -43,6 +43,12 @@ async def main():
         print("... Sleeping 5s to be nice ...")
         time.sleep(5)
 
+        print("Turning on defrost")
+        await lucid.defrost_on(lucid.vehicles[0])
+
+        print("... Sleeping 5s to be nice ...")
+        time.sleep(5)
+
         print("Unlocking doors")
         await lucid.doors_unlock(lucid.vehicles[0])
 
@@ -87,6 +93,12 @@ async def main():
 
         print("Locking doors")
         await lucid.doors_lock(lucid.vehicles[0])
+
+        print("... Sleeping 5s to be nice ...")
+        time.sleep(5)
+
+        print("Turning off defrost")
+        await lucid.defrost_off(lucid.vehicles[0])
 
         print("... Sleeping 5s to be nice ...")
         time.sleep(5)

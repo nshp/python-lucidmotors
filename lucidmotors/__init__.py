@@ -71,6 +71,11 @@ class LockState(str, Enum):
     UNLOCKED = 'UNLOCKED'
 
 
+class DefrostAction(str, Enum):
+    ON = 'DEFROST_ON'
+    OFF = 'DEFROST_OFF'
+
+
 class LucidAPI:
     """A wrapper around the API used by the Lucid mobile apps"""
 
@@ -380,3 +385,32 @@ class LucidAPI:
         """
 
         await self.trunk_control(vehicle, ClosureState.CLOSED)
+
+    async def defrost_control(self, vehicle: Vehicle, action: DefrostAction) -> None:
+        """
+        Control the defrost mode of a specific vehicle.
+        """
+
+        request = {
+            "vehicle_id": vehicle.vehicle_id,
+            "hvac_defrost": action,
+        }
+
+        async with self._session.post("/v1/defrost_control", json=request) as resp:
+            raw_reply = await _check_for_api_error(resp)
+
+        _LOGGER.debug("Raw /defrost_control API response: %r", raw_reply)
+
+    async def defrost_on(self, vehicle: Vehicle) -> None:
+        """
+        Turn on the defrost mode of a specific vehicle.
+        """
+
+        await self.defrost_control(vehicle, DefrostAction.ON)
+
+    async def defrost_off(self, vehicle: Vehicle) -> None:
+        """
+        Turn off the defrost mode of a specific vehicle.
+        """
+
+        await self.defrost_control(vehicle, DefrostAction.OFF)
