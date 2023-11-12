@@ -6,7 +6,7 @@ Motors.
 To install dependencies, assuming you have Python development tools already, run:
 
 ```
-pip install '.[dev]'
+pip install -r requirements.txt
 ```
 
 Try fiddling with `examples/vehicle_info.py`. With no arguments it will prompt
