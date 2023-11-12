@@ -49,6 +49,18 @@ async def main():
         print("... Sleeping 5s to be nice ...")
         time.sleep(5)
 
+        print("Opening frunk")
+        await lucid.frunk_open(lucid.vehicles[0])
+
+        print("... Sleeping 5s to be nice ...")
+        time.sleep(5)
+
+        print("Opening trunk")
+        await lucid.trunk_open(lucid.vehicles[0])
+
+        print("... Sleeping 5s to be nice ...")
+        time.sleep(5)
+
         print("Honking horn")
         await lucid.honk_horn(lucid.vehicles[0])
 
@@ -61,8 +73,14 @@ async def main():
         print("... Sleeping 5s to be nice ...")
         time.sleep(5)
 
-        print("Closing charge port door")
-        await lucid.charge_port_close(lucid.vehicles[0])
+        print("Closing trunk")
+        await lucid.trunk_close(lucid.vehicles[0])
+
+        print("... Sleeping 5s to be nice ...")
+        time.sleep(5)
+
+        print("Closing frunk")
+        await lucid.frunk_close(lucid.vehicles[0])
 
         print("... Sleeping 5s to be nice ...")
         time.sleep(5)
@@ -72,6 +90,9 @@ async def main():
 
         print("... Sleeping 5s to be nice ...")
         time.sleep(5)
+
+        print("Closing charge port door")
+        await lucid.charge_port_close(lucid.vehicles[0])
 
         print("Then refreshing vehicle info")
         await lucid.fetch_vehicles()

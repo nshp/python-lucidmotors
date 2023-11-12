@@ -312,3 +312,62 @@ class LucidAPI:
         """
 
         await self.door_locks_control(vehicle, LockState.LOCKED, doors)
+
+
+    async def frunk_control(self, vehicle: Vehicle, state: ClosureState) -> None:
+        """
+        Control the charge port door of a specific vehicle.
+        """
+
+        request = {
+            "vehicle_id": vehicle.vehicle_id,
+            "closure_state": state,
+        }
+
+        async with self._session.post("/v1/front_cargo_control", json=request) as resp:
+            raw_reply = await _check_for_api_error(resp)
+
+        _LOGGER.debug("Raw /front_cargo_control API response: %r", raw_reply)
+
+    async def frunk_open(self, vehicle: Vehicle) -> None:
+        """
+        Open the charge port door of a specific vehicle.
+        """
+
+        await self.frunk_control(vehicle, ClosureState.OPEN)
+
+    async def frunk_close(self, vehicle: Vehicle) -> None:
+        """
+        Close the charge port door of a specific vehicle.
+        """
+
+        await self.frunk_control(vehicle, ClosureState.CLOSED)
+
+    async def trunk_control(self, vehicle: Vehicle, state: ClosureState) -> None:
+        """
+        Control the charge port door of a specific vehicle.
+        """
+
+        request = {
+            "vehicle_id": vehicle.vehicle_id,
+            "closure_state": state,
+        }
+
+        async with self._session.post("/v1/rear_cargo_control", json=request) as resp:
+            raw_reply = await _check_for_api_error(resp)
+
+        _LOGGER.debug("Raw /rear_cargo_control API response: %r", raw_reply)
+
+    async def trunk_open(self, vehicle: Vehicle) -> None:
+        """
+        Open the charge port door of a specific vehicle.
+        """
+
+        await self.trunk_control(vehicle, ClosureState.OPEN)
+
+    async def trunk_close(self, vehicle: Vehicle) -> None:
+        """
+        Close the charge port door of a specific vehicle.
+        """
+
+        await self.trunk_control(vehicle, ClosureState.CLOSED)
