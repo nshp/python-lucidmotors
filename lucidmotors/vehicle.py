@@ -316,21 +316,35 @@ class VehicleState(BaseModel):
     tcu: TcuState = Field(alias="tcuState")
 
 
-class FrunkStrutType(str, Enum):
-    POWER_STRUT = "POWER_STRUT"
-    # TODO: Figure out possible values for this
-    # The only other value currently is probably for the non-power frunk in
-    # Pure trims?
-
-
-class InteriorStyle(str, Enum):
-    SANTA_MONICA = "SANTA_MONICA"
-    TAHOE = "TAHOE"
+class PaintColor(str, Enum):
+    FATHOM_BLUE = 'FATHOM_BLUE'
+    ZENITH_RED = 'ZENITH_RED'
+    STELLAR_WHITE = 'STELLAR_WHITE'
+    INFINITE_BLACK = 'INFINITE_BLACK'
+    EUREKA_GOLD = 'EUREKA_GOLD'
+    COSMOS_SILVER = 'COSMOS_SILVER'
+    QUANTUM_GREY = 'QUANTUM_GREY'
     # Guessing with these
-    MOJAVE = "MOJAVE"
-    SANTA_CRUZ = "SANTA_CRUZ"
-    # TODO: mojave purluxe? mojave purluxe leather alternative? sapphire
-    # mojave?
+    SAPPHIRE_BLUE = 'SAPPHIRE_BLUE'
+
+
+class FrunkStrutType(str, Enum):
+    POWER_STRUT = 'POWER_STRUT'
+    GAS_STRUT = 'GAS_STRUT'
+
+
+class Interior(str, Enum):
+    SANTA_MONICA = 'SANTA_MONICA'
+    TAHOE = 'TAHOE'
+    MOJAVE = 'MOJAVE'
+    # Guessing with these
+    SANTA_CRUZ = 'SANTA_CRUZ'
+    # TODO: mojave purluxe? mojave purluxe leather alternative? sapphire mojave?
+
+
+class Look(str, Enum):
+    PLATINUM = 'PLATINUM'
+    STEALTH = 'STEALTH'
 
 
 class Model(str, Enum):
@@ -339,36 +353,53 @@ class Model(str, Enum):
 
 
 class ModelVariant(str, Enum):
-    DREAM_EDITION = "DREAM_EDITION"
-    TOURING = "TOURING"
+    DREAM_EDITION = 'DREAM_EDITION'
+    TOURING = 'TOURING'
+    PURE = 'PURE'
+    GRAND_TOURING = 'GRAND_TOURING'
     # Guessing at the rest
-    PURE = "PURE"
-    GRAND_TOURING = "GRAND_TOURING"
-    SAPPHIRE = "SAPPHIRE"
+    SAPPHIRE = 'SAPPHIRE'
 
 
 class Edition(str, Enum):
-    STANDARD_EDITION = "EDITION_STANDARD"
-    PERFORMANCE_EDITION = "EDITION_PERFORMANCE"
-    PERFORMANCE_RANGE = "EDITION_RANGE"
+    PERFORMANCE_EDITION = 'EDITION_PERFORMANCE'
+    RANGE_EDITION = 'EDITION_RANGE'
+    STANDARD_EDITION = 'EDITION_STANDARD'
+
+
+class Wheels(str, Enum):
+    DREAM = 'DREAM'
+    RANGE = 'RANGE'
+    PERFORMANCE = 'PERFORMANCE'
+    BLADE = 'BLADE'
+
+
+class Battery(str, Enum):
+    # Absolutely no idea what these mean, but I know they're accurate!
+    BATTERY_TYPE_01 = 'BATTERY_TYPE_01'  # Pure battery?
+    BATTERY_TYPE_02 = 'BATTERY_TYPE_02'  # GT Battery?
+    BATTERY_TYPE_03 = 'BATTERY_TYPE_03'
+    BATTERY_TYPE_04 = 'BATTERY_TYPE_04'
+    BATTERY_TYPE_05 = 'BATTERY_TYPE_05'  # Dream battery
 
 
 class VehicleConfig(BaseModel):
     country_code: str = Field(alias="countryCode")
     exterior_color_code: str = Field(alias="exteriorColorCode")
     frunk_strut: FrunkStrutType = Field(alias="frunkStrut")
-    interior: InteriorStyle
+    interior: Interior = Field(alias="interior")
     interior_color_code: str = Field(alias="interiorColorCode")
-    look: str  # TODO: Enum-ize?
+    look: Look = Field(alias="look")
     model: str
     variant: ModelVariant = Field(alias="modelVariant")
     edition: Edition = Field(alias="edition")
+    battery: Battery = Field(alias="battery")
     nickname: str
     # TODO: Enum-ize?
-    paint_color: str = Field(alias="paintColor")
+    paint_color: PaintColor = Field(alias="paintColor")
     region_code: str = Field(alias="regionCode")
     vin: str
-    wheels: str  # TODO: Enum-ize?
+    wheels: Wheels = Field(alias="wheels")
 
 
 class AccessLevel(str, Enum):
