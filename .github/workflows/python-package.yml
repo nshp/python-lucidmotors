@@ -31,7 +31,7 @@ jobs:
     - name: Check with mypy
       run: |
         python --version
-        mypy --install-types lucidmotors examples
+        mypy --non-interactive --install-types lucidmotors examples
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
