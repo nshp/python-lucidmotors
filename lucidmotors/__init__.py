@@ -61,6 +61,11 @@ class LightsAction(str, Enum):
     FLASH = 'LIGHTS_FLASH'
 
 
+class ClosureState(str, Enum):
+    OPEN = 'OPEN'
+    CLOSED = 'CLOSED'
+
+
 class LucidAPI:
     """A wrapper around the API used by the Lucid mobile apps"""
 
@@ -243,3 +248,32 @@ class LucidAPI:
         """
 
         await self.lights_control(vehicle, LightsAction.FLASH)
+
+    async def charge_port_control(self, vehicle: Vehicle, state: ClosureState) -> None:
+        """
+        Control the charge port door of a specific vehicle.
+        """
+
+        request = {
+            "vehicle_id": vehicle.vehicle_id,
+            "closure_state": state,
+        }
+
+        async with self._session.post("/v1/charge_port_control", json=request) as resp:
+            raw_reply = await _check_for_api_error(resp)
+
+        _LOGGER.debug("Raw /charge_port_control API response: %r", raw_reply)
+
+    async def charge_port_open(self, vehicle: Vehicle) -> None:
+        """
+        Open the charge port door of a specific vehicle.
+        """
+
+        await self.charge_port_control(vehicle, ClosureState.OPEN)
+
+    async def charge_port_close(self, vehicle: Vehicle) -> None:
+        """
+        Close the charge port door of a specific vehicle.
+        """
+
+        await self.charge_port_control(vehicle, ClosureState.CLOSED)
