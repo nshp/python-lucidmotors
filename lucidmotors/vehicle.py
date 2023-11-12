@@ -96,7 +96,8 @@ class CabinState(BaseModel):
 
 class ChargeState(str, Enum):
     NOT_CONNECTED = "NOT_CONNECTED"
-    CHARGING = 'CHARGING'
+    CHARGING = "CHARGING"
+    CABLE_CONNECTED = "CONNECTED"
     # TODO: Figure out possible values for this
 
 
