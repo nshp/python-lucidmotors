@@ -8,6 +8,7 @@ from pydantic import BaseModel, Field
 class AlarmMode(str, Enum):
     ON = "ALARM_ON"
     OFF = "ALARM_OFF"
+    SILENT = "ALARM_SILENT"
 
 
 class AlarmStatus(str, Enum):

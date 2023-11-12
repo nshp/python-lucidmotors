@@ -37,6 +37,12 @@ if len(sys.argv) < 2:
             print("... Sleeping 5s to be nice ...")
             time.sleep(5)
 
+            print("Opening charge port door")
+            await lucid.charge_port_open(lucid.vehicles[0])
+
+            print("... Sleeping 5s to be nice ...")
+            time.sleep(5)
+
             print("Honking horn")
             await lucid.honk_horn(lucid.vehicles[0])
 
@@ -45,6 +51,12 @@ if len(sys.argv) < 2:
 
             print("Flashing lights")
             await lucid.lights_flash(lucid.vehicles[0])
+
+            print("... Sleeping 5s to be nice ...")
+            time.sleep(5)
+
+            print("Closing charge port door")
+            await lucid.charge_port_close(lucid.vehicles[0])
 
             print("... Sleeping 5s to be nice ...")
             time.sleep(5)
