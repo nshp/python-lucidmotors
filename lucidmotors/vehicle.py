@@ -46,7 +46,7 @@ class BatteryState(BaseModel):
     kwhr: float = Field(alias="kwHr")
     critical_charge_level: WarningState = Field(alias="criticalChargeLevel")
     low_charge_level: WarningState = Field(alias="criticalChargeLevel")
-    range_miles: int = Field(alias="range")
+    remaining_range: int = Field(alias="range")
     unavailable_charge_percent: float = Field(alias="unavailableChargePercent")
 
 
