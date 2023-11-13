@@ -287,6 +287,7 @@ class TcuInternetState(BaseModel):
 class TcuState(str, Enum):
     DROWSY = "TCU_DROWSY"
     FULL = "TCU_FULL"
+    SLEEP = "TCU_SLEEP"
     # TODO: Figure out possible values for this
 
 
