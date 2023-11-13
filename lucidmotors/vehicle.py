@@ -98,6 +98,7 @@ class ChargeState(str, Enum):
     NOT_CONNECTED = "NOT_CONNECTED"
     CHARGING = "CHARGING"
     CABLE_CONNECTED = "CONNECTED"
+    CHARGE_SUCCESSFUL = "CHARGING_END_OK"
     # TODO: Figure out possible values for this
 
 
