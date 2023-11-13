@@ -293,6 +293,7 @@ class TcuState(str, Enum):
 
 class CloudConnectionState(str, Enum):
     CONNECTED = "CLOUD_CONNECTED"
+    DISCONNECTED = "CLOUD_DISCONNECTED"
     # TODO: Figure out possible values for this
 
 
