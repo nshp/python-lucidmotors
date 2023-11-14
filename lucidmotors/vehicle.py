@@ -291,7 +291,9 @@ class PowerState(str, Enum):
     DRIVE = "DRIVE"
     ACCESSORY = "ACCESSORY"
     SLEEP_CHARGE = "SLEEP_CHARGE"
-    CLOUD_2 = 'CLOUD_2'
+    CLOUD_2 = "CLOUD_2"
+    # Awake and live updating, used for software updates
+    LIVE_UPDATE = "LIVE_UPDATE"
     # TODO: Figure out possible values for this
 
 
@@ -302,11 +304,14 @@ class PrivacyMode(str, Enum):
 
 class UpdateAvailableState(str, Enum):
     UNKNOWN = "UNKNOWN_UPDATE_AVAILABLE"
+    UPDATE_AVAILABLE = "UPDATE_AVAILABLE"
     # TODO: Figure out possible values for this
 
 
 class UpdateState(str, Enum):
     UPDATE_FAILED_DRIVE_ALLOWED = "UPDATE_FAILED_DRIVE_ALLOWED"
+    UNKNOWN = "UNKNOWN_UPDATE_STATE"
+    IN_PROGRESS = "IN_PROGRESS"
     # TODO: Figure out possible values for this
 
 
@@ -352,6 +357,7 @@ class TcuState(str, Enum):
     DROWSY = "TCU_DROWSY"
     FULL = "TCU_FULL"
     SLEEP = "TCU_SLEEP"
+    FACTORY = "TCU_FACTORY"
     # TODO: Figure out possible values for this
 
 
