@@ -358,6 +358,7 @@ class TcuState(str, Enum):
     FULL = "TCU_FULL"
     SLEEP = "TCU_SLEEP"
     FACTORY = "TCU_FACTORY"
+    UNKNOWN = "UNKNOWN_TCU_STATE"
     # TODO: Figure out possible values for this
 
 
