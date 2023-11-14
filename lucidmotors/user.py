@@ -16,12 +16,12 @@ class User(BaseModel):
 
     @field_validator("locale")
     def locale_none_to_empty(cls, v: object) -> object:
-        if v is None:
-            return ""
+        if v == "":
+            return None
         return v
 
     @field_validator("photo_url")
     def photo_url_none_to_empty(cls, v: object) -> object:
-        if v is None:
-            return ""
+        if v == "":
+            return None
         return v

@@ -2,7 +2,8 @@
 
 from enum import Enum
 from datetime import datetime
-from pydantic import BaseModel, Field
+from typing import Optional
+from pydantic import BaseModel, Field, field_validator
 
 
 class AlarmMode(str, Enum):
@@ -37,10 +38,9 @@ class WarningState(str, Enum):
 class BatteryState(BaseModel):
     health: WarningState = Field(alias="batteryHealth")
     preconditioning_status: BatteryPreconStatus = Field(alias="batteryPreconStatus")
-    # NOTE: Set to 255 while in PRECON_UNAVAILABLE state, need to figure out
-    # what this value means by checking while preconditioning is actually
-    # turned on in the car.
-    preconditioning_time_remaining: int = Field(alias="batteryPreconTimeRemaining")
+    # NOTE: Need to figure out what this value means by checking while
+    # preconditioning is actually turned on in the car.
+    preconditioning_time_remaining: Optional[int] = Field(alias="batteryPreconTimeRemaining", le=255)
     capacity_kwhr: float = Field(alias="capacityKwHr")
     charge_percent: float = Field(alias="chargePercent")
     kwhr: float = Field(alias="kwHr")
@@ -48,6 +48,12 @@ class BatteryState(BaseModel):
     low_charge_level: WarningState = Field(alias="criticalChargeLevel")
     remaining_range: int = Field(alias="range")
     unavailable_charge_percent: float = Field(alias="unavailableChargePercent")
+
+    @field_validator("preconditioning_time_remaining")
+    def preconditioning_time_max_to_empty(cls, v: object) -> object:
+        if v == 255:
+            return None
+        return v
 
 
 class LockState(str, Enum):
@@ -136,8 +142,13 @@ class ChargingState(BaseModel):
     # scheduled_charge_status: ScheduledChargeStatus
     # TODO: Figure out possible values for this
     # scheduled_charge_unavailable_status: ScheduledChargeUnavailableStatus
-    # NOTE: This is set to 65535 when not charging
-    session_minutes_remaining: int = Field(alias="sessionMinutesRemaining")
+    session_minutes_remaining: Optional[int] = Field(alias="sessionMinutesRemaining", le=65535)
+
+    @field_validator("session_minutes_remaining")
+    def session_minutes_remaining_max_to_empty(cls, v: object) -> object:
+        if v == 65535:
+            return None
+        return v
 
 
 class LightState(str, Enum):
@@ -147,10 +158,10 @@ class LightState(str, Enum):
 
 
 class ChassisState(BaseModel):
-    front_left_tire_pressure_bar: float = Field(alias="frontLeftTirePressBar")
-    front_right_tire_pressure_bar: float = Field(alias="frontRightTirePressBar")
-    rear_left_tire_pressure_bar: float = Field(alias="rearLeftTirePressBar")
-    rear_right_tire_pressure_bar: float = Field(alias="rearRightTirePressBar")
+    front_left_tire_pressure_bar: float = Field(alias="frontLeftTirePressBar", le=6.375000094994903)
+    front_right_tire_pressure_bar: float = Field(alias="frontRightTirePressBar", le=6.375000094994903)
+    rear_left_tire_pressure_bar: float = Field(alias="rearLeftTirePressBar", le=6.375000094994903)
+    rear_right_tire_pressure_bar: float = Field(alias="rearRightTirePressBar", le=6.375000094994903)
     headlights: LightState = Field(alias="headlightState")
     indicators: LightState = Field(alias="indicatorState")
     odometer_km: float = Field(alias="odometer")
@@ -164,6 +175,30 @@ class ChassisState(BaseModel):
     soft_warn_right_front: WarningState = Field(alias="softWarnRightFront")
     soft_warn_left_rear: WarningState = Field(alias="softWarnLeftRear")
     soft_warn_right_rear: WarningState = Field(alias="softWarnRightRear")
+
+    @field_validator("front_left_tire_pressure_bar")
+    def front_left_tp_max_to_empty(cls, v: object) -> object:
+        if v == 6.375000094994903:
+            return None
+        return v
+
+    @field_validator("front_right_tire_pressure_bar")
+    def front_right_tp_max_to_empty(cls, v: object) -> object:
+        if v == 6.375000094994903:
+            return None
+        return v
+
+    @field_validator("rear_left_tire_pressure_bar")
+    def rear_left_tp_max_to_empty(cls, v: object) -> object:
+        if v == 6.375000094994903:
+            return None
+        return v
+
+    @field_validator("rear_right_tire_pressure_bar")
+    def rear_right_tp_max_to_empty(cls, v: object) -> object:
+        if v == 6.375000094994903:
+            return None
+        return v
 
 
 class DriveMode(str, Enum):
@@ -360,6 +395,13 @@ class Model(str, Enum):
     AIR = "AIR"
     GRAVITY = "GRAVITY"
 
+    def __str__(self) -> str:
+        match self:
+            case Model.AIR:
+                return "Air"
+            case Model.GRAVITY:
+                return "Gravity"
+
 
 class ModelVariant(str, Enum):
     DREAM_EDITION = 'DREAM_EDITION'
@@ -368,6 +410,19 @@ class ModelVariant(str, Enum):
     GRAND_TOURING = 'GRAND_TOURING'
     # Guessing at the rest
     SAPPHIRE = 'SAPPHIRE'
+
+    def __str__(self) -> str:
+        match self:
+            case ModelVariant.DREAM_EDITION:
+                return "Dream Edition"
+            case ModelVariant.TOURING:
+                return "Touring"
+            case ModelVariant.PURE:
+                return "Pure"
+            case ModelVariant.GRAND_TOURING:
+                return "Grand Touring"
+            case ModelVariant.SAPPHIRE:
+                return "Sapphire"
 
 
 class Edition(str, Enum):
@@ -399,7 +454,7 @@ class VehicleConfig(BaseModel):
     interior: Interior = Field(alias="interior")
     interior_color_code: str = Field(alias="interiorColorCode")
     look: Look = Field(alias="look")
-    model: str
+    model: Model
     variant: ModelVariant = Field(alias="modelVariant")
     edition: Edition = Field(alias="edition")
     battery: Battery = Field(alias="battery")
