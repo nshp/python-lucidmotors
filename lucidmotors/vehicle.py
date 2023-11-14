@@ -11,11 +11,27 @@ class AlarmMode(str, Enum):
     OFF = "ALARM_OFF"
     SILENT = "ALARM_SILENT"
 
+    def __str__(self) -> str:
+        match self:
+            case AlarmMode.ON:
+                return "On"
+            case AlarmMode.OFF:
+                return "Off"
+            case AlarmMode.SILENT:
+                return "Silent"
+
 
 class AlarmStatus(str, Enum):
     ARMED = "ALARM_ARMED"
     DISABLED = "ALARM_DISABLED"
     # NOTE: I assume there are other values, but I don't know what they are.
+
+    def __str__(self) -> str:
+        match self:
+            case AlarmStatus.ARMED:
+                return "Armed"
+            case AlarmStatus.DISABLED:
+                return "Disarmed"
 
 
 class AlarmState(BaseModel):
