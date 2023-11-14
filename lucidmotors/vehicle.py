@@ -174,6 +174,7 @@ class ChargingState(BaseModel):
 class LightState(str, Enum):
     UNKNOWN = "UNKNOWN_LIGHTS_STATE"
     OFF = "LIGHTS_OFF"
+    ON = "LIGHTS_ON"
     # TODO: Figure out possible values for this
 
 
