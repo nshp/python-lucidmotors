@@ -40,7 +40,9 @@ class BatteryState(BaseModel):
     preconditioning_status: BatteryPreconStatus = Field(alias="batteryPreconStatus")
     # NOTE: Need to figure out what this value means by checking while
     # preconditioning is actually turned on in the car.
-    preconditioning_time_remaining: Optional[int] = Field(alias="batteryPreconTimeRemaining", le=255)
+    preconditioning_time_remaining: Optional[int] = Field(
+        alias="batteryPreconTimeRemaining", le=255
+    )
     capacity_kwhr: float = Field(alias="capacityKwHr")
     charge_percent: float = Field(alias="chargePercent")
     kwhr: float = Field(alias="kwHr")
@@ -142,7 +144,9 @@ class ChargingState(BaseModel):
     # scheduled_charge_status: ScheduledChargeStatus
     # TODO: Figure out possible values for this
     # scheduled_charge_unavailable_status: ScheduledChargeUnavailableStatus
-    session_minutes_remaining: Optional[int] = Field(alias="sessionMinutesRemaining", le=65535)
+    session_minutes_remaining: Optional[int] = Field(
+        alias="sessionMinutesRemaining", le=65535
+    )
 
     @field_validator("session_minutes_remaining")
     def session_minutes_remaining_max_to_empty(cls, v: object) -> object:
@@ -158,10 +162,18 @@ class LightState(str, Enum):
 
 
 class ChassisState(BaseModel):
-    front_left_tire_pressure_bar: float = Field(alias="frontLeftTirePressBar", le=6.375000094994903)
-    front_right_tire_pressure_bar: float = Field(alias="frontRightTirePressBar", le=6.375000094994903)
-    rear_left_tire_pressure_bar: float = Field(alias="rearLeftTirePressBar", le=6.375000094994903)
-    rear_right_tire_pressure_bar: float = Field(alias="rearRightTirePressBar", le=6.375000094994903)
+    front_left_tire_pressure_bar: float = Field(
+        alias="frontLeftTirePressBar", le=6.375000094994903
+    )
+    front_right_tire_pressure_bar: float = Field(
+        alias="frontRightTirePressBar", le=6.375000094994903
+    )
+    rear_left_tire_pressure_bar: float = Field(
+        alias="rearLeftTirePressBar", le=6.375000094994903
+    )
+    rear_right_tire_pressure_bar: float = Field(
+        alias="rearRightTirePressBar", le=6.375000094994903
+    )
     headlights: LightState = Field(alias="headlightState")
     indicators: LightState = Field(alias="indicatorState")
     odometer_km: float = Field(alias="odometer")
