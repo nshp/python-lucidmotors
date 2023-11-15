@@ -2,7 +2,7 @@
 name = "lucidmotors"
 version = "0.1.0"
 description = ""
-authors = ["Nick Shipp <git@segbrk.com>"]
+authors = ["Nick Shipp <git@segbrk.com>", "Michael Borohovski <borski@owlpost.lol>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
