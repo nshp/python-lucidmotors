@@ -174,6 +174,7 @@ class ChargingState(BaseModel):
 
 
 class LightState(str, Enum):
+    # NOTE: Switching to DRL in the car is an unknown state.
     UNKNOWN = "UNKNOWN_LIGHTS_STATE"
     OFF = "LIGHTS_OFF"
     ON = "LIGHTS_ON"
