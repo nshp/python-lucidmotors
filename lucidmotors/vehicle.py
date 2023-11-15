@@ -42,6 +42,7 @@ class AlarmState(BaseModel):
 class BatteryPreconStatus(str, Enum):
     UNAVAILABLE = "BATTERY_PRECON_UNAVAILABLE"
     OFF = "BATTERY_PRECON_OFF"
+    ON = "BATTERY_PRECON_ON"
     # NOTE: I assume there are other values, but I don't know what they are.
 
 
@@ -128,7 +129,8 @@ class ChargeState(str, Enum):
 
 class EnergyType(str, Enum):
     UNKNOWN = "UNKNOWN_ENERGY_TYPE"
-    AC = 'AC'
+    AC = "AC"
+    DC = "DC"
     # TODO: Figure out possible values for this
 
 
@@ -292,6 +294,8 @@ class PowerState(str, Enum):
     ACCESSORY = "ACCESSORY"
     SLEEP_CHARGE = "SLEEP_CHARGE"
     CLOUD_2 = "CLOUD_2"
+    # During DC fast charging
+    LIVE_CHARGE = "LIVE_CHARGE"
     # Awake and live updating, used for software updates
     LIVE_UPDATE = "LIVE_UPDATE"
     # TODO: Figure out possible values for this
