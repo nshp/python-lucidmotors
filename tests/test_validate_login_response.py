@@ -11,7 +11,7 @@ TEST_DATA_DIR = TEST_DIR / 'data'
 
 
 class LoginResponseCasesValid:
-    @parametrize(filename=["l2_charging", "idle"])
+    @parametrize(filename=["l2_charging", "idle", "dcfc"])
     def case_from_file(self, filename: str) -> Any:
         subdir = TEST_DATA_DIR / 'login_response'
         with open(subdir / f"{filename}.json", 'r') as fi:
