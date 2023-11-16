@@ -8,7 +8,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 aiohttp = "^3.8.5"
-pydantic = "^2.4.2"
+pydantic = "^1.10.13"
 
 [tool.poetry.group.dev.dependencies]
 rich = "^13.6.0"
