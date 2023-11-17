@@ -315,6 +315,7 @@ class UpdateAvailableState(str, Enum):
 
 class UpdateState(str, Enum):
     UPDATE_FAILED_DRIVE_ALLOWED = "UPDATE_FAILED_DRIVE_ALLOWED"
+    UPDATE_SUCCESS_WITH_WARNINGS = "UPDATE_SUCCESS_WITH_WARNINGS"
     UNKNOWN = "UNKNOWN_UPDATE_STATE"
     IN_PROGRESS = "IN_PROGRESS"
     # TODO: Figure out possible values for this
