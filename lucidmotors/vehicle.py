@@ -3,7 +3,7 @@
 from enum import Enum
 from datetime import datetime
 from typing import Optional
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, validator
 
 
 class AlarmMode(str, Enum):
@@ -68,7 +68,7 @@ class BatteryState(BaseModel):
     remaining_range: int = Field(alias="range")
     unavailable_charge_percent: float = Field(alias="unavailableChargePercent")
 
-    @field_validator("preconditioning_time_remaining")
+    @validator("preconditioning_time_remaining")
     def preconditioning_time_max_to_empty(cls, v: object) -> object:
         if v == 255:
             return None
@@ -166,7 +166,7 @@ class ChargingState(BaseModel):
         alias="sessionMinutesRemaining", le=65535
     )
 
-    @field_validator("session_minutes_remaining")
+    @validator("session_minutes_remaining")
     def session_minutes_remaining_max_to_empty(cls, v: object) -> object:
         if v == 65535:
             return None
@@ -208,25 +208,25 @@ class ChassisState(BaseModel):
     soft_warn_left_rear: WarningState = Field(alias="softWarnLeftRear")
     soft_warn_right_rear: WarningState = Field(alias="softWarnRightRear")
 
-    @field_validator("front_left_tire_pressure_bar")
+    @validator("front_left_tire_pressure_bar")
     def front_left_tp_max_to_empty(cls, v: object) -> object:
         if v == 6.375000094994903:
             return None
         return v
 
-    @field_validator("front_right_tire_pressure_bar")
+    @validator("front_right_tire_pressure_bar")
     def front_right_tp_max_to_empty(cls, v: object) -> object:
         if v == 6.375000094994903:
             return None
         return v
 
-    @field_validator("rear_left_tire_pressure_bar")
+    @validator("rear_left_tire_pressure_bar")
     def rear_left_tp_max_to_empty(cls, v: object) -> object:
         if v == 6.375000094994903:
             return None
         return v
 
-    @field_validator("rear_right_tire_pressure_bar")
+    @validator("rear_right_tire_pressure_bar")
     def rear_right_tp_max_to_empty(cls, v: object) -> object:
         if v == 6.375000094994903:
             return None

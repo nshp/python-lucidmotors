@@ -20,5 +20,5 @@ class LoginResponseCasesValid:
 
 @parametrize_with_cases("raw", cases=LoginResponseCasesValid)
 def test_valid_login_response(raw):
-    resp = LoginResponse.model_validate(raw)
+    resp = LoginResponse(**raw)
     assert isinstance(resp, LoginResponse)

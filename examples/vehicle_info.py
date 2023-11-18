@@ -44,7 +44,7 @@ else:
 
         with open(sample, "r") as fi:
             raw = json.load(fi)
-            data = LoginResponse.model_validate(raw)
+            data = LoginResponse(**raw)
             print("User profile:")
             rich.print(data.user_profile)
             print("User vehicles:")

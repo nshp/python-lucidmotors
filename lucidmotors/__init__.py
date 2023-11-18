@@ -173,7 +173,8 @@ class LucidAPI:
 
         raw_reply = await self._login_request(username, password)
 
-        reply = LoginResponse.model_validate(raw_reply)
+        reply = LoginResponse(**raw_reply)
+        sess = reply.session_info
 
         self._save_session(reply.session_info)
 
@@ -229,7 +230,7 @@ class LucidAPI:
 
         _LOGGER.debug("Raw /user_vehicles API response: %r", raw_reply)
 
-        reply = UserVehiclesResponse.model_validate(raw_reply)
+        reply = UserVehiclesResponse(**raw_reply)
         self._vehicles = reply.user_vehicle_data
 
         return self._vehicles
