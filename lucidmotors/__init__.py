@@ -49,7 +49,7 @@ class LoginResponse(BaseModel):
     user_vehicle_data: list[Vehicle] = Field(alias="userVehicleData")
 
 
-class GetNweJWTTokenResponse(BaseModel):
+class GetNewJWTTokenResponse(BaseModel):
     """Response to the /get_new_jwt_token API request."""
 
     session_info: SessionInfo = Field(alias="sessionInfo")
@@ -174,8 +174,6 @@ class LucidAPI:
         raw_reply = await self._login_request(username, password)
 
         reply = LoginResponse(**raw_reply)
-        sess = reply.session_info
-
         self._save_session(reply.session_info)
 
         self._user_profile = reply.user_profile
@@ -196,7 +194,7 @@ class LucidAPI:
         """Get a fresh new token by using the refresh token."""
         raw_reply = await self._get_new_jwt_token_request(self._refresh_token)
 
-        reply = GetNweJWTTokenResponse.model_validate(raw_reply)
+        reply = GetNewJWTTokenResponse(**raw_reply)
 
         self._save_session(reply.session_info)
 
