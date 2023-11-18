@@ -49,6 +49,12 @@ class LoginResponse(BaseModel):
     user_vehicle_data: list[Vehicle] = Field(alias="userVehicleData")
 
 
+class GetNweJWTTokenResponse(BaseModel):
+    """Response to the /get_new_jwt_token API request."""
+
+    session_info: SessionInfo = Field(alias="sessionInfo")
+
+
 class UserVehiclesResponse(BaseModel):
     """Response to the /user_vehicles API request."""
 
@@ -83,11 +89,10 @@ class LucidAPI:
 
     # Expiration time of our current authentication token, or None if we do not
     # have a valid one yet (call .login()).
-    # NOTE: I am not sure what timezone this is bound to - we don't tell the
-    # API and it doesn't tell us. Is it bound to the timezone where the vehicle
-    # was last located or something? This might actually matter if time jumps
-    # around as the vehicle drives between timezones?
     _token_expiry_time: Optional[datetime]
+
+    # Refresh token for our session
+    _refresh_token: str
 
     # User profile data from most recent login request, or None if not logged
     # in yet.
@@ -114,6 +119,19 @@ class LucidAPI:
     async def __aexit__(self, *exc: Any) -> None:
         await self._session.__aexit__(*exc)
 
+    def _save_session(self, sess):
+        self._token_expiry_time = sess.expiry_time
+        self._refresh_token = sess.refresh_token
+
+        _LOGGER.debug(
+            "API authentication succeeded. Token expires at %s",
+            self._token_expiry_time,
+        )
+
+        # Save authentication token in our ClientSession - it is sent as an
+        # HTTP header.
+        self._session.headers.update({"authorization": f"Bearer {sess.id_token}"})
+
     async def _login_request(self, username: str, password: str) -> Any:
         """Authenticate to the API, returning the raw result."""
 
@@ -136,6 +154,7 @@ class LucidAPI:
             # TODO: Make this configurable, assuming other values are actually
             # accepted by the API.
             "locale": "en_US",
+            "device_id": "python-lucidmotors",
         }
 
         # The login endpoint gives us a bearer token we can use in future
@@ -155,21 +174,30 @@ class LucidAPI:
         raw_reply = await self._login_request(username, password)
 
         reply = LoginResponse.model_validate(raw_reply)
-        sess = reply.session_info
 
-        self._token_expiry_time = sess.expiry_time
-
-        _LOGGER.debug(
-            "API authentication succeeded. Token expires at %s",
-            self._token_expiry_time,
-        )
-
-        # Save authentication token in our ClientSession - it is sent as an
-        # HTTP header.
-        self._session.headers.update({"authorization": f"Bearer {sess.id_token}"})
+        self._save_session(reply.session_info)
 
         self._user_profile = reply.user_profile
         self._vehicles = reply.user_vehicle_data
+
+    async def _get_new_jwt_token_request(self, refresh_token: str) -> Any:
+        """Get a fresh new token by using the refresh token, return the raw reply."""
+        request = {"refresh_token": refresh_token}
+
+        async with self._session.post("/v1/get_new_jwt_token", json=request) as resp:
+            raw_reply = await _check_for_api_error(resp)
+
+        _LOGGER.debug("Raw /get_new_jwt_token API response: %r", raw_reply)
+
+        return raw_reply
+
+    async def get_new_jwt_token(self) -> None:
+        """Get a fresh new token by using the refresh token."""
+        raw_reply = await self._get_new_jwt_token_request(self._refresh_token)
+
+        reply = GetNweJWTTokenResponse.model_validate(raw_reply)
+
+        self._save_session(reply.session_info)
 
     async def close(self) -> None:
         """
