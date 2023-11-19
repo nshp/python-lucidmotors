@@ -410,6 +410,10 @@ class PaintColor(str, Enum):
     EUREKA_GOLD = 'EUREKA_GOLD'
     COSMOS_SILVER = 'COSMOS_SILVER'
     QUANTUM_GREY = 'QUANTUM_GREY'
+    # Gravity Colors
+    AURORA_GREEN = 'AURORA_GREEN'
+    LUNAR_TITANIUM = 'LUNAR_TITANIUM'
+    SUPERNOVA_BRONZE = 'SUPERNOVA_BRONZE'
     # Guessing with these
     SAPPHIRE_BLUE = 'SAPPHIRE_BLUE'
 
@@ -423,6 +427,9 @@ class Interior(str, Enum):
     SANTA_MONICA = 'SANTA_MONICA'
     TAHOE = 'TAHOE'
     MOJAVE = 'MOJAVE'
+    # Gravity Interiors
+    YOSEMITE = 'YOSEMITE'
+    OJAI = 'OJAI'
     # Guessing with these
     SANTA_CRUZ = 'SANTA_CRUZ'
     # TODO: mojave purluxe? mojave purluxe leather alternative? sapphire mojave?
