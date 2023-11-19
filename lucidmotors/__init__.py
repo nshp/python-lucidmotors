@@ -2,7 +2,7 @@
 from __future__ import annotations
 from enum import Enum
 from typing import Optional, Any
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from pydantic import BaseModel, Field
 
 import aiohttp
@@ -124,13 +124,27 @@ class LucidAPI:
         self._refresh_token = sess.refresh_token
 
         _LOGGER.debug(
-            "API authentication succeeded. Token expires at %s",
+            "API authentication succeeded. Token expires at %s (%s from now)",
             self._token_expiry_time,
+            self._token_expiry_time - datetime.now(timezone.utc),
         )
 
         # Save authentication token in our ClientSession - it is sent as an
         # HTTP header.
         self._session.headers.update({"authorization": f"Bearer {sess.id_token}"})
+
+    @property
+    def session_time_remaining(self) -> timedelta:
+        """Time remaining before our session would expire without renewal.
+
+        Returns timedelta(0) if not logged in yet.
+        """
+        if self._token_expiry_time is None:
+            return timedelta(0)
+        now = datetime.now(timezone.utc)
+        if self._token_expiry_time > now:
+            return now - self._token_expiry_time
+        return timedelta(0)
 
     async def _login_request(self, username: str, password: str) -> Any:
         """Authenticate to the API, returning the raw result."""
@@ -197,6 +211,13 @@ class LucidAPI:
         reply = GetNewJWTTokenResponse(**raw_reply)
 
         self._save_session(reply.session_info)
+        assert self._token_expiry_time is not None  # always set by _save_session
+
+        _LOGGER.debug(
+            "Session refresh succeeded. New token expires at %s (%s from now)",
+            self._token_expiry_time,
+            self._token_expiry_time - datetime.now(timezone.utc),
+        )
 
     async def close(self) -> None:
         """

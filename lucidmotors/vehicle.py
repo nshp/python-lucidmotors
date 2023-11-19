@@ -40,6 +40,7 @@ class AlarmState(BaseModel):
 
 
 class BatteryPreconStatus(str, Enum):
+    UNKNOWN = "UNKNOWN_BATTERY_PRECON_STATUS"
     UNAVAILABLE = "BATTERY_PRECON_UNAVAILABLE"
     OFF = "BATTERY_PRECON_OFF"
     ON = "BATTERY_PRECON_ON"
@@ -47,6 +48,7 @@ class BatteryPreconStatus(str, Enum):
 
 
 class WarningState(str, Enum):
+    UNKNOWN = "WARNING_STATE_UNKNOWN"
     OFF = "WARNING_OFF"
     ON = "WARNING_ON"
     # TODO: Other values?
@@ -76,6 +78,7 @@ class BatteryState(BaseModel):
 
 
 class LockState(str, Enum):
+    UNKNOWN = "UNKNOWN_LOCK_STATE"
     LOCKED = "LOCKED"
     UNLOCKED = "UNLOCKED"
     # TODO: Other values?
@@ -178,6 +181,7 @@ class LightState(str, Enum):
     UNKNOWN = "UNKNOWN_LIGHTS_STATE"
     OFF = "LIGHTS_OFF"
     ON = "LIGHTS_ON"
+    FLASH = "LIGHTS_FLASH"
     # TODO: Figure out possible values for this
 
 
@@ -237,6 +241,18 @@ class DriveMode(str, Enum):
     COMFORT = "DRIVEMODE_COMFORT"
     SWIFT = "DRIVEMODE_SWIFT"
     SPRINT = "DRIVEMODE_SPRINT"
+    # Pulled from app strings. There are more, but they sound like internal use only.
+    FACTORY = "DRIVEMODE_FACTORY"
+    LAUNCH = "DRIVEMODE_LAUNCH"
+    SERVICE = "DRIVEMODE_SERVICE"
+    SPORT = "DRIVEMODE_SPORT"
+    SPORT_PLUS = "DRIVEMODE_SPORT_PLUS"
+    TEST_DRIVE = "DRIVEMODE_TEST_DRIVE"
+    TOW = "DRIVEMODE_TOW"
+    TRANSPORT = "DRIVEMODE_TRANSPORT"
+    UNKNOWN = "DRIVEMODE_UNKNOWN"
+    VALET = "DRIVEMODE_VALET"
+    WINTER = "DRIVEMODE_WINTER"
     # Just guessing here
     SAPPHIRE = "DRIVEMODE_SAPPHIRE"
     TRACK = "DRIVEMODE_TRACK"
@@ -247,6 +263,7 @@ class GearPosition(str, Enum):
     NEUTRAL = "GEAR_NEUTRAL"
     DRIVE = "GEAR_DRIVE"
     REVERSE = "GEAR_REVERSE"
+    UNKNOWN = "UNKNOWN_GEAR_POSITION"
 
 
 class Location(BaseModel):
@@ -266,6 +283,7 @@ class HvacPower(str, Enum):
     OFF = "HVAC_OFF"
     ON = "HVAC_ON"
     PRECONDITION = "HVAC_PRECONDITION"
+    UNKNOWN = "UNKNOWN_HVAC_STATE"
     # TODO: Other values?
 
 
@@ -278,6 +296,7 @@ class HvacPreconditionStatus(str, Enum):
 class DefrostState(str, Enum):
     OFF = "DEFROST_OFF"
     ON = "DEFROST_ON"
+    UNKNOWN = "UNKNOWN_HVAC_DEFROST"
     # TODO: Other values?
 
 
@@ -294,6 +313,9 @@ class PowerState(str, Enum):
     DRIVE = "DRIVE"
     ACCESSORY = "ACCESSORY"
     SLEEP_CHARGE = "SLEEP_CHARGE"
+    # Not sure what either of these mean. Have seen CLOUD_2, and pretty
+    # positive that CLOUD_1 exists too.
+    CLOUD_1 = "CLOUD_1"
     CLOUD_2 = "CLOUD_2"
     # During DC fast charging
     LIVE_CHARGE = "LIVE_CHARGE"
@@ -304,6 +326,7 @@ class PowerState(str, Enum):
 
 class PrivacyMode(str, Enum):
     CONNECTIVITY_ENABLED = "CONNECTIVITY_ENABLED"
+    CONNECTIVITY_DISABLED = "CONNECTIVITY_DISABLED"
     # TODO: Figure out possible values for this
 
 
@@ -314,8 +337,9 @@ class UpdateAvailableState(str, Enum):
 
 
 class UpdateState(str, Enum):
-    UPDATE_FAILED_DRIVE_ALLOWED = "UPDATE_FAILED_DRIVE_ALLOWED"
-    UPDATE_SUCCESS_WITH_WARNINGS = "UPDATE_SUCCESS_WITH_WARNINGS"
+    FAILED_DRIVE_ALLOWED = "UPDATE_FAILED_DRIVE_ALLOWED"
+    SUCCESS = "UPDATE_SUCCESS"
+    SUCCESS_WITH_WARNINGS = "UPDATE_SUCCESS_WITH_WARNINGS"
     UNKNOWN = "UNKNOWN_UPDATE_STATE"
     IN_PROGRESS = "IN_PROGRESS"
     # TODO: Figure out possible values for this
@@ -323,6 +347,9 @@ class UpdateState(str, Enum):
 
 class RollbackState(str, Enum):
     UNKNOWN = "UNKNOWN_ROLLBACK_STATE"
+    FAILED = "ROLLBACK_FAILED"
+    IN_PROGRESS = "ROLLBACK_IN_PROGRESS"
+    SUCCESS = "ROLLBACK_SUCCESS"
     # TODO: Figure out possible values for this
 
 
@@ -343,11 +370,13 @@ class SoftwareUpdateState(BaseModel):
 class InternetStatus(str, Enum):
     INTERNET_ACCESS = "INTERNET_ACCESS"
     NO_INTERNET_ACCESS = "NO_INTERNET_ACCESS"
+    UNKNOWN = "UNKNOWN_INTERNET_ACCESS"
 
 
 class LteType(str, Enum):
     UNKNOWN = "UNKNOWN_INTERNET_TYPE"
     FOUR_G_LTE = "FOUR_G_LTE"
+    THREE_G = "THREE_G"
     # TODO: Figure out possible values for this
 
 
@@ -369,13 +398,17 @@ class TcuState(str, Enum):
 
 
 class CloudConnectionState(str, Enum):
+    UNKNOWN = "CLOUD_CONNECTION_UNKNOWN"
     CONNECTED = "CLOUD_CONNECTED"
     DISCONNECTED = "CLOUD_DISCONNECTED"
+    USER_DISCONNECTED = "CLOUD_USER_DISCONNECTED"
     # TODO: Figure out possible values for this
 
 
 class KeylessDrivingState(str, Enum):
     OFF = "KEYLESS_OFF"
+    ON = "KEYLESS_ON"
+    UNKNOWN = "KEYLESS_DRIVING_STATE_UNKNOWN"
     # TODO: Figure out possible values for this
 
 
@@ -424,6 +457,7 @@ class FrunkStrutType(str, Enum):
 
 
 class Interior(str, Enum):
+    UNKNOWN = "UNKNOWN_INTERIOR"
     SANTA_MONICA = 'SANTA_MONICA'
     TAHOE = 'TAHOE'
     MOJAVE = 'MOJAVE'
@@ -432,10 +466,12 @@ class Interior(str, Enum):
     OJAI = 'OJAI'
     # Guessing with these
     SANTA_CRUZ = 'SANTA_CRUZ'
-    # TODO: mojave purluxe? mojave purluxe leather alternative? sapphire mojave?
+    MOJAVE_PURLUXE = "MOJAVE_PURLUXE"
+    # TODO: mojave purluxe leather alternative? sapphire mojave?
 
 
 class Look(str, Enum):
+    UNKNOWN = "UNKNOWN_LOOK"
     PLATINUM = 'PLATINUM'
     STEALTH = 'STEALTH'
 
@@ -485,15 +521,21 @@ class Wheels(str, Enum):
     RANGE = 'RANGE'
     PERFORMANCE = 'PERFORMANCE'
     BLADE = 'BLADE'
+    BLADE_GRAPHITE = 'BLADE_GRAPHITE'
 
 
 class Battery(str, Enum):
     # Absolutely no idea what these mean, but I know they're accurate!
-    BATTERY_TYPE_01 = 'BATTERY_TYPE_01'  # Pure battery?
-    BATTERY_TYPE_02 = 'BATTERY_TYPE_02'  # GT Battery?
-    BATTERY_TYPE_03 = 'BATTERY_TYPE_03'
-    BATTERY_TYPE_04 = 'BATTERY_TYPE_04'
-    BATTERY_TYPE_05 = 'BATTERY_TYPE_05'  # Dream battery
+    TYPE_01 = 'BATTERY_TYPE_01'  # Pure battery?
+    TYPE_02 = 'BATTERY_TYPE_02'  # GT Battery?
+    TYPE_03 = 'BATTERY_TYPE_03'
+    TYPE_04 = 'BATTERY_TYPE_04'
+    TYPE_05 = 'BATTERY_TYPE_05'  # Dream battery
+    TYPE_06 = 'BATTERY_TYPE_06'
+    TYPE_07 = 'BATTERY_TYPE_07'
+    TYPE_08 = 'BATTERY_TYPE_08'
+    TYPE_09 = 'BATTERY_TYPE_09'
+    UNKNOWN = 'UNKNOWN_BATTERY_TYPE'
 
 
 class VehicleConfig(BaseModel):
@@ -508,7 +550,6 @@ class VehicleConfig(BaseModel):
     edition: Edition = Field(alias="edition")
     battery: Battery = Field(alias="battery")
     nickname: str
-    # TODO: Enum-ize?
     paint_color: PaintColor = Field(alias="paintColor")
     region_code: str = Field(alias="regionCode")
     vin: str
@@ -517,6 +558,8 @@ class VehicleConfig(BaseModel):
 
 class AccessLevel(str, Enum):
     PRIMARY_OWNER = "PRIMARY_OWNER"
+    SECONDARY_OWNER = "SECONDARY_OWNER"
+    PREDELIVERY_OWNER = "PREDELIVERY_OWNER"
     # TODO: Figure out possible values for this
 
 
