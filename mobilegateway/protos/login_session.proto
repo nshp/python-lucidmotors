@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package mobilegateway.protos;
+
+enum NotificationChannelType {
+    UNKNOWN_NOTIFICATION_CHANNEL = 0;
+    /* No idea what these actually mean, but these are the only accepted values */
+    NOTIFICATION_CHANNEL_ONE = 1;
+    NOTIFICATION_CHANNEL_TWO = 2;
+}
+
+enum Os {
+    UNKNOWN_OS = 0;
+    OS_IOS = 1;
+    OS_ANDROID = 2;
+}
+
+message LoginRequest {
+    string username = 1;
+    string password = 2;
+    NotificationChannelType notification_channel_type = 3;
+    Os os = 4;
+    string locale = 5;
+    string device_id = 6;
+}
+
+message SessionInfo {
+    int32 expiry_time_sec = 1;
+    string gigya_jwt = 2;
+    string id_token = 3;
+    string refresh_token = 4;
+}
+
+message UserProfile {
+    string email = 1;
+    string username = 2;
+    string first_name = 3;
+    string last_name = 4;
+    optional string locale = 5;
+    optional string photo_url = 6;
+}
+
+message LoginResponse {
+    string uid = 1;
+    SessionInfo session_info = 2;
+    UserProfile user_profile = 3;
+}
+
+service LoginSession {
+    rpc Login(LoginRequest) returns (LoginResponse) {}
+}
