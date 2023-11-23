@@ -3,7 +3,7 @@ from google.protobuf.unknown_fields import UnknownFieldSet
 
 import uuid
 import grpc
-import ipdb
+import time
 import logging
 import getpass
 import google._upb
@@ -61,6 +61,8 @@ def main():
     username = input("Username: ")
     password = getpass.getpass()
 
+    print('Authenticating')
+
     with grpc.secure_channel("mobile.deneb.prod.infotainment.pdx.atieva.com", grpc.ssl_channel_credentials()) as channel:
         stub = login_session_pb2_grpc.LoginSessionStub(channel)
         device_id = f'{uuid.getnode():x}'
@@ -76,6 +78,19 @@ def main():
         )
         response = stub.Login(req)
         message_dump_recursive(response)
+
+        id_token = response.session_info.id_token
+        refresh_token = response.session_info.refresh_token
+
+    time.sleep(1)
+    print('Establishing token-based secure channel')
+
+    token_creds = grpc.access_token_call_credentials(id_token)
+    creds = grpc.composite_channel_credentials(grpc.ssl_channel_credentials(), token_creds)
+
+    with grpc.secure_channel("mobile.deneb.prod.infotainment.pdx.atieva.com", creds) as channel:
+        pass
+        # ... more requests here ...
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)

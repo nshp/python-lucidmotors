@@ -34,8 +34,8 @@ message LoginRequest {
 message SessionInfo {
     string id_token = 1;
     int32 expiry_time_sec = 2;
-    optional string gigya_jwt = 3;
-    string refresh_token = 4;
+    optional string refresh_token = 3;
+    string gigya_jwt = 4;
 }
 
 enum Subscription {
@@ -63,6 +63,16 @@ message LoginResponse {
     Encryption encryption = 6;
 }
 
+message GetNewJWTTokenRequest {
+    string refresh_token = 1;
+}
+
+message GetNewJWTTokenResponse {
+    SessionInfo session_info = 1;
+}
+
 service LoginSession {
     rpc Login(LoginRequest) returns (LoginResponse) {}
+
+    rpc GetNewJWTToken(GetNewJWTTokenRequest) returns (GetNewJWTTokenResponse) {}
 }
