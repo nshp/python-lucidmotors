@@ -1,0 +1,389 @@
+syntax = "proto3";
+
+package mobilegateway.protos;
+
+enum AccessLevel {
+    ACCESS_LEVEL_UNKNOWN = 0;
+    ACCESS_LEVEL_PRIMARY_OWNER = 2;
+    /* Unknown enumerators: PREDELIVERY_OWNER, SECONDARY_OWNER... */
+}
+
+enum Model {
+    MODEL_UNKNOWN = 0;
+    MODEL_AIR = 1;
+    MODEL_GRAVITY = 2;
+}
+
+enum ModelVariant {
+    MODEL_VARIANT_UNKNOWN = 0;
+    MODEL_VARIANT_TOURING = 3;
+}
+
+enum PaintColor {
+    PAINT_COLOR_UNKNOWN = 0;
+    PAINT_COLOR_COSMOS_SILVER = 4;
+}
+
+enum Wheels {
+    WHEELS_UNKNOWN = 0;
+    WHEELS_BLADE = 2;
+}
+
+enum SubscriptionStatus {
+    SUBSCRIPTION_STATUS_UNKNOWN = 0;
+    SUBSCRIPTION_STATUS_CURRENT = 1;
+}
+
+message ChargingSubscription {
+    string name = 1;
+    uint64 expiration_date = 2;
+    uint64 start_date = 3;
+    SubscriptionStatus status = 4;
+}
+
+enum ChargingAccountStatus {
+    CHARGING_ACCOUNT_STATUS_UNKNOWN = 0;
+    CHARGING_ACCOUNT_STATUS_ENROLLED = 2;
+}
+
+enum ChargingVendor {
+    CHARGING_VENDOR_UNKNOWN = 0;
+    CHARGING_VENDOR_ELECTRIFY_AMERICA = 1;
+}
+
+message ChargingAccount {
+    string ema_id = 1;
+    string vehicle_id = 2;
+    ChargingAccountStatus status = 3;
+    uint64 created_at_epoch_sec = 4;
+    uint64 expiry_on_epoch_sec = 5;
+    ChargingVendor vendor_name = 6;
+}
+
+enum Edition {
+    EDITION_UNKNOWN = 0;
+    EDITION_STANDARD = 3;
+}
+
+enum BatteryType {
+    BATTERY_TYPE_UNKNOWN = 0;
+    BATTERY_TYPE_01 = 1;
+    BATTERY_TYPE_02 = 2;
+    BATTERY_TYPE_03 = 3;
+    BATTERY_TYPE_04 = 4;
+    BATTERY_TYPE_05 = 5;
+    BATTERY_TYPE_06 = 6;
+    BATTERY_TYPE_07 = 7;
+    BATTERY_TYPE_08 = 8;
+    BATTERY_TYPE_09 = 9;
+}
+
+enum Interior {
+    INTERIOR_UNKNOWN = 0;
+    INTERIOR_TAHOE = 2;
+}
+
+message VehicleConfig {
+    string vin = 1;
+    Model model = 2;
+    ModelVariant variant = 3;
+    string nickname = 5;
+    PaintColor paint_color = 6;
+    string ema_id = 7;
+    Wheels wheels = 8;
+    ChargingSubscription ea_subscription = 9;
+    repeated ChargingAccount charging_accounts = 10;
+    string country_code = 11;
+    string region_code = 12;
+    Edition edition = 13;
+    BatteryType battery = 14;
+    Interior interior = 15;
+    string exterior_color_code = 18;
+    string interior_color_code = 19;
+}
+
+enum WarningState {
+    WARNING_UNKNOWN = 0;
+    WARNING_OFF = 1;
+    WARNING_ON = 2;
+}
+
+enum BatteryPreconStatus {
+    BATTERY_PRECON_UNKNOWN = 0;
+    BATTERY_PRECON_UNAVAILABLE = 3;
+}
+
+message BatteryState {
+    double remaining_range = 1;
+    double charge_percent = 2;
+    double kwhr = 3;
+    double capacity_kwhr = 4;
+    WarningState battery_health = 5;
+    WarningState low_charge_level = 6;
+    WarningState critical_charge_level = 7;
+    double unavailable_range = 8;
+    BatteryPreconStatus preconditioning_status = 9;
+    uint32 preconditioning_time_remaining = 10;
+}
+
+enum PowerState {
+    POWER_STATE_UNKNOWN = 0;
+    POWER_STATE_SLEEP = 1;
+}
+
+message CabinState {
+    double interior_temp = 1;
+    double exterior_temp = 2;
+}
+
+enum LockState {
+    LOCK_STATE_UNKNOWN = 0;
+    LOCK_STATE_UNLOCKED = 1;
+    LOCK_STATE_LOCKED = 2;
+}
+
+enum DoorState {
+    DOOR_STATE_UNKNOWN = 0;
+    DOOR_STATE_OPEN = 1;
+    DOOR_STATE_CLOSED = 2;
+    /* AJAR? */
+}
+
+enum WalkawayState {
+    WALKAWAY_UNKNOWN = 0;
+    WALKAWAY_ACTIVE = 2;
+}
+
+enum AccessRequest {
+    ACCESS_REQUEST_UNKNOWN = 0;
+    ACCESS_REQUEST_ACTIVE = 1;
+    ACCESS_REQUEST_PASSIVE = 2;
+}
+
+message BodyState {
+    LockState door_locks = 1;
+    DoorState front_cargo = 2;
+    DoorState rear_cargo = 3;
+    DoorState front_left_door = 4;
+    DoorState front_right_door = 5;
+    DoorState rear_left_door = 6;
+    DoorState rear_right_door = 7;
+    DoorState charge_port = 8;
+    WalkawayState walkaway_lock = 9;
+    AccessRequest access_type_status = 10;
+}
+
+enum LightState {
+    /* The unknown state is explicitly 3 here, 0 is something else */
+    LIGHT_STATE_REALLY_UNKNOWN = 0;
+    LIGHT_STATE_UNKNOWN = 3;
+}
+
+message ChassisState {
+    double odometer_km = 1;
+    double front_left_tire_pressure_bar = 2;
+    double front_right_tire_pressure_bar = 3;
+    double rear_left_tire_pressure_bar = 4;
+    double rear_right_tire_pressure_bar = 5;
+    LightState headlights = 6;
+    WarningState hard_warn_left_front = 8;
+    WarningState hard_warn_left_rear = 9;
+    WarningState hard_warn_right_front = 10;
+    WarningState hard_warn_right_rear = 11;
+    WarningState soft_warn_left_front = 12;
+    WarningState soft_warn_left_rear = 13;
+    WarningState soft_warn_right_front = 14;
+    WarningState soft_warn_right_rear = 15;
+    string software_version = 16;
+}
+
+enum ChargeState {
+    CHARGE_STATE_UNKNOWN = 0;
+    CHARGE_STATE_NOT_CONNECTED = 1;
+}
+
+enum ScheduledChargeState {
+    SCHEDULED_CHARGE_STATE_UNKNOWN = 0;
+    SCHEDULED_CHARGE_STATE_IDLE = 1;
+}
+
+enum ScheduledChargeUnavailableState {
+    SCHEDULED_CHAGRE_UNAVAILABLE_UNKNOWN = 0;
+    SCHEDULED_CHARGE_UNAVAILABLE_NO_REQUEST = 1;
+}
+
+message ChargingState {
+    ChargeState charge_state = 1;
+    uint32 session_minutes_remaining = 7;
+    uint32 charge_limit = 8;
+    LockState cable_lock = 10;
+    double charge_limit_percent = 14;
+    uint32 charge_scheduled_time = 16;
+    ScheduledChargeState scheduled_charge = 17;
+    ScheduledChargeUnavailableState scheduled_charge_unavailable = 18;
+}
+
+message Location {
+    double latitude = 1;
+    double longitude = 2;
+}
+
+message Gps {
+    Location location = 1;
+    uint32 elevation = 2;
+    uint64 position_time = 4;
+    double heading_precise = 5;
+}
+
+enum UpdateState {
+    UPDATE_STATE_UNKNOWN = 0;
+    UPDATE_FAILED_DRIVE_ALLOWED = 5;
+}
+
+message SoftwareUpdate {
+    string version_available = 1;
+    UpdateState state = 5;
+}
+
+enum AlarmStatus {
+    ALARM_STATUS_UNKNOWN = 0;
+    ALARM_STATUS_ARMED = 2;
+}
+
+enum AlarmMode {
+    ALARM_MODE_UNKNOWN = 0;
+    ALARM_MODE_ON = 2;
+}
+
+message AlarmState {
+    AlarmStatus status = 1;
+    AlarmMode mode = 2;
+}
+
+enum CloudConnectionState {
+    CLOUD_CONNECTION_UNKNOWN = 0;
+    CLOUD_CONNECTION_CONNECTED = 1;
+}
+
+enum KeylessDrivingState {
+    KEYLESS_DRIVING_UNKNOWN = 0;
+    KEYLESS_DRIVING_ON = 1;
+    KEYLESS_DRIVING_OFF = 2;
+}
+
+enum HvacPower {
+    HVAC_POWER_UNKNOWN = 0;
+    HVAC_ON = 1;
+    HVAC_OFF = 2;
+}
+
+enum DefrostState {
+    DEFROST_STATE_UNKNOWN = 0;
+    DEFROST_ON = 1;
+    DEFROST_OFF = 2;
+}
+
+enum HvacPreconditionStatus {
+    HVAC_PRECONDITION_STATUS_UNKNOWN = 0;
+    HVAC_PRECONDITION_STATUS_STILL_ACTIVE = 1;
+}
+
+message HvacState {
+    HvacPower power = 1;
+    DefrostState defrost = 2;
+    HvacPreconditionStatus precondition_status = 3;
+}
+
+enum DriveMode {
+    DRIVE_MODE_UNKNOWN = 0;
+    DRIVE_MODE_COMFORT = 1;
+}
+
+enum PrivacyMode {
+    PRIVACY_MODE_UNKNOWN = 0;
+    PRIVACY_MODE_CONNECTIVITY_ENABLED = 1;
+}
+
+enum GearPosition {
+    GEAR_UNKNOWN = 0;
+    GEAR_PARK = 1;
+}
+
+/* Set of pending requests from API? */
+message MobileAppReqState {
+    LockState vehicle_unlock_request = 9;
+/*
+Other fields (all optional):
+ 'alarmSetReq': 'UNKNOWN_ALARM_MODE',
+ 'chargePortReq': 'UNKNOWN_CLOSURE_STATE',
+ 'chargeLockReq': 'UNKNOWN_LOCK_STATE',
+ 'doorLeftFrontReq': 'UNKNOWN_CLOSURE_STATE',
+ 'doorLeftRearReq': 'UNKNOWN_CLOSURE_STATE',
+ 'doorRightFrontReq': 'UNKNOWN_CLOSURE_STATE',
+ 'doorRightRearReq': 'UNKNOWN_CLOSURE_STATE',
+ 'driveEnable': 'KEYLESS_DRIVING_STATE_UNKNOWN',
+ 'frunkCargoReq': 'CLOSED',
+ 'hornReq': 'UNKNOWN_CLOSURE_STATE',
+ 'hvacDefrostEnable': 'UNKNOWN_HVAC_DEFROST',
+ 'hvacPreconditionEnable': 'UNKNOWN_HVAC_STATE',
+ 'lightReq': 'UNKNOWN_LIGHTS_STATE',
+ 'panicReq': 'PANIC_ALARM_UNKNOWN',
+ 'sharedTripReq': 'SHARED_TRIP_NOTIFICATIONS_UNKNOWN',
+ 'trunkCargoReq': 'UNKNOWN_CLOSURE_STATE',
+ 'vehicleUnlockReq': 'UNKNOWN_LOCK_STATE'
+*/
+}
+
+enum TcuState {
+    TCU_UNKNOWN = 0;
+    TCU_DROWSY = 2;
+}
+
+enum LteType {
+    LTE_TYPE_UNKNOWN = 0;
+    LTE_TYPE_3G = 1;
+    LTE_TYPE_4G = 2;
+}
+
+enum InternetStatus {
+    INTERNET_STATUS_UNKNOWN = 0;
+    INTERNET_DISCONNECTED = 1;
+    INTERNET_CONNECTED = 2;
+}
+
+message TcuInternetState {
+    LteType lte_type = 1;
+    InternetStatus lte_status = 2;
+    InternetStatus wifi_status = 3;
+    optional int32 lte_rssi = 4;
+    optional int32 wifi_rssi = 5;
+}
+
+message VehicleState {
+    BatteryState battery = 1;
+    PowerState power = 2;
+    CabinState cabin = 3;
+    BodyState body = 4;
+    uint64 last_updated_ms = 5;
+    ChassisState chassis = 6;
+    ChargingState charging = 8;
+    Gps gps = 11;
+    SoftwareUpdate software_update = 12;
+    AlarmState alarm = 13;
+    CloudConnectionState cloud_connection = 15;
+    KeylessDrivingState keyless_driving = 16;
+    HvacState hvac = 17;
+    DriveMode drive_mode = 18;
+    PrivacyMode privacy_mode = 19;
+    GearPosition gear_position = 20;
+    MobileAppReqState mobile_app_request = 21;
+    TcuState tcu = 22;
+    TcuInternetState tcu_internet = 23;
+}
+
+message Vehicle {
+    string vehicle_id = 1;
+    AccessLevel access_level = 2;
+    VehicleConfig config = 3;
+    VehicleState state = 4;
+}
