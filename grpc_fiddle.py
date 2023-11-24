@@ -99,6 +99,7 @@ def main():
     creds = grpc.composite_channel_credentials(grpc.ssl_channel_credentials(), token_creds)
 
     with grpc.secure_channel("mobile.deneb.prod.infotainment.pdx.atieva.com", creds) as channel:
+        pass
         # stub = trip_service_pb2_grpc.TripServiceStub(channel)
         # trip = trip_service_pb2.Trip(
         #     name="22 6th St NW, Hillsboro, ND 58045",
