@@ -110,6 +110,8 @@ enum WarningState {
 
 enum BatteryPreconStatus {
     BATTERY_PRECON_UNKNOWN = 0;
+    BATTERY_PRECON_OFF = 1;
+    BATTERY_PRECON_ON = 2;
     BATTERY_PRECON_UNAVAILABLE = 3;
 }
 
@@ -129,6 +131,7 @@ message BatteryState {
 enum PowerState {
     POWER_STATE_UNKNOWN = 0;
     POWER_STATE_SLEEP = 1;
+    POWER_STATE_MONITOR = 11;
 }
 
 message CabinState {
@@ -263,6 +266,7 @@ message AlarmState {
 enum CloudConnectionState {
     CLOUD_CONNECTION_UNKNOWN = 0;
     CLOUD_CONNECTION_CONNECTED = 1;
+    CLOUD_CONNECTION_DISCONNECTED = 2;
 }
 
 enum KeylessDrivingState {
@@ -275,6 +279,7 @@ enum HvacPower {
     HVAC_POWER_UNKNOWN = 0;
     HVAC_ON = 1;
     HVAC_OFF = 2;
+    HVAC_PRECONDITION = 3;
 }
 
 enum DefrostState {
@@ -286,6 +291,7 @@ enum DefrostState {
 enum HvacPreconditionStatus {
     HVAC_PRECONDITION_STATUS_UNKNOWN = 0;
     HVAC_PRECONDITION_STATUS_STILL_ACTIVE = 1;
+    HVAC_PRECONDITION_STATUS_USER_INPUT = 4;
 }
 
 message HvacState {
@@ -309,9 +315,18 @@ enum GearPosition {
     GEAR_PARK = 1;
 }
 
+enum SharedTripState {
+    SHARED_TRIP_UNKNOWN = 0;
+    SHARED_TRIP_AVAILABLE = 1;
+}
+
 /* Set of pending requests from API? */
 message MobileAppReqState {
     LockState vehicle_unlock_request = 9;
+    DefrostState hvac_defrost = 11;
+    HvacPower hvac_precondition = 12;
+    SharedTripState shared_trip_request = 15;
+
 /*
 Other fields (all optional):
  'alarmSetReq': 'UNKNOWN_ALARM_MODE',
@@ -328,15 +343,14 @@ Other fields (all optional):
  'hvacPreconditionEnable': 'UNKNOWN_HVAC_STATE',
  'lightReq': 'UNKNOWN_LIGHTS_STATE',
  'panicReq': 'PANIC_ALARM_UNKNOWN',
- 'sharedTripReq': 'SHARED_TRIP_NOTIFICATIONS_UNKNOWN',
  'trunkCargoReq': 'UNKNOWN_CLOSURE_STATE',
- 'vehicleUnlockReq': 'UNKNOWN_LOCK_STATE'
 */
 }
 
 enum TcuState {
     TCU_UNKNOWN = 0;
     TCU_DROWSY = 2;
+    TCU_FULL = 4;
 }
 
 enum LteType {
@@ -386,4 +400,96 @@ message Vehicle {
     AccessLevel access_level = 2;
     VehicleConfig config = 3;
     VehicleState state = 4;
+}
+
+message ApplySoftwareUpdateRequest {}
+message ApplySoftwareUpdateResponse {}
+
+message CancelScheduledUpdateRequest {}
+message CancelScheduledUpdateResponse {}
+
+message ChargeControlRequest {}
+message ChargeControlResponse {}
+
+message ControlChargePortRequest {}
+message ControlChargePortResponse {}
+
+message DoorLocksControlRequest {
+    repeated int32 door_location = 1;
+    LockState lock_state = 2;
+    string vehicle_id = 3;
+}
+message DoorLocksControlResponse {}
+
+message FrontCargoControlRequest {}
+message FrontCargoControlResponse {}
+
+enum DocumentType {
+    DOCUMENT_TYPE_UNKNOWN = 0;
+}
+
+message GetDocumentInfoRequest {
+    string version = 3;
+    DocumentType document_type = 4;
+}
+message GetDocumentInfoResponse {}
+
+message GetVehicleStateRequest {
+    string vehicle_id = 1;
+}
+message GetVehicleStateResponse {
+    string vehicle_id = 1;
+    VehicleState state = 2;
+}
+
+message HonkHornRequest {}
+message HonkHornResponse {}
+
+message HvacDefrostControlRequest {}
+message HvacDefrostControlResponse {}
+
+message LightsControlRequest {}
+message LightsControlResponse {}
+
+message RearCargoControlRequest {}
+message RearCargoControlResponse {}
+
+message SecurityAlarmControlRequest {}
+message SecurityAlarmControlResponse {}
+
+message SetCabinTemperatureRequest {
+    double temperature = 1;
+    HvacPower state = 2;
+    string vehicle_id = 3;
+}
+message SetCabinTemperatureResponse {}
+
+message SetChargeLimitRequest {
+    uint32 limit_percent = 1;
+    string vehicle_id = 2;
+}
+message SetChargeLimitResponse {}
+
+message WakeupVehicleRequest {
+    string vehicle_id = 1;
+}
+message WakeupVehicleResponse {}
+
+service VehicleStateService {
+    rpc ApplySoftwareUpdate(ApplySoftwareUpdateRequest) returns (ApplySoftwareUpdateResponse) {}
+    rpc CancelScheduledUpdate(CancelScheduledUpdateRequest) returns (CancelScheduledUpdateResponse) {}
+    rpc ChargeControl(ChargeControlRequest) returns (ChargeControlResponse) {}
+    rpc ControlChargePort(ControlChargePortRequest) returns (ControlChargePortResponse) {}
+    rpc DoorLocksControl(DoorLocksControlRequest) returns (DoorLocksControlResponse) {}
+    rpc FrontCargoControl(FrontCargoControlRequest) returns (FrontCargoControlResponse) {}
+    rpc GetDocumentInfo(GetDocumentInfoRequest) returns (GetDocumentInfoResponse) {}
+    rpc GetVehicleState(GetVehicleStateRequest) returns (GetVehicleStateResponse) {}
+    rpc HonkHorn(HonkHornRequest) returns (HonkHornResponse) {}
+    rpc HvacDefrostControl(HvacDefrostControlRequest) returns (HvacDefrostControlResponse) {}
+    rpc LightsControl(LightsControlRequest) returns (LightsControlResponse) {}
+    rpc RearCargoControl(RearCargoControlRequest) returns (RearCargoControlResponse) {}
+    rpc SecurityAlarmControl(SecurityAlarmControlRequest) returns (SecurityAlarmControlResponse) {}
+    rpc SetCabinTemperature(SetCabinTemperatureRequest) returns (SetCabinTemperatureResponse) {}
+    rpc SetChargeLimit(SetChargeLimitRequest) returns (SetChargeLimitResponse) {}
+    rpc WakeupVehicle(WakeupVehicleRequest) returns (WakeupVehicleResponse) {}
 }
