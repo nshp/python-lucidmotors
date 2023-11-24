@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package mobilegateway.protos;
+
+message GetServiceAppointmentsRequest {}
+message GetServiceAppointmentsResponse {}
+
+service SalesforceService {
+    rpc GetServiceAppointments(GetServiceAppointmentsRequest) returns (GetServiceAppointmentsResponse) {}
+}

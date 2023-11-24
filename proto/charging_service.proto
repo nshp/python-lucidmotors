@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package mobilegateway.protos;
+
+message GetCdrRequest {}
+message GetCdrResponse {}
+
+message GetCdrsRequest {}
+message GetCdrsResponse {}
+
+message GetLocationsBoxRequest {}
+message GetLocationsBoxResponse {}
+
+message GetLocationsByRadiusRequest {}
+message GetLocationsByRadiusResponse {}
+
+message GetTariffRequest {}
+message GetTariffResponse {}
+
+message RegisterRFIDRequest {}
+message RegisterRFIDResponse {}
+
+message StartSessionRequest {}
+message StartSessionResponse {}
+
+message StopSessionRequest {}
+message StopSessionResponse {}
+
+service ChargingService {
+    rpc GetCdr(GetCdrRequest) returns (GetCdrResponse) {}
+    rpc GetCdrs(GetCdrsRequest) returns (GetCdrsResponse) {}
+    rpc GetLocationsBox(GetLocationsBoxRequest) returns (GetLocationsBoxResponse) {}
+    rpc GetLocationsByRadius(GetLocationsByRadiusRequest) returns (GetLocationsByRadiusResponse) {}
+    rpc GetTariff(GetTariffRequest) returns (GetTariffResponse) {}
+    rpc RegisterRFID(RegisterRFIDRequest) returns (RegisterRFIDResponse) {}
+    rpc StartSession(StartSessionRequest) returns (StartSessionResponse) {}
+    rpc StopSession(StopSessionRequest) returns (StopSessionResponse) {}
+}

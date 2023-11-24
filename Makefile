@@ -42,7 +42,9 @@ requirements: requirements.txt requirements_dev.txt
 PROTOS= login_session.proto         \
 	user_profile_service.proto  \
 	vehicle_state_service.proto \
-	trip_service.proto
+	trip_service.proto          \
+	charging_service.proto      \
+	salesforce_service.proto
 
 PROTOS_GEN := $(patsubst %.proto,%_pb2.py,$(PROTOS))      \
 	      $(patsubst %.proto,%_pb2_grpc.py,$(PROTOS)) \

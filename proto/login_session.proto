@@ -71,8 +71,35 @@ message GetNewJWTTokenResponse {
     SessionInfo session_info = 1;
 }
 
-service LoginSession {
-    rpc Login(LoginRequest) returns (LoginResponse) {}
+message ConfirmResetPinRequest {}
+message ConfirmResetPinResponse {}
 
+message GetSubscriptionRequest {}
+message GetSubscriptionResponse {}
+
+message GetUserVehiclesRequest {}
+message GetUserVehiclesResponse {}
+
+message LogoutRequest {}
+message LogoutResponse {}
+
+message RefreshNotificationTokenRequest {}
+message RefreshNotificationTokenResponse {}
+
+message SetNickNameRequest {}
+message SetNickNameResponse {}
+
+message SetSubscriptionRequest {}
+message SetSubscriptionResponse {}
+
+service LoginSession {
+    rpc ConfirmResetPin(ConfirmResetPinRequest) returns (ConfirmResetPinResponse) {}
     rpc GetNewJWTToken(GetNewJWTTokenRequest) returns (GetNewJWTTokenResponse) {}
+    rpc GetSubscription(GetSubscriptionRequest) returns (GetSubscriptionResponse) {}
+    rpc GetUserVehicles(GetUserVehiclesRequest) returns (GetUserVehiclesResponse) {}
+    rpc Login(LoginRequest) returns (LoginResponse) {}
+    rpc Logout(LogoutRequest) returns (LogoutResponse) {}
+    rpc RefreshNotificationToken(RefreshNotificationTokenRequest) returns (RefreshNotificationTokenResponse) {}
+    rpc SetNickName(SetNickNameRequest) returns (SetNickNameResponse) {}
+    rpc SetSubscription(SetSubscriptionRequest) returns (SetSubscriptionResponse) {}
 }

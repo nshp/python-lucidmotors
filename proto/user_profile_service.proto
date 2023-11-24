@@ -10,3 +10,14 @@ message UserProfile {
     string first_name = 5;
     string last_name = 6;
 }
+
+message SetUserProfileRequest {}
+message SetUserProfileResponse {}
+
+message UploadUserProfilePhotoRequest {}
+message UploadUserProfilePhotoResponse {}
+
+service UserProfileService {
+    rpc SetUserProfile(SetUserProfileRequest) returns (SetUserProfileResponse) {}
+    rpc UploadUserProfilePhoto(UploadUserProfilePhotoRequest) returns (UploadUserProfilePhotoResponse) {}
+}

@@ -18,6 +18,9 @@ from lucidmotors.gen import trip_service_pb2_grpc
 from lucidmotors.gen import vehicle_state_service_pb2
 from lucidmotors.gen import vehicle_state_service_pb2_grpc
 
+from lucidmotors.gen import salesforce_service_pb2
+from lucidmotors.gen import salesforce_service_pb2_grpc
+
 wire_types = {
     0: 'varint',
     1: 'fixed-64bit',
@@ -154,13 +157,21 @@ def main():
         # response = stub.GetVehicleState(req)
         # message_dump_recursive(response)
 
-        stub = vehicle_state_service_pb2_grpc.VehicleStateServiceStub(channel)
-        req = vehicle_state_service_pb2.SetChargeLimitRequest(
-            limit_percent=80,
-            vehicle_id=vehicle_id,
-        )
-        response = stub.SetChargeLimit(req)
-        message_dump_recursive(response)
+        # stub = vehicle_state_service_pb2_grpc.VehicleStateServiceStub(channel)
+        # req = vehicle_state_service_pb2.SetChargeLimitRequest(
+        #     limit_percent=80,
+        #     vehicle_id=vehicle_id,
+        # )
+        # response = stub.SetChargeLimit(req)
+        # message_dump_recursive(response)
+
+        # Not working, needs different auth:
+        # Salesforce API: error:invalid_client error_description:invalid client credentials
+        # stub = salesforce_service_pb2_grpc.SalesforceServiceStub(channel)
+        # req = salesforce_service_pb2.GetServiceAppointmentsRequest(
+        # )
+        # response = stub.GetServiceAppointments(req)
+        # message_dump_recursive(response)
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
