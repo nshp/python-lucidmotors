@@ -21,6 +21,9 @@ from lucidmotors.gen import vehicle_state_service_pb2_grpc
 from lucidmotors.gen import salesforce_service_pb2
 from lucidmotors.gen import salesforce_service_pb2_grpc
 
+from lucidmotors.gen import charging_service_pb2
+from lucidmotors.gen import charging_service_pb2_grpc
+
 wire_types = {
     0: 'varint',
     1: 'fixed-64bit',
@@ -91,6 +94,7 @@ def main():
         id_token = response.session_info.id_token
         refresh_token = response.session_info.refresh_token
         vehicle_id = response.user_vehicle_data[0].vehicle_id
+        ema_id = response.user_vehicle_data[0].config.ema_id
 
     time.sleep(1)
     print('Establishing token-based secure channel')
@@ -173,6 +177,15 @@ def main():
         # )
         # response = stub.GetServiceAppointments(req)
         # message_dump_recursive(response)
+
+        # stub = charging_service_pb2_grpc.ChargingServiceStub(channel)
+        # req = charging_service_pb2.GetCdrsRequest(
+        #     ema_id=ema_id,
+        #     limit=999,
+        # )
+        # response = stub.GetCdrs(req)
+        # message_dump_recursive(response)
+
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
