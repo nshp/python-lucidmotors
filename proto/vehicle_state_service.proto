@@ -230,8 +230,8 @@ message ChargingState {
     uint32 charge_limit = 8;
     LockState cable_lock = 10;
     double charge_rate_kwh_precise = 11;
-    double charge_rate_miles_min_precise = 12;
-    double charge_rate_mph_precise = 13;
+    double charge_rate_mph_precise = 12;
+    double charge_rate_miles_min_precise = 13;
     double charge_limit_percent = 14;
     uint32 charge_scheduled_time = 16;
     ScheduledChargeState scheduled_charge = 17;
