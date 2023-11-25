@@ -131,6 +131,7 @@ message BatteryState {
 enum PowerState {
     POWER_STATE_UNKNOWN = 0;
     POWER_STATE_SLEEP = 1;
+    POWER_STATE_SLEEP_CHARGE = 6;
     POWER_STATE_MONITOR = 11;
 }
 
@@ -203,6 +204,7 @@ message ChassisState {
 enum ChargeState {
     CHARGE_STATE_UNKNOWN = 0;
     CHARGE_STATE_NOT_CONNECTED = 1;
+    CHARGE_STATE_CHARGING = 8;
 }
 
 enum ScheduledChargeState {
@@ -215,11 +217,21 @@ enum ScheduledChargeUnavailableState {
     SCHEDULED_CHARGE_UNAVAILABLE_NO_REQUEST = 1;
 }
 
+enum EnergyType {
+    ENERGY_TYPE_UNKNOWN = 0;
+    ENERGY_TYPE_AC = 1;
+    ENERGY_TYPE_DC = 2;
+}
+
 message ChargingState {
     ChargeState charge_state = 1;
+    EnergyType energy_type = 2;
     uint32 session_minutes_remaining = 7;
     uint32 charge_limit = 8;
     LockState cable_lock = 10;
+    double charge_rate_kwh_precise = 11;
+    double charge_rate_miles_min_precise = 12;
+    double charge_rate_mph_precise = 13;
     double charge_limit_percent = 14;
     uint32 charge_scheduled_time = 16;
     ScheduledChargeState scheduled_charge = 17;
