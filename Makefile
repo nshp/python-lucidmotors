@@ -59,7 +59,7 @@ $(GEN_DIR)/%_pb2.py $(GEN_DIR)/%_pb2_grpc.py $(GEN_DIR)/%_pb2.pyi: $(PROTO_DIR)/
 	$(Q)mkdir -p $(GEN_DIR)
 	$(Q)touch $(GEN_DIR)/__init__.py
 	$(Q)$(PYTHON) -m grpc_tools.protoc -I $(PROTO_DIR) --python_out=$(GEN_DIR) --pyi_out=$(GEN_DIR) --grpc_python_out=$(GEN_DIR) $<
-	$(Q)sed -i 's/^import \(\w\+_pb2\)\b/from . import \1/' $(GEN_DIR)/$*_pb2.py $(GEN_DIR)/$*_pb2_grpc.py $(GEN_DIR)/$*_pb2.pyi
+	$(Q)sed -i.orig 's/^import \([a-zA-Z0-9_]*_pb2\)\b/from . import \1/' $(GEN_DIR)/$*_pb2.py $(GEN_DIR)/$*_pb2_grpc.py $(GEN_DIR)/$*_pb2.pyi
 
 .PHONY: protobuf
 protobuf: $(PROTOS_GEN)
