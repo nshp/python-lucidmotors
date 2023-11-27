@@ -226,6 +226,8 @@ enum EnergyType {
 message ChargingState {
     ChargeState charge_state = 1;
     EnergyType energy_type = 2;
+    double charge_session_mi = 5;
+    double charge_session_kwh = 6;
     uint32 session_minutes_remaining = 7;
     uint32 charge_limit = 8;
     LockState cable_lock = 10;
