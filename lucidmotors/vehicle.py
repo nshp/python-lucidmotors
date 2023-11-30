@@ -522,6 +522,7 @@ class Wheels(str, Enum):
     PERFORMANCE = 'PERFORMANCE'
     BLADE = 'BLADE'
     BLADE_GRAPHITE = 'BLADE_GRAPHITE'
+    LITE_STEALTH = 'LITE_STEALTH'
 
 
 class Battery(str, Enum):
