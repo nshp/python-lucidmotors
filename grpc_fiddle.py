@@ -124,8 +124,8 @@ def main():
 
         # stub = vehicle_state_service_pb2_grpc.VehicleStateServiceStub(channel)
         # req = vehicle_state_service_pb2.GetDocumentInfoRequest(
-        #     version="0.0.0",
-        #     document_type=1,
+        #     version="2.1.42",
+        #     document_type=vehicle_state_service_pb2.DocumentType.DOCUMENT_TYPE_RELEASE_NOTES_POST,
         # )
         # response = stub.GetDocumentInfo(req)
         # message_dump_recursive(response)

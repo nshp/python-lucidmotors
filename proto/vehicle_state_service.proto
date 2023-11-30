@@ -417,7 +417,9 @@ message Vehicle {
     VehicleState state = 4;
 }
 
-message ApplySoftwareUpdateRequest {}
+message ApplySoftwareUpdateRequest {
+    string vehicle_id = 1;
+}
 message ApplySoftwareUpdateResponse {}
 
 message CancelScheduledUpdateRequest {}
@@ -441,13 +443,30 @@ message FrontCargoControlResponse {}
 
 enum DocumentType {
     DOCUMENT_TYPE_UNKNOWN = 0;
+    DOCUMENT_TYPE_RELEASE_NOTES_PRE = 1;
+    DOCUMENT_TYPE_RELEASE_NOTES_POST = 2;
+    DOCUMENT_TYPE_OWNERS_MANUAL = 3;
+}
+
+message DocumentInfoUnknown {
+    uint64 timestamp = 1;
+}
+
+message DocumentInfo {
+    DocumentType type = 1;
+    string version = 2;
+    string description = 4;
+    DocumentInfoUnknown unknown = 5;
 }
 
 message GetDocumentInfoRequest {
     string version = 3;
     DocumentType document_type = 4;
 }
-message GetDocumentInfoResponse {}
+message GetDocumentInfoResponse {
+    string url = 1;
+    DocumentInfo info = 2;
+}
 
 message GetVehicleStateRequest {
     string vehicle_id = 1;
