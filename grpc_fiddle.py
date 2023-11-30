@@ -186,6 +186,13 @@ def main():
         # response = stub.GetCdrs(req)
         # message_dump_recursive(response)
 
+        # stub = vehicle_state_service_pb2_grpc.VehicleStateServiceStub(channel)
+        # req = vehicle_state_service_pb2.SecurityAlarmControlRequest(
+        #     status=vehicle_state_service_pb2.AlarmStatus.ALARM_STATUS_ARMED,
+        #     vehicle_id=vehicle_id,
+        # )
+        # response = stub.SecurityAlarmControl(req)
+        # message_dump_recursive(response)
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)

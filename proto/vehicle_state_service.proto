@@ -264,6 +264,7 @@ message SoftwareUpdate {
 
 enum AlarmStatus {
     ALARM_STATUS_UNKNOWN = 0;
+    ALARM_STATUS_DISARMED = 1;
     ALARM_STATUS_ARMED = 2;
 }
 
@@ -468,7 +469,10 @@ message LightsControlResponse {}
 message RearCargoControlRequest {}
 message RearCargoControlResponse {}
 
-message SecurityAlarmControlRequest {}
+message SecurityAlarmControlRequest {
+    AlarmStatus status = 1;
+    string vehicle_id = 2;
+}
 message SecurityAlarmControlResponse {}
 
 message SetCabinTemperatureRequest {
