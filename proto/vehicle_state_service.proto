@@ -131,6 +131,8 @@ message BatteryState {
 enum PowerState {
     POWER_STATE_UNKNOWN = 0;
     POWER_STATE_SLEEP = 1;
+    POWER_STATE_ACCESSORY = 3;
+    POWER_STATE_LIVE_CHARGE = 5;
     POWER_STATE_SLEEP_CHARGE = 6;
     POWER_STATE_MONITOR = 11;
 }
@@ -330,6 +332,8 @@ message HvacState {
 enum DriveMode {
     DRIVE_MODE_UNKNOWN = 0;
     DRIVE_MODE_COMFORT = 1;
+    DRIVE_MODE_SWIFT = 2;
+    DRIVE_MODE_SPORT_PLUS = 5; /* aka Sprint */
 }
 
 enum PrivacyMode {
@@ -340,6 +344,9 @@ enum PrivacyMode {
 enum GearPosition {
     GEAR_UNKNOWN = 0;
     GEAR_PARK = 1;
+    GEAR_REVERSE = 2;
+    GEAR_NEUTRAL = 3;
+    GEAR_DRIVE = 4;
 }
 
 enum SharedTripState {
@@ -369,7 +376,6 @@ Other fields (all optional):
  'hornReq': 'UNKNOWN_CLOSURE_STATE',
  'hvacDefrostEnable': 'UNKNOWN_HVAC_DEFROST',
  'hvacPreconditionEnable': 'UNKNOWN_HVAC_STATE',
- 'lightReq': 'UNKNOWN_LIGHTS_STATE',
  'panicReq': 'PANIC_ALARM_UNKNOWN',
  'trunkCargoReq': 'UNKNOWN_CLOSURE_STATE',
 */
@@ -464,7 +470,10 @@ message DoorLocksControlRequest {
 }
 message DoorLocksControlResponse {}
 
-message FrontCargoControlRequest {}
+message FrontCargoControlRequest {
+    DoorState closure_state = 1;
+    string vehicle_id = 2;
+}
 message FrontCargoControlResponse {}
 
 enum DocumentType {
@@ -519,7 +528,10 @@ message LightsControlRequest {
 }
 message LightsControlResponse {}
 
-message RearCargoControlRequest {}
+message RearCargoControlRequest {
+    DoorState closure_state = 1;
+    string vehicle_id = 2;
+}
 message RearCargoControlResponse {}
 
 message SecurityAlarmControlRequest {

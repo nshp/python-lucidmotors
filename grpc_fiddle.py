@@ -104,10 +104,11 @@ def main():
 
     with grpc.secure_channel("mobile.deneb.prod.infotainment.pdx.atieva.com", creds) as channel:
         pass
+
         # stub = trip_service_pb2_grpc.TripServiceStub(channel)
         # trip = trip_service_pb2.Trip(
         #     name="22 6th St NW, Hillsboro, ND 58045",
-        #     waypoints=[
+        #     route=[
         #         trip_service_pb2.Waypoint(
         #             latitude=37.634690,
         #             longitude=-77.456089,
@@ -247,6 +248,23 @@ def main():
         # )
         # response = stub.LightsControl(req)
         # message_dump_recursive(response)
+
+        # stub = vehicle_state_service_pb2_grpc.VehicleStateServiceStub(channel)
+        # req = vehicle_state_service_pb2.FrontCargoControlRequest(
+        #     closure_state=vehicle_state_service_pb2.DoorState.DOOR_STATE_CLOSED,
+        #     vehicle_id=vehicle_id,
+        # )
+        # response = stub.FrontCargoControl(req)
+        # message_dump_recursive(response)
+
+        # stub = vehicle_state_service_pb2_grpc.VehicleStateServiceStub(channel)
+        # req = vehicle_state_service_pb2.RearCargoControlRequest(
+        #     closure_state=vehicle_state_service_pb2.DoorState.DOOR_STATE_CLOSED,
+        #     vehicle_id=vehicle_id,
+        # )
+        # response = stub.RearCargoControl(req)
+        # message_dump_recursive(response)
+
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
