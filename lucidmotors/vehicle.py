@@ -93,6 +93,7 @@ class DoorState(str, Enum):
 
 class WalkawayState(str, Enum):
     ACTIVE = "WALKAWAY_ACTIVE"
+    DISABLED = "WALKAWAY_DISABLE"
     # TODO: Other values?
 
 
