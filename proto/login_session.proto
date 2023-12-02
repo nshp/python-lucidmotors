@@ -86,7 +86,10 @@ message LogoutResponse {}
 message RefreshNotificationTokenRequest {}
 message RefreshNotificationTokenResponse {}
 
-message SetNickNameRequest {}
+message SetNickNameRequest {
+    string vehicle_id = 1;
+    string nickname = 2;
+}
 message SetNickNameResponse {}
 
 message SetSubscriptionRequest {}

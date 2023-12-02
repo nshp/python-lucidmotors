@@ -178,9 +178,21 @@ message BodyState {
 }
 
 enum LightState {
-    /* The unknown state is explicitly 3 here, 0 is something else */
+    /*
+     * There's an explicit unknown state here in addition to 0, which I guess
+     * is more like undefined?
+     */
     LIGHT_STATE_REALLY_UNKNOWN = 0;
+    LIGHT_STATE_OFF = 1;
+    LIGHT_STATE_ON = 2;
     LIGHT_STATE_UNKNOWN = 3;
+}
+
+enum LightAction {
+    LIGHT_ACTION_UNKNOWN = 0;
+    LIGHT_ACTION_FLASH = 1;
+    LIGHT_ACTION_ON = 2;
+    LIGHT_ACTION_OFF = 3;
 }
 
 message ChassisState {
@@ -340,6 +352,7 @@ message MobileAppReqState {
     LockState vehicle_unlock_request = 9;
     DefrostState hvac_defrost = 11;
     HvacPower hvac_precondition = 12;
+    LightAction light_request = 13;
     SharedTripState shared_trip_request = 15;
 
 /*
@@ -422,13 +435,26 @@ message ApplySoftwareUpdateRequest {
 }
 message ApplySoftwareUpdateResponse {}
 
-message CancelScheduledUpdateRequest {}
+message CancelScheduledUpdateRequest {
+    string vehicle_id = 1;
+}
 message CancelScheduledUpdateResponse {}
 
-message ChargeControlRequest {}
+enum ChargeAction {
+    CHARGE_ACTION_UNKNOWN = 0;
+    /* TODO: What are the actions? */
+}
+
+message ChargeControlRequest {
+    uint32 action = 1;
+    string vehicle_id = 2;
+}
 message ChargeControlResponse {}
 
-message ControlChargePortRequest {}
+message ControlChargePortRequest {
+    DoorState closure_state = 1;
+    string vehicle_id = 2;
+}
 message ControlChargePortResponse {}
 
 message DoorLocksControlRequest {
@@ -476,13 +502,21 @@ message GetVehicleStateResponse {
     VehicleState state = 2;
 }
 
-message HonkHornRequest {}
+message HonkHornRequest {
+    string vehicle_id = 1;
+}
 message HonkHornResponse {}
 
-message HvacDefrostControlRequest {}
+message HvacDefrostControlRequest {
+    string vehicle_id = 1;
+    DefrostState hvac_defrost = 2;
+}
 message HvacDefrostControlResponse {}
 
-message LightsControlRequest {}
+message LightsControlRequest {
+    LightAction action = 1;
+    string vehicle_id = 2;
+}
 message LightsControlResponse {}
 
 message RearCargoControlRequest {}

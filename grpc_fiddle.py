@@ -194,6 +194,60 @@ def main():
         # response = stub.SecurityAlarmControl(req)
         # message_dump_recursive(response)
 
+        # stub = login_session_pb2_grpc.LoginSessionStub(channel)
+        # req = login_session_pb2.SetNickNameRequest(
+        #     vehicle_id=vehicle_id,
+        #     nickname='iCloud',
+        # )
+        # response = stub.SetNickName(req)
+        # message_dump_recursive(response)
+
+        # stub = vehicle_state_service_pb2_grpc.VehicleStateServiceStub(channel)
+        # req = vehicle_state_service_pb2.CancelScheduledUpdateRequest(
+        #     vehicle_id=vehicle_id,
+        # )
+        # response = stub.CancelScheduledUpdate(req)
+        # message_dump_recursive(response)
+
+        # stub = vehicle_state_service_pb2_grpc.VehicleStateServiceStub(channel)
+        # req = vehicle_state_service_pb2.ChargeControlRequest(
+        #     action=vehicle_state_service_pb2.ChargeAction.CHARGE_ACTION_UNKNOWN,
+        #     vehicle_id=vehicle_id,
+        # )
+        # response = stub.ChargeControl(req)
+        # message_dump_recursive(response)
+
+        # stub = vehicle_state_service_pb2_grpc.VehicleStateServiceStub(channel)
+        # req = vehicle_state_service_pb2.ControlChargePortRequest(
+        #     closure_state=vehicle_state_service_pb2.DoorState.DOOR_STATE_OPEN,
+        #     vehicle_id=vehicle_id,
+        # )
+        # response = stub.ControlChargePort(req)
+        # message_dump_recursive(response)
+
+        # stub = vehicle_state_service_pb2_grpc.VehicleStateServiceStub(channel)
+        # req = vehicle_state_service_pb2.HonkHornRequest(
+        #     vehicle_id=vehicle_id,
+        # )
+        # response = stub.HonkHorn(req)
+        # message_dump_recursive(response)
+
+        # stub = vehicle_state_service_pb2_grpc.VehicleStateServiceStub(channel)
+        # req = vehicle_state_service_pb2.HvacDefrostControlRequest(
+        #     vehicle_id=vehicle_id,
+        #     hvac_defrost=vehicle_state_service_pb2.DefrostState.DEFROST_OFF,
+        # )
+        # response = stub.HvacDefrostControl(req)
+        # message_dump_recursive(response)
+
+        # stub = vehicle_state_service_pb2_grpc.VehicleStateServiceStub(channel)
+        # req = vehicle_state_service_pb2.LightsControlRequest(
+        #     action=vehicle_state_service_pb2.LightAction.LIGHT_ACTION_OFF,
+        #     vehicle_id=vehicle_id,
+        # )
+        # response = stub.LightsControl(req)
+        # message_dump_recursive(response)
+
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
     main()
