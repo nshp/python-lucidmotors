@@ -53,13 +53,15 @@ PROTOS_GEN := $(patsubst %.proto,%_pb2.py,$(PROTOS))      \
 PROTOS := $(addprefix $(PROTO_DIR)/,$(PROTOS))
 PROTOS_GEN := $(addprefix $(GEN_DIR)/,$(PROTOS_GEN))
 
-# We have some sed insanity here because protoc doesn't support generating relative imports
+# We have some sed insanity here because:
+# 1) protoc doesn't support generating relative imports
+# 2) https://github.com/python/mypy/issues/10870
 $(GEN_DIR)/%_pb2.py $(GEN_DIR)/%_pb2_grpc.py $(GEN_DIR)/%_pb2.pyi: $(PROTO_DIR)/%.proto
 	@echo PROTOC $*
 	$(Q)mkdir -p $(GEN_DIR)
 	$(Q)touch $(GEN_DIR)/__init__.py
 	$(Q)$(PYTHON) -m grpc_tools.protoc -I $(PROTO_DIR) --python_out=$(GEN_DIR) --pyi_out=$(GEN_DIR) --grpc_python_out=$(GEN_DIR) $<
-	$(Q)sed -i.orig 's/^import \([a-zA-Z0-9_]*_pb2\)\b/from . import \1/' $(GEN_DIR)/$*_pb2.py $(GEN_DIR)/$*_pb2_grpc.py $(GEN_DIR)/$*_pb2.pyi
+	$(Q)sed -i.orig 's/^import \([a-zA-Z0-9_]*_pb2\)\b/from . import \1/;s/^\(\s*\)__slots__ = \[\]$$/\1__slots__ = ()/' $(GEN_DIR)/$*_pb2.py $(GEN_DIR)/$*_pb2_grpc.py $(GEN_DIR)/$*_pb2.pyi
 
 .PHONY: protobuf
 protobuf: $(PROTOS_GEN)
