@@ -1,9 +1,7 @@
 """The Lucid Motors mobile app API"""
 from __future__ import annotations
-from enum import Enum
 from typing import Optional, Any, Callable, TypeVar, Awaitable
 from datetime import datetime, timezone, timedelta
-from pydantic import BaseModel, Field
 from grpc.aio import ClientCallDetails, UnaryUnaryCall
 
 import uuid
@@ -17,8 +15,6 @@ from .exceptions import APIError
 from .gen import (
     login_session_pb2,
     login_session_pb2_grpc,
-    user_profile_service_pb2,
-    user_profile_service_pb2_grpc,
     trip_service_pb2,
     trip_service_pb2_grpc,
     vehicle_state_service_pb2,
@@ -26,6 +22,7 @@ from .gen import (
     charging_service_pb2,
     charging_service_pb2_grpc,
 )
+from .gen.login_session_pb2 import NotificationChannelType
 from .gen.user_profile_service_pb2 import UserProfile
 from .gen.vehicle_state_service_pb2 import (
     Vehicle,
@@ -189,7 +186,7 @@ class LucidAPI:
         request = login_session_pb2.LoginRequest(
             username=username,
             password=password,
-            notification_channel_type=login_session_pb2.NotificationChannelType.NOTIFICATION_CHANNEL_ONE,
+            notification_channel_type=NotificationChannelType.NOTIFICATION_CHANNEL_ONE,
             notification_device_token=device_id,
             os=login_session_pb2.Os.OS_IOS,
             locale='en_US',
