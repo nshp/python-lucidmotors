@@ -339,6 +339,7 @@ enum DriveMode {
 enum PrivacyMode {
     PRIVACY_MODE_UNKNOWN = 0;
     PRIVACY_MODE_CONNECTIVITY_ENABLED = 1;
+    PRIVACY_MODE_CONNECTIVITY_DISABLED = 2;
 }
 
 enum GearPosition {

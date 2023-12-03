@@ -78,7 +78,9 @@ message GetSubscriptionRequest {}
 message GetSubscriptionResponse {}
 
 message GetUserVehiclesRequest {}
-message GetUserVehiclesResponse {}
+message GetUserVehiclesResponse {
+    repeated Vehicle user_vehicle_data = 1;
+}
 
 message LogoutRequest {}
 message LogoutResponse {}

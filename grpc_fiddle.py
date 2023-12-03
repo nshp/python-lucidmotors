@@ -265,6 +265,11 @@ def main():
         # response = stub.RearCargoControl(req)
         # message_dump_recursive(response)
 
+        # stub = login_session_pb2_grpc.LoginSessionStub(channel)
+        # req = login_session_pb2.GetUserVehiclesRequest()
+        # response = stub.GetUserVehicles(req)
+        # message_dump_recursive(response)
+
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
