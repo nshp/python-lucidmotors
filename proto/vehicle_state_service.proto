@@ -218,6 +218,7 @@ message ChassisState {
 enum ChargeState {
     CHARGE_STATE_UNKNOWN = 0;
     CHARGE_STATE_NOT_CONNECTED = 1;
+    CHARGE_STATE_CABLE_CONNECTED = 2;
     CHARGE_STATE_CHARGING = 8;
 }
 
