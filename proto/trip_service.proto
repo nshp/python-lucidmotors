@@ -2,57 +2,26 @@ syntax = "proto3";
 
 package mobilegateway.protos;
 
+enum WaypointType {
+    WAYPOINT_TYPE_UNKNOWN = 0;
+    WAYPOINT_TYPE_CHARGING = 1;
+    WAYPOINT_TYPE_WAYPOINT = 2;
+}
+
 message Waypoint {
     double latitude = 1;
     double longitude = 2;
-    string name = 3;
+    string address = 3;
+    WaypointType waypoint_type = 5;
 }
 
-/* Trip looks like:
-    # Trip label for the car UI I'm guessing?
-    "2": "Beverly Hills, FL, United States",
-    # Don't know, not required
-    "3": 1322256,
-    # Don't know, not required
-    "4": 49515,
-    # Don't know, not required
-    "5": 4,
-    # Lat/lon pairs of waypoints - these are the chargers automatically added for me.
-    "7": [
-      {
-        "1": 4630493428984762027,
-        "2": 13858522941503489071,
-        # Don't know what this number is. Waypoint type? 2 for charger, 1 for destination?
-        "5": 2
-      },
-      {
-        "1": 4630160605527286213,
-        "2": 13858604594692073055,
-        "5": 2
-      },
-      {
-        "1": 4629831773427201403,
-        "2": 13858750465946233614,
-        "5": 2
-      },
-      {
-        "1": 4629312836787020913,
-        "2": 13858817423664053507,
-        "5": 2
-      },
-      {
-        "1": 4628833325417960862,
-        "2": 13858875633456256583,
-        "3": "Beverly Hills, Florida 34465",
-        "5": 1
-      }
-    ],
-    # Client description, not required
-    "8": "sdk_gphone64_x86_64"
-*/
 message Trip {
-    string name = 2;
-    repeated Waypoint route = 7;
+    string destination_name = 2;
+    optional uint64 distance_meters = 3;
+    optional uint64 elapsed_time_sec = 4;
+    optional uint32 charging_stops = 5;
+    repeated Waypoint waypoints = 7;
+    optional string sender = 8;
 }
 
 message ShareTripRequest {
@@ -60,8 +29,7 @@ message ShareTripRequest {
     string vehicle_id = 3;
 }
 
-message ShareTripResponse {
-}
+message ShareTripResponse {}
 
 service TripService {
     rpc ShareTrip(ShareTripRequest) returns (ShareTripResponse) {}
