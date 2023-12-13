@@ -91,7 +91,7 @@ class LucidAPI:
     _token_expiry_time: Optional[datetime]
 
     # Refresh token for our session
-    _refresh_token: str
+    _refresh_token: Optional[str]
 
     # User profile data from most recent login request, or None if not logged
     # in yet.
@@ -132,6 +132,7 @@ class LucidAPI:
         self._charging_service = charging_service_pb2_grpc.ChargingServiceStub(
             self._channel
         )
+        self._refresh_token = None
         self._token_expiry_time = None
         self._user_profile = None
         self._vehicles = []

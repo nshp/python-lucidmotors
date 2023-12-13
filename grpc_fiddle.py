@@ -12,6 +12,9 @@ import google.protobuf
 from lucidmotors.gen import login_session_pb2
 from lucidmotors.gen import login_session_pb2_grpc
 
+from lucidmotors.gen import user_profile_service_pb2
+from lucidmotors.gen import user_profile_service_pb2_grpc
+
 from lucidmotors.gen import trip_service_pb2
 from lucidmotors.gen import trip_service_pb2_grpc
 
@@ -263,6 +266,13 @@ def main():
         #     vehicle_id=vehicle_id,
         # )
         # response = stub.RearCargoControl(req)
+        # message_dump_recursive(response)
+
+        # stub = vehicle_state_service_pb2_grpc.VehicleStateServiceStub(channel)
+        # req = vehicle_state_service_pb2.ApplySoftwareUpdateRequest(
+        #     vehicle_id=vehicle_id,
+        # )
+        # response = stub.ApplySoftwareUpdate(req)
         # message_dump_recursive(response)
 
         # stub = login_session_pb2_grpc.LoginSessionStub(channel)
