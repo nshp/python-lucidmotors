@@ -4,8 +4,9 @@ package mobilegateway.protos;
 
 enum AccessLevel {
     ACCESS_LEVEL_UNKNOWN = 0;
+    ACCESS_LEVEL_PREDELIVERY_OWNER = 1;
     ACCESS_LEVEL_PRIMARY_OWNER = 2;
-    /* Unknown enumerators: PREDELIVERY_OWNER, SECONDARY_OWNER... */
+    /* Unknown enumerators: SECONDARY_OWNER... */
 }
 
 enum Model {
@@ -21,12 +22,14 @@ enum ModelVariant {
 
 enum PaintColor {
     PAINT_COLOR_UNKNOWN = 0;
+    PAINT_COLOR_INFINITE_BLACK = 3;
     PAINT_COLOR_COSMOS_SILVER = 4;
 }
 
 enum Wheels {
     WHEELS_UNKNOWN = 0;
     WHEELS_BLADE = 2;
+    WHEELS_LITE = 3;
 }
 
 enum SubscriptionStatus {
@@ -81,6 +84,7 @@ enum BatteryType {
 enum Interior {
     INTERIOR_UNKNOWN = 0;
     INTERIOR_TAHOE = 2;
+    INTERIOR_MOJAVE = 3;
 }
 
 message VehicleConfig {
@@ -135,6 +139,7 @@ enum PowerState {
     POWER_STATE_LIVE_CHARGE = 5;
     POWER_STATE_SLEEP_CHARGE = 6;
     POWER_STATE_LIVE_UPDATE = 7;
+    POWER_STATE_CLOUD_2 = 10;
     POWER_STATE_MONITOR = 11;
 }
 
@@ -273,7 +278,9 @@ message Gps {
 enum UpdateState {
     UPDATE_STATE_UNKNOWN = 0;
     UPDATE_STATE_IN_PROGRESS = 1;
+    UPDATE_STATE_SUCCESS = 2;
     UPDATE_FAILED_DRIVE_ALLOWED = 5;
+    UPDATE_SUCCESS_WITH_WARNINGS = 7;
 }
 
 message SoftwareUpdate {
