@@ -524,6 +524,7 @@ class Wheels(str, Enum):
     BLADE = 'BLADE'
     BLADE_GRAPHITE = 'BLADE_GRAPHITE'
     LITE_STEALTH = 'LITE_STEALTH'
+    LITE = 'LITE'
 
 
 class Battery(str, Enum):
@@ -556,6 +557,7 @@ class VehicleConfig(BaseModel):
     region_code: str = Field(alias="regionCode")
     vin: str
     wheels: Wheels = Field(alias="wheels")
+    reservation_date: Optional[datetime] = None
 
 
 class AccessLevel(str, Enum):
