@@ -400,6 +400,7 @@ Other fields (all optional):
 
 enum TcuState {
     TCU_UNKNOWN = 0;
+    TCU_SLEEP = 1;
     TCU_DROWSY = 2;
     TCU_FULL = 4;
     TCU_FACTORY = 5; /* State during an update */
