@@ -174,12 +174,10 @@ def main():
         # response = stub.SetChargeLimit(req)
         # message_dump_recursive(response)
 
-        # Not working, needs different auth:
-        # Salesforce API: error:invalid_client error_description:invalid client credentials
         # stub = salesforce_service_pb2_grpc.SalesforceServiceStub(channel)
-        # req = salesforce_service_pb2.GetServiceAppointmentsRequest(
+        # req = salesforce_service_pb2.GetSalesForceServiceAppointmentsRequest(
         # )
-        # response = stub.GetServiceAppointments(req)
+        # response = stub.GetSalesForceServiceAppointments(req)
         # message_dump_recursive(response)
 
         # stub = charging_service_pb2_grpc.ChargingServiceStub(channel)
