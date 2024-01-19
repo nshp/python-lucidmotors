@@ -24,12 +24,14 @@ enum PaintColor {
     PAINT_COLOR_UNKNOWN = 0;
     PAINT_COLOR_INFINITE_BLACK = 3;
     PAINT_COLOR_COSMOS_SILVER = 4;
+    PAINT_COLOR_QUANTUM_GREY = 5;
 }
 
 enum Wheels {
     WHEELS_UNKNOWN = 0;
     WHEELS_BLADE = 2;
     WHEELS_LITE = 3;
+    WHEELS_LITE_STEALTH = 8;
 }
 
 enum SubscriptionStatus {
@@ -83,6 +85,7 @@ enum BatteryType {
 
 enum Interior {
     INTERIOR_UNKNOWN = 0;
+    INTERIOR_SANTA_CRUZ = 1;
     INTERIOR_TAHOE = 2;
     INTERIOR_MOJAVE = 3;
 }
