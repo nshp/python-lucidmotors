@@ -17,20 +17,27 @@ enum Model {
 
 enum ModelVariant {
     MODEL_VARIANT_UNKNOWN = 0;
+    MODEL_VARIANT_DREAM_EDITION = 1;
+    MODEL_VARIANT_GRAND_TOURING = 2;
     MODEL_VARIANT_TOURING = 3;
 }
 
 enum PaintColor {
     PAINT_COLOR_UNKNOWN = 0;
+    PAINT_COLOR_EUREKA_GOLD = 1;
+    PAINT_COLOR_STELLAR_WHITE = 2;
     PAINT_COLOR_INFINITE_BLACK = 3;
     PAINT_COLOR_COSMOS_SILVER = 4;
     PAINT_COLOR_QUANTUM_GREY = 5;
+    PAINT_COLOR_ZENITH_RED = 6;
 }
 
 enum Wheels {
     WHEELS_UNKNOWN = 0;
+    WHEELS_DREAM = 1;
     WHEELS_BLADE = 2;
     WHEELS_LITE = 3;
+    WHEELS_RANGE = 4;
     WHEELS_LITE_STEALTH = 8;
 }
 
@@ -67,6 +74,7 @@ message ChargingAccount {
 
 enum Edition {
     EDITION_UNKNOWN = 0;
+    EDITION_PERFORMANCE = 1;
     EDITION_STANDARD = 3;
 }
 
@@ -88,6 +96,11 @@ enum Interior {
     INTERIOR_SANTA_CRUZ = 1;
     INTERIOR_TAHOE = 2;
     INTERIOR_MOJAVE = 3;
+    INTERIOR_SANTA_MONICA = 5;
+}
+
+message SpecialIdentifiers {
+    string door_plate = 1;
 }
 
 message VehicleConfig {
@@ -105,6 +118,7 @@ message VehicleConfig {
     Edition edition = 13;
     BatteryType battery = 14;
     Interior interior = 15;
+    SpecialIdentifiers special_identifiers = 16;
     string exterior_color_code = 18;
     string interior_color_code = 19;
 }
@@ -283,6 +297,7 @@ enum UpdateState {
     UPDATE_STATE_UNKNOWN = 0;
     UPDATE_STATE_IN_PROGRESS = 1;
     UPDATE_STATE_SUCCESS = 2;
+    UPDATE_STATE_FAILED = 3;
     UPDATE_FAILED_DRIVE_ALLOWED = 5;
     UPDATE_SUCCESS_WITH_WARNINGS = 7;
 }
@@ -304,6 +319,7 @@ enum AlarmStatus {
 
 enum AlarmMode {
     ALARM_MODE_UNKNOWN = 0;
+    ALARM_MODE_SILENT = 1;
     ALARM_MODE_ON = 2;
 }
 
@@ -377,11 +393,11 @@ enum SharedTripState {
 
 /* Set of pending requests from API? */
 message MobileAppReqState {
-    LockState vehicle_unlock_request = 9;
     DefrostState hvac_defrost = 11;
     HvacPower hvac_precondition = 12;
     LightAction light_request = 13;
     SharedTripState shared_trip_request = 15;
+    LockState vehicle_unlock_request = 17;
 
 /*
 Other fields (all optional):
