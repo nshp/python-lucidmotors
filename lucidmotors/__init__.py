@@ -3,6 +3,8 @@ from __future__ import annotations
 from typing import Optional, Any, Callable, TypeVar, Awaitable
 from datetime import datetime, timezone, timedelta
 from grpc.aio import ClientCallDetails, UnaryUnaryCall
+from google.protobuf.internal.enum_type_wrapper import EnumTypeWrapper
+from google.protobuf import Message
 
 import uuid
 import grpc
@@ -10,7 +12,7 @@ import grpc.aio
 import logging
 
 from .const import MOBILE_API
-from .exceptions import APIError
+from .exceptions import APIError, StatusCode
 
 from .gen import (
     login_session_pb2,
@@ -18,6 +20,7 @@ from .gen import (
     trip_service_pb2,
     trip_service_pb2_grpc,
     vehicle_state_service_pb2,
+    vehicle_state_service_pb2 as VSS,
     vehicle_state_service_pb2_grpc,
     charging_service_pb2,
     charging_service_pb2_grpc,
@@ -25,14 +28,89 @@ from .gen import (
 from .gen.login_session_pb2 import NotificationChannelType
 from .gen.user_profile_service_pb2 import UserProfile
 from .gen.vehicle_state_service_pb2 import (
-    Vehicle,
-    LightAction,
-    DoorState,
-    DefrostState,
+    AccessLevel,
+    Model,
+    ModelVariant,
+    PaintColor,
+    Wheels,
+    SubscriptionStatus,
+    ChargingSubscription,
+    ChargingAccountStatus,
+    ChargingVendor,
+    ChargingAccount,
+    Edition,
+    BatteryType,
+    Interior,
+    SpecialIdentifiers,
+    Reservation,
+    VehicleConfig,
+    WarningState,
+    BatteryPreconStatus,
+    BatteryState,
+    PowerState,
+    CabinState,
     LockState,
+    DoorState,
+    WalkawayState,
+    AccessRequest,
+    BodyState,
+    LightState,
+    LightAction,
+    ChassisState,
+    ChargeState,
+    ScheduledChargeState,
+    ScheduledChargeUnavailableState,
+    EnergyType,
+    ChargingState,
+    Location,
+    Gps,
+    UpdateState,
+    SoftwareUpdate,
+    AlarmStatus,
+    AlarmMode,
+    AlarmState,
+    CloudConnectionState,
+    KeylessDrivingState,
     HvacPower,
+    DefrostState,
+    HvacPreconditionStatus,
+    HvacState,
+    DriveMode,
+    PrivacyMode,
+    GearPosition,
+    SharedTripState,
+    MobileAppReqState,
+    TcuState,
+    LteType,
+    InternetStatus,
+    TcuInternetState,
+    VehicleState,
+    Vehicle,
 )
-
+from .gen.charging_service_pb2 import (
+    DateTime,
+    Unknown,
+    ImageCategory,
+    Image,
+    Operator,
+    ChargingStatus,
+    ConnectorStandard,
+    ConnectorFormat,
+    PowerType,
+    Connector,
+    ChargingSession,
+    OpeningTimes,
+    ChargingLocation,
+    FeeName,
+    FeeType,
+    Fee,
+    Cdr,
+)
+from .gen.trip_service_pb2 import (
+    WaypointType,
+    Waypoint,
+    Trip,
+)
 
 __version__ = "1.0.0"
 
@@ -43,10 +121,50 @@ T = TypeVar('T')
 
 
 async def _check_for_api_error(coroutine: Awaitable[T]) -> T:
+    """Transform gRPC errors into APIErrors."""
     try:
         return await coroutine
     except grpc.aio.AioRpcError as exc:
         raise APIError(exc.code(), exc.details(), exc.debug_error_string()) from None
+
+
+def enum_to_str(enum_type: EnumTypeWrapper, value: int) -> str:
+
+    match (enum_type, value):
+        case (
+            (VSS.AlarmMode, AlarmMode.ALARM_MODE_UNKNOWN) |
+            (VSS.AlarmStatus, AlarmStatus.ALARM_STATUS_UNKNOWN) |
+            (VSS.Model, Model.MODEL_UNKNOWN) |
+            (VSS.ModelVariant, ModelVariant.MODEL_VARIANT_UNKNOWN)
+        ):
+            return "Unknown"
+        case (VSS.AlarmMode, AlarmMode.ALARM_MODE_ON):
+            return "On"
+        case (VSS.AlarmMode, AlarmMode.ALARM_MODE_OFF):
+            return "Off"
+        case (VSS.AlarmMode, AlarmMode.ALARM_MODE_SILENT):
+            return "Silent"
+        case (VSS.AlarmStatus, AlarmStatus.ALARM_STATUS_DISARMED):
+            return "Disarmed"
+        case (VSS.AlarmStatus, AlarmStatus.ALARM_STATUS_ARMED):
+            return "Armed"
+        case (VSS.Model, Model.MODEL_AIR):
+            return "Air"
+        case (VSS.Model, Model.MODEL_GRAVITY):
+            return "Gravity"
+        case (VSS.ModelVariant, ModelVariant.MODEL_VARIANT_DREAM_EDITION):
+            return "Dream Edition"
+        case (VSS.ModelVariant, ModelVariant.MODEL_VARIANT_GRAND_TOURING):
+            return "Grand Touring"
+        case (VSS.ModelVariant, ModelVariant.MODEL_VARIANT_TOURING):
+            return "Touring"
+        case (VSS.ModelVariant, ModelVariant.MODEL_VARIANT_PURE):
+            return "Pure"
+        case _:
+            if value in enum_type.values():
+                return enum_type.Name(value)
+            else:
+                return f"{enum_type.DESCRIPTOR.name} {value}"
 
 
 class LucidAPIInterceptor(grpc.aio.UnaryUnaryClientInterceptor):
@@ -169,7 +287,7 @@ class LucidAPI:
             return timedelta(0)
         now = datetime.now(timezone.utc)
         if self._token_expiry_time > now:
-            return now - self._token_expiry_time
+            return self._token_expiry_time - now
         return timedelta(0)
 
     async def login(self, username: str, password: str) -> None:
@@ -206,7 +324,7 @@ class LucidAPI:
         self._user_profile = reply.user_profile
         self._vehicles = reply.user_vehicle_data
 
-    async def get_new_jwt_token(self) -> None:
+    async def authentication_refresh(self) -> None:
         """Get a fresh new token by using the refresh token."""
         request = login_session_pb2.GetNewJWTTokenRequest(
             refresh_token=self._refresh_token
@@ -278,10 +396,11 @@ class LucidAPI:
         Control the lights of a specific vehicle.
         """
 
-        request = vehicle_state_service_pb2.HonkHornRequest(
+        request = vehicle_state_service_pb2.LightsControlRequest(
             vehicle_id=vehicle.vehicle_id,
+            action=action,
         )
-        await _check_for_api_error(self._vehicle_service.HonkHorn(request))
+        await _check_for_api_error(self._vehicle_service.LightsControl(request))
 
     async def lights_on(self, vehicle: Vehicle) -> None:
         """
