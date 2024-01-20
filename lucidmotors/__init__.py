@@ -4,7 +4,6 @@ from typing import Optional, Any, Callable, TypeVar, Awaitable
 from datetime import datetime, timezone, timedelta
 from grpc.aio import ClientCallDetails, UnaryUnaryCall
 from google.protobuf.internal.enum_type_wrapper import EnumTypeWrapper
-from google.protobuf import Message
 
 import uuid
 import grpc
