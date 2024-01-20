@@ -152,6 +152,7 @@ message BatteryState {
 enum PowerState {
     POWER_STATE_UNKNOWN = 0;
     POWER_STATE_SLEEP = 1;
+    POWER_STATE_WINK = 2;
     POWER_STATE_ACCESSORY = 3;
     POWER_STATE_LIVE_CHARGE = 5;
     POWER_STATE_SLEEP_CHARGE = 6;
@@ -319,8 +320,9 @@ enum AlarmStatus {
 
 enum AlarmMode {
     ALARM_MODE_UNKNOWN = 0;
-    ALARM_MODE_SILENT = 1;
+    ALARM_MODE_OFF = 1;
     ALARM_MODE_ON = 2;
+    ALARM_MODE_SILENT = 3;
 }
 
 message AlarmState {
