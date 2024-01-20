@@ -20,6 +20,7 @@ enum ModelVariant {
     MODEL_VARIANT_DREAM_EDITION = 1;
     MODEL_VARIANT_GRAND_TOURING = 2;
     MODEL_VARIANT_TOURING = 3;
+    MODEL_VARIANT_PURE = 4;
 }
 
 enum PaintColor {
@@ -30,6 +31,7 @@ enum PaintColor {
     PAINT_COLOR_COSMOS_SILVER = 4;
     PAINT_COLOR_QUANTUM_GREY = 5;
     PAINT_COLOR_ZENITH_RED = 6;
+    PAINT_COLOR_FATHOM_BLUE = 7;
 }
 
 enum Wheels {
@@ -103,6 +105,10 @@ message SpecialIdentifiers {
     string door_plate = 1;
 }
 
+message Reservation {
+    uint64 date = 1;
+}
+
 message VehicleConfig {
     string vin = 1;
     Model model = 2;
@@ -121,6 +127,7 @@ message VehicleConfig {
     SpecialIdentifiers special_identifiers = 16;
     string exterior_color_code = 18;
     string interior_color_code = 19;
+    Reservation reservation = 21;
 }
 
 enum WarningState {
@@ -176,7 +183,7 @@ enum DoorState {
     DOOR_STATE_UNKNOWN = 0;
     DOOR_STATE_OPEN = 1;
     DOOR_STATE_CLOSED = 2;
-    /* AJAR? */
+    DOOR_STATE_AJAR = 3;
 }
 
 enum WalkawayState {
@@ -289,7 +296,7 @@ message Location {
 
 message Gps {
     Location location = 1;
-    uint32 elevation = 2;
+    int32 elevation = 2;
     uint64 position_time = 4;
     double heading_precise = 5;
 }
@@ -395,6 +402,7 @@ enum SharedTripState {
 
 /* Set of pending requests from API? */
 message MobileAppReqState {
+    DoorState charge_port_request = 2;
     DefrostState hvac_defrost = 11;
     HvacPower hvac_precondition = 12;
     LightAction light_request = 13;
