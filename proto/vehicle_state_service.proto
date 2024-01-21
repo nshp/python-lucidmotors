@@ -501,7 +501,7 @@ enum ChargeAction {
 }
 
 message ChargeControlRequest {
-    uint32 action = 1;
+    ChargeAction action = 1;
     string vehicle_id = 2;
 }
 message ChargeControlResponse {}
