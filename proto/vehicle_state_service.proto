@@ -34,6 +34,12 @@ enum PaintColor {
     PAINT_COLOR_FATHOM_BLUE = 7;
 }
 
+enum Look {
+    LOOK_UNKNOWN = 0;
+    LOOK_PLATINUM = 1;
+    LOOK_STEALTH = 2;
+}
+
 enum Wheels {
     WHEELS_UNKNOWN = 0;
     WHEELS_DREAM = 1;
@@ -131,6 +137,7 @@ message VehicleConfig {
     BatteryType battery = 14;
     Interior interior = 15;
     SpecialIdentifiers special_identifiers = 16;
+    Look look = 17;
     string exterior_color_code = 18;
     string interior_color_code = 19;
     StrutType frunk_strut = 20;

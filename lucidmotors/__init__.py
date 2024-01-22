@@ -31,6 +31,7 @@ from .gen.vehicle_state_service_pb2 import (
     Model,
     ModelVariant,
     PaintColor,
+    Look,
     Wheels,
     SubscriptionStatus,
     ChargingSubscription,
