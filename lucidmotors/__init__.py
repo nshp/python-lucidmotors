@@ -42,6 +42,7 @@ from .gen.vehicle_state_service_pb2 import (
     Interior,
     SpecialIdentifiers,
     Reservation,
+    StrutType,
     VehicleConfig,
     WarningState,
     BatteryPreconStatus,

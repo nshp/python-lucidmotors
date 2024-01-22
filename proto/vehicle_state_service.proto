@@ -109,6 +109,12 @@ message Reservation {
     uint64 date = 1;
 }
 
+enum StrutType {
+    STRUT_TYPE_UNKNOWN = 0;
+    STRUT_TYPE_GAS = 1;
+    STRUT_TYPE_POWER = 2;
+}
+
 message VehicleConfig {
     string vin = 1;
     Model model = 2;
@@ -127,6 +133,7 @@ message VehicleConfig {
     SpecialIdentifiers special_identifiers = 16;
     string exterior_color_code = 18;
     string interior_color_code = 19;
+    StrutType frunk_strut = 20;
     Reservation reservation = 21;
 }
 
