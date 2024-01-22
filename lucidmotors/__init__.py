@@ -87,6 +87,8 @@ from .gen.vehicle_state_service_pb2 import (
     TcuInternetState,
     VehicleState,
     Vehicle,
+    GetDocumentInfoResponse,
+    DocumentType,
 )
 from .gen.charging_service_pb2 import (
     DateTime,
@@ -576,3 +578,41 @@ class LucidAPI:
             vehicle_id=vehicle.vehicle_id,
         )
         await _check_for_api_error(self._vehicle_service.SetCabinTemperature(request))
+
+    async def get_update_release_notes(self, version: str) -> GetDocumentInfoResponse:
+        """
+        Fetch release notes and description given a software version, e.g.
+        '2.1.47'.
+        """
+
+        request = vehicle_state_service_pb2.GetDocumentInfoRequest(
+            version=version,
+            document_type=DocumentType.DOCUMENT_TYPE_RELEASE_NOTES_POST,
+        )
+
+        return await _check_for_api_error(self._vehicle_service.GetDocumentInfo(request))
+
+    async def get_owners_manual(self, version: str) -> str:
+        """
+        Fetch owner's manual URL given a software version, e.g. '2.1.47'.
+        """
+
+        request = vehicle_state_service_pb2.GetDocumentInfoRequest(
+            version=version,
+            document_type=DocumentType.DOCUMENT_TYPE_OWNERS_MANUAL,
+        )
+
+        result = await _check_for_api_error(self._vehicle_service.GetDocumentInfo(request))
+        return result.url
+
+    async def apply_update(self, vehicle: Vehicle) -> None:
+        """
+        Apply an available software update. Target version cannot be chosen, it
+        will always be the latest update available to the car.
+        """
+
+        request = vehicle_state_service_pb2.ApplySoftwareUpdateRequest(
+            vehicle_id=vehicle.vehicle_id,
+        )
+
+        await _check_for_api_error(self._vehicle_service.ApplySoftwareUpdate(request))
