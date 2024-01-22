@@ -59,6 +59,7 @@ from .gen.vehicle_state_service_pb2 import (
     LightAction,
     ChassisState,
     ChargeState,
+    ChargeAction,
     ScheduledChargeState,
     ScheduledChargeUnavailableState,
     EnergyType,
@@ -616,3 +617,39 @@ class LucidAPI:
         )
 
         await _check_for_api_error(self._vehicle_service.ApplySoftwareUpdate(request))
+
+    async def set_charge_limit(self, vehicle: Vehicle, value: int) -> None:
+        """
+        Set the charge limit for a specific vehicle.
+        """
+
+        request = vehicle_state_service_pb2.SetChargeLimitRequest(
+            limit_percent=value,
+            vehicle_id=vehicle.vehicle_id,
+        )
+        await _check_for_api_error(self._vehicle_service.SetChargeLimit(request))
+
+    async def charging_control(self, vehicle: Vehicle, action: ChargeAction) -> None:
+        """
+        Control the defrost mode of a specific vehicle.
+        """
+
+        request = vehicle_state_service_pb2.ChargeControlRequest(
+            action=action,
+            vehicle_id=vehicle.vehicle_id,
+        )
+        await _check_for_api_error(self._vehicle_service.ChargeControl(request))
+
+    async def start_charging(self, vehicle: Vehicle) -> None:
+        """
+        Start charging a specific vehicle.
+        """
+
+        await self.charging_control(vehicle, ChargeAction.CHARGE_ACTION_START)
+
+    async def stop_charging(self, vehicle: Vehicle) -> None:
+        """
+        Stop charging a specific vehicle.
+        """
+
+        await self.charging_control(vehicle, ChargeAction.CHARGE_ACTION_STOP)

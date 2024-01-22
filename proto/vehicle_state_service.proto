@@ -511,7 +511,8 @@ message CancelScheduledUpdateResponse {}
 
 enum ChargeAction {
     CHARGE_ACTION_UNKNOWN = 0;
-    /* TODO: What are the actions? */
+    CHARGE_ACTION_START = 1;
+    CHARGE_ACTION_STOP = 2;
 }
 
 message ChargeControlRequest {
