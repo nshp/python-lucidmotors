@@ -276,7 +276,7 @@ enum ScheduledChargeState {
 }
 
 enum ScheduledChargeUnavailableState {
-    SCHEDULED_CHAGRE_UNAVAILABLE_UNKNOWN = 0;
+    SCHEDULED_CHARGE_UNAVAILABLE_UNKNOWN = 0;
     SCHEDULED_CHARGE_UNAVAILABLE_NO_REQUEST = 1;
 }
 
