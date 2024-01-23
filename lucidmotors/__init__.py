@@ -653,3 +653,28 @@ class LucidAPI:
         """
 
         await self.charging_control(vehicle, ChargeAction.CHARGE_ACTION_STOP)
+
+    async def alarm_control(self, vehicle: Vehicle, status: AlarmStatus) -> None:
+        """
+        Control the alarm of a specific vehicle.
+        """
+
+        request = vehicle_state_service_pb2.SecurityAlarmControlRequest(
+            status=status,
+            vehicle_id=vehicle.vehicle_id,
+        )
+        await _check_for_api_error(self._vehicle_service.SecurityAlarmControl(request))
+
+    async def turn_alarm_on(self, vehicle: Vehicle) -> None:
+        """
+        Turn on the alarm of a specific vehicle.
+        """
+
+        await self.alarm_control(vehicle, AlarmStatus.ALARM_STATUS_ARMED)
+
+    async def turn_alarm_off(self, vehicle: Vehicle) -> None:
+        """
+        Turn on the alarm of a specific vehicle.
+        """
+
+        await self.alarm_control(vehicle, AlarmStatus.ALARM_STATUS_DISARMED)
