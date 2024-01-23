@@ -599,7 +599,7 @@ message RearCargoControlRequest {
 message RearCargoControlResponse {}
 
 message SecurityAlarmControlRequest {
-    AlarmStatus status = 1;
+    AlarmMode mode = 1;
     string vehicle_id = 2;
 }
 message SecurityAlarmControlResponse {}
