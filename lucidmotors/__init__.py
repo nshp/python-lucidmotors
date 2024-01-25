@@ -133,13 +133,12 @@ async def _check_for_api_error(coroutine: Awaitable[T]) -> T:
 
 
 def enum_to_str(enum_type: EnumTypeWrapper, value: int) -> str:
-
     match (enum_type, value):
         case (
-            (VSS.AlarmMode, AlarmMode.ALARM_MODE_UNKNOWN) |
-            (VSS.AlarmStatus, AlarmStatus.ALARM_STATUS_UNKNOWN) |
-            (VSS.Model, Model.MODEL_UNKNOWN) |
-            (VSS.ModelVariant, ModelVariant.MODEL_VARIANT_UNKNOWN)
+            (VSS.AlarmMode, AlarmMode.ALARM_MODE_UNKNOWN)
+            | (VSS.AlarmStatus, AlarmStatus.ALARM_STATUS_UNKNOWN)
+            | (VSS.Model, Model.MODEL_UNKNOWN)
+            | (VSS.ModelVariant, ModelVariant.MODEL_VARIANT_UNKNOWN)
         ):
             return "Unknown"
         case (VSS.AlarmMode, AlarmMode.ALARM_MODE_ON):
@@ -626,7 +625,9 @@ class LucidAPI:
             document_type=DocumentType.DOCUMENT_TYPE_RELEASE_NOTES_POST,
         )
 
-        return await _check_for_api_error(self._vehicle_service.GetDocumentInfo(request))
+        return await _check_for_api_error(
+            self._vehicle_service.GetDocumentInfo(request)
+        )
 
     async def get_owners_manual(self, version: str) -> str:
         """
@@ -638,7 +639,9 @@ class LucidAPI:
             document_type=DocumentType.DOCUMENT_TYPE_OWNERS_MANUAL,
         )
 
-        result = await _check_for_api_error(self._vehicle_service.GetDocumentInfo(request))
+        result = await _check_for_api_error(
+            self._vehicle_service.GetDocumentInfo(request)
+        )
         return result.url
 
     async def apply_update(self, vehicle: Vehicle) -> None:
