@@ -12,3 +12,7 @@ MOBILE_API = "mobile.deneb.prod.infotainment.pdx.atieva.com"
 # SetCabinTemperatureRequest
 PRECONDITION_TEMPERATURE_MIN = 15.0
 PRECONDITION_TEMPERATURE_MAX = 30.0
+
+# Maximum tire pressure value (bar). The API returns this when it doesn't have
+# a current value.
+TIRE_PRESSURE_MAX = 6.3750000949949026
