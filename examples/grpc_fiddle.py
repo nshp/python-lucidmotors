@@ -37,7 +37,7 @@ wire_types = {
 }
 
 def message_dump_recursive(message: Any, depth: int = 0):
-    if isinstance(message, (google._upb._message.RepeatedScalarContainer, google._upb._message.RepeatedCompositeContainer)):
+    if isinstance(message, (google._upb._message.RepeatedScalarContainer, google._upb._message.RepeatedCompositeContainer)):  # type: ignore
         for elem in message:
             message_dump_recursive(elem, depth=depth)
         return
@@ -56,7 +56,7 @@ def message_dump_recursive(message: Any, depth: int = 0):
         print(f'{indent}Unknown field {field.field_number} wire type {wire_type}: {field.data!r}')
 
     for descriptor, field in message.ListFields():
-        if isinstance(field, (google.protobuf.message.Message, google._upb._message.RepeatedScalarContainer, google._upb._message.RepeatedCompositeContainer)):
+        if isinstance(field, (google.protobuf.message.Message, google._upb._message.RepeatedScalarContainer, google._upb._message.RepeatedCompositeContainer)):  # type: ignore
             field_desc_short = ''
         elif descriptor.enum_type is not None:
             # TODO: Handle a list of enum, like LoginResponse.subscriptions
