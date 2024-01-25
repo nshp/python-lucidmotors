@@ -417,10 +417,12 @@ enum SharedTripState {
 /* Set of pending requests from API? */
 message MobileAppReqState {
     DoorState charge_port_request = 2;
+    DoorState frunk_cargo_request = 9;
     DefrostState hvac_defrost = 11;
     HvacPower hvac_precondition = 12;
     LightAction light_request = 13;
     SharedTripState shared_trip_request = 15;
+    DoorState trunk_cargo_request = 16;
     LockState vehicle_unlock_request = 17;
 
 /*
@@ -433,12 +435,10 @@ Other fields (all optional):
  'doorRightFrontReq': 'UNKNOWN_CLOSURE_STATE',
  'doorRightRearReq': 'UNKNOWN_CLOSURE_STATE',
  'driveEnable': 'KEYLESS_DRIVING_STATE_UNKNOWN',
- 'frunkCargoReq': 'CLOSED',
  'hornReq': 'UNKNOWN_CLOSURE_STATE',
  'hvacDefrostEnable': 'UNKNOWN_HVAC_DEFROST',
  'hvacPreconditionEnable': 'UNKNOWN_HVAC_STATE',
  'panicReq': 'PANIC_ALARM_UNKNOWN',
- 'trunkCargoReq': 'UNKNOWN_CLOSURE_STATE',
 */
 }
 

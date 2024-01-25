@@ -231,8 +231,15 @@ class LucidAPI:
     _vehicle_service: vehicle_state_service_pb2_grpc.VehicleStateServiceStub
     _charging_service: charging_service_pb2_grpc.ChargingServiceStub
 
-    def __init__(self) -> None:
-        """Initialize the API client"""
+    # Automatically wake sleeping vehicle along with commands?
+    _auto_wake: bool
+
+    def __init__(self, auto_wake: bool = False) -> None:
+        """Initialize the API client
+
+        :param auto_wake: Automatically send a wake request with commands that
+        require it if the vehicle is sleeping.
+        """
 
         # We start with a channel secured with "SSL credentials," i.e. normal
         # SSL/TLS certificate verification. Once we log in we can upgrade to
@@ -258,6 +265,7 @@ class LucidAPI:
         self._token_expiry_time = None
         self._user_profile = None
         self._vehicles = []
+        self._auto_wake = auto_wake
 
     async def __aenter__(self) -> "LucidAPI":
         await self._channel.__aenter__()
@@ -375,6 +383,15 @@ class LucidAPI:
 
         return self._vehicles
 
+    def vehicle_is_awake(self, vehicle: Vehicle) -> bool:
+        """
+        Returns `True` if `vehicle` was awake (i.e. responding to commands) as
+        of the last status update.
+        """
+
+        # There are a lot of power states. Do any others mean it's not listening?
+        return vehicle.state.power != PowerState.POWER_STATE_SLEEP
+
     async def wakeup_vehicle(self, vehicle: Vehicle) -> None:
         """
         Wake up a specific vehicle.
@@ -432,6 +449,9 @@ class LucidAPI:
         Control the charge port door of a specific vehicle.
         """
 
+        if self._auto_wake and self.vehicle_is_awake(vehicle):
+            await self.wakeup_vehicle(vehicle)
+
         request = vehicle_state_service_pb2.ControlChargePortRequest(
             closure_state=state,
             vehicle_id=vehicle.vehicle_id,
@@ -458,6 +478,9 @@ class LucidAPI:
         """
         Control the doors of a specific vehicle.
         """
+
+        if self._auto_wake and self.vehicle_is_awake(vehicle):
+            await self.wakeup_vehicle(vehicle)
 
         request = vehicle_state_service_pb2.DoorLocksControlRequest(
             door_location=doors,
@@ -489,6 +512,9 @@ class LucidAPI:
         Control the frunk door of a specific vehicle.
         """
 
+        if self._auto_wake and self.vehicle_is_awake(vehicle):
+            await self.wakeup_vehicle(vehicle)
+
         request = vehicle_state_service_pb2.FrontCargoControlRequest(
             closure_state=state,
             vehicle_id=vehicle.vehicle_id,
@@ -514,6 +540,9 @@ class LucidAPI:
         Control the trunk door of a specific vehicle.
         """
 
+        if self._auto_wake and self.vehicle_is_awake(vehicle):
+            await self.wakeup_vehicle(vehicle)
+
         request = vehicle_state_service_pb2.RearCargoControlRequest(
             closure_state=state,
             vehicle_id=vehicle.vehicle_id,
@@ -538,6 +567,9 @@ class LucidAPI:
         """
         Control the defrost mode of a specific vehicle.
         """
+
+        if self._auto_wake and self.vehicle_is_awake(vehicle):
+            await self.wakeup_vehicle(vehicle)
 
         request = vehicle_state_service_pb2.HvacDefrostControlRequest(
             hvac_defrost=action,
@@ -566,6 +598,9 @@ class LucidAPI:
         Set cabin temperature (in celcius) for preconditioning.
         Disables preconditioning if temperature is None.
         """
+
+        if self._auto_wake and self.vehicle_is_awake(vehicle):
+            await self.wakeup_vehicle(vehicle)
 
         if temperature is None:
             power = HvacPower.HVAC_OFF
@@ -612,6 +647,9 @@ class LucidAPI:
         will always be the latest update available to the car.
         """
 
+        if self._auto_wake and self.vehicle_is_awake(vehicle):
+            await self.wakeup_vehicle(vehicle)
+
         request = vehicle_state_service_pb2.ApplySoftwareUpdateRequest(
             vehicle_id=vehicle.vehicle_id,
         )
@@ -631,7 +669,7 @@ class LucidAPI:
 
     async def charging_control(self, vehicle: Vehicle, action: ChargeAction) -> None:
         """
-        Control the defrost mode of a specific vehicle.
+        Enable or disable charging for a specific vehicle.
         """
 
         request = vehicle_state_service_pb2.ChargeControlRequest(
