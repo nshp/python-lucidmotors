@@ -36,6 +36,7 @@ wire_types = {
     5: 'fixed-32bit',
 }
 
+
 def message_dump_recursive(message: Any, depth: int = 0):
     if isinstance(message, (google._upb._message.RepeatedScalarContainer, google._upb._message.RepeatedCompositeContainer)):  # type: ignore
         for elem in message:
@@ -53,7 +54,9 @@ def message_dump_recursive(message: Any, depth: int = 0):
 
     for field in UnknownFieldSet(message):
         wire_type = wire_types[field.wire_type]
-        print(f'{indent}Unknown field {field.field_number} wire type {wire_type}: {field.data!r}')
+        print(
+            f'{indent}Unknown field {field.field_number} wire type {wire_type}: {field.data!r}'
+        )
 
     for descriptor, field in message.ListFields():
         if isinstance(field, (google.protobuf.message.Message, google._upb._message.RepeatedScalarContainer, google._upb._message.RepeatedCompositeContainer)):  # type: ignore
@@ -68,7 +71,9 @@ def message_dump_recursive(message: Any, depth: int = 0):
                 field_desc_short = f'UNKNOWN ENUMERATOR: {field}'
         else:
             field_desc_short = str(field)
-        print(f'{indent}Field {descriptor.number}, {descriptor.name}: {field_desc_short}')
+        print(
+            f'{indent}Field {descriptor.number}, {descriptor.name}: {field_desc_short}'
+        )
         message_dump_recursive(field, depth=depth)
 
 
@@ -78,7 +83,9 @@ def main():
 
     print('Authenticating')
 
-    with grpc.secure_channel("mobile.deneb.prod.infotainment.pdx.atieva.com", grpc.ssl_channel_credentials()) as channel:
+    with grpc.secure_channel(
+        "mobile.deneb.prod.infotainment.pdx.atieva.com", grpc.ssl_channel_credentials()
+    ) as channel:
         stub = login_session_pb2_grpc.LoginSessionStub(channel)
         device_id = f'{uuid.getnode():x}'
         req = login_session_pb2.LoginRequest(
@@ -103,9 +110,13 @@ def main():
     print('Establishing token-based secure channel')
 
     token_creds = grpc.access_token_call_credentials(id_token)
-    creds = grpc.composite_channel_credentials(grpc.ssl_channel_credentials(), token_creds)
+    creds = grpc.composite_channel_credentials(
+        grpc.ssl_channel_credentials(), token_creds
+    )
 
-    with grpc.secure_channel("mobile.deneb.prod.infotainment.pdx.atieva.com", creds) as channel:
+    with grpc.secure_channel(
+        "mobile.deneb.prod.infotainment.pdx.atieva.com", creds
+    ) as channel:
         pass
 
         # stub = trip_service_pb2_grpc.TripServiceStub(channel)
