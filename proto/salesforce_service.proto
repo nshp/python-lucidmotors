@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package mobilegateway.protos;
+
+message ServiceAppointment {
+}
+
+message GetSalesForceServiceAppointmentsRequest {}
+message GetSalesForceServiceAppointmentsResponse {
+    string status = 1;
+    repeated ServiceAppointment appointments = 2;
+    string comment = 3;
+}
+
+service SalesforceService {
+    rpc GetSalesForceServiceAppointments(GetSalesForceServiceAppointmentsRequest) returns (GetSalesForceServiceAppointmentsResponse) {}
+}

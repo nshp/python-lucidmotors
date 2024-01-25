@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package mobilegateway.protos;
+
+message UserProfile {
+    string email = 1;
+    optional string locale = 2;
+    string username = 3;
+    optional string photo_url = 4;
+    string first_name = 5;
+    string last_name = 6;
+}
+
+message SetUserProfileRequest {}
+message SetUserProfileResponse {}
+
+message UploadUserProfilePhotoRequest {}
+message UploadUserProfilePhotoResponse {}
+
+service UserProfileService {
+    rpc SetUserProfile(SetUserProfileRequest) returns (SetUserProfileResponse) {}
+    rpc UploadUserProfilePhoto(UploadUserProfilePhotoRequest) returns (UploadUserProfilePhotoResponse) {}
+}
