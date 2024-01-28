@@ -5,7 +5,7 @@ from typing import ClassVar as _ClassVar, Optional as _Optional
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class UserProfile(_message.Message):
-    __slots__ = ["email", "locale", "username", "photo_url", "first_name", "last_name"]
+    __slots__ = ("email", "locale", "username", "photo_url", "first_name", "last_name")
     EMAIL_FIELD_NUMBER: _ClassVar[int]
     LOCALE_FIELD_NUMBER: _ClassVar[int]
     USERNAME_FIELD_NUMBER: _ClassVar[int]

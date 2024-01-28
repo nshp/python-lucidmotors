@@ -16,7 +16,7 @@ WAYPOINT_TYPE_CHARGING: WaypointType
 WAYPOINT_TYPE_WAYPOINT: WaypointType
 
 class Waypoint(_message.Message):
-    __slots__ = ["latitude", "longitude", "address", "waypoint_type"]
+    __slots__ = ("latitude", "longitude", "address", "waypoint_type")
     LATITUDE_FIELD_NUMBER: _ClassVar[int]
     LONGITUDE_FIELD_NUMBER: _ClassVar[int]
     ADDRESS_FIELD_NUMBER: _ClassVar[int]
@@ -28,7 +28,7 @@ class Waypoint(_message.Message):
     def __init__(self, latitude: _Optional[float] = ..., longitude: _Optional[float] = ..., address: _Optional[str] = ..., waypoint_type: _Optional[_Union[WaypointType, str]] = ...) -> None: ...
 
 class Trip(_message.Message):
-    __slots__ = ["destination_name", "distance_meters", "elapsed_time_sec", "charging_stops", "waypoints", "sender"]
+    __slots__ = ("destination_name", "distance_meters", "elapsed_time_sec", "charging_stops", "waypoints", "sender")
     DESTINATION_NAME_FIELD_NUMBER: _ClassVar[int]
     DISTANCE_METERS_FIELD_NUMBER: _ClassVar[int]
     ELAPSED_TIME_SEC_FIELD_NUMBER: _ClassVar[int]
@@ -44,7 +44,7 @@ class Trip(_message.Message):
     def __init__(self, destination_name: _Optional[str] = ..., distance_meters: _Optional[int] = ..., elapsed_time_sec: _Optional[int] = ..., charging_stops: _Optional[int] = ..., waypoints: _Optional[_Iterable[_Union[Waypoint, _Mapping]]] = ..., sender: _Optional[str] = ...) -> None: ...
 
 class ShareTripRequest(_message.Message):
-    __slots__ = ["trip", "vehicle_id"]
+    __slots__ = ("trip", "vehicle_id")
     TRIP_FIELD_NUMBER: _ClassVar[int]
     VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
     trip: Trip

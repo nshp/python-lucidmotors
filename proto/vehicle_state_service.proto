@@ -267,6 +267,7 @@ enum ChargeState {
     CHARGE_STATE_CABLE_CONNECTED = 2;
     CHARGE_STATE_CHARGING = 8;
     CHARGE_STATE_CHARGING_END_OK = 9;
+    CHARGE_STATE_DISCHARGING = 19;
 }
 
 enum ScheduledChargeState {
@@ -285,6 +286,7 @@ enum EnergyType {
     ENERGY_TYPE_UNKNOWN = 0;
     ENERGY_TYPE_AC = 1;
     ENERGY_TYPE_DC = 2;
+    ENERGY_TYPE_V2V = 4;
 }
 
 message ChargingState {

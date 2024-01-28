@@ -14,7 +14,7 @@ class GetSalesForceServiceAppointmentsRequest(_message.Message):
     def __init__(self) -> None: ...
 
 class GetSalesForceServiceAppointmentsResponse(_message.Message):
-    __slots__ = ["status", "appointments", "comment"]
+    __slots__ = ("status", "appointments", "comment")
     STATUS_FIELD_NUMBER: _ClassVar[int]
     APPOINTMENTS_FIELD_NUMBER: _ClassVar[int]
     COMMENT_FIELD_NUMBER: _ClassVar[int]
