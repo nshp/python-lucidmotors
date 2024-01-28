@@ -203,6 +203,7 @@ enum DoorState {
 enum WalkawayState {
     WALKAWAY_UNKNOWN = 0;
     WALKAWAY_ACTIVE = 2;
+    WALKAWAY_DISABLE = 3;
 }
 
 enum AccessRequest {
