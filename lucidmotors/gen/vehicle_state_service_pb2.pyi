@@ -71,6 +71,7 @@ class Edition(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     EDITION_UNKNOWN: _ClassVar[Edition]
     EDITION_PERFORMANCE: _ClassVar[Edition]
+    EDITION_RANGE: _ClassVar[Edition]
     EDITION_STANDARD: _ClassVar[Edition]
 
 class BatteryType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
@@ -339,6 +340,7 @@ CHARGING_VENDOR_UNKNOWN: ChargingVendor
 CHARGING_VENDOR_ELECTRIFY_AMERICA: ChargingVendor
 EDITION_UNKNOWN: Edition
 EDITION_PERFORMANCE: Edition
+EDITION_RANGE: Edition
 EDITION_STANDARD: Edition
 BATTERY_TYPE_UNKNOWN: BatteryType
 BATTERY_TYPE_01: BatteryType

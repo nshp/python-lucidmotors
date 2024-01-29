@@ -83,6 +83,7 @@ message ChargingAccount {
 enum Edition {
     EDITION_UNKNOWN = 0;
     EDITION_PERFORMANCE = 1;
+    EDITION_RANGE = 2;
     EDITION_STANDARD = 3;
 }
 
