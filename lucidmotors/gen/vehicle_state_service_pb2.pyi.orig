@@ -120,6 +120,7 @@ class PowerState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     POWER_STATE_SLEEP: _ClassVar[PowerState]
     POWER_STATE_WINK: _ClassVar[PowerState]
     POWER_STATE_ACCESSORY: _ClassVar[PowerState]
+    POWER_STATE_DRIVE: _ClassVar[PowerState]
     POWER_STATE_LIVE_CHARGE: _ClassVar[PowerState]
     POWER_STATE_SLEEP_CHARGE: _ClassVar[PowerState]
     POWER_STATE_LIVE_UPDATE: _ClassVar[PowerState]
@@ -201,6 +202,11 @@ class UpdateState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     UPDATE_STATE_FAILED: _ClassVar[UpdateState]
     UPDATE_FAILED_DRIVE_ALLOWED: _ClassVar[UpdateState]
     UPDATE_SUCCESS_WITH_WARNINGS: _ClassVar[UpdateState]
+
+class UpdateAvailability(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    UPDATE_AVAILABILITY_UNKNOWN: _ClassVar[UpdateAvailability]
+    UPDATE_AVAILABLE: _ClassVar[UpdateAvailability]
 
 class AlarmStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -371,6 +377,7 @@ POWER_STATE_UNKNOWN: PowerState
 POWER_STATE_SLEEP: PowerState
 POWER_STATE_WINK: PowerState
 POWER_STATE_ACCESSORY: PowerState
+POWER_STATE_DRIVE: PowerState
 POWER_STATE_LIVE_CHARGE: PowerState
 POWER_STATE_SLEEP_CHARGE: PowerState
 POWER_STATE_LIVE_UPDATE: PowerState
@@ -419,6 +426,8 @@ UPDATE_STATE_SUCCESS: UpdateState
 UPDATE_STATE_FAILED: UpdateState
 UPDATE_FAILED_DRIVE_ALLOWED: UpdateState
 UPDATE_SUCCESS_WITH_WARNINGS: UpdateState
+UPDATE_AVAILABILITY_UNKNOWN: UpdateAvailability
+UPDATE_AVAILABLE: UpdateAvailability
 ALARM_STATUS_UNKNOWN: AlarmStatus
 ALARM_STATUS_DISARMED: AlarmStatus
 ALARM_STATUS_ARMED: AlarmStatus
@@ -702,20 +711,22 @@ class Gps(_message.Message):
     def __init__(self, location: _Optional[_Union[Location, _Mapping]] = ..., elevation: _Optional[int] = ..., position_time: _Optional[int] = ..., heading_precise: _Optional[float] = ...) -> None: ...
 
 class SoftwareUpdate(_message.Message):
-    __slots__ = ("version_available", "install_duration_minutes", "percent_complete", "state", "version_available_raw", "scheduled_start_time_sec")
+    __slots__ = ("version_available", "install_duration_minutes", "percent_complete", "state", "version_available_raw", "update_available", "scheduled_start_time_sec")
     VERSION_AVAILABLE_FIELD_NUMBER: _ClassVar[int]
     INSTALL_DURATION_MINUTES_FIELD_NUMBER: _ClassVar[int]
     PERCENT_COMPLETE_FIELD_NUMBER: _ClassVar[int]
     STATE_FIELD_NUMBER: _ClassVar[int]
     VERSION_AVAILABLE_RAW_FIELD_NUMBER: _ClassVar[int]
+    UPDATE_AVAILABLE_FIELD_NUMBER: _ClassVar[int]
     SCHEDULED_START_TIME_SEC_FIELD_NUMBER: _ClassVar[int]
     version_available: str
     install_duration_minutes: int
     percent_complete: int
     state: UpdateState
     version_available_raw: int
+    update_available: UpdateAvailability
     scheduled_start_time_sec: int
-    def __init__(self, version_available: _Optional[str] = ..., install_duration_minutes: _Optional[int] = ..., percent_complete: _Optional[int] = ..., state: _Optional[_Union[UpdateState, str]] = ..., version_available_raw: _Optional[int] = ..., scheduled_start_time_sec: _Optional[int] = ...) -> None: ...
+    def __init__(self, version_available: _Optional[str] = ..., install_duration_minutes: _Optional[int] = ..., percent_complete: _Optional[int] = ..., state: _Optional[_Union[UpdateState, str]] = ..., version_available_raw: _Optional[int] = ..., update_available: _Optional[_Union[UpdateAvailability, str]] = ..., scheduled_start_time_sec: _Optional[int] = ...) -> None: ...
 
 class AlarmState(_message.Message):
     __slots__ = ("status", "mode")
