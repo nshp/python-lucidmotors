@@ -122,6 +122,11 @@ enum StrutType {
     STRUT_TYPE_POWER = 2;
 }
 
+enum RoofType {
+    ROOF_TYPE_UNKNOWN = 0;
+    ROOF_TYPE_GLASS_CANOPY = 1;
+}
+
 message VehicleConfig {
     string vin = 1;
     Model model = 2;
@@ -143,6 +148,7 @@ message VehicleConfig {
     string interior_color_code = 19;
     StrutType frunk_strut = 20;
     Reservation reservation = 21;
+    RoofType roof = 22;
 }
 
 enum WarningState {

@@ -101,6 +101,11 @@ class StrutType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     STRUT_TYPE_GAS: _ClassVar[StrutType]
     STRUT_TYPE_POWER: _ClassVar[StrutType]
 
+class RoofType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    ROOF_TYPE_UNKNOWN: _ClassVar[RoofType]
+    ROOF_TYPE_GLASS_CANOPY: _ClassVar[RoofType]
+
 class WarningState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     WARNING_UNKNOWN: _ClassVar[WarningState]
@@ -366,6 +371,8 @@ INTERIOR_SANTA_MONICA: Interior
 STRUT_TYPE_UNKNOWN: StrutType
 STRUT_TYPE_GAS: StrutType
 STRUT_TYPE_POWER: StrutType
+ROOF_TYPE_UNKNOWN: RoofType
+ROOF_TYPE_GLASS_CANOPY: RoofType
 WARNING_UNKNOWN: WarningState
 WARNING_OFF: WarningState
 WARNING_ON: WarningState
@@ -525,7 +532,7 @@ class Reservation(_message.Message):
     def __init__(self, date: _Optional[int] = ...) -> None: ...
 
 class VehicleConfig(_message.Message):
-    __slots__ = ("vin", "model", "variant", "nickname", "paint_color", "ema_id", "wheels", "ea_subscription", "charging_accounts", "country_code", "region_code", "edition", "battery", "interior", "special_identifiers", "look", "exterior_color_code", "interior_color_code", "frunk_strut", "reservation")
+    __slots__ = ("vin", "model", "variant", "nickname", "paint_color", "ema_id", "wheels", "ea_subscription", "charging_accounts", "country_code", "region_code", "edition", "battery", "interior", "special_identifiers", "look", "exterior_color_code", "interior_color_code", "frunk_strut", "reservation", "roof")
     VIN_FIELD_NUMBER: _ClassVar[int]
     MODEL_FIELD_NUMBER: _ClassVar[int]
     VARIANT_FIELD_NUMBER: _ClassVar[int]
@@ -546,6 +553,7 @@ class VehicleConfig(_message.Message):
     INTERIOR_COLOR_CODE_FIELD_NUMBER: _ClassVar[int]
     FRUNK_STRUT_FIELD_NUMBER: _ClassVar[int]
     RESERVATION_FIELD_NUMBER: _ClassVar[int]
+    ROOF_FIELD_NUMBER: _ClassVar[int]
     vin: str
     model: Model
     variant: ModelVariant
@@ -566,7 +574,8 @@ class VehicleConfig(_message.Message):
     interior_color_code: str
     frunk_strut: StrutType
     reservation: Reservation
-    def __init__(self, vin: _Optional[str] = ..., model: _Optional[_Union[Model, str]] = ..., variant: _Optional[_Union[ModelVariant, str]] = ..., nickname: _Optional[str] = ..., paint_color: _Optional[_Union[PaintColor, str]] = ..., ema_id: _Optional[str] = ..., wheels: _Optional[_Union[Wheels, str]] = ..., ea_subscription: _Optional[_Union[ChargingSubscription, _Mapping]] = ..., charging_accounts: _Optional[_Iterable[_Union[ChargingAccount, _Mapping]]] = ..., country_code: _Optional[str] = ..., region_code: _Optional[str] = ..., edition: _Optional[_Union[Edition, str]] = ..., battery: _Optional[_Union[BatteryType, str]] = ..., interior: _Optional[_Union[Interior, str]] = ..., special_identifiers: _Optional[_Union[SpecialIdentifiers, _Mapping]] = ..., look: _Optional[_Union[Look, str]] = ..., exterior_color_code: _Optional[str] = ..., interior_color_code: _Optional[str] = ..., frunk_strut: _Optional[_Union[StrutType, str]] = ..., reservation: _Optional[_Union[Reservation, _Mapping]] = ...) -> None: ...
+    roof: RoofType
+    def __init__(self, vin: _Optional[str] = ..., model: _Optional[_Union[Model, str]] = ..., variant: _Optional[_Union[ModelVariant, str]] = ..., nickname: _Optional[str] = ..., paint_color: _Optional[_Union[PaintColor, str]] = ..., ema_id: _Optional[str] = ..., wheels: _Optional[_Union[Wheels, str]] = ..., ea_subscription: _Optional[_Union[ChargingSubscription, _Mapping]] = ..., charging_accounts: _Optional[_Iterable[_Union[ChargingAccount, _Mapping]]] = ..., country_code: _Optional[str] = ..., region_code: _Optional[str] = ..., edition: _Optional[_Union[Edition, str]] = ..., battery: _Optional[_Union[BatteryType, str]] = ..., interior: _Optional[_Union[Interior, str]] = ..., special_identifiers: _Optional[_Union[SpecialIdentifiers, _Mapping]] = ..., look: _Optional[_Union[Look, str]] = ..., exterior_color_code: _Optional[str] = ..., interior_color_code: _Optional[str] = ..., frunk_strut: _Optional[_Union[StrutType, str]] = ..., reservation: _Optional[_Union[Reservation, _Mapping]] = ..., roof: _Optional[_Union[RoofType, str]] = ...) -> None: ...
 
 class BatteryState(_message.Message):
     __slots__ = ("remaining_range", "charge_percent", "kwhr", "capacity_kwhr", "battery_health", "low_charge_level", "critical_charge_level", "unavailable_range", "preconditioning_status", "preconditioning_time_remaining")
