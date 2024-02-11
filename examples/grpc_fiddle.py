@@ -9,6 +9,9 @@ import getpass
 import google._upb
 import google.protobuf
 
+import sys
+sys.path.insert(0, '.')
+
 from lucidmotors.gen import login_session_pb2
 from lucidmotors.gen import login_session_pb2_grpc
 
