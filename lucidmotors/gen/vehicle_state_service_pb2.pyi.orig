@@ -105,6 +105,7 @@ class RoofType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     ROOF_TYPE_UNKNOWN: _ClassVar[RoofType]
     ROOF_TYPE_GLASS_CANOPY: _ClassVar[RoofType]
+    ROOF_TYPE_METAL: _ClassVar[RoofType]
 
 class WarningState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -373,6 +374,7 @@ STRUT_TYPE_GAS: StrutType
 STRUT_TYPE_POWER: StrutType
 ROOF_TYPE_UNKNOWN: RoofType
 ROOF_TYPE_GLASS_CANOPY: RoofType
+ROOF_TYPE_METAL: RoofType
 WARNING_UNKNOWN: WarningState
 WARNING_OFF: WarningState
 WARNING_ON: WarningState

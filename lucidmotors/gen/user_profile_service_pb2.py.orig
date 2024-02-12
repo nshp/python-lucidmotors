@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1auser_profile_service.proto\x12\x14mobilegateway.protos\"\x9b\x01\n\x0bUserProfile\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x13\n\x06locale\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x10\n\x08username\x18\x03 \x01(\t\x12\x16\n\tphoto_url\x18\x04 \x01(\tH\x01\x88\x01\x01\x12\x12\n\nfirst_name\x18\x05 \x01(\t\x12\x11\n\tlast_name\x18\x06 \x01(\tB\t\n\x07_localeB\x0c\n\n_photo_url\"\x17\n\x15SetUserProfileRequest\"\x18\n\x16SetUserProfileResponse\"\x1f\n\x1dUploadUserProfilePhotoRequest\" \n\x1eUploadUserProfilePhotoResponse2\x8b\x02\n\x12UserProfileService\x12m\n\x0eSetUserProfile\x12+.mobilegateway.protos.SetUserProfileRequest\x1a,.mobilegateway.protos.SetUserProfileResponse\"\x00\x12\x85\x01\n\x16UploadUserProfilePhoto\x12\x33.mobilegateway.protos.UploadUserProfilePhotoRequest\x1a\x34.mobilegateway.protos.UploadUserProfilePhotoResponse\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1auser_profile_service.proto\x12\x14mobilegateway.protos\"\x9b\x01\n\x0bUserProfile\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x13\n\x06locale\x18\x02 \x01(\tH\x00\x88\x01\x01\x12\x10\n\x08username\x18\x03 \x01(\t\x12\x16\n\tphoto_url\x18\x04 \x01(\tH\x01\x88\x01\x01\x12\x12\n\nfirst_name\x18\x05 \x01(\t\x12\x11\n\tlast_name\x18\x06 \x01(\tB\t\n\x07_localeB\x0c\n\n_photo_url\"\x1d\n\x0bPhoneNumber\x12\x0e\n\x06number\x18\x02 \x01(\t\"\xdd\x01\n\x0fUserProfileData\x12\x12\n\nfirst_name\x18\x01 \x01(\t\x12\x11\n\tlast_name\x18\x02 \x01(\t\x12\r\n\x05\x65mail\x18\x03 \x01(\t\x12\x0e\n\x06locale\x18\x04 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x06 \x01(\t\x12\x0c\n\x04\x63ity\x18\x07 \x01(\t\x12\r\n\x05state\x18\x08 \x01(\t\x12\x13\n\x0bpostal_code\x18\t \x01(\t\x12\x0f\n\x07\x63ountry\x18\n \x01(\t\x12\x30\n\x05phone\x18\x0b \x01(\x0b\x32!.mobilegateway.protos.PhoneNumber\"\x17\n\x15SetUserProfileRequest\"\x18\n\x16SetUserProfileResponse\"\x17\n\x15GetUserProfileRequest\"P\n\x16GetUserProfileResponse\x12\x36\n\x07profile\x18\x01 \x01(\x0b\x32%.mobilegateway.protos.UserProfileData\"\x1f\n\x1dUploadUserProfilePhotoRequest\" \n\x1eUploadUserProfilePhotoResponse2\xfa\x02\n\x12UserProfileService\x12m\n\x0eGetUserProfile\x12+.mobilegateway.protos.GetUserProfileRequest\x1a,.mobilegateway.protos.GetUserProfileResponse\"\x00\x12m\n\x0eSetUserProfile\x12+.mobilegateway.protos.SetUserProfileRequest\x1a,.mobilegateway.protos.SetUserProfileResponse\"\x00\x12\x85\x01\n\x16UploadUserProfilePhoto\x12\x33.mobilegateway.protos.UploadUserProfilePhotoRequest\x1a\x34.mobilegateway.protos.UploadUserProfilePhotoResponse\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -23,14 +23,22 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   _globals['_USERPROFILE']._serialized_start=53
   _globals['_USERPROFILE']._serialized_end=208
-  _globals['_SETUSERPROFILEREQUEST']._serialized_start=210
-  _globals['_SETUSERPROFILEREQUEST']._serialized_end=233
-  _globals['_SETUSERPROFILERESPONSE']._serialized_start=235
-  _globals['_SETUSERPROFILERESPONSE']._serialized_end=259
-  _globals['_UPLOADUSERPROFILEPHOTOREQUEST']._serialized_start=261
-  _globals['_UPLOADUSERPROFILEPHOTOREQUEST']._serialized_end=292
-  _globals['_UPLOADUSERPROFILEPHOTORESPONSE']._serialized_start=294
-  _globals['_UPLOADUSERPROFILEPHOTORESPONSE']._serialized_end=326
-  _globals['_USERPROFILESERVICE']._serialized_start=329
-  _globals['_USERPROFILESERVICE']._serialized_end=596
+  _globals['_PHONENUMBER']._serialized_start=210
+  _globals['_PHONENUMBER']._serialized_end=239
+  _globals['_USERPROFILEDATA']._serialized_start=242
+  _globals['_USERPROFILEDATA']._serialized_end=463
+  _globals['_SETUSERPROFILEREQUEST']._serialized_start=465
+  _globals['_SETUSERPROFILEREQUEST']._serialized_end=488
+  _globals['_SETUSERPROFILERESPONSE']._serialized_start=490
+  _globals['_SETUSERPROFILERESPONSE']._serialized_end=514
+  _globals['_GETUSERPROFILEREQUEST']._serialized_start=516
+  _globals['_GETUSERPROFILEREQUEST']._serialized_end=539
+  _globals['_GETUSERPROFILERESPONSE']._serialized_start=541
+  _globals['_GETUSERPROFILERESPONSE']._serialized_end=621
+  _globals['_UPLOADUSERPROFILEPHOTOREQUEST']._serialized_start=623
+  _globals['_UPLOADUSERPROFILEPHOTOREQUEST']._serialized_end=654
+  _globals['_UPLOADUSERPROFILEPHOTORESPONSE']._serialized_start=656
+  _globals['_UPLOADUSERPROFILEPHOTORESPONSE']._serialized_end=688
+  _globals['_USERPROFILESERVICE']._serialized_start=691
+  _globals['_USERPROFILESERVICE']._serialized_end=1069
 # @@protoc_insertion_point(module_scope)

@@ -44,6 +44,7 @@ from .gen.vehicle_state_service_pb2 import (
     SpecialIdentifiers,
     Reservation,
     StrutType,
+    RoofType,
     VehicleConfig,
     WarningState,
     BatteryPreconStatus,
@@ -139,22 +140,33 @@ def enum_to_str(enum_type: EnumTypeWrapper, value: int) -> str:
             | (VSS.AlarmStatus, AlarmStatus.ALARM_STATUS_UNKNOWN)
             | (VSS.Model, Model.MODEL_UNKNOWN)
             | (VSS.ModelVariant, ModelVariant.MODEL_VARIANT_UNKNOWN)
+            | (VSS.PaintColor, PaintColor.PAINT_COLOR_UNKNOWN)
+            | (VSS.Look, Look.LOOK_UNKNOWN)
+            | (VSS.Wheels, Wheels.WHEELS_UNKNOWN)
+            | (VSS.PowerState, PowerState.POWER_STATE_UNKNOWN)
+            | (VSS.EnergyType, EnergyType.ENERGY_TYPE_UNKNOWN)
+            | (VSS.DriveMode, DriveMode.DRIVE_MODE_UNKNOWN)
+            | (VSS.GearPosition, GearPosition.GEAR_UNKNOWN)
         ):
             return "Unknown"
+
         case (VSS.AlarmMode, AlarmMode.ALARM_MODE_ON):
             return "On"
         case (VSS.AlarmMode, AlarmMode.ALARM_MODE_OFF):
             return "Off"
         case (VSS.AlarmMode, AlarmMode.ALARM_MODE_SILENT):
             return "Silent"
+
         case (VSS.AlarmStatus, AlarmStatus.ALARM_STATUS_DISARMED):
             return "Disarmed"
         case (VSS.AlarmStatus, AlarmStatus.ALARM_STATUS_ARMED):
             return "Armed"
+
         case (VSS.Model, Model.MODEL_AIR):
             return "Air"
         case (VSS.Model, Model.MODEL_GRAVITY):
             return "Gravity"
+
         case (VSS.ModelVariant, ModelVariant.MODEL_VARIANT_DREAM_EDITION):
             return "Dream Edition"
         case (VSS.ModelVariant, ModelVariant.MODEL_VARIANT_GRAND_TOURING):
@@ -163,6 +175,80 @@ def enum_to_str(enum_type: EnumTypeWrapper, value: int) -> str:
             return "Touring"
         case (VSS.ModelVariant, ModelVariant.MODEL_VARIANT_PURE):
             return "Pure"
+
+        case (VSS.PaintColor, PaintColor.PAINT_COLOR_EUREKA_GOLD):
+            return "Eureka Gold"
+        case (VSS.PaintColor, PaintColor.PAINT_COLOR_STELLAR_WHITE):
+            return "Stellar White"
+        case (VSS.PaintColor, PaintColor.PAINT_COLOR_INFINITE_BLACK):
+            return "Infinite Black"
+        case (VSS.PaintColor, PaintColor.PAINT_COLOR_COSMOS_SILVER):
+            return "Cosmos Silver"
+        case (VSS.PaintColor, PaintColor.PAINT_COLOR_QUANTUM_GREY):
+            return "Quantum Grey"
+        case (VSS.PaintColor, PaintColor.PAINT_COLOR_ZENITH_RED):
+            return "Zenith Red"
+        case (VSS.PaintColor, PaintColor.PAINT_COLOR_FATHOM_BLUE):
+            return "Fathom Blue"
+
+        case (VSS.Look, Look.LOOK_PLATINUM):
+            return "Platinum"
+        case (VSS.Look, Look.LOOK_STEALTH):
+            return "Stealth"
+
+        case (VSS.Wheels, Wheels.WHEELS_DREAM):
+            return "Dream"
+        case (VSS.Wheels, Wheels.WHEELS_BLADE):
+            return "Blade"
+        case (VSS.Wheels, Wheels.WHEELS_LITE):
+            return "Lite"
+        case (VSS.Wheels, Wheels.WHEELS_RANGE):
+            return "Range"
+        case (VSS.Wheels, Wheels.WHEELS_LITE_STEALTH):
+            return "Lite Stealth"
+
+        case (VSS.PowerState, PowerState.POWER_STATE_SLEEP):
+            return "Sleep"
+        case (VSS.PowerState, PowerState.POWER_STATE_WINK):
+            return "Wink"
+        case (VSS.PowerState, PowerState.POWER_STATE_ACCESSORY):
+            return "Accessory"
+        case (VSS.PowerState, PowerState.POWER_STATE_DRIVE):
+            return "Drive"
+        case (VSS.PowerState, PowerState.POWER_STATE_LIVE_CHARGE):
+            return "Live/Charge"
+        case (VSS.PowerState, PowerState.POWER_STATE_SLEEP_CHARGE):
+            return "Sleep/Charge"
+        case (VSS.PowerState, PowerState.POWER_STATE_LIVE_UPDATE):
+            return "Live/Update"
+        case (VSS.PowerState, PowerState.POWER_STATE_CLOUD_2):
+            return "Cloud 2"
+        case (VSS.PowerState, PowerState.POWER_STATE_MONITOR):
+            return "Monitor"
+
+        case (VSS.EnergyType, EnergyType.ENERGY_TYPE_AC):
+            return "AC"
+        case (VSS.EnergyType, EnergyType.ENERGY_TYPE_DC):
+            return "DC"
+        case (VSS.EnergyType, EnergyType.ENERGY_TYPE_V2V):
+            return "V2V"
+
+        case (VSS.DriveMode, DriveMode.DRIVE_MODE_COMFORT):
+            return "Comfort"
+        case (VSS.DriveMode, DriveMode.DRIVE_MODE_SWIFT):
+            return "Swift"
+        case (VSS.DriveMode, DriveMode.DRIVE_MODE_SPORT_PLUS):
+            return "Sprint"
+
+        case (VSS.GearPosition, GearPosition.GEAR_PARK):
+            return "Park"
+        case (VSS.GearPosition, GearPosition.GEAR_REVERSE):
+            return "Reverse"
+        case (VSS.GearPosition, GearPosition.GEAR_NEUTRAL):
+            return "Neutral"
+        case (VSS.GearPosition, GearPosition.GEAR_DRIVE):
+            return "Drive"
+
         case _:
             if value in enum_type.values():
                 return enum_type.Name(value)

@@ -125,6 +125,7 @@ enum StrutType {
 enum RoofType {
     ROOF_TYPE_UNKNOWN = 0;
     ROOF_TYPE_GLASS_CANOPY = 1;
+    ROOF_TYPE_METAL = 2;
 }
 
 message VehicleConfig {

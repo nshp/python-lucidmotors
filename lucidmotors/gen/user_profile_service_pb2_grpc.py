@@ -14,6 +14,11 @@ class UserProfileServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
+        self.GetUserProfile = channel.unary_unary(
+                '/mobilegateway.protos.UserProfileService/GetUserProfile',
+                request_serializer=user__profile__service__pb2.GetUserProfileRequest.SerializeToString,
+                response_deserializer=user__profile__service__pb2.GetUserProfileResponse.FromString,
+                )
         self.SetUserProfile = channel.unary_unary(
                 '/mobilegateway.protos.UserProfileService/SetUserProfile',
                 request_serializer=user__profile__service__pb2.SetUserProfileRequest.SerializeToString,
@@ -28,6 +33,12 @@ class UserProfileServiceStub(object):
 
 class UserProfileServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
+
+    def GetUserProfile(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def SetUserProfile(self, request, context):
         """Missing associated documentation comment in .proto file."""
@@ -44,6 +55,11 @@ class UserProfileServiceServicer(object):
 
 def add_UserProfileServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
+            'GetUserProfile': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetUserProfile,
+                    request_deserializer=user__profile__service__pb2.GetUserProfileRequest.FromString,
+                    response_serializer=user__profile__service__pb2.GetUserProfileResponse.SerializeToString,
+            ),
             'SetUserProfile': grpc.unary_unary_rpc_method_handler(
                     servicer.SetUserProfile,
                     request_deserializer=user__profile__service__pb2.SetUserProfileRequest.FromString,
@@ -63,6 +79,23 @@ def add_UserProfileServiceServicer_to_server(servicer, server):
  # This class is part of an EXPERIMENTAL API.
 class UserProfileService(object):
     """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def GetUserProfile(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mobilegateway.protos.UserProfileService/GetUserProfile',
+            user__profile__service__pb2.GetUserProfileRequest.SerializeToString,
+            user__profile__service__pb2.GetUserProfileResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
     def SetUserProfile(request,
