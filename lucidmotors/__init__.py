@@ -117,7 +117,7 @@ from .gen.trip_service_pb2 import (
     Trip,
 )
 
-__version__ = "1.0.1"
+__version__ = "1.1.0"
 
 _LOGGER = logging.getLogger(__name__)
 
