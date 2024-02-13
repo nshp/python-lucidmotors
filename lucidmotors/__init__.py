@@ -117,7 +117,7 @@ from .gen.trip_service_pb2 import (
     Trip,
 )
 
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -534,7 +534,7 @@ class LucidAPI:
         Control the charge port door of a specific vehicle.
         """
 
-        if self._auto_wake and self.vehicle_is_awake(vehicle):
+        if self._auto_wake and not self.vehicle_is_awake(vehicle):
             await self.wakeup_vehicle(vehicle)
 
         request = vehicle_state_service_pb2.ControlChargePortRequest(
@@ -564,7 +564,7 @@ class LucidAPI:
         Control the doors of a specific vehicle.
         """
 
-        if self._auto_wake and self.vehicle_is_awake(vehicle):
+        if self._auto_wake and not self.vehicle_is_awake(vehicle):
             await self.wakeup_vehicle(vehicle)
 
         request = vehicle_state_service_pb2.DoorLocksControlRequest(
@@ -597,7 +597,7 @@ class LucidAPI:
         Control the frunk door of a specific vehicle.
         """
 
-        if self._auto_wake and self.vehicle_is_awake(vehicle):
+        if self._auto_wake and not self.vehicle_is_awake(vehicle):
             await self.wakeup_vehicle(vehicle)
 
         request = vehicle_state_service_pb2.FrontCargoControlRequest(
@@ -625,7 +625,7 @@ class LucidAPI:
         Control the trunk door of a specific vehicle.
         """
 
-        if self._auto_wake and self.vehicle_is_awake(vehicle):
+        if self._auto_wake and not self.vehicle_is_awake(vehicle):
             await self.wakeup_vehicle(vehicle)
 
         request = vehicle_state_service_pb2.RearCargoControlRequest(
@@ -653,7 +653,7 @@ class LucidAPI:
         Control the defrost mode of a specific vehicle.
         """
 
-        if self._auto_wake and self.vehicle_is_awake(vehicle):
+        if self._auto_wake and not self.vehicle_is_awake(vehicle):
             await self.wakeup_vehicle(vehicle)
 
         request = vehicle_state_service_pb2.HvacDefrostControlRequest(
@@ -684,7 +684,7 @@ class LucidAPI:
         Disables preconditioning if temperature is None.
         """
 
-        if self._auto_wake and self.vehicle_is_awake(vehicle):
+        if self._auto_wake and not self.vehicle_is_awake(vehicle):
             await self.wakeup_vehicle(vehicle)
 
         if temperature is None:
@@ -736,7 +736,7 @@ class LucidAPI:
         will always be the latest update available to the car.
         """
 
-        if self._auto_wake and self.vehicle_is_awake(vehicle):
+        if self._auto_wake and not self.vehicle_is_awake(vehicle):
             await self.wakeup_vehicle(vehicle)
 
         request = vehicle_state_service_pb2.ApplySoftwareUpdateRequest(
