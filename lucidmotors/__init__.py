@@ -345,7 +345,9 @@ class LucidAPI:
             interceptors=[self._interceptor],  # type: ignore
         )
         self._login_service = login_session_pb2_grpc.LoginSessionStub(self._channel)
-        self._user_profile_service = user_profile_service_pb2_grpc.UserProfileServiceStub(self._channel)
+        self._user_profile_service = (
+            user_profile_service_pb2_grpc.UserProfileServiceStub(self._channel)
+        )
         self._trip_service = trip_service_pb2_grpc.TripServiceStub(self._channel)
         self._vehicle_service = vehicle_state_service_pb2_grpc.VehicleStateServiceStub(
             self._channel
@@ -437,7 +439,9 @@ class LucidAPI:
             photo_bytes=b64encode(photo_bytes).decode('utf-8'),
         )
 
-        reply = await _check_for_api_error(self._user_profile_service.UploadUserProfilePhoto(request))
+        reply = await _check_for_api_error(
+            self._user_profile_service.UploadUserProfilePhoto(request)
+        )
 
         return reply.photo_url
 
