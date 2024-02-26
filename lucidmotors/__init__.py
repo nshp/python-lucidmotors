@@ -4,6 +4,7 @@ from typing import Optional, Any, Callable, TypeVar, Awaitable
 from datetime import datetime, timezone, timedelta
 from grpc.aio import ClientCallDetails, UnaryUnaryCall
 from google.protobuf.internal.enum_type_wrapper import EnumTypeWrapper
+from base64 import b64encode
 
 import uuid
 import grpc
@@ -16,6 +17,8 @@ from .exceptions import APIError, StatusCode
 from .gen import (
     login_session_pb2,
     login_session_pb2_grpc,
+    user_profile_service_pb2,
+    user_profile_service_pb2_grpc,
     trip_service_pb2,
     trip_service_pb2_grpc,
     vehicle_state_service_pb2,
@@ -234,11 +237,13 @@ def enum_to_str(enum_type: EnumTypeWrapper, value: int) -> str:
             return "V2V"
 
         case (VSS.DriveMode, DriveMode.DRIVE_MODE_COMFORT):
-            return "Comfort"
+            return "Smooth"
         case (VSS.DriveMode, DriveMode.DRIVE_MODE_SWIFT):
             return "Swift"
         case (VSS.DriveMode, DriveMode.DRIVE_MODE_SPORT_PLUS):
             return "Sprint"
+        case (VSS.DriveMode, DriveMode.DRIVE_MODE_SERVICE):
+            return "Service"
 
         case (VSS.GearPosition, GearPosition.GEAR_PARK):
             return "Park"
@@ -312,6 +317,7 @@ class LucidAPI:
 
     # Service stubs generated from the gRPC Service definitions
     _login_service: login_session_pb2_grpc.LoginSessionStub
+    _user_profile_service: user_profile_service_pb2_grpc.UserProfileServiceStub
     _trip_service: trip_service_pb2_grpc.TripServiceStub
     _vehicle_service: vehicle_state_service_pb2_grpc.VehicleStateServiceStub
     _charging_service: charging_service_pb2_grpc.ChargingServiceStub
@@ -339,6 +345,7 @@ class LucidAPI:
             interceptors=[self._interceptor],  # type: ignore
         )
         self._login_service = login_session_pb2_grpc.LoginSessionStub(self._channel)
+        self._user_profile_service = user_profile_service_pb2_grpc.UserProfileServiceStub(self._channel)
         self._trip_service = trip_service_pb2_grpc.TripServiceStub(self._channel)
         self._vehicle_service = vehicle_state_service_pb2_grpc.VehicleStateServiceStub(
             self._channel
@@ -420,6 +427,19 @@ class LucidAPI:
 
         self._user_profile = reply.user_profile
         self._vehicles = reply.user_vehicle_data
+
+    async def set_profile_photo(self, photo_bytes: bytes) -> Optional[str]:
+        """Set the logged-in user's profile photo.
+
+        Returns the uploaded photo URL on success."""
+
+        request = user_profile_service_pb2.UploadUserProfilePhotoRequest(
+            photo_bytes=b64encode(photo_bytes).decode('utf-8'),
+        )
+
+        reply = await _check_for_api_error(self._user_profile_service.UploadUserProfilePhoto(request))
+
+        return reply.photo_url
 
     async def authentication_refresh(self) -> None:
         """Get a fresh new token by using the refresh token."""

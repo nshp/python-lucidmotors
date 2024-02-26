@@ -258,12 +258,22 @@ class HvacPreconditionStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     HVAC_PRECONDITION_STATUS_STILL_ACTIVE: _ClassVar[HvacPreconditionStatus]
     HVAC_PRECONDITION_STATUS_USER_INPUT: _ClassVar[HvacPreconditionStatus]
 
+class KeepClimateStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    KEEP_CLIMATE_STATUS_UNKNOWN: _ClassVar[KeepClimateStatus]
+    KEEP_CLIMATE_STATUS_INACTIVE: _ClassVar[KeepClimateStatus]
+
+class KeepClimateCondition(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    KEEP_CLIMATE_CONDITION_UNKNOWN: _ClassVar[KeepClimateCondition]
+
 class DriveMode(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     DRIVE_MODE_UNKNOWN: _ClassVar[DriveMode]
     DRIVE_MODE_COMFORT: _ClassVar[DriveMode]
     DRIVE_MODE_SWIFT: _ClassVar[DriveMode]
     DRIVE_MODE_SPORT_PLUS: _ClassVar[DriveMode]
+    DRIVE_MODE_SERVICE: _ClassVar[DriveMode]
 
 class PrivacyMode(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -460,10 +470,14 @@ DEFROST_OFF: DefrostState
 HVAC_PRECONDITION_STATUS_UNKNOWN: HvacPreconditionStatus
 HVAC_PRECONDITION_STATUS_STILL_ACTIVE: HvacPreconditionStatus
 HVAC_PRECONDITION_STATUS_USER_INPUT: HvacPreconditionStatus
+KEEP_CLIMATE_STATUS_UNKNOWN: KeepClimateStatus
+KEEP_CLIMATE_STATUS_INACTIVE: KeepClimateStatus
+KEEP_CLIMATE_CONDITION_UNKNOWN: KeepClimateCondition
 DRIVE_MODE_UNKNOWN: DriveMode
 DRIVE_MODE_COMFORT: DriveMode
 DRIVE_MODE_SWIFT: DriveMode
 DRIVE_MODE_SPORT_PLUS: DriveMode
+DRIVE_MODE_SERVICE: DriveMode
 PRIVACY_MODE_UNKNOWN: PrivacyMode
 PRIVACY_MODE_CONNECTIVITY_ENABLED: PrivacyMode
 PRIVACY_MODE_CONNECTIVITY_DISABLED: PrivacyMode
@@ -748,17 +762,20 @@ class AlarmState(_message.Message):
     def __init__(self, status: _Optional[_Union[AlarmStatus, str]] = ..., mode: _Optional[_Union[AlarmMode, str]] = ...) -> None: ...
 
 class HvacState(_message.Message):
-    __slots__ = ("power", "defrost", "precondition_status")
+    __slots__ = ("power", "defrost", "precondition_status", "keep_climate_status")
     POWER_FIELD_NUMBER: _ClassVar[int]
     DEFROST_FIELD_NUMBER: _ClassVar[int]
     PRECONDITION_STATUS_FIELD_NUMBER: _ClassVar[int]
+    KEEP_CLIMATE_STATUS_FIELD_NUMBER: _ClassVar[int]
     power: HvacPower
     defrost: DefrostState
     precondition_status: HvacPreconditionStatus
-    def __init__(self, power: _Optional[_Union[HvacPower, str]] = ..., defrost: _Optional[_Union[DefrostState, str]] = ..., precondition_status: _Optional[_Union[HvacPreconditionStatus, str]] = ...) -> None: ...
+    keep_climate_status: KeepClimateStatus
+    def __init__(self, power: _Optional[_Union[HvacPower, str]] = ..., defrost: _Optional[_Union[DefrostState, str]] = ..., precondition_status: _Optional[_Union[HvacPreconditionStatus, str]] = ..., keep_climate_status: _Optional[_Union[KeepClimateStatus, str]] = ...) -> None: ...
 
 class MobileAppReqState(_message.Message):
-    __slots__ = ("charge_port_request", "frunk_cargo_request", "hvac_defrost", "hvac_precondition", "light_request", "shared_trip_request", "trunk_cargo_request", "vehicle_unlock_request")
+    __slots__ = ("alarm_set_request", "charge_port_request", "frunk_cargo_request", "hvac_defrost", "hvac_precondition", "light_request", "shared_trip_request", "trunk_cargo_request", "vehicle_unlock_request")
+    ALARM_SET_REQUEST_FIELD_NUMBER: _ClassVar[int]
     CHARGE_PORT_REQUEST_FIELD_NUMBER: _ClassVar[int]
     FRUNK_CARGO_REQUEST_FIELD_NUMBER: _ClassVar[int]
     HVAC_DEFROST_FIELD_NUMBER: _ClassVar[int]
@@ -767,6 +784,7 @@ class MobileAppReqState(_message.Message):
     SHARED_TRIP_REQUEST_FIELD_NUMBER: _ClassVar[int]
     TRUNK_CARGO_REQUEST_FIELD_NUMBER: _ClassVar[int]
     VEHICLE_UNLOCK_REQUEST_FIELD_NUMBER: _ClassVar[int]
+    alarm_set_request: AlarmMode
     charge_port_request: DoorState
     frunk_cargo_request: DoorState
     hvac_defrost: DefrostState
@@ -775,7 +793,7 @@ class MobileAppReqState(_message.Message):
     shared_trip_request: SharedTripState
     trunk_cargo_request: DoorState
     vehicle_unlock_request: LockState
-    def __init__(self, charge_port_request: _Optional[_Union[DoorState, str]] = ..., frunk_cargo_request: _Optional[_Union[DoorState, str]] = ..., hvac_defrost: _Optional[_Union[DefrostState, str]] = ..., hvac_precondition: _Optional[_Union[HvacPower, str]] = ..., light_request: _Optional[_Union[LightAction, str]] = ..., shared_trip_request: _Optional[_Union[SharedTripState, str]] = ..., trunk_cargo_request: _Optional[_Union[DoorState, str]] = ..., vehicle_unlock_request: _Optional[_Union[LockState, str]] = ...) -> None: ...
+    def __init__(self, alarm_set_request: _Optional[_Union[AlarmMode, str]] = ..., charge_port_request: _Optional[_Union[DoorState, str]] = ..., frunk_cargo_request: _Optional[_Union[DoorState, str]] = ..., hvac_defrost: _Optional[_Union[DefrostState, str]] = ..., hvac_precondition: _Optional[_Union[HvacPower, str]] = ..., light_request: _Optional[_Union[LightAction, str]] = ..., shared_trip_request: _Optional[_Union[SharedTripState, str]] = ..., trunk_cargo_request: _Optional[_Union[DoorState, str]] = ..., vehicle_unlock_request: _Optional[_Union[LockState, str]] = ...) -> None: ...
 
 class TcuInternetState(_message.Message):
     __slots__ = ("lte_type", "lte_status", "wifi_status", "lte_rssi", "wifi_rssi")

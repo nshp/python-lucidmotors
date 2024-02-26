@@ -69,9 +69,13 @@ class GetUserProfileResponse(_message.Message):
     def __init__(self, profile: _Optional[_Union[UserProfileData, _Mapping]] = ...) -> None: ...
 
 class UploadUserProfilePhotoRequest(_message.Message):
-    __slots__ = ()
-    def __init__(self) -> None: ...
+    __slots__ = ("photo_bytes",)
+    PHOTO_BYTES_FIELD_NUMBER: _ClassVar[int]
+    photo_bytes: str
+    def __init__(self, photo_bytes: _Optional[str] = ...) -> None: ...
 
 class UploadUserProfilePhotoResponse(_message.Message):
-    __slots__ = ()
-    def __init__(self) -> None: ...
+    __slots__ = ("photo_url",)
+    PHOTO_URL_FIELD_NUMBER: _ClassVar[int]
+    photo_url: str
+    def __init__(self, photo_url: _Optional[str] = ...) -> None: ...

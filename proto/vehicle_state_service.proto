@@ -400,10 +400,21 @@ enum HvacPreconditionStatus {
     HVAC_PRECONDITION_STATUS_USER_INPUT = 4;
 }
 
+enum KeepClimateStatus {
+    KEEP_CLIMATE_STATUS_UNKNOWN = 0;
+    KEEP_CLIMATE_STATUS_INACTIVE = 1;
+}
+
+enum KeepClimateCondition {
+    KEEP_CLIMATE_CONDITION_UNKNOWN = 0;
+}
+
 message HvacState {
     HvacPower power = 1;
     DefrostState defrost = 2;
     HvacPreconditionStatus precondition_status = 3;
+    KeepClimateStatus keep_climate_status = 5;
+    /* KeepClimateCondition keep_climate_condition = ???; */
 }
 
 enum DriveMode {
@@ -411,6 +422,7 @@ enum DriveMode {
     DRIVE_MODE_COMFORT = 1;
     DRIVE_MODE_SWIFT = 2;
     DRIVE_MODE_SPORT_PLUS = 5; /* aka Sprint */
+    DRIVE_MODE_SERVICE = 8; /* Service mode - car is in shop and can't be remote controlled */
 }
 
 enum PrivacyMode {
@@ -434,6 +446,7 @@ enum SharedTripState {
 
 /* Set of pending requests from API? */
 message MobileAppReqState {
+    AlarmMode alarm_set_request = 1;
     DoorState charge_port_request = 2;
     DoorState frunk_cargo_request = 9;
     DefrostState hvac_defrost = 11;

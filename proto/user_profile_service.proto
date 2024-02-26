@@ -36,8 +36,12 @@ message GetUserProfileResponse {
     UserProfileData profile = 1;
 }
 
-message UploadUserProfilePhotoRequest {}
-message UploadUserProfilePhotoResponse {}
+message UploadUserProfilePhotoRequest {
+    string photo_bytes = 1;
+}
+message UploadUserProfilePhotoResponse {
+    string photo_url = 1;
+}
 
 service UserProfileService {
     rpc GetUserProfile(GetUserProfileRequest) returns (GetUserProfileResponse) {}
