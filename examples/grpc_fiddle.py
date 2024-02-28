@@ -106,6 +106,8 @@ def main():
 
         id_token = response.session_info.id_token
         refresh_token = response.session_info.refresh_token
+        gigya_jwt = response.session_info.gigya_jwt
+
         vehicle_id = response.user_vehicle_data[0].vehicle_id
         ema_id = response.user_vehicle_data[0].config.ema_id
 
@@ -192,6 +194,13 @@ def main():
         # req = salesforce_service_pb2.GetSalesForceServiceAppointmentsRequest(
         # )
         # response = stub.GetSalesForceServiceAppointments(req)
+        # message_dump_recursive(response)
+
+        # stub = salesforce_service_pb2_grpc.SalesforceServiceStub(channel)
+        # req = salesforce_service_pb2.ReferralHistoryApiRequest(
+        #     email=username,
+        # )
+        # response = stub.ReferralHistory(req, metadata = [('gigyajwt', gigya_jwt)])
         # message_dump_recursive(response)
 
         # stub = charging_service_pb2_grpc.ChargingServiceStub(channel)

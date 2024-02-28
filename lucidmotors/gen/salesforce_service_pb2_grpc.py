@@ -19,12 +19,23 @@ class SalesforceServiceStub(object):
                 request_serializer=salesforce__service__pb2.GetSalesForceServiceAppointmentsRequest.SerializeToString,
                 response_deserializer=salesforce__service__pb2.GetSalesForceServiceAppointmentsResponse.FromString,
                 )
+        self.ReferralHistory = channel.unary_unary(
+                '/mobilegateway.protos.SalesforceService/ReferralHistory',
+                request_serializer=salesforce__service__pb2.ReferralHistoryApiRequest.SerializeToString,
+                response_deserializer=salesforce__service__pb2.ReferralHistoryApiResponse.FromString,
+                )
 
 
 class SalesforceServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def GetSalesForceServiceAppointments(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ReferralHistory(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -37,6 +48,11 @@ def add_SalesforceServiceServicer_to_server(servicer, server):
                     servicer.GetSalesForceServiceAppointments,
                     request_deserializer=salesforce__service__pb2.GetSalesForceServiceAppointmentsRequest.FromString,
                     response_serializer=salesforce__service__pb2.GetSalesForceServiceAppointmentsResponse.SerializeToString,
+            ),
+            'ReferralHistory': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReferralHistory,
+                    request_deserializer=salesforce__service__pb2.ReferralHistoryApiRequest.FromString,
+                    response_serializer=salesforce__service__pb2.ReferralHistoryApiResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -62,5 +78,22 @@ class SalesforceService(object):
         return grpc.experimental.unary_unary(request, target, '/mobilegateway.protos.SalesforceService/GetSalesForceServiceAppointments',
             salesforce__service__pb2.GetSalesForceServiceAppointmentsRequest.SerializeToString,
             salesforce__service__pb2.GetSalesForceServiceAppointmentsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def ReferralHistory(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mobilegateway.protos.SalesforceService/ReferralHistory',
+            salesforce__service__pb2.ReferralHistoryApiRequest.SerializeToString,
+            salesforce__service__pb2.ReferralHistoryApiResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
