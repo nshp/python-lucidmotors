@@ -11,7 +11,7 @@ import grpc
 import grpc.aio
 import logging
 
-from .const import MOBILE_API
+from .const import MOBILE_API_REGIONS, Region
 from .exceptions import APIError, APIValueError, StatusCode
 
 from .gen import (
@@ -336,7 +336,7 @@ class LucidAPI:
     # Automatically wake sleeping vehicle along with commands?
     _auto_wake: bool
 
-    def __init__(self, auto_wake: bool = False) -> None:
+    def __init__(self, auto_wake: bool = False, region: Region = Region.US) -> None:
         """Initialize the API client
 
         :param auto_wake: Automatically send a wake request with commands that
@@ -351,7 +351,7 @@ class LucidAPI:
         # Typing ignored due to "_PartialStubMustCastOrIgnore" insanity in
         # grpc-stubs package.
         self._channel = grpc.aio.secure_channel(
-            MOBILE_API,
+            MOBILE_API_REGIONS[region],
             credentials=ssl_creds,
             interceptors=[self._interceptor],  # type: ignore
         )
