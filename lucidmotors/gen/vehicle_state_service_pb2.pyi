@@ -245,6 +245,7 @@ class HvacPower(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     HVAC_ON: _ClassVar[HvacPower]
     HVAC_OFF: _ClassVar[HvacPower]
     HVAC_PRECONDITION: _ClassVar[HvacPower]
+    HVAC_KEEP_TEMP: _ClassVar[HvacPower]
 
 class DefrostState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -262,6 +263,9 @@ class KeepClimateStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     KEEP_CLIMATE_STATUS_UNKNOWN: _ClassVar[KeepClimateStatus]
     KEEP_CLIMATE_STATUS_INACTIVE: _ClassVar[KeepClimateStatus]
+    KEEP_CLIMATE_STATUS_ENABLED: _ClassVar[KeepClimateStatus]
+    KEEP_CLIMATE_STATUS_CANCELED: _ClassVar[KeepClimateStatus]
+    KEEP_CLIMATE_STATUS_PET_MODE_ON: _ClassVar[KeepClimateStatus]
 
 class KeepClimateCondition(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -464,6 +468,7 @@ HVAC_POWER_UNKNOWN: HvacPower
 HVAC_ON: HvacPower
 HVAC_OFF: HvacPower
 HVAC_PRECONDITION: HvacPower
+HVAC_KEEP_TEMP: HvacPower
 DEFROST_STATE_UNKNOWN: DefrostState
 DEFROST_ON: DefrostState
 DEFROST_OFF: DefrostState
@@ -472,6 +477,9 @@ HVAC_PRECONDITION_STATUS_STILL_ACTIVE: HvacPreconditionStatus
 HVAC_PRECONDITION_STATUS_USER_INPUT: HvacPreconditionStatus
 KEEP_CLIMATE_STATUS_UNKNOWN: KeepClimateStatus
 KEEP_CLIMATE_STATUS_INACTIVE: KeepClimateStatus
+KEEP_CLIMATE_STATUS_ENABLED: KeepClimateStatus
+KEEP_CLIMATE_STATUS_CANCELED: KeepClimateStatus
+KEEP_CLIMATE_STATUS_PET_MODE_ON: KeepClimateStatus
 KEEP_CLIMATE_CONDITION_UNKNOWN: KeepClimateCondition
 DRIVE_MODE_UNKNOWN: DriveMode
 DRIVE_MODE_COMFORT: DriveMode

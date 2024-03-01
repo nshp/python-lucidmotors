@@ -54,6 +54,7 @@ message Connector {
     uint32 voltage = 5;
     uint32 amperage = 6;
     ChargingStatus status = 11;
+    uint32 power = 12;
 }
 
 message ChargingSession {
@@ -133,13 +134,26 @@ message GetCdrsResponse {
 message GetLocationsBoxRequest {}
 message GetLocationsBoxResponse {}
 
-message GetLocationsByRadiusRequest {}
-message GetLocationsByRadiusResponse {}
+message ChargingLocationDistance {
+    ChargingLocation location = 1;
+    uint64 distance = 2;
+}
+
+message GetLocationsByRadiusRequest {
+    Location origin = 1;
+    uint32 radius = 2;
+}
+message GetLocationsByRadiusResponse {
+    repeated ChargingLocationDistance locations = 1;
+}
 
 message GetTariffRequest {}
 message GetTariffResponse {}
 
-message RegisterRFIDRequest {}
+message RegisterRFIDRequest {
+    string ema_id = 1;
+    string rfid_token = 2;
+}
 message RegisterRFIDResponse {}
 
 message StartSessionRequest {}

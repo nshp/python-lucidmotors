@@ -12,7 +12,7 @@ import grpc.aio
 import logging
 
 from .const import MOBILE_API
-from .exceptions import APIError, StatusCode
+from .exceptions import APIError, APIValueError, StatusCode
 
 from .gen import (
     login_session_pb2,
@@ -26,6 +26,8 @@ from .gen import (
     vehicle_state_service_pb2_grpc,
     charging_service_pb2,
     charging_service_pb2_grpc,
+    salesforce_service_pb2,
+    salesforce_service_pb2_grpc,
 )
 from .gen.login_session_pb2 import NotificationChannelType
 from .gen.user_profile_service_pb2 import UserProfile
@@ -119,8 +121,13 @@ from .gen.trip_service_pb2 import (
     Waypoint,
     Trip,
 )
+from .gen.salesforce_service_pb2 import (
+    ReferralHistory,
+    MemberAttributes,
+    ReferralData,
+)
 
-__version__ = "1.1.1"
+__version__ = "1.1.2"
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -305,6 +312,9 @@ class LucidAPI:
     # Refresh token for our session
     _refresh_token: Optional[str]
 
+    # Gigya JWT token used for some other authentication?
+    _gigya_jwt: Optional[str]
+
     # User profile data from most recent login request, or None if not logged
     # in yet.
     _user_profile: Optional[UserProfile]
@@ -321,6 +331,7 @@ class LucidAPI:
     _trip_service: trip_service_pb2_grpc.TripServiceStub
     _vehicle_service: vehicle_state_service_pb2_grpc.VehicleStateServiceStub
     _charging_service: charging_service_pb2_grpc.ChargingServiceStub
+    _salesforce_service: salesforce_service_pb2_grpc.SalesforceServiceStub
 
     # Automatically wake sleeping vehicle along with commands?
     _auto_wake: bool
@@ -355,7 +366,11 @@ class LucidAPI:
         self._charging_service = charging_service_pb2_grpc.ChargingServiceStub(
             self._channel
         )
+        self._salesforce_service = salesforce_service_pb2_grpc.SalesforceServiceStub(
+            self._channel
+        )
         self._refresh_token = None
+        self._gigya_jwt = None
         self._token_expiry_time = None
         self._user_profile = None
         self._vehicles = []
@@ -373,6 +388,7 @@ class LucidAPI:
             sess.expiry_time_sec, timezone.utc
         )
         self._refresh_token = sess.refresh_token
+        self._gigya_jwt = sess.gigya_jwt
 
         _LOGGER.debug(
             "API authentication succeeded. Token expires at %s (%s from now)",
@@ -444,6 +460,30 @@ class LucidAPI:
         )
 
         return reply.photo_url
+
+    async def get_referral_history(self) -> ReferralData:
+        """Fetch the logged-in user's referral history."""
+
+        if self._gigya_jwt is None:
+            raise APIValueError('API did not provide a Gigya JWT token')
+        if self._user_profile is None:
+            raise APIValueError('User profile is missing')
+
+        request = salesforce_service_pb2.ReferralHistoryRequest(
+            email=self._user_profile.email,
+        )
+
+        reply = await _check_for_api_error(
+            self._salesforce_service.ReferralHistory(
+                request,
+                metadata=[('gigyajwt', self._gigya_jwt)],
+            )
+        )
+
+        if reply.statusCode != 200:
+            raise APIValueError(f'Fetching referral history failed: {reply.message}')
+
+        return reply.data
 
     async def authentication_refresh(self) -> None:
         """Get a fresh new token by using the refresh token."""

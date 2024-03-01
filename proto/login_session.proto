@@ -75,7 +75,9 @@ message ConfirmResetPinRequest {}
 message ConfirmResetPinResponse {}
 
 message GetSubscriptionRequest {}
-message GetSubscriptionResponse {}
+message GetSubscriptionResponse {
+    repeated Subscription subscriptions = 1;
+}
 
 message GetUserVehiclesRequest {}
 message GetUserVehiclesResponse {

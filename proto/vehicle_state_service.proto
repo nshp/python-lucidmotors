@@ -386,6 +386,7 @@ enum HvacPower {
     HVAC_ON = 1;
     HVAC_OFF = 2;
     HVAC_PRECONDITION = 3;
+    HVAC_KEEP_TEMP = 6;
 }
 
 enum DefrostState {
@@ -403,6 +404,9 @@ enum HvacPreconditionStatus {
 enum KeepClimateStatus {
     KEEP_CLIMATE_STATUS_UNKNOWN = 0;
     KEEP_CLIMATE_STATUS_INACTIVE = 1;
+    KEEP_CLIMATE_STATUS_ENABLED = 2;
+    KEEP_CLIMATE_STATUS_CANCELED = 3;
+    KEEP_CLIMATE_STATUS_PET_MODE_ON = 4;
 }
 
 enum KeepClimateCondition {

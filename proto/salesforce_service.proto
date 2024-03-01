@@ -17,7 +17,7 @@ message MemberAttributes {
     string name = 2;
 }
 
-message Data {
+message ReferralData {
     string email = 1;
     string status = 2;
     string referralCode = 3;
@@ -30,14 +30,14 @@ message Data {
     string country = 10;
 }
 
-message ReferralHistoryApiRequest {
+message ReferralHistoryRequest {
     string email = 1;
 }
 
-message ReferralHistoryApiResponse {
+message ReferralHistoryResponse {
     uint32 statusCode = 1;
     string message = 2;
-    Data data = 3;
+    ReferralData data = 3;
 }
 
 message ServiceAppointment {
@@ -52,5 +52,5 @@ message GetSalesForceServiceAppointmentsResponse {
 
 service SalesforceService {
     rpc GetSalesForceServiceAppointments(GetSalesForceServiceAppointmentsRequest) returns (GetSalesForceServiceAppointmentsResponse) {}
-    rpc ReferralHistory(ReferralHistoryApiRequest) returns (ReferralHistoryApiResponse) {}
+    rpc ReferralHistory(ReferralHistoryRequest) returns (ReferralHistoryResponse) {}
 }

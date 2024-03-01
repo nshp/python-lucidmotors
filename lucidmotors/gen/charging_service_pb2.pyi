@@ -87,7 +87,7 @@ class Operator(_message.Message):
     def __init__(self, name: _Optional[str] = ..., logo: _Optional[_Union[Image, _Mapping]] = ...) -> None: ...
 
 class Connector(_message.Message):
-    __slots__ = ("id", "standard", "format", "power_type", "voltage", "amperage", "status")
+    __slots__ = ("id", "standard", "format", "power_type", "voltage", "amperage", "status", "power")
     ID_FIELD_NUMBER: _ClassVar[int]
     STANDARD_FIELD_NUMBER: _ClassVar[int]
     FORMAT_FIELD_NUMBER: _ClassVar[int]
@@ -95,6 +95,7 @@ class Connector(_message.Message):
     VOLTAGE_FIELD_NUMBER: _ClassVar[int]
     AMPERAGE_FIELD_NUMBER: _ClassVar[int]
     STATUS_FIELD_NUMBER: _ClassVar[int]
+    POWER_FIELD_NUMBER: _ClassVar[int]
     id: str
     standard: ConnectorStandard
     format: ConnectorFormat
@@ -102,7 +103,8 @@ class Connector(_message.Message):
     voltage: int
     amperage: int
     status: ChargingStatus
-    def __init__(self, id: _Optional[str] = ..., standard: _Optional[_Union[ConnectorStandard, str]] = ..., format: _Optional[_Union[ConnectorFormat, str]] = ..., power_type: _Optional[_Union[PowerType, str]] = ..., voltage: _Optional[int] = ..., amperage: _Optional[int] = ..., status: _Optional[_Union[ChargingStatus, str]] = ...) -> None: ...
+    power: int
+    def __init__(self, id: _Optional[str] = ..., standard: _Optional[_Union[ConnectorStandard, str]] = ..., format: _Optional[_Union[ConnectorFormat, str]] = ..., power_type: _Optional[_Union[PowerType, str]] = ..., voltage: _Optional[int] = ..., amperage: _Optional[int] = ..., status: _Optional[_Union[ChargingStatus, str]] = ..., power: _Optional[int] = ...) -> None: ...
 
 class ChargingSession(_message.Message):
     __slots__ = ("uid", "evse_id", "status", "connectors", "coordinates", "physical_reference")
@@ -224,13 +226,27 @@ class GetLocationsBoxResponse(_message.Message):
     __slots__ = ()
     def __init__(self) -> None: ...
 
+class ChargingLocationDistance(_message.Message):
+    __slots__ = ("location", "distance")
+    LOCATION_FIELD_NUMBER: _ClassVar[int]
+    DISTANCE_FIELD_NUMBER: _ClassVar[int]
+    location: ChargingLocation
+    distance: int
+    def __init__(self, location: _Optional[_Union[ChargingLocation, _Mapping]] = ..., distance: _Optional[int] = ...) -> None: ...
+
 class GetLocationsByRadiusRequest(_message.Message):
-    __slots__ = ()
-    def __init__(self) -> None: ...
+    __slots__ = ("origin", "radius")
+    ORIGIN_FIELD_NUMBER: _ClassVar[int]
+    RADIUS_FIELD_NUMBER: _ClassVar[int]
+    origin: _vehicle_state_service_pb2.Location
+    radius: int
+    def __init__(self, origin: _Optional[_Union[_vehicle_state_service_pb2.Location, _Mapping]] = ..., radius: _Optional[int] = ...) -> None: ...
 
 class GetLocationsByRadiusResponse(_message.Message):
-    __slots__ = ()
-    def __init__(self) -> None: ...
+    __slots__ = ("locations",)
+    LOCATIONS_FIELD_NUMBER: _ClassVar[int]
+    locations: _containers.RepeatedCompositeFieldContainer[ChargingLocationDistance]
+    def __init__(self, locations: _Optional[_Iterable[_Union[ChargingLocationDistance, _Mapping]]] = ...) -> None: ...
 
 class GetTariffRequest(_message.Message):
     __slots__ = ()
@@ -241,8 +257,12 @@ class GetTariffResponse(_message.Message):
     def __init__(self) -> None: ...
 
 class RegisterRFIDRequest(_message.Message):
-    __slots__ = ()
-    def __init__(self) -> None: ...
+    __slots__ = ("ema_id", "rfid_token")
+    EMA_ID_FIELD_NUMBER: _ClassVar[int]
+    RFID_TOKEN_FIELD_NUMBER: _ClassVar[int]
+    ema_id: str
+    rfid_token: str
+    def __init__(self, ema_id: _Optional[str] = ..., rfid_token: _Optional[str] = ...) -> None: ...
 
 class RegisterRFIDResponse(_message.Message):
     __slots__ = ()

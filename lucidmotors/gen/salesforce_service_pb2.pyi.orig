@@ -31,7 +31,7 @@ class MemberAttributes(_message.Message):
     name: str
     def __init__(self, value: _Optional[str] = ..., name: _Optional[str] = ...) -> None: ...
 
-class Data(_message.Message):
+class ReferralData(_message.Message):
     __slots__ = ("email", "status", "referralCode", "pointsBalance", "totalReferralCount", "referrals", "member_attributes", "validState", "validAge", "country")
     EMAIL_FIELD_NUMBER: _ClassVar[int]
     STATUS_FIELD_NUMBER: _ClassVar[int]
@@ -55,21 +55,21 @@ class Data(_message.Message):
     country: str
     def __init__(self, email: _Optional[str] = ..., status: _Optional[str] = ..., referralCode: _Optional[str] = ..., pointsBalance: _Optional[int] = ..., totalReferralCount: _Optional[int] = ..., referrals: _Optional[_Iterable[_Union[ReferralHistory, _Mapping]]] = ..., member_attributes: _Optional[_Iterable[_Union[MemberAttributes, _Mapping]]] = ..., validState: bool = ..., validAge: bool = ..., country: _Optional[str] = ...) -> None: ...
 
-class ReferralHistoryApiRequest(_message.Message):
+class ReferralHistoryRequest(_message.Message):
     __slots__ = ("email",)
     EMAIL_FIELD_NUMBER: _ClassVar[int]
     email: str
     def __init__(self, email: _Optional[str] = ...) -> None: ...
 
-class ReferralHistoryApiResponse(_message.Message):
+class ReferralHistoryResponse(_message.Message):
     __slots__ = ("statusCode", "message", "data")
     STATUSCODE_FIELD_NUMBER: _ClassVar[int]
     MESSAGE_FIELD_NUMBER: _ClassVar[int]
     DATA_FIELD_NUMBER: _ClassVar[int]
     statusCode: int
     message: str
-    data: Data
-    def __init__(self, statusCode: _Optional[int] = ..., message: _Optional[str] = ..., data: _Optional[_Union[Data, _Mapping]] = ...) -> None: ...
+    data: ReferralData
+    def __init__(self, statusCode: _Optional[int] = ..., message: _Optional[str] = ..., data: _Optional[_Union[ReferralData, _Mapping]] = ...) -> None: ...
 
 class ServiceAppointment(_message.Message):
     __slots__ = ()

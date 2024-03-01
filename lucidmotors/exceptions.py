@@ -17,3 +17,15 @@ class APIError(Exception):
 
     def __str__(self) -> str:
         return f'{self.code}: {self.message}'
+
+
+@dataclass(frozen=True, repr=True)
+class APIValueError(Exception):
+    """
+    Represents an error in data returned by the API
+    """
+
+    message: str
+
+    def __str__(self) -> str:
+        return self.message

@@ -21,8 +21,8 @@ class SalesforceServiceStub(object):
                 )
         self.ReferralHistory = channel.unary_unary(
                 '/mobilegateway.protos.SalesforceService/ReferralHistory',
-                request_serializer=salesforce__service__pb2.ReferralHistoryApiRequest.SerializeToString,
-                response_deserializer=salesforce__service__pb2.ReferralHistoryApiResponse.FromString,
+                request_serializer=salesforce__service__pb2.ReferralHistoryRequest.SerializeToString,
+                response_deserializer=salesforce__service__pb2.ReferralHistoryResponse.FromString,
                 )
 
 
@@ -51,8 +51,8 @@ def add_SalesforceServiceServicer_to_server(servicer, server):
             ),
             'ReferralHistory': grpc.unary_unary_rpc_method_handler(
                     servicer.ReferralHistory,
-                    request_deserializer=salesforce__service__pb2.ReferralHistoryApiRequest.FromString,
-                    response_serializer=salesforce__service__pb2.ReferralHistoryApiResponse.SerializeToString,
+                    request_deserializer=salesforce__service__pb2.ReferralHistoryRequest.FromString,
+                    response_serializer=salesforce__service__pb2.ReferralHistoryResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -93,7 +93,7 @@ class SalesforceService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/mobilegateway.protos.SalesforceService/ReferralHistory',
-            salesforce__service__pb2.ReferralHistoryApiRequest.SerializeToString,
-            salesforce__service__pb2.ReferralHistoryApiResponse.FromString,
+            salesforce__service__pb2.ReferralHistoryRequest.SerializeToString,
+            salesforce__service__pb2.ReferralHistoryResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

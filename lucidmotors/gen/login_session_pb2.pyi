@@ -125,8 +125,10 @@ class GetSubscriptionRequest(_message.Message):
     def __init__(self) -> None: ...
 
 class GetSubscriptionResponse(_message.Message):
-    __slots__ = ()
-    def __init__(self) -> None: ...
+    __slots__ = ("subscriptions",)
+    SUBSCRIPTIONS_FIELD_NUMBER: _ClassVar[int]
+    subscriptions: _containers.RepeatedScalarFieldContainer[Subscription]
+    def __init__(self, subscriptions: _Optional[_Iterable[_Union[Subscription, str]]] = ...) -> None: ...
 
 class GetUserVehiclesRequest(_message.Message):
     __slots__ = ()

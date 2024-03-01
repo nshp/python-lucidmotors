@@ -43,8 +43,12 @@ message UploadUserProfilePhotoResponse {
     string photo_url = 1;
 }
 
+message ReferralHistoryApiRequest {}
+message ReferralHistoryApiResponse {}
+
 service UserProfileService {
     rpc GetUserProfile(GetUserProfileRequest) returns (GetUserProfileResponse) {}
     rpc SetUserProfile(SetUserProfileRequest) returns (SetUserProfileResponse) {}
     rpc UploadUserProfilePhoto(UploadUserProfilePhotoRequest) returns (UploadUserProfilePhotoResponse) {}
+    rpc ReferralHistoryApi(ReferralHistoryApiRequest) returns (ReferralHistoryApiResponse) {}
 }
