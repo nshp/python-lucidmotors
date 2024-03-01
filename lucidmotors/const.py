@@ -2,6 +2,7 @@
 
 from enum import Enum
 
+
 class Region(Enum):
     US = 'us'
     SA = 'sa'
@@ -10,6 +11,7 @@ class Region(Enum):
     @property
     def api_domain(self) -> str:
         return MOBILE_API_REGIONS[self]
+
 
 # Before Lucid was Lucid, it was Atieva. They still use their old domain in
 # their mobile apps for now.
