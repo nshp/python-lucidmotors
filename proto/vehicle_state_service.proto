@@ -69,6 +69,7 @@ enum ChargingAccountStatus {
 enum ChargingVendor {
     CHARGING_VENDOR_UNKNOWN = 0;
     CHARGING_VENDOR_ELECTRIFY_AMERICA = 1;
+    CHARGING_VENDOR_BOSCH = 3;
 }
 
 message ChargingAccount {

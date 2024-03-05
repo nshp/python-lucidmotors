@@ -66,6 +66,7 @@ class ChargingVendor(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     CHARGING_VENDOR_UNKNOWN: _ClassVar[ChargingVendor]
     CHARGING_VENDOR_ELECTRIFY_AMERICA: _ClassVar[ChargingVendor]
+    CHARGING_VENDOR_BOSCH: _ClassVar[ChargingVendor]
 
 class Edition(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -364,6 +365,7 @@ CHARGING_ACCOUNT_STATUS_UNKNOWN: ChargingAccountStatus
 CHARGING_ACCOUNT_STATUS_ENROLLED: ChargingAccountStatus
 CHARGING_VENDOR_UNKNOWN: ChargingVendor
 CHARGING_VENDOR_ELECTRIFY_AMERICA: ChargingVendor
+CHARGING_VENDOR_BOSCH: ChargingVendor
 EDITION_UNKNOWN: Edition
 EDITION_PERFORMANCE: Edition
 EDITION_RANGE: Edition
