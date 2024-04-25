@@ -449,6 +449,11 @@ enum SharedTripState {
     SHARED_TRIP_AVAILABLE = 1;
 }
 
+enum PanicState {
+    PANIC_ALARM_UNKNOWN = 0;
+    PANIC_ALARM_ON = 1;
+}
+
 /* Set of pending requests from API? */
 message MobileAppReqState {
     AlarmMode alarm_set_request = 1;
@@ -457,6 +462,7 @@ message MobileAppReqState {
     DefrostState hvac_defrost = 11;
     HvacPower hvac_precondition = 12;
     LightAction light_request = 13;
+    PanicState panic_request = 14;
     SharedTripState shared_trip_request = 15;
     DoorState trunk_cargo_request = 16;
     LockState vehicle_unlock_request = 17;

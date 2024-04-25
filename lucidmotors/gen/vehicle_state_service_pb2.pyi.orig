@@ -299,6 +299,11 @@ class SharedTripState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     SHARED_TRIP_UNKNOWN: _ClassVar[SharedTripState]
     SHARED_TRIP_AVAILABLE: _ClassVar[SharedTripState]
 
+class PanicState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    PANIC_ALARM_UNKNOWN: _ClassVar[PanicState]
+    PANIC_ALARM_ON: _ClassVar[PanicState]
+
 class TcuState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     TCU_UNKNOWN: _ClassVar[TcuState]
@@ -498,6 +503,8 @@ GEAR_NEUTRAL: GearPosition
 GEAR_DRIVE: GearPosition
 SHARED_TRIP_UNKNOWN: SharedTripState
 SHARED_TRIP_AVAILABLE: SharedTripState
+PANIC_ALARM_UNKNOWN: PanicState
+PANIC_ALARM_ON: PanicState
 TCU_UNKNOWN: TcuState
 TCU_SLEEP: TcuState
 TCU_DROWSY: TcuState
@@ -784,13 +791,14 @@ class HvacState(_message.Message):
     def __init__(self, power: _Optional[_Union[HvacPower, str]] = ..., defrost: _Optional[_Union[DefrostState, str]] = ..., precondition_status: _Optional[_Union[HvacPreconditionStatus, str]] = ..., keep_climate_status: _Optional[_Union[KeepClimateStatus, str]] = ...) -> None: ...
 
 class MobileAppReqState(_message.Message):
-    __slots__ = ("alarm_set_request", "charge_port_request", "frunk_cargo_request", "hvac_defrost", "hvac_precondition", "light_request", "shared_trip_request", "trunk_cargo_request", "vehicle_unlock_request")
+    __slots__ = ("alarm_set_request", "charge_port_request", "frunk_cargo_request", "hvac_defrost", "hvac_precondition", "light_request", "panic_request", "shared_trip_request", "trunk_cargo_request", "vehicle_unlock_request")
     ALARM_SET_REQUEST_FIELD_NUMBER: _ClassVar[int]
     CHARGE_PORT_REQUEST_FIELD_NUMBER: _ClassVar[int]
     FRUNK_CARGO_REQUEST_FIELD_NUMBER: _ClassVar[int]
     HVAC_DEFROST_FIELD_NUMBER: _ClassVar[int]
     HVAC_PRECONDITION_FIELD_NUMBER: _ClassVar[int]
     LIGHT_REQUEST_FIELD_NUMBER: _ClassVar[int]
+    PANIC_REQUEST_FIELD_NUMBER: _ClassVar[int]
     SHARED_TRIP_REQUEST_FIELD_NUMBER: _ClassVar[int]
     TRUNK_CARGO_REQUEST_FIELD_NUMBER: _ClassVar[int]
     VEHICLE_UNLOCK_REQUEST_FIELD_NUMBER: _ClassVar[int]
@@ -800,10 +808,11 @@ class MobileAppReqState(_message.Message):
     hvac_defrost: DefrostState
     hvac_precondition: HvacPower
     light_request: LightAction
+    panic_request: PanicState
     shared_trip_request: SharedTripState
     trunk_cargo_request: DoorState
     vehicle_unlock_request: LockState
-    def __init__(self, alarm_set_request: _Optional[_Union[AlarmMode, str]] = ..., charge_port_request: _Optional[_Union[DoorState, str]] = ..., frunk_cargo_request: _Optional[_Union[DoorState, str]] = ..., hvac_defrost: _Optional[_Union[DefrostState, str]] = ..., hvac_precondition: _Optional[_Union[HvacPower, str]] = ..., light_request: _Optional[_Union[LightAction, str]] = ..., shared_trip_request: _Optional[_Union[SharedTripState, str]] = ..., trunk_cargo_request: _Optional[_Union[DoorState, str]] = ..., vehicle_unlock_request: _Optional[_Union[LockState, str]] = ...) -> None: ...
+    def __init__(self, alarm_set_request: _Optional[_Union[AlarmMode, str]] = ..., charge_port_request: _Optional[_Union[DoorState, str]] = ..., frunk_cargo_request: _Optional[_Union[DoorState, str]] = ..., hvac_defrost: _Optional[_Union[DefrostState, str]] = ..., hvac_precondition: _Optional[_Union[HvacPower, str]] = ..., light_request: _Optional[_Union[LightAction, str]] = ..., panic_request: _Optional[_Union[PanicState, str]] = ..., shared_trip_request: _Optional[_Union[SharedTripState, str]] = ..., trunk_cargo_request: _Optional[_Union[DoorState, str]] = ..., vehicle_unlock_request: _Optional[_Union[LockState, str]] = ...) -> None: ...
 
 class TcuInternetState(_message.Message):
     __slots__ = ("lte_type", "lte_status", "wifi_status", "lte_rssi", "wifi_rssi")
