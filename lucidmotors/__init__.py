@@ -1,4 +1,5 @@
 """The Lucid Motors mobile app API"""
+
 from __future__ import annotations
 from typing import Optional, Any, Callable, TypeVar, Awaitable
 from datetime import datetime, timezone, timedelta

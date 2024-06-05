@@ -79,3 +79,11 @@ class UploadUserProfilePhotoResponse(_message.Message):
     PHOTO_URL_FIELD_NUMBER: _ClassVar[int]
     photo_url: str
     def __init__(self, photo_url: _Optional[str] = ...) -> None: ...
+
+class ReferralHistoryApiRequest(_message.Message):
+    __slots__ = ()
+    def __init__(self) -> None: ...
+
+class ReferralHistoryApiResponse(_message.Message):
+    __slots__ = ()
+    def __init__(self) -> None: ...

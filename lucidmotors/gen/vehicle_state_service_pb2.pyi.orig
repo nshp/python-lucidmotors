@@ -180,6 +180,7 @@ class ChargeState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     CHARGE_STATE_CABLE_CONNECTED: _ClassVar[ChargeState]
     CHARGE_STATE_CHARGING: _ClassVar[ChargeState]
     CHARGE_STATE_CHARGING_END_OK: _ClassVar[ChargeState]
+    CHARGE_STATE_EVSE_MALFUNCTION: _ClassVar[ChargeState]
     CHARGE_STATE_DISCHARGING: _ClassVar[ChargeState]
 
 class ScheduledChargeState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
@@ -439,6 +440,7 @@ CHARGE_STATE_NOT_CONNECTED: ChargeState
 CHARGE_STATE_CABLE_CONNECTED: ChargeState
 CHARGE_STATE_CHARGING: ChargeState
 CHARGE_STATE_CHARGING_END_OK: ChargeState
+CHARGE_STATE_EVSE_MALFUNCTION: ChargeState
 CHARGE_STATE_DISCHARGING: ChargeState
 SCHEDULED_CHARGE_STATE_UNKNOWN: ScheduledChargeState
 SCHEDULED_CHARGE_STATE_IDLE: ScheduledChargeState
