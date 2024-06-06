@@ -527,7 +527,7 @@ DOCUMENT_TYPE_RELEASE_NOTES_POST: DocumentType
 DOCUMENT_TYPE_OWNERS_MANUAL: DocumentType
 
 class ChargingSubscription(_message.Message):
-    __slots__ = ("name", "expiration_date", "start_date", "status")
+    __slots__ = ["name", "expiration_date", "start_date", "status"]
     NAME_FIELD_NUMBER: _ClassVar[int]
     EXPIRATION_DATE_FIELD_NUMBER: _ClassVar[int]
     START_DATE_FIELD_NUMBER: _ClassVar[int]
@@ -539,7 +539,7 @@ class ChargingSubscription(_message.Message):
     def __init__(self, name: _Optional[str] = ..., expiration_date: _Optional[int] = ..., start_date: _Optional[int] = ..., status: _Optional[_Union[SubscriptionStatus, str]] = ...) -> None: ...
 
 class ChargingAccount(_message.Message):
-    __slots__ = ("ema_id", "vehicle_id", "status", "created_at_epoch_sec", "expiry_on_epoch_sec", "vendor_name")
+    __slots__ = ["ema_id", "vehicle_id", "status", "created_at_epoch_sec", "expiry_on_epoch_sec", "vendor_name"]
     EMA_ID_FIELD_NUMBER: _ClassVar[int]
     VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
     STATUS_FIELD_NUMBER: _ClassVar[int]
@@ -555,19 +555,19 @@ class ChargingAccount(_message.Message):
     def __init__(self, ema_id: _Optional[str] = ..., vehicle_id: _Optional[str] = ..., status: _Optional[_Union[ChargingAccountStatus, str]] = ..., created_at_epoch_sec: _Optional[int] = ..., expiry_on_epoch_sec: _Optional[int] = ..., vendor_name: _Optional[_Union[ChargingVendor, str]] = ...) -> None: ...
 
 class SpecialIdentifiers(_message.Message):
-    __slots__ = ("door_plate",)
+    __slots__ = ["door_plate"]
     DOOR_PLATE_FIELD_NUMBER: _ClassVar[int]
     door_plate: str
     def __init__(self, door_plate: _Optional[str] = ...) -> None: ...
 
 class Reservation(_message.Message):
-    __slots__ = ("date",)
+    __slots__ = ["date"]
     DATE_FIELD_NUMBER: _ClassVar[int]
     date: int
     def __init__(self, date: _Optional[int] = ...) -> None: ...
 
 class VehicleConfig(_message.Message):
-    __slots__ = ("vin", "model", "variant", "nickname", "paint_color", "ema_id", "wheels", "ea_subscription", "charging_accounts", "country_code", "region_code", "edition", "battery", "interior", "special_identifiers", "look", "exterior_color_code", "interior_color_code", "frunk_strut", "reservation", "roof")
+    __slots__ = ["vin", "model", "variant", "nickname", "paint_color", "ema_id", "wheels", "ea_subscription", "charging_accounts", "country_code", "region_code", "edition", "battery", "interior", "special_identifiers", "look", "exterior_color_code", "interior_color_code", "frunk_strut", "reservation", "roof"]
     VIN_FIELD_NUMBER: _ClassVar[int]
     MODEL_FIELD_NUMBER: _ClassVar[int]
     VARIANT_FIELD_NUMBER: _ClassVar[int]
@@ -613,7 +613,7 @@ class VehicleConfig(_message.Message):
     def __init__(self, vin: _Optional[str] = ..., model: _Optional[_Union[Model, str]] = ..., variant: _Optional[_Union[ModelVariant, str]] = ..., nickname: _Optional[str] = ..., paint_color: _Optional[_Union[PaintColor, str]] = ..., ema_id: _Optional[str] = ..., wheels: _Optional[_Union[Wheels, str]] = ..., ea_subscription: _Optional[_Union[ChargingSubscription, _Mapping]] = ..., charging_accounts: _Optional[_Iterable[_Union[ChargingAccount, _Mapping]]] = ..., country_code: _Optional[str] = ..., region_code: _Optional[str] = ..., edition: _Optional[_Union[Edition, str]] = ..., battery: _Optional[_Union[BatteryType, str]] = ..., interior: _Optional[_Union[Interior, str]] = ..., special_identifiers: _Optional[_Union[SpecialIdentifiers, _Mapping]] = ..., look: _Optional[_Union[Look, str]] = ..., exterior_color_code: _Optional[str] = ..., interior_color_code: _Optional[str] = ..., frunk_strut: _Optional[_Union[StrutType, str]] = ..., reservation: _Optional[_Union[Reservation, _Mapping]] = ..., roof: _Optional[_Union[RoofType, str]] = ...) -> None: ...
 
 class BatteryState(_message.Message):
-    __slots__ = ("remaining_range", "charge_percent", "kwhr", "capacity_kwhr", "battery_health", "low_charge_level", "critical_charge_level", "unavailable_range", "preconditioning_status", "preconditioning_time_remaining")
+    __slots__ = ["remaining_range", "charge_percent", "kwhr", "capacity_kwhr", "battery_health", "low_charge_level", "critical_charge_level", "unavailable_range", "preconditioning_status", "preconditioning_time_remaining"]
     REMAINING_RANGE_FIELD_NUMBER: _ClassVar[int]
     CHARGE_PERCENT_FIELD_NUMBER: _ClassVar[int]
     KWHR_FIELD_NUMBER: _ClassVar[int]
@@ -637,7 +637,7 @@ class BatteryState(_message.Message):
     def __init__(self, remaining_range: _Optional[float] = ..., charge_percent: _Optional[float] = ..., kwhr: _Optional[float] = ..., capacity_kwhr: _Optional[float] = ..., battery_health: _Optional[_Union[WarningState, str]] = ..., low_charge_level: _Optional[_Union[WarningState, str]] = ..., critical_charge_level: _Optional[_Union[WarningState, str]] = ..., unavailable_range: _Optional[float] = ..., preconditioning_status: _Optional[_Union[BatteryPreconStatus, str]] = ..., preconditioning_time_remaining: _Optional[int] = ...) -> None: ...
 
 class CabinState(_message.Message):
-    __slots__ = ("interior_temp", "exterior_temp")
+    __slots__ = ["interior_temp", "exterior_temp"]
     INTERIOR_TEMP_FIELD_NUMBER: _ClassVar[int]
     EXTERIOR_TEMP_FIELD_NUMBER: _ClassVar[int]
     interior_temp: float
@@ -645,7 +645,7 @@ class CabinState(_message.Message):
     def __init__(self, interior_temp: _Optional[float] = ..., exterior_temp: _Optional[float] = ...) -> None: ...
 
 class BodyState(_message.Message):
-    __slots__ = ("door_locks", "front_cargo", "rear_cargo", "front_left_door", "front_right_door", "rear_left_door", "rear_right_door", "charge_port", "walkaway_lock", "access_type_status")
+    __slots__ = ["door_locks", "front_cargo", "rear_cargo", "front_left_door", "front_right_door", "rear_left_door", "rear_right_door", "charge_port", "walkaway_lock", "access_type_status"]
     DOOR_LOCKS_FIELD_NUMBER: _ClassVar[int]
     FRONT_CARGO_FIELD_NUMBER: _ClassVar[int]
     REAR_CARGO_FIELD_NUMBER: _ClassVar[int]
@@ -669,7 +669,7 @@ class BodyState(_message.Message):
     def __init__(self, door_locks: _Optional[_Union[LockState, str]] = ..., front_cargo: _Optional[_Union[DoorState, str]] = ..., rear_cargo: _Optional[_Union[DoorState, str]] = ..., front_left_door: _Optional[_Union[DoorState, str]] = ..., front_right_door: _Optional[_Union[DoorState, str]] = ..., rear_left_door: _Optional[_Union[DoorState, str]] = ..., rear_right_door: _Optional[_Union[DoorState, str]] = ..., charge_port: _Optional[_Union[DoorState, str]] = ..., walkaway_lock: _Optional[_Union[WalkawayState, str]] = ..., access_type_status: _Optional[_Union[AccessRequest, str]] = ...) -> None: ...
 
 class ChassisState(_message.Message):
-    __slots__ = ("odometer_km", "front_left_tire_pressure_bar", "front_right_tire_pressure_bar", "rear_left_tire_pressure_bar", "rear_right_tire_pressure_bar", "headlights", "hard_warn_left_front", "hard_warn_left_rear", "hard_warn_right_front", "hard_warn_right_rear", "soft_warn_left_front", "soft_warn_left_rear", "soft_warn_right_front", "soft_warn_right_rear", "software_version")
+    __slots__ = ["odometer_km", "front_left_tire_pressure_bar", "front_right_tire_pressure_bar", "rear_left_tire_pressure_bar", "rear_right_tire_pressure_bar", "headlights", "hard_warn_left_front", "hard_warn_left_rear", "hard_warn_right_front", "hard_warn_right_rear", "soft_warn_left_front", "soft_warn_left_rear", "soft_warn_right_front", "soft_warn_right_rear", "software_version"]
     ODOMETER_KM_FIELD_NUMBER: _ClassVar[int]
     FRONT_LEFT_TIRE_PRESSURE_BAR_FIELD_NUMBER: _ClassVar[int]
     FRONT_RIGHT_TIRE_PRESSURE_BAR_FIELD_NUMBER: _ClassVar[int]
@@ -703,7 +703,7 @@ class ChassisState(_message.Message):
     def __init__(self, odometer_km: _Optional[float] = ..., front_left_tire_pressure_bar: _Optional[float] = ..., front_right_tire_pressure_bar: _Optional[float] = ..., rear_left_tire_pressure_bar: _Optional[float] = ..., rear_right_tire_pressure_bar: _Optional[float] = ..., headlights: _Optional[_Union[LightState, str]] = ..., hard_warn_left_front: _Optional[_Union[WarningState, str]] = ..., hard_warn_left_rear: _Optional[_Union[WarningState, str]] = ..., hard_warn_right_front: _Optional[_Union[WarningState, str]] = ..., hard_warn_right_rear: _Optional[_Union[WarningState, str]] = ..., soft_warn_left_front: _Optional[_Union[WarningState, str]] = ..., soft_warn_left_rear: _Optional[_Union[WarningState, str]] = ..., soft_warn_right_front: _Optional[_Union[WarningState, str]] = ..., soft_warn_right_rear: _Optional[_Union[WarningState, str]] = ..., software_version: _Optional[str] = ...) -> None: ...
 
 class ChargingState(_message.Message):
-    __slots__ = ("charge_state", "energy_type", "charge_session_mi", "charge_session_kwh", "session_minutes_remaining", "charge_limit", "cable_lock", "charge_rate_kwh_precise", "charge_rate_mph_precise", "charge_rate_miles_min_precise", "charge_limit_percent", "charge_scheduled_time", "scheduled_charge", "scheduled_charge_unavailable")
+    __slots__ = ["charge_state", "energy_type", "charge_session_mi", "charge_session_kwh", "session_minutes_remaining", "charge_limit", "cable_lock", "charge_rate_kwh_precise", "charge_rate_mph_precise", "charge_rate_miles_min_precise", "charge_limit_percent", "charge_scheduled_time", "scheduled_charge", "scheduled_charge_unavailable"]
     CHARGE_STATE_FIELD_NUMBER: _ClassVar[int]
     ENERGY_TYPE_FIELD_NUMBER: _ClassVar[int]
     CHARGE_SESSION_MI_FIELD_NUMBER: _ClassVar[int]
@@ -735,7 +735,7 @@ class ChargingState(_message.Message):
     def __init__(self, charge_state: _Optional[_Union[ChargeState, str]] = ..., energy_type: _Optional[_Union[EnergyType, str]] = ..., charge_session_mi: _Optional[float] = ..., charge_session_kwh: _Optional[float] = ..., session_minutes_remaining: _Optional[int] = ..., charge_limit: _Optional[int] = ..., cable_lock: _Optional[_Union[LockState, str]] = ..., charge_rate_kwh_precise: _Optional[float] = ..., charge_rate_mph_precise: _Optional[float] = ..., charge_rate_miles_min_precise: _Optional[float] = ..., charge_limit_percent: _Optional[float] = ..., charge_scheduled_time: _Optional[int] = ..., scheduled_charge: _Optional[_Union[ScheduledChargeState, str]] = ..., scheduled_charge_unavailable: _Optional[_Union[ScheduledChargeUnavailableState, str]] = ...) -> None: ...
 
 class Location(_message.Message):
-    __slots__ = ("latitude", "longitude")
+    __slots__ = ["latitude", "longitude"]
     LATITUDE_FIELD_NUMBER: _ClassVar[int]
     LONGITUDE_FIELD_NUMBER: _ClassVar[int]
     latitude: float
@@ -743,7 +743,7 @@ class Location(_message.Message):
     def __init__(self, latitude: _Optional[float] = ..., longitude: _Optional[float] = ...) -> None: ...
 
 class Gps(_message.Message):
-    __slots__ = ("location", "elevation", "position_time", "heading_precise")
+    __slots__ = ["location", "elevation", "position_time", "heading_precise"]
     LOCATION_FIELD_NUMBER: _ClassVar[int]
     ELEVATION_FIELD_NUMBER: _ClassVar[int]
     POSITION_TIME_FIELD_NUMBER: _ClassVar[int]
@@ -755,7 +755,7 @@ class Gps(_message.Message):
     def __init__(self, location: _Optional[_Union[Location, _Mapping]] = ..., elevation: _Optional[int] = ..., position_time: _Optional[int] = ..., heading_precise: _Optional[float] = ...) -> None: ...
 
 class SoftwareUpdate(_message.Message):
-    __slots__ = ("version_available", "install_duration_minutes", "percent_complete", "state", "version_available_raw", "update_available", "scheduled_start_time_sec")
+    __slots__ = ["version_available", "install_duration_minutes", "percent_complete", "state", "version_available_raw", "update_available", "scheduled_start_time_sec"]
     VERSION_AVAILABLE_FIELD_NUMBER: _ClassVar[int]
     INSTALL_DURATION_MINUTES_FIELD_NUMBER: _ClassVar[int]
     PERCENT_COMPLETE_FIELD_NUMBER: _ClassVar[int]
@@ -773,7 +773,7 @@ class SoftwareUpdate(_message.Message):
     def __init__(self, version_available: _Optional[str] = ..., install_duration_minutes: _Optional[int] = ..., percent_complete: _Optional[int] = ..., state: _Optional[_Union[UpdateState, str]] = ..., version_available_raw: _Optional[int] = ..., update_available: _Optional[_Union[UpdateAvailability, str]] = ..., scheduled_start_time_sec: _Optional[int] = ...) -> None: ...
 
 class AlarmState(_message.Message):
-    __slots__ = ("status", "mode")
+    __slots__ = ["status", "mode"]
     STATUS_FIELD_NUMBER: _ClassVar[int]
     MODE_FIELD_NUMBER: _ClassVar[int]
     status: AlarmStatus
@@ -781,7 +781,7 @@ class AlarmState(_message.Message):
     def __init__(self, status: _Optional[_Union[AlarmStatus, str]] = ..., mode: _Optional[_Union[AlarmMode, str]] = ...) -> None: ...
 
 class HvacState(_message.Message):
-    __slots__ = ("power", "defrost", "precondition_status", "keep_climate_status")
+    __slots__ = ["power", "defrost", "precondition_status", "keep_climate_status"]
     POWER_FIELD_NUMBER: _ClassVar[int]
     DEFROST_FIELD_NUMBER: _ClassVar[int]
     PRECONDITION_STATUS_FIELD_NUMBER: _ClassVar[int]
@@ -793,7 +793,7 @@ class HvacState(_message.Message):
     def __init__(self, power: _Optional[_Union[HvacPower, str]] = ..., defrost: _Optional[_Union[DefrostState, str]] = ..., precondition_status: _Optional[_Union[HvacPreconditionStatus, str]] = ..., keep_climate_status: _Optional[_Union[KeepClimateStatus, str]] = ...) -> None: ...
 
 class MobileAppReqState(_message.Message):
-    __slots__ = ("alarm_set_request", "charge_port_request", "frunk_cargo_request", "hvac_defrost", "hvac_precondition", "light_request", "panic_request", "shared_trip_request", "trunk_cargo_request", "vehicle_unlock_request")
+    __slots__ = ["alarm_set_request", "charge_port_request", "frunk_cargo_request", "hvac_defrost", "hvac_precondition", "light_request", "panic_request", "shared_trip_request", "trunk_cargo_request", "vehicle_unlock_request"]
     ALARM_SET_REQUEST_FIELD_NUMBER: _ClassVar[int]
     CHARGE_PORT_REQUEST_FIELD_NUMBER: _ClassVar[int]
     FRUNK_CARGO_REQUEST_FIELD_NUMBER: _ClassVar[int]
@@ -817,7 +817,7 @@ class MobileAppReqState(_message.Message):
     def __init__(self, alarm_set_request: _Optional[_Union[AlarmMode, str]] = ..., charge_port_request: _Optional[_Union[DoorState, str]] = ..., frunk_cargo_request: _Optional[_Union[DoorState, str]] = ..., hvac_defrost: _Optional[_Union[DefrostState, str]] = ..., hvac_precondition: _Optional[_Union[HvacPower, str]] = ..., light_request: _Optional[_Union[LightAction, str]] = ..., panic_request: _Optional[_Union[PanicState, str]] = ..., shared_trip_request: _Optional[_Union[SharedTripState, str]] = ..., trunk_cargo_request: _Optional[_Union[DoorState, str]] = ..., vehicle_unlock_request: _Optional[_Union[LockState, str]] = ...) -> None: ...
 
 class TcuInternetState(_message.Message):
-    __slots__ = ("lte_type", "lte_status", "wifi_status", "lte_rssi", "wifi_rssi")
+    __slots__ = ["lte_type", "lte_status", "wifi_status", "lte_rssi", "wifi_rssi"]
     LTE_TYPE_FIELD_NUMBER: _ClassVar[int]
     LTE_STATUS_FIELD_NUMBER: _ClassVar[int]
     WIFI_STATUS_FIELD_NUMBER: _ClassVar[int]
@@ -831,7 +831,7 @@ class TcuInternetState(_message.Message):
     def __init__(self, lte_type: _Optional[_Union[LteType, str]] = ..., lte_status: _Optional[_Union[InternetStatus, str]] = ..., wifi_status: _Optional[_Union[InternetStatus, str]] = ..., lte_rssi: _Optional[int] = ..., wifi_rssi: _Optional[int] = ...) -> None: ...
 
 class VehicleState(_message.Message):
-    __slots__ = ("battery", "power", "cabin", "body", "last_updated_ms", "chassis", "charging", "gps", "software_update", "alarm", "cloud_connection", "keyless_driving", "hvac", "drive_mode", "privacy_mode", "gear_position", "mobile_app_request", "tcu", "tcu_internet")
+    __slots__ = ["battery", "power", "cabin", "body", "last_updated_ms", "chassis", "charging", "gps", "software_update", "alarm", "cloud_connection", "keyless_driving", "hvac", "drive_mode", "privacy_mode", "gear_position", "mobile_app_request", "tcu", "tcu_internet"]
     BATTERY_FIELD_NUMBER: _ClassVar[int]
     POWER_FIELD_NUMBER: _ClassVar[int]
     CABIN_FIELD_NUMBER: _ClassVar[int]
@@ -873,7 +873,7 @@ class VehicleState(_message.Message):
     def __init__(self, battery: _Optional[_Union[BatteryState, _Mapping]] = ..., power: _Optional[_Union[PowerState, str]] = ..., cabin: _Optional[_Union[CabinState, _Mapping]] = ..., body: _Optional[_Union[BodyState, _Mapping]] = ..., last_updated_ms: _Optional[int] = ..., chassis: _Optional[_Union[ChassisState, _Mapping]] = ..., charging: _Optional[_Union[ChargingState, _Mapping]] = ..., gps: _Optional[_Union[Gps, _Mapping]] = ..., software_update: _Optional[_Union[SoftwareUpdate, _Mapping]] = ..., alarm: _Optional[_Union[AlarmState, _Mapping]] = ..., cloud_connection: _Optional[_Union[CloudConnectionState, str]] = ..., keyless_driving: _Optional[_Union[KeylessDrivingState, str]] = ..., hvac: _Optional[_Union[HvacState, _Mapping]] = ..., drive_mode: _Optional[_Union[DriveMode, str]] = ..., privacy_mode: _Optional[_Union[PrivacyMode, str]] = ..., gear_position: _Optional[_Union[GearPosition, str]] = ..., mobile_app_request: _Optional[_Union[MobileAppReqState, _Mapping]] = ..., tcu: _Optional[_Union[TcuState, str]] = ..., tcu_internet: _Optional[_Union[TcuInternetState, _Mapping]] = ...) -> None: ...
 
 class Vehicle(_message.Message):
-    __slots__ = ("vehicle_id", "access_level", "config", "state")
+    __slots__ = ["vehicle_id", "access_level", "config", "state"]
     VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
     ACCESS_LEVEL_FIELD_NUMBER: _ClassVar[int]
     CONFIG_FIELD_NUMBER: _ClassVar[int]
@@ -885,7 +885,7 @@ class Vehicle(_message.Message):
     def __init__(self, vehicle_id: _Optional[str] = ..., access_level: _Optional[_Union[AccessLevel, str]] = ..., config: _Optional[_Union[VehicleConfig, _Mapping]] = ..., state: _Optional[_Union[VehicleState, _Mapping]] = ...) -> None: ...
 
 class ApplySoftwareUpdateRequest(_message.Message):
-    __slots__ = ("vehicle_id",)
+    __slots__ = ["vehicle_id"]
     VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
     vehicle_id: str
     def __init__(self, vehicle_id: _Optional[str] = ...) -> None: ...
@@ -895,7 +895,7 @@ class ApplySoftwareUpdateResponse(_message.Message):
     def __init__(self) -> None: ...
 
 class CancelScheduledUpdateRequest(_message.Message):
-    __slots__ = ("vehicle_id",)
+    __slots__ = ["vehicle_id"]
     VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
     vehicle_id: str
     def __init__(self, vehicle_id: _Optional[str] = ...) -> None: ...
@@ -905,7 +905,7 @@ class CancelScheduledUpdateResponse(_message.Message):
     def __init__(self) -> None: ...
 
 class ChargeControlRequest(_message.Message):
-    __slots__ = ("action", "vehicle_id")
+    __slots__ = ["action", "vehicle_id"]
     ACTION_FIELD_NUMBER: _ClassVar[int]
     VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
     action: ChargeAction
@@ -917,7 +917,7 @@ class ChargeControlResponse(_message.Message):
     def __init__(self) -> None: ...
 
 class ControlChargePortRequest(_message.Message):
-    __slots__ = ("closure_state", "vehicle_id")
+    __slots__ = ["closure_state", "vehicle_id"]
     CLOSURE_STATE_FIELD_NUMBER: _ClassVar[int]
     VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
     closure_state: DoorState
@@ -929,7 +929,7 @@ class ControlChargePortResponse(_message.Message):
     def __init__(self) -> None: ...
 
 class DoorLocksControlRequest(_message.Message):
-    __slots__ = ("door_location", "lock_state", "vehicle_id")
+    __slots__ = ["door_location", "lock_state", "vehicle_id"]
     DOOR_LOCATION_FIELD_NUMBER: _ClassVar[int]
     LOCK_STATE_FIELD_NUMBER: _ClassVar[int]
     VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
@@ -943,7 +943,7 @@ class DoorLocksControlResponse(_message.Message):
     def __init__(self) -> None: ...
 
 class FrontCargoControlRequest(_message.Message):
-    __slots__ = ("closure_state", "vehicle_id")
+    __slots__ = ["closure_state", "vehicle_id"]
     CLOSURE_STATE_FIELD_NUMBER: _ClassVar[int]
     VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
     closure_state: DoorState
@@ -955,13 +955,13 @@ class FrontCargoControlResponse(_message.Message):
     def __init__(self) -> None: ...
 
 class DocumentInfoUnknown(_message.Message):
-    __slots__ = ("timestamp",)
+    __slots__ = ["timestamp"]
     TIMESTAMP_FIELD_NUMBER: _ClassVar[int]
     timestamp: int
     def __init__(self, timestamp: _Optional[int] = ...) -> None: ...
 
 class DocumentInfo(_message.Message):
-    __slots__ = ("type", "version", "description", "unknown")
+    __slots__ = ["type", "version", "description", "unknown"]
     TYPE_FIELD_NUMBER: _ClassVar[int]
     VERSION_FIELD_NUMBER: _ClassVar[int]
     DESCRIPTION_FIELD_NUMBER: _ClassVar[int]
@@ -973,7 +973,7 @@ class DocumentInfo(_message.Message):
     def __init__(self, type: _Optional[_Union[DocumentType, str]] = ..., version: _Optional[str] = ..., description: _Optional[str] = ..., unknown: _Optional[_Union[DocumentInfoUnknown, _Mapping]] = ...) -> None: ...
 
 class GetDocumentInfoRequest(_message.Message):
-    __slots__ = ("version", "document_type")
+    __slots__ = ["version", "document_type"]
     VERSION_FIELD_NUMBER: _ClassVar[int]
     DOCUMENT_TYPE_FIELD_NUMBER: _ClassVar[int]
     version: str
@@ -981,7 +981,7 @@ class GetDocumentInfoRequest(_message.Message):
     def __init__(self, version: _Optional[str] = ..., document_type: _Optional[_Union[DocumentType, str]] = ...) -> None: ...
 
 class GetDocumentInfoResponse(_message.Message):
-    __slots__ = ("url", "info")
+    __slots__ = ["url", "info"]
     URL_FIELD_NUMBER: _ClassVar[int]
     INFO_FIELD_NUMBER: _ClassVar[int]
     url: str
@@ -989,13 +989,13 @@ class GetDocumentInfoResponse(_message.Message):
     def __init__(self, url: _Optional[str] = ..., info: _Optional[_Union[DocumentInfo, _Mapping]] = ...) -> None: ...
 
 class GetVehicleStateRequest(_message.Message):
-    __slots__ = ("vehicle_id",)
+    __slots__ = ["vehicle_id"]
     VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
     vehicle_id: str
     def __init__(self, vehicle_id: _Optional[str] = ...) -> None: ...
 
 class GetVehicleStateResponse(_message.Message):
-    __slots__ = ("vehicle_id", "state")
+    __slots__ = ["vehicle_id", "state"]
     VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
     STATE_FIELD_NUMBER: _ClassVar[int]
     vehicle_id: str
@@ -1003,7 +1003,7 @@ class GetVehicleStateResponse(_message.Message):
     def __init__(self, vehicle_id: _Optional[str] = ..., state: _Optional[_Union[VehicleState, _Mapping]] = ...) -> None: ...
 
 class HonkHornRequest(_message.Message):
-    __slots__ = ("vehicle_id",)
+    __slots__ = ["vehicle_id"]
     VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
     vehicle_id: str
     def __init__(self, vehicle_id: _Optional[str] = ...) -> None: ...
@@ -1013,7 +1013,7 @@ class HonkHornResponse(_message.Message):
     def __init__(self) -> None: ...
 
 class HvacDefrostControlRequest(_message.Message):
-    __slots__ = ("vehicle_id", "hvac_defrost")
+    __slots__ = ["vehicle_id", "hvac_defrost"]
     VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
     HVAC_DEFROST_FIELD_NUMBER: _ClassVar[int]
     vehicle_id: str
@@ -1025,7 +1025,7 @@ class HvacDefrostControlResponse(_message.Message):
     def __init__(self) -> None: ...
 
 class LightsControlRequest(_message.Message):
-    __slots__ = ("action", "vehicle_id")
+    __slots__ = ["action", "vehicle_id"]
     ACTION_FIELD_NUMBER: _ClassVar[int]
     VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
     action: LightAction
@@ -1037,7 +1037,7 @@ class LightsControlResponse(_message.Message):
     def __init__(self) -> None: ...
 
 class RearCargoControlRequest(_message.Message):
-    __slots__ = ("closure_state", "vehicle_id")
+    __slots__ = ["closure_state", "vehicle_id"]
     CLOSURE_STATE_FIELD_NUMBER: _ClassVar[int]
     VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
     closure_state: DoorState
@@ -1049,7 +1049,7 @@ class RearCargoControlResponse(_message.Message):
     def __init__(self) -> None: ...
 
 class SecurityAlarmControlRequest(_message.Message):
-    __slots__ = ("mode", "vehicle_id")
+    __slots__ = ["mode", "vehicle_id"]
     MODE_FIELD_NUMBER: _ClassVar[int]
     VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
     mode: AlarmMode
@@ -1061,7 +1061,7 @@ class SecurityAlarmControlResponse(_message.Message):
     def __init__(self) -> None: ...
 
 class SetCabinTemperatureRequest(_message.Message):
-    __slots__ = ("temperature", "state", "vehicle_id")
+    __slots__ = ["temperature", "state", "vehicle_id"]
     TEMPERATURE_FIELD_NUMBER: _ClassVar[int]
     STATE_FIELD_NUMBER: _ClassVar[int]
     VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
@@ -1075,7 +1075,7 @@ class SetCabinTemperatureResponse(_message.Message):
     def __init__(self) -> None: ...
 
 class SetChargeLimitRequest(_message.Message):
-    __slots__ = ("limit_percent", "vehicle_id")
+    __slots__ = ["limit_percent", "vehicle_id"]
     LIMIT_PERCENT_FIELD_NUMBER: _ClassVar[int]
     VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
     limit_percent: int
@@ -1087,7 +1087,7 @@ class SetChargeLimitResponse(_message.Message):
     def __init__(self) -> None: ...
 
 class WakeupVehicleRequest(_message.Message):
-    __slots__ = ("vehicle_id",)
+    __slots__ = ["vehicle_id"]
     VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
     vehicle_id: str
     def __init__(self, vehicle_id: _Optional[str] = ...) -> None: ...
