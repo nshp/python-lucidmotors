@@ -50,6 +50,7 @@ class Wheels(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     WHEELS_BLADE: _ClassVar[Wheels]
     WHEELS_LITE: _ClassVar[Wheels]
     WHEELS_RANGE: _ClassVar[Wheels]
+    WHEELS_SPORT_STEALTH: _ClassVar[Wheels]
     WHEELS_LITE_STEALTH: _ClassVar[Wheels]
 
 class SubscriptionStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
@@ -299,6 +300,7 @@ class SharedTripState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     SHARED_TRIP_UNKNOWN: _ClassVar[SharedTripState]
     SHARED_TRIP_AVAILABLE: _ClassVar[SharedTripState]
+    SHARED_TRIP_PROFILE_UPDATED: _ClassVar[SharedTripState]
 
 class PanicState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -364,6 +366,7 @@ WHEELS_DREAM: Wheels
 WHEELS_BLADE: Wheels
 WHEELS_LITE: Wheels
 WHEELS_RANGE: Wheels
+WHEELS_SPORT_STEALTH: Wheels
 WHEELS_LITE_STEALTH: Wheels
 SUBSCRIPTION_STATUS_UNKNOWN: SubscriptionStatus
 SUBSCRIPTION_STATUS_CURRENT: SubscriptionStatus
@@ -505,6 +508,7 @@ GEAR_NEUTRAL: GearPosition
 GEAR_DRIVE: GearPosition
 SHARED_TRIP_UNKNOWN: SharedTripState
 SHARED_TRIP_AVAILABLE: SharedTripState
+SHARED_TRIP_PROFILE_UPDATED: SharedTripState
 PANIC_ALARM_UNKNOWN: PanicState
 PANIC_ALARM_ON: PanicState
 TCU_UNKNOWN: TcuState

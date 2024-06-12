@@ -46,6 +46,7 @@ enum Wheels {
     WHEELS_BLADE = 2;
     WHEELS_LITE = 3;
     WHEELS_RANGE = 4;
+    WHEELS_SPORT_STEALTH = 6;
     WHEELS_LITE_STEALTH = 8;
 }
 
@@ -448,6 +449,7 @@ enum GearPosition {
 enum SharedTripState {
     SHARED_TRIP_UNKNOWN = 0;
     SHARED_TRIP_AVAILABLE = 1;
+    SHARED_TRIP_PROFILE_UPDATED = 3;
 }
 
 enum PanicState {

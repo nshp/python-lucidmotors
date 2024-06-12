@@ -215,6 +215,8 @@ def enum_to_str(enum_type: EnumTypeWrapper, value: int) -> str:
             return "Lite"
         case (VSS.Wheels, Wheels.WHEELS_RANGE):
             return "Range"
+        case (VSS.Wheels, Wheels.WHEELS_SPORT_STEALTH):
+            return "Sport Stealth"
         case (VSS.Wheels, Wheels.WHEELS_LITE_STEALTH):
             return "Lite Stealth"
 
