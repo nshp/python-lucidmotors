@@ -167,6 +167,16 @@ enum BatteryPreconStatus {
     BATTERY_PRECON_UNAVAILABLE = 3;
 }
 
+enum BatteryCellType {
+    BATTERY_CELL_TYPE_UNKNOWN = 0;
+    BATTERY_CELL_TYPE_LG_M48 = 1;
+}
+
+enum BatteryPackType {
+    BATTERY_PACK_TYPE_UNKNOWN = 0;
+    BATTERY_PACK_TYPE_AIR_18 = 2;
+}
+
 message BatteryState {
     double remaining_range = 1;
     double charge_percent = 2;
@@ -178,6 +188,14 @@ message BatteryState {
     double unavailable_range = 8;
     BatteryPreconStatus preconditioning_status = 9;
     uint32 preconditioning_time_remaining = 10;
+    double battery_health_level = 11;
+    uint32 bmu_software_version_major = 13;
+    uint32 bmu_software_version_minor = 14;
+    uint32 bmu_software_version_micro = 15;
+    BatteryCellType battery_cell_type = 16;
+    BatteryPackType battery_pack_type = 17;
+    double max_cell_temp = 18;
+    double min_cell_temp = 19;
 }
 
 enum PowerState {

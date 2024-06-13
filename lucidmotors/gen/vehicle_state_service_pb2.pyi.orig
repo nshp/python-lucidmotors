@@ -122,6 +122,16 @@ class BatteryPreconStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     BATTERY_PRECON_ON: _ClassVar[BatteryPreconStatus]
     BATTERY_PRECON_UNAVAILABLE: _ClassVar[BatteryPreconStatus]
 
+class BatteryCellType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = []
+    BATTERY_CELL_TYPE_UNKNOWN: _ClassVar[BatteryCellType]
+    BATTERY_CELL_TYPE_LG_M48: _ClassVar[BatteryCellType]
+
+class BatteryPackType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = []
+    BATTERY_PACK_TYPE_UNKNOWN: _ClassVar[BatteryPackType]
+    BATTERY_PACK_TYPE_AIR_18: _ClassVar[BatteryPackType]
+
 class PowerState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = []
     POWER_STATE_UNKNOWN: _ClassVar[PowerState]
@@ -407,6 +417,10 @@ BATTERY_PRECON_UNKNOWN: BatteryPreconStatus
 BATTERY_PRECON_OFF: BatteryPreconStatus
 BATTERY_PRECON_ON: BatteryPreconStatus
 BATTERY_PRECON_UNAVAILABLE: BatteryPreconStatus
+BATTERY_CELL_TYPE_UNKNOWN: BatteryCellType
+BATTERY_CELL_TYPE_LG_M48: BatteryCellType
+BATTERY_PACK_TYPE_UNKNOWN: BatteryPackType
+BATTERY_PACK_TYPE_AIR_18: BatteryPackType
 POWER_STATE_UNKNOWN: PowerState
 POWER_STATE_SLEEP: PowerState
 POWER_STATE_WINK: PowerState
@@ -617,7 +631,7 @@ class VehicleConfig(_message.Message):
     def __init__(self, vin: _Optional[str] = ..., model: _Optional[_Union[Model, str]] = ..., variant: _Optional[_Union[ModelVariant, str]] = ..., nickname: _Optional[str] = ..., paint_color: _Optional[_Union[PaintColor, str]] = ..., ema_id: _Optional[str] = ..., wheels: _Optional[_Union[Wheels, str]] = ..., ea_subscription: _Optional[_Union[ChargingSubscription, _Mapping]] = ..., charging_accounts: _Optional[_Iterable[_Union[ChargingAccount, _Mapping]]] = ..., country_code: _Optional[str] = ..., region_code: _Optional[str] = ..., edition: _Optional[_Union[Edition, str]] = ..., battery: _Optional[_Union[BatteryType, str]] = ..., interior: _Optional[_Union[Interior, str]] = ..., special_identifiers: _Optional[_Union[SpecialIdentifiers, _Mapping]] = ..., look: _Optional[_Union[Look, str]] = ..., exterior_color_code: _Optional[str] = ..., interior_color_code: _Optional[str] = ..., frunk_strut: _Optional[_Union[StrutType, str]] = ..., reservation: _Optional[_Union[Reservation, _Mapping]] = ..., roof: _Optional[_Union[RoofType, str]] = ...) -> None: ...
 
 class BatteryState(_message.Message):
-    __slots__ = ["remaining_range", "charge_percent", "kwhr", "capacity_kwhr", "battery_health", "low_charge_level", "critical_charge_level", "unavailable_range", "preconditioning_status", "preconditioning_time_remaining"]
+    __slots__ = ["remaining_range", "charge_percent", "kwhr", "capacity_kwhr", "battery_health", "low_charge_level", "critical_charge_level", "unavailable_range", "preconditioning_status", "preconditioning_time_remaining", "battery_health_level", "bmu_software_version_major", "bmu_software_version_minor", "bmu_software_version_micro", "battery_cell_type", "battery_pack_type", "max_cell_temp", "min_cell_temp"]
     REMAINING_RANGE_FIELD_NUMBER: _ClassVar[int]
     CHARGE_PERCENT_FIELD_NUMBER: _ClassVar[int]
     KWHR_FIELD_NUMBER: _ClassVar[int]
@@ -628,6 +642,14 @@ class BatteryState(_message.Message):
     UNAVAILABLE_RANGE_FIELD_NUMBER: _ClassVar[int]
     PRECONDITIONING_STATUS_FIELD_NUMBER: _ClassVar[int]
     PRECONDITIONING_TIME_REMAINING_FIELD_NUMBER: _ClassVar[int]
+    BATTERY_HEALTH_LEVEL_FIELD_NUMBER: _ClassVar[int]
+    BMU_SOFTWARE_VERSION_MAJOR_FIELD_NUMBER: _ClassVar[int]
+    BMU_SOFTWARE_VERSION_MINOR_FIELD_NUMBER: _ClassVar[int]
+    BMU_SOFTWARE_VERSION_MICRO_FIELD_NUMBER: _ClassVar[int]
+    BATTERY_CELL_TYPE_FIELD_NUMBER: _ClassVar[int]
+    BATTERY_PACK_TYPE_FIELD_NUMBER: _ClassVar[int]
+    MAX_CELL_TEMP_FIELD_NUMBER: _ClassVar[int]
+    MIN_CELL_TEMP_FIELD_NUMBER: _ClassVar[int]
     remaining_range: float
     charge_percent: float
     kwhr: float
@@ -638,7 +660,15 @@ class BatteryState(_message.Message):
     unavailable_range: float
     preconditioning_status: BatteryPreconStatus
     preconditioning_time_remaining: int
-    def __init__(self, remaining_range: _Optional[float] = ..., charge_percent: _Optional[float] = ..., kwhr: _Optional[float] = ..., capacity_kwhr: _Optional[float] = ..., battery_health: _Optional[_Union[WarningState, str]] = ..., low_charge_level: _Optional[_Union[WarningState, str]] = ..., critical_charge_level: _Optional[_Union[WarningState, str]] = ..., unavailable_range: _Optional[float] = ..., preconditioning_status: _Optional[_Union[BatteryPreconStatus, str]] = ..., preconditioning_time_remaining: _Optional[int] = ...) -> None: ...
+    battery_health_level: float
+    bmu_software_version_major: int
+    bmu_software_version_minor: int
+    bmu_software_version_micro: int
+    battery_cell_type: BatteryCellType
+    battery_pack_type: BatteryPackType
+    max_cell_temp: float
+    min_cell_temp: float
+    def __init__(self, remaining_range: _Optional[float] = ..., charge_percent: _Optional[float] = ..., kwhr: _Optional[float] = ..., capacity_kwhr: _Optional[float] = ..., battery_health: _Optional[_Union[WarningState, str]] = ..., low_charge_level: _Optional[_Union[WarningState, str]] = ..., critical_charge_level: _Optional[_Union[WarningState, str]] = ..., unavailable_range: _Optional[float] = ..., preconditioning_status: _Optional[_Union[BatteryPreconStatus, str]] = ..., preconditioning_time_remaining: _Optional[int] = ..., battery_health_level: _Optional[float] = ..., bmu_software_version_major: _Optional[int] = ..., bmu_software_version_minor: _Optional[int] = ..., bmu_software_version_micro: _Optional[int] = ..., battery_cell_type: _Optional[_Union[BatteryCellType, str]] = ..., battery_pack_type: _Optional[_Union[BatteryPackType, str]] = ..., max_cell_temp: _Optional[float] = ..., min_cell_temp: _Optional[float] = ...) -> None: ...
 
 class CabinState(_message.Message):
     __slots__ = ["interior_temp", "exterior_temp"]
