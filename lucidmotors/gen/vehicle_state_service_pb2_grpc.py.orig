@@ -94,6 +94,11 @@ class VehicleStateServiceStub(object):
                 request_serializer=vehicle__state__service__pb2.WakeupVehicleRequest.SerializeToString,
                 response_deserializer=vehicle__state__service__pb2.WakeupVehicleResponse.FromString,
                 )
+        self.SetBatteryPrecon = channel.unary_unary(
+                '/mobilegateway.protos.VehicleStateService/SetBatteryPrecon',
+                request_serializer=vehicle__state__service__pb2.SetBatteryPreconRequest.SerializeToString,
+                response_deserializer=vehicle__state__service__pb2.SetBatteryPreconResponse.FromString,
+                )
 
 
 class VehicleStateServiceServicer(object):
@@ -195,6 +200,12 @@ class VehicleStateServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def SetBatteryPrecon(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_VehicleStateServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -277,6 +288,11 @@ def add_VehicleStateServiceServicer_to_server(servicer, server):
                     servicer.WakeupVehicle,
                     request_deserializer=vehicle__state__service__pb2.WakeupVehicleRequest.FromString,
                     response_serializer=vehicle__state__service__pb2.WakeupVehicleResponse.SerializeToString,
+            ),
+            'SetBatteryPrecon': grpc.unary_unary_rpc_method_handler(
+                    servicer.SetBatteryPrecon,
+                    request_deserializer=vehicle__state__service__pb2.SetBatteryPreconRequest.FromString,
+                    response_serializer=vehicle__state__service__pb2.SetBatteryPreconResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -557,5 +573,22 @@ class VehicleStateService(object):
         return grpc.experimental.unary_unary(request, target, '/mobilegateway.protos.VehicleStateService/WakeupVehicle',
             vehicle__state__service__pb2.WakeupVehicleRequest.SerializeToString,
             vehicle__state__service__pb2.WakeupVehicleResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SetBatteryPrecon(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mobilegateway.protos.VehicleStateService/SetBatteryPrecon',
+            vehicle__state__service__pb2.SetBatteryPreconRequest.SerializeToString,
+            vehicle__state__service__pb2.SetBatteryPreconResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

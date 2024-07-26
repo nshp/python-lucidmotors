@@ -170,10 +170,12 @@ enum BatteryPreconStatus {
 enum BatteryCellType {
     BATTERY_CELL_TYPE_UNKNOWN = 0;
     BATTERY_CELL_TYPE_LG_M48 = 1;
+    BATTERY_CELL_TYPE_SDI_50G = 2;
 }
 
 enum BatteryPackType {
     BATTERY_PACK_TYPE_UNKNOWN = 0;
+    BATTERY_PACK_TYPE_AIR_22 = 1;
     BATTERY_PACK_TYPE_AIR_18 = 2;
 }
 
@@ -241,6 +243,11 @@ enum AccessRequest {
     ACCESS_REQUEST_PASSIVE = 2;
 }
 
+enum KeyfobBatteryStatus {
+    KEYFOB_BATTERY_STATUS_UNKNOWN = 0;
+    KEYFOB_BATTERY_STATUS_SUFFICIENT = 2;
+}
+
 message BodyState {
     LockState door_locks = 1;
     DoorState front_cargo = 2;
@@ -252,6 +259,7 @@ message BodyState {
     DoorState charge_port = 8;
     WalkawayState walkaway_lock = 9;
     AccessRequest access_type_status = 10;
+    KeyfobBatteryStatus keyfob_battery_status = 11;
 }
 
 enum LightState {
@@ -334,6 +342,8 @@ message ChargingState {
     uint32 charge_scheduled_time = 16;
     ScheduledChargeState scheduled_charge = 17;
     ScheduledChargeUnavailableState scheduled_charge_unavailable = 18;
+    double port_power = 19;
+    uint32 discharge_target_soe = 26;
 }
 
 message Location {
@@ -685,6 +695,13 @@ message WakeupVehicleRequest {
 }
 message WakeupVehicleResponse {}
 
+message SetBatteryPreconRequest {
+    string vehicle_id = 1;
+    BatteryPreconStatus status = 2;
+}
+
+message SetBatteryPreconResponse {}
+
 service VehicleStateService {
     rpc ApplySoftwareUpdate(ApplySoftwareUpdateRequest) returns (ApplySoftwareUpdateResponse) {}
     rpc CancelScheduledUpdate(CancelScheduledUpdateRequest) returns (CancelScheduledUpdateResponse) {}
@@ -702,4 +719,5 @@ service VehicleStateService {
     rpc SetCabinTemperature(SetCabinTemperatureRequest) returns (SetCabinTemperatureResponse) {}
     rpc SetChargeLimit(SetChargeLimitRequest) returns (SetChargeLimitResponse) {}
     rpc WakeupVehicle(WakeupVehicleRequest) returns (WakeupVehicleResponse) {}
+    rpc SetBatteryPrecon(SetBatteryPreconRequest) returns (SetBatteryPreconResponse) {}
 }

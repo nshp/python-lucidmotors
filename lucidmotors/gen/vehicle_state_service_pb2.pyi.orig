@@ -126,10 +126,12 @@ class BatteryCellType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = []
     BATTERY_CELL_TYPE_UNKNOWN: _ClassVar[BatteryCellType]
     BATTERY_CELL_TYPE_LG_M48: _ClassVar[BatteryCellType]
+    BATTERY_CELL_TYPE_SDI_50G: _ClassVar[BatteryCellType]
 
 class BatteryPackType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = []
     BATTERY_PACK_TYPE_UNKNOWN: _ClassVar[BatteryPackType]
+    BATTERY_PACK_TYPE_AIR_22: _ClassVar[BatteryPackType]
     BATTERY_PACK_TYPE_AIR_18: _ClassVar[BatteryPackType]
 
 class PowerState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
@@ -169,6 +171,11 @@ class AccessRequest(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     ACCESS_REQUEST_UNKNOWN: _ClassVar[AccessRequest]
     ACCESS_REQUEST_ACTIVE: _ClassVar[AccessRequest]
     ACCESS_REQUEST_PASSIVE: _ClassVar[AccessRequest]
+
+class KeyfobBatteryStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = []
+    KEYFOB_BATTERY_STATUS_UNKNOWN: _ClassVar[KeyfobBatteryStatus]
+    KEYFOB_BATTERY_STATUS_SUFFICIENT: _ClassVar[KeyfobBatteryStatus]
 
 class LightState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = []
@@ -419,7 +426,9 @@ BATTERY_PRECON_ON: BatteryPreconStatus
 BATTERY_PRECON_UNAVAILABLE: BatteryPreconStatus
 BATTERY_CELL_TYPE_UNKNOWN: BatteryCellType
 BATTERY_CELL_TYPE_LG_M48: BatteryCellType
+BATTERY_CELL_TYPE_SDI_50G: BatteryCellType
 BATTERY_PACK_TYPE_UNKNOWN: BatteryPackType
+BATTERY_PACK_TYPE_AIR_22: BatteryPackType
 BATTERY_PACK_TYPE_AIR_18: BatteryPackType
 POWER_STATE_UNKNOWN: PowerState
 POWER_STATE_SLEEP: PowerState
@@ -444,6 +453,8 @@ WALKAWAY_DISABLE: WalkawayState
 ACCESS_REQUEST_UNKNOWN: AccessRequest
 ACCESS_REQUEST_ACTIVE: AccessRequest
 ACCESS_REQUEST_PASSIVE: AccessRequest
+KEYFOB_BATTERY_STATUS_UNKNOWN: KeyfobBatteryStatus
+KEYFOB_BATTERY_STATUS_SUFFICIENT: KeyfobBatteryStatus
 LIGHT_STATE_REALLY_UNKNOWN: LightState
 LIGHT_STATE_OFF: LightState
 LIGHT_STATE_ON: LightState
@@ -679,7 +690,7 @@ class CabinState(_message.Message):
     def __init__(self, interior_temp: _Optional[float] = ..., exterior_temp: _Optional[float] = ...) -> None: ...
 
 class BodyState(_message.Message):
-    __slots__ = ["door_locks", "front_cargo", "rear_cargo", "front_left_door", "front_right_door", "rear_left_door", "rear_right_door", "charge_port", "walkaway_lock", "access_type_status"]
+    __slots__ = ["door_locks", "front_cargo", "rear_cargo", "front_left_door", "front_right_door", "rear_left_door", "rear_right_door", "charge_port", "walkaway_lock", "access_type_status", "keyfob_battery_status"]
     DOOR_LOCKS_FIELD_NUMBER: _ClassVar[int]
     FRONT_CARGO_FIELD_NUMBER: _ClassVar[int]
     REAR_CARGO_FIELD_NUMBER: _ClassVar[int]
@@ -690,6 +701,7 @@ class BodyState(_message.Message):
     CHARGE_PORT_FIELD_NUMBER: _ClassVar[int]
     WALKAWAY_LOCK_FIELD_NUMBER: _ClassVar[int]
     ACCESS_TYPE_STATUS_FIELD_NUMBER: _ClassVar[int]
+    KEYFOB_BATTERY_STATUS_FIELD_NUMBER: _ClassVar[int]
     door_locks: LockState
     front_cargo: DoorState
     rear_cargo: DoorState
@@ -700,7 +712,8 @@ class BodyState(_message.Message):
     charge_port: DoorState
     walkaway_lock: WalkawayState
     access_type_status: AccessRequest
-    def __init__(self, door_locks: _Optional[_Union[LockState, str]] = ..., front_cargo: _Optional[_Union[DoorState, str]] = ..., rear_cargo: _Optional[_Union[DoorState, str]] = ..., front_left_door: _Optional[_Union[DoorState, str]] = ..., front_right_door: _Optional[_Union[DoorState, str]] = ..., rear_left_door: _Optional[_Union[DoorState, str]] = ..., rear_right_door: _Optional[_Union[DoorState, str]] = ..., charge_port: _Optional[_Union[DoorState, str]] = ..., walkaway_lock: _Optional[_Union[WalkawayState, str]] = ..., access_type_status: _Optional[_Union[AccessRequest, str]] = ...) -> None: ...
+    keyfob_battery_status: KeyfobBatteryStatus
+    def __init__(self, door_locks: _Optional[_Union[LockState, str]] = ..., front_cargo: _Optional[_Union[DoorState, str]] = ..., rear_cargo: _Optional[_Union[DoorState, str]] = ..., front_left_door: _Optional[_Union[DoorState, str]] = ..., front_right_door: _Optional[_Union[DoorState, str]] = ..., rear_left_door: _Optional[_Union[DoorState, str]] = ..., rear_right_door: _Optional[_Union[DoorState, str]] = ..., charge_port: _Optional[_Union[DoorState, str]] = ..., walkaway_lock: _Optional[_Union[WalkawayState, str]] = ..., access_type_status: _Optional[_Union[AccessRequest, str]] = ..., keyfob_battery_status: _Optional[_Union[KeyfobBatteryStatus, str]] = ...) -> None: ...
 
 class ChassisState(_message.Message):
     __slots__ = ["odometer_km", "front_left_tire_pressure_bar", "front_right_tire_pressure_bar", "rear_left_tire_pressure_bar", "rear_right_tire_pressure_bar", "headlights", "hard_warn_left_front", "hard_warn_left_rear", "hard_warn_right_front", "hard_warn_right_rear", "soft_warn_left_front", "soft_warn_left_rear", "soft_warn_right_front", "soft_warn_right_rear", "software_version"]
@@ -737,7 +750,7 @@ class ChassisState(_message.Message):
     def __init__(self, odometer_km: _Optional[float] = ..., front_left_tire_pressure_bar: _Optional[float] = ..., front_right_tire_pressure_bar: _Optional[float] = ..., rear_left_tire_pressure_bar: _Optional[float] = ..., rear_right_tire_pressure_bar: _Optional[float] = ..., headlights: _Optional[_Union[LightState, str]] = ..., hard_warn_left_front: _Optional[_Union[WarningState, str]] = ..., hard_warn_left_rear: _Optional[_Union[WarningState, str]] = ..., hard_warn_right_front: _Optional[_Union[WarningState, str]] = ..., hard_warn_right_rear: _Optional[_Union[WarningState, str]] = ..., soft_warn_left_front: _Optional[_Union[WarningState, str]] = ..., soft_warn_left_rear: _Optional[_Union[WarningState, str]] = ..., soft_warn_right_front: _Optional[_Union[WarningState, str]] = ..., soft_warn_right_rear: _Optional[_Union[WarningState, str]] = ..., software_version: _Optional[str] = ...) -> None: ...
 
 class ChargingState(_message.Message):
-    __slots__ = ["charge_state", "energy_type", "charge_session_mi", "charge_session_kwh", "session_minutes_remaining", "charge_limit", "cable_lock", "charge_rate_kwh_precise", "charge_rate_mph_precise", "charge_rate_miles_min_precise", "charge_limit_percent", "charge_scheduled_time", "scheduled_charge", "scheduled_charge_unavailable"]
+    __slots__ = ["charge_state", "energy_type", "charge_session_mi", "charge_session_kwh", "session_minutes_remaining", "charge_limit", "cable_lock", "charge_rate_kwh_precise", "charge_rate_mph_precise", "charge_rate_miles_min_precise", "charge_limit_percent", "charge_scheduled_time", "scheduled_charge", "scheduled_charge_unavailable", "port_power", "discharge_target_soe"]
     CHARGE_STATE_FIELD_NUMBER: _ClassVar[int]
     ENERGY_TYPE_FIELD_NUMBER: _ClassVar[int]
     CHARGE_SESSION_MI_FIELD_NUMBER: _ClassVar[int]
@@ -752,6 +765,8 @@ class ChargingState(_message.Message):
     CHARGE_SCHEDULED_TIME_FIELD_NUMBER: _ClassVar[int]
     SCHEDULED_CHARGE_FIELD_NUMBER: _ClassVar[int]
     SCHEDULED_CHARGE_UNAVAILABLE_FIELD_NUMBER: _ClassVar[int]
+    PORT_POWER_FIELD_NUMBER: _ClassVar[int]
+    DISCHARGE_TARGET_SOE_FIELD_NUMBER: _ClassVar[int]
     charge_state: ChargeState
     energy_type: EnergyType
     charge_session_mi: float
@@ -766,7 +781,9 @@ class ChargingState(_message.Message):
     charge_scheduled_time: int
     scheduled_charge: ScheduledChargeState
     scheduled_charge_unavailable: ScheduledChargeUnavailableState
-    def __init__(self, charge_state: _Optional[_Union[ChargeState, str]] = ..., energy_type: _Optional[_Union[EnergyType, str]] = ..., charge_session_mi: _Optional[float] = ..., charge_session_kwh: _Optional[float] = ..., session_minutes_remaining: _Optional[int] = ..., charge_limit: _Optional[int] = ..., cable_lock: _Optional[_Union[LockState, str]] = ..., charge_rate_kwh_precise: _Optional[float] = ..., charge_rate_mph_precise: _Optional[float] = ..., charge_rate_miles_min_precise: _Optional[float] = ..., charge_limit_percent: _Optional[float] = ..., charge_scheduled_time: _Optional[int] = ..., scheduled_charge: _Optional[_Union[ScheduledChargeState, str]] = ..., scheduled_charge_unavailable: _Optional[_Union[ScheduledChargeUnavailableState, str]] = ...) -> None: ...
+    port_power: float
+    discharge_target_soe: int
+    def __init__(self, charge_state: _Optional[_Union[ChargeState, str]] = ..., energy_type: _Optional[_Union[EnergyType, str]] = ..., charge_session_mi: _Optional[float] = ..., charge_session_kwh: _Optional[float] = ..., session_minutes_remaining: _Optional[int] = ..., charge_limit: _Optional[int] = ..., cable_lock: _Optional[_Union[LockState, str]] = ..., charge_rate_kwh_precise: _Optional[float] = ..., charge_rate_mph_precise: _Optional[float] = ..., charge_rate_miles_min_precise: _Optional[float] = ..., charge_limit_percent: _Optional[float] = ..., charge_scheduled_time: _Optional[int] = ..., scheduled_charge: _Optional[_Union[ScheduledChargeState, str]] = ..., scheduled_charge_unavailable: _Optional[_Union[ScheduledChargeUnavailableState, str]] = ..., port_power: _Optional[float] = ..., discharge_target_soe: _Optional[int] = ...) -> None: ...
 
 class Location(_message.Message):
     __slots__ = ["latitude", "longitude"]
@@ -1127,5 +1144,17 @@ class WakeupVehicleRequest(_message.Message):
     def __init__(self, vehicle_id: _Optional[str] = ...) -> None: ...
 
 class WakeupVehicleResponse(_message.Message):
+    __slots__ = []
+    def __init__(self) -> None: ...
+
+class SetBatteryPreconRequest(_message.Message):
+    __slots__ = ["vehicle_id", "status"]
+    VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
+    STATUS_FIELD_NUMBER: _ClassVar[int]
+    vehicle_id: str
+    status: BatteryPreconStatus
+    def __init__(self, vehicle_id: _Optional[str] = ..., status: _Optional[_Union[BatteryPreconStatus, str]] = ...) -> None: ...
+
+class SetBatteryPreconResponse(_message.Message):
     __slots__ = []
     def __init__(self) -> None: ...
