@@ -767,6 +767,37 @@ class LucidAPI:
         )
         await _check_for_api_error(self._vehicle_service.SetCabinTemperature(request))
 
+    async def battery_precon_control(
+        self, vehicle: Vehicle, action: BatteryPreconStatus
+    ) -> None:
+        """
+        Control battery preconditioning for a specific vehicle.
+        """
+
+        request = vehicle_state_service_pb2.SetBatteryPreconRequest(
+            vehicle_id=vehicle.vehicle_id,
+            status=action,
+        )
+        await _check_for_api_error(self._vehicle_service.SetBatteryPrecon(request))
+
+    async def battery_precon_on(self, vehicle: Vehicle) -> None:
+        """
+        Turn on battery preconditioning for a specific vehicle.
+        """
+
+        await self.battery_precon_control(
+            vehicle, BatteryPreconStatus.BATTERY_PRECON_ON
+        )
+
+    async def battery_precon_off(self, vehicle: Vehicle) -> None:
+        """
+        Turn off battery preconditioning for a specific vehicle.
+        """
+
+        await self.battery_precon_control(
+            vehicle, BatteryPreconStatus.BATTERY_PRECON_OFF
+        )
+
     async def get_update_release_notes(self, version: str) -> GetDocumentInfoResponse:
         """
         Fetch release notes and description given a software version, e.g.
