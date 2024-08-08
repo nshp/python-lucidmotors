@@ -99,6 +99,16 @@ class VehicleStateServiceStub(object):
                 request_serializer=vehicle__state__service__pb2.SetBatteryPreconRequest.SerializeToString,
                 response_deserializer=vehicle__state__service__pb2.SetBatteryPreconResponse.FromString,
                 )
+        self.SetDischargeSoeLimit = channel.unary_unary(
+                '/mobilegateway.protos.VehicleStateService/SetDischargeSoeLimit',
+                request_serializer=vehicle__state__service__pb2.SetDischargeSoeLimitRequest.SerializeToString,
+                response_deserializer=vehicle__state__service__pb2.SetDischargeSoeLimitResponse.FromString,
+                )
+        self.DischargeControl = channel.unary_unary(
+                '/mobilegateway.protos.VehicleStateService/DischargeControl',
+                request_serializer=vehicle__state__service__pb2.DischargeControlRequest.SerializeToString,
+                response_deserializer=vehicle__state__service__pb2.DischargeControlResponse.FromString,
+                )
 
 
 class VehicleStateServiceServicer(object):
@@ -206,6 +216,18 @@ class VehicleStateServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def SetDischargeSoeLimit(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DischargeControl(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_VehicleStateServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -293,6 +315,16 @@ def add_VehicleStateServiceServicer_to_server(servicer, server):
                     servicer.SetBatteryPrecon,
                     request_deserializer=vehicle__state__service__pb2.SetBatteryPreconRequest.FromString,
                     response_serializer=vehicle__state__service__pb2.SetBatteryPreconResponse.SerializeToString,
+            ),
+            'SetDischargeSoeLimit': grpc.unary_unary_rpc_method_handler(
+                    servicer.SetDischargeSoeLimit,
+                    request_deserializer=vehicle__state__service__pb2.SetDischargeSoeLimitRequest.FromString,
+                    response_serializer=vehicle__state__service__pb2.SetDischargeSoeLimitResponse.SerializeToString,
+            ),
+            'DischargeControl': grpc.unary_unary_rpc_method_handler(
+                    servicer.DischargeControl,
+                    request_deserializer=vehicle__state__service__pb2.DischargeControlRequest.FromString,
+                    response_serializer=vehicle__state__service__pb2.DischargeControlResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -590,5 +622,39 @@ class VehicleStateService(object):
         return grpc.experimental.unary_unary(request, target, '/mobilegateway.protos.VehicleStateService/SetBatteryPrecon',
             vehicle__state__service__pb2.SetBatteryPreconRequest.SerializeToString,
             vehicle__state__service__pb2.SetBatteryPreconResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def SetDischargeSoeLimit(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mobilegateway.protos.VehicleStateService/SetDischargeSoeLimit',
+            vehicle__state__service__pb2.SetDischargeSoeLimitRequest.SerializeToString,
+            vehicle__state__service__pb2.SetDischargeSoeLimitResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DischargeControl(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mobilegateway.protos.VehicleStateService/DischargeControl',
+            vehicle__state__service__pb2.DischargeControlRequest.SerializeToString,
+            vehicle__state__service__pb2.DischargeControlResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

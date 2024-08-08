@@ -43,14 +43,23 @@ message ReferralHistoryResponse {
 message ServiceAppointment {
 }
 
-message GetSalesForceServiceAppointmentsRequest {}
-message GetSalesForceServiceAppointmentsResponse {
-    string status = 1;
-    repeated ServiceAppointment appointments = 2;
-    string comment = 3;
+message GetServiceAppointmentsV1Request {
+    string customer_id = 1;
+}
+message GetServiceAppointmentsV1Response {
+    /* These _used_ to be response fields, but the API has changed a lot since then */
+    /* string status = 1; */
+    /* repeated ServiceAppointment appointments = 2; */
+    /* string comment = 3; */
 }
 
+message GetServiceAppointmentSlotsRequest {
+    string location_id = 1;
+}
+message GetServiceAppointmentSlotsResponse { }
+
 service SalesforceService {
-    rpc GetSalesForceServiceAppointments(GetSalesForceServiceAppointmentsRequest) returns (GetSalesForceServiceAppointmentsResponse) {}
+    rpc GetServiceAppointmentsV1(GetServiceAppointmentsV1Request) returns (GetServiceAppointmentsV1Response) {}
+    rpc GetServiceAppointmentSlots(GetServiceAppointmentSlotsRequest) returns (GetServiceAppointmentSlotsResponse) {}
     rpc ReferralHistory(ReferralHistoryRequest) returns (ReferralHistoryResponse) {}
 }

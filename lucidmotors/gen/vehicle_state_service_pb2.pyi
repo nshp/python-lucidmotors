@@ -220,6 +220,11 @@ class EnergyType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     ENERGY_TYPE_DC: _ClassVar[EnergyType]
     ENERGY_TYPE_V2V: _ClassVar[EnergyType]
 
+class MobileDischargingCommand(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    MOBILE_DISCHARGING_COMMAND_UNKNOWN: _ClassVar[MobileDischargingCommand]
+    MOBILE_DISCHARGING_COMMAND_START_DISCHARGING: _ClassVar[MobileDischargingCommand]
+
 class UpdateState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     UPDATE_STATE_UNKNOWN: _ClassVar[UpdateState]
@@ -356,6 +361,10 @@ class DocumentType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     DOCUMENT_TYPE_RELEASE_NOTES_PRE: _ClassVar[DocumentType]
     DOCUMENT_TYPE_RELEASE_NOTES_POST: _ClassVar[DocumentType]
     DOCUMENT_TYPE_OWNERS_MANUAL: _ClassVar[DocumentType]
+
+class DischargeCommand(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    DISCHARGE_UNKNOWN: _ClassVar[DischargeCommand]
 ACCESS_LEVEL_UNKNOWN: AccessLevel
 ACCESS_LEVEL_PREDELIVERY_OWNER: AccessLevel
 ACCESS_LEVEL_PRIMARY_OWNER: AccessLevel
@@ -480,6 +489,8 @@ ENERGY_TYPE_UNKNOWN: EnergyType
 ENERGY_TYPE_AC: EnergyType
 ENERGY_TYPE_DC: EnergyType
 ENERGY_TYPE_V2V: EnergyType
+MOBILE_DISCHARGING_COMMAND_UNKNOWN: MobileDischargingCommand
+MOBILE_DISCHARGING_COMMAND_START_DISCHARGING: MobileDischargingCommand
 UPDATE_STATE_UNKNOWN: UpdateState
 UPDATE_STATE_IN_PROGRESS: UpdateState
 UPDATE_STATE_SUCCESS: UpdateState
@@ -554,6 +565,7 @@ DOCUMENT_TYPE_UNKNOWN: DocumentType
 DOCUMENT_TYPE_RELEASE_NOTES_PRE: DocumentType
 DOCUMENT_TYPE_RELEASE_NOTES_POST: DocumentType
 DOCUMENT_TYPE_OWNERS_MANUAL: DocumentType
+DISCHARGE_UNKNOWN: DischargeCommand
 
 class ChargingSubscription(_message.Message):
     __slots__ = ["name", "expiration_date", "start_date", "status"]
@@ -750,7 +762,7 @@ class ChassisState(_message.Message):
     def __init__(self, odometer_km: _Optional[float] = ..., front_left_tire_pressure_bar: _Optional[float] = ..., front_right_tire_pressure_bar: _Optional[float] = ..., rear_left_tire_pressure_bar: _Optional[float] = ..., rear_right_tire_pressure_bar: _Optional[float] = ..., headlights: _Optional[_Union[LightState, str]] = ..., hard_warn_left_front: _Optional[_Union[WarningState, str]] = ..., hard_warn_left_rear: _Optional[_Union[WarningState, str]] = ..., hard_warn_right_front: _Optional[_Union[WarningState, str]] = ..., hard_warn_right_rear: _Optional[_Union[WarningState, str]] = ..., soft_warn_left_front: _Optional[_Union[WarningState, str]] = ..., soft_warn_left_rear: _Optional[_Union[WarningState, str]] = ..., soft_warn_right_front: _Optional[_Union[WarningState, str]] = ..., soft_warn_right_rear: _Optional[_Union[WarningState, str]] = ..., software_version: _Optional[str] = ...) -> None: ...
 
 class ChargingState(_message.Message):
-    __slots__ = ["charge_state", "energy_type", "charge_session_mi", "charge_session_kwh", "session_minutes_remaining", "charge_limit", "cable_lock", "charge_rate_kwh_precise", "charge_rate_mph_precise", "charge_rate_miles_min_precise", "charge_limit_percent", "charge_scheduled_time", "scheduled_charge", "scheduled_charge_unavailable", "port_power", "discharge_target_soe"]
+    __slots__ = ["charge_state", "energy_type", "charge_session_mi", "charge_session_kwh", "session_minutes_remaining", "charge_limit", "cable_lock", "charge_rate_kwh_precise", "charge_rate_mph_precise", "charge_rate_miles_min_precise", "charge_limit_percent", "charge_scheduled_time", "scheduled_charge", "scheduled_charge_unavailable", "port_power", "discharge_command", "discharge_soe_limit", "discharge_target_soe", "discharge_energy"]
     CHARGE_STATE_FIELD_NUMBER: _ClassVar[int]
     ENERGY_TYPE_FIELD_NUMBER: _ClassVar[int]
     CHARGE_SESSION_MI_FIELD_NUMBER: _ClassVar[int]
@@ -766,7 +778,10 @@ class ChargingState(_message.Message):
     SCHEDULED_CHARGE_FIELD_NUMBER: _ClassVar[int]
     SCHEDULED_CHARGE_UNAVAILABLE_FIELD_NUMBER: _ClassVar[int]
     PORT_POWER_FIELD_NUMBER: _ClassVar[int]
+    DISCHARGE_COMMAND_FIELD_NUMBER: _ClassVar[int]
+    DISCHARGE_SOE_LIMIT_FIELD_NUMBER: _ClassVar[int]
     DISCHARGE_TARGET_SOE_FIELD_NUMBER: _ClassVar[int]
+    DISCHARGE_ENERGY_FIELD_NUMBER: _ClassVar[int]
     charge_state: ChargeState
     energy_type: EnergyType
     charge_session_mi: float
@@ -782,8 +797,11 @@ class ChargingState(_message.Message):
     scheduled_charge: ScheduledChargeState
     scheduled_charge_unavailable: ScheduledChargeUnavailableState
     port_power: float
+    discharge_command: MobileDischargingCommand
+    discharge_soe_limit: int
     discharge_target_soe: int
-    def __init__(self, charge_state: _Optional[_Union[ChargeState, str]] = ..., energy_type: _Optional[_Union[EnergyType, str]] = ..., charge_session_mi: _Optional[float] = ..., charge_session_kwh: _Optional[float] = ..., session_minutes_remaining: _Optional[int] = ..., charge_limit: _Optional[int] = ..., cable_lock: _Optional[_Union[LockState, str]] = ..., charge_rate_kwh_precise: _Optional[float] = ..., charge_rate_mph_precise: _Optional[float] = ..., charge_rate_miles_min_precise: _Optional[float] = ..., charge_limit_percent: _Optional[float] = ..., charge_scheduled_time: _Optional[int] = ..., scheduled_charge: _Optional[_Union[ScheduledChargeState, str]] = ..., scheduled_charge_unavailable: _Optional[_Union[ScheduledChargeUnavailableState, str]] = ..., port_power: _Optional[float] = ..., discharge_target_soe: _Optional[int] = ...) -> None: ...
+    discharge_energy: float
+    def __init__(self, charge_state: _Optional[_Union[ChargeState, str]] = ..., energy_type: _Optional[_Union[EnergyType, str]] = ..., charge_session_mi: _Optional[float] = ..., charge_session_kwh: _Optional[float] = ..., session_minutes_remaining: _Optional[int] = ..., charge_limit: _Optional[int] = ..., cable_lock: _Optional[_Union[LockState, str]] = ..., charge_rate_kwh_precise: _Optional[float] = ..., charge_rate_mph_precise: _Optional[float] = ..., charge_rate_miles_min_precise: _Optional[float] = ..., charge_limit_percent: _Optional[float] = ..., charge_scheduled_time: _Optional[int] = ..., scheduled_charge: _Optional[_Union[ScheduledChargeState, str]] = ..., scheduled_charge_unavailable: _Optional[_Union[ScheduledChargeUnavailableState, str]] = ..., port_power: _Optional[float] = ..., discharge_command: _Optional[_Union[MobileDischargingCommand, str]] = ..., discharge_soe_limit: _Optional[int] = ..., discharge_target_soe: _Optional[int] = ..., discharge_energy: _Optional[float] = ...) -> None: ...
 
 class Location(_message.Message):
     __slots__ = ["latitude", "longitude"]
@@ -844,10 +862,11 @@ class HvacState(_message.Message):
     def __init__(self, power: _Optional[_Union[HvacPower, str]] = ..., defrost: _Optional[_Union[DefrostState, str]] = ..., precondition_status: _Optional[_Union[HvacPreconditionStatus, str]] = ..., keep_climate_status: _Optional[_Union[KeepClimateStatus, str]] = ...) -> None: ...
 
 class MobileAppReqState(_message.Message):
-    __slots__ = ["alarm_set_request", "charge_port_request", "frunk_cargo_request", "hvac_defrost", "hvac_precondition", "light_request", "panic_request", "shared_trip_request", "trunk_cargo_request", "vehicle_unlock_request"]
+    __slots__ = ["alarm_set_request", "charge_port_request", "frunk_cargo_request", "horn_request", "hvac_defrost", "hvac_precondition", "light_request", "panic_request", "shared_trip_request", "trunk_cargo_request", "vehicle_unlock_request"]
     ALARM_SET_REQUEST_FIELD_NUMBER: _ClassVar[int]
     CHARGE_PORT_REQUEST_FIELD_NUMBER: _ClassVar[int]
     FRUNK_CARGO_REQUEST_FIELD_NUMBER: _ClassVar[int]
+    HORN_REQUEST_FIELD_NUMBER: _ClassVar[int]
     HVAC_DEFROST_FIELD_NUMBER: _ClassVar[int]
     HVAC_PRECONDITION_FIELD_NUMBER: _ClassVar[int]
     LIGHT_REQUEST_FIELD_NUMBER: _ClassVar[int]
@@ -858,6 +877,7 @@ class MobileAppReqState(_message.Message):
     alarm_set_request: AlarmMode
     charge_port_request: DoorState
     frunk_cargo_request: DoorState
+    horn_request: DoorState
     hvac_defrost: DefrostState
     hvac_precondition: HvacPower
     light_request: LightAction
@@ -865,7 +885,7 @@ class MobileAppReqState(_message.Message):
     shared_trip_request: SharedTripState
     trunk_cargo_request: DoorState
     vehicle_unlock_request: LockState
-    def __init__(self, alarm_set_request: _Optional[_Union[AlarmMode, str]] = ..., charge_port_request: _Optional[_Union[DoorState, str]] = ..., frunk_cargo_request: _Optional[_Union[DoorState, str]] = ..., hvac_defrost: _Optional[_Union[DefrostState, str]] = ..., hvac_precondition: _Optional[_Union[HvacPower, str]] = ..., light_request: _Optional[_Union[LightAction, str]] = ..., panic_request: _Optional[_Union[PanicState, str]] = ..., shared_trip_request: _Optional[_Union[SharedTripState, str]] = ..., trunk_cargo_request: _Optional[_Union[DoorState, str]] = ..., vehicle_unlock_request: _Optional[_Union[LockState, str]] = ...) -> None: ...
+    def __init__(self, alarm_set_request: _Optional[_Union[AlarmMode, str]] = ..., charge_port_request: _Optional[_Union[DoorState, str]] = ..., frunk_cargo_request: _Optional[_Union[DoorState, str]] = ..., horn_request: _Optional[_Union[DoorState, str]] = ..., hvac_defrost: _Optional[_Union[DefrostState, str]] = ..., hvac_precondition: _Optional[_Union[HvacPower, str]] = ..., light_request: _Optional[_Union[LightAction, str]] = ..., panic_request: _Optional[_Union[PanicState, str]] = ..., shared_trip_request: _Optional[_Union[SharedTripState, str]] = ..., trunk_cargo_request: _Optional[_Union[DoorState, str]] = ..., vehicle_unlock_request: _Optional[_Union[LockState, str]] = ...) -> None: ...
 
 class TcuInternetState(_message.Message):
     __slots__ = ["lte_type", "lte_status", "wifi_status", "lte_rssi", "wifi_rssi"]
@@ -1156,5 +1176,29 @@ class SetBatteryPreconRequest(_message.Message):
     def __init__(self, vehicle_id: _Optional[str] = ..., status: _Optional[_Union[BatteryPreconStatus, str]] = ...) -> None: ...
 
 class SetBatteryPreconResponse(_message.Message):
+    __slots__ = ()
+    def __init__(self) -> None: ...
+
+class SetDischargeSoeLimitRequest(_message.Message):
+    __slots__ = ["discharge_soe_limit", "vehicle_id"]
+    DISCHARGE_SOE_LIMIT_FIELD_NUMBER: _ClassVar[int]
+    VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
+    discharge_soe_limit: int
+    vehicle_id: str
+    def __init__(self, discharge_soe_limit: _Optional[int] = ..., vehicle_id: _Optional[str] = ...) -> None: ...
+
+class SetDischargeSoeLimitResponse(_message.Message):
+    __slots__ = ()
+    def __init__(self) -> None: ...
+
+class DischargeControlRequest(_message.Message):
+    __slots__ = ["discharge_command", "vehicle_id"]
+    DISCHARGE_COMMAND_FIELD_NUMBER: _ClassVar[int]
+    VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
+    discharge_command: DischargeCommand
+    vehicle_id: str
+    def __init__(self, discharge_command: _Optional[_Union[DischargeCommand, str]] = ..., vehicle_id: _Optional[str] = ...) -> None: ...
+
+class DischargeControlResponse(_message.Message):
     __slots__ = ()
     def __init__(self) -> None: ...

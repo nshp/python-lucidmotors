@@ -14,10 +14,15 @@ class SalesforceServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.GetSalesForceServiceAppointments = channel.unary_unary(
-                '/mobilegateway.protos.SalesforceService/GetSalesForceServiceAppointments',
-                request_serializer=salesforce__service__pb2.GetSalesForceServiceAppointmentsRequest.SerializeToString,
-                response_deserializer=salesforce__service__pb2.GetSalesForceServiceAppointmentsResponse.FromString,
+        self.GetServiceAppointmentsV1 = channel.unary_unary(
+                '/mobilegateway.protos.SalesforceService/GetServiceAppointmentsV1',
+                request_serializer=salesforce__service__pb2.GetServiceAppointmentsV1Request.SerializeToString,
+                response_deserializer=salesforce__service__pb2.GetServiceAppointmentsV1Response.FromString,
+                )
+        self.GetServiceAppointmentSlots = channel.unary_unary(
+                '/mobilegateway.protos.SalesforceService/GetServiceAppointmentSlots',
+                request_serializer=salesforce__service__pb2.GetServiceAppointmentSlotsRequest.SerializeToString,
+                response_deserializer=salesforce__service__pb2.GetServiceAppointmentSlotsResponse.FromString,
                 )
         self.ReferralHistory = channel.unary_unary(
                 '/mobilegateway.protos.SalesforceService/ReferralHistory',
@@ -29,7 +34,13 @@ class SalesforceServiceStub(object):
 class SalesforceServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def GetSalesForceServiceAppointments(self, request, context):
+    def GetServiceAppointmentsV1(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetServiceAppointmentSlots(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -44,10 +55,15 @@ class SalesforceServiceServicer(object):
 
 def add_SalesforceServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'GetSalesForceServiceAppointments': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetSalesForceServiceAppointments,
-                    request_deserializer=salesforce__service__pb2.GetSalesForceServiceAppointmentsRequest.FromString,
-                    response_serializer=salesforce__service__pb2.GetSalesForceServiceAppointmentsResponse.SerializeToString,
+            'GetServiceAppointmentsV1': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetServiceAppointmentsV1,
+                    request_deserializer=salesforce__service__pb2.GetServiceAppointmentsV1Request.FromString,
+                    response_serializer=salesforce__service__pb2.GetServiceAppointmentsV1Response.SerializeToString,
+            ),
+            'GetServiceAppointmentSlots': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetServiceAppointmentSlots,
+                    request_deserializer=salesforce__service__pb2.GetServiceAppointmentSlotsRequest.FromString,
+                    response_serializer=salesforce__service__pb2.GetServiceAppointmentSlotsResponse.SerializeToString,
             ),
             'ReferralHistory': grpc.unary_unary_rpc_method_handler(
                     servicer.ReferralHistory,
@@ -65,7 +81,7 @@ class SalesforceService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def GetSalesForceServiceAppointments(request,
+    def GetServiceAppointmentsV1(request,
             target,
             options=(),
             channel_credentials=None,
@@ -75,9 +91,26 @@ class SalesforceService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/mobilegateway.protos.SalesforceService/GetSalesForceServiceAppointments',
-            salesforce__service__pb2.GetSalesForceServiceAppointmentsRequest.SerializeToString,
-            salesforce__service__pb2.GetSalesForceServiceAppointmentsResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/mobilegateway.protos.SalesforceService/GetServiceAppointmentsV1',
+            salesforce__service__pb2.GetServiceAppointmentsV1Request.SerializeToString,
+            salesforce__service__pb2.GetServiceAppointmentsV1Response.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetServiceAppointmentSlots(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/mobilegateway.protos.SalesforceService/GetServiceAppointmentSlots',
+            salesforce__service__pb2.GetServiceAppointmentSlotsRequest.SerializeToString,
+            salesforce__service__pb2.GetServiceAppointmentSlotsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

@@ -559,6 +559,9 @@ class LucidAPI:
         Honk the horn of a specific vehicle.
         """
 
+        if self._auto_wake and not self.vehicle_is_awake(vehicle):
+            await self.wakeup_vehicle(vehicle)
+
         request = vehicle_state_service_pb2.HonkHornRequest(
             vehicle_id=vehicle.vehicle_id,
         )
@@ -568,6 +571,9 @@ class LucidAPI:
         """
         Control the lights of a specific vehicle.
         """
+
+        if self._auto_wake and not self.vehicle_is_awake(vehicle):
+            await self.wakeup_vehicle(vehicle)
 
         request = vehicle_state_service_pb2.LightsControlRequest(
             vehicle_id=vehicle.vehicle_id,
@@ -774,6 +780,9 @@ class LucidAPI:
         Control battery preconditioning for a specific vehicle.
         """
 
+        if self._auto_wake and not self.vehicle_is_awake(vehicle):
+            await self.wakeup_vehicle(vehicle)
+
         request = vehicle_state_service_pb2.SetBatteryPreconRequest(
             vehicle_id=vehicle.vehicle_id,
             status=action,
@@ -848,6 +857,9 @@ class LucidAPI:
         Set the charge limit for a specific vehicle.
         """
 
+        if self._auto_wake and not self.vehicle_is_awake(vehicle):
+            await self.wakeup_vehicle(vehicle)
+
         request = vehicle_state_service_pb2.SetChargeLimitRequest(
             limit_percent=value,
             vehicle_id=vehicle.vehicle_id,
@@ -858,6 +870,9 @@ class LucidAPI:
         """
         Enable or disable charging for a specific vehicle.
         """
+
+        if self._auto_wake and not self.vehicle_is_awake(vehicle):
+            await self.wakeup_vehicle(vehicle)
 
         request = vehicle_state_service_pb2.ChargeControlRequest(
             action=action,
@@ -883,6 +898,9 @@ class LucidAPI:
         """
         Control the alarm of a specific vehicle.
         """
+
+        if self._auto_wake and not self.vehicle_is_awake(vehicle):
+            await self.wakeup_vehicle(vehicle)
 
         request = vehicle_state_service_pb2.SecurityAlarmControlRequest(
             mode=mode,

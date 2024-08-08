@@ -75,16 +75,22 @@ class ServiceAppointment(_message.Message):
     __slots__ = []
     def __init__(self) -> None: ...
 
-class GetSalesForceServiceAppointmentsRequest(_message.Message):
+class GetServiceAppointmentsV1Request(_message.Message):
+    __slots__ = ["customer_id"]
+    CUSTOMER_ID_FIELD_NUMBER: _ClassVar[int]
+    customer_id: str
+    def __init__(self, customer_id: _Optional[str] = ...) -> None: ...
+
+class GetServiceAppointmentsV1Response(_message.Message):
     __slots__ = []
     def __init__(self) -> None: ...
 
-class GetSalesForceServiceAppointmentsResponse(_message.Message):
-    __slots__ = ["status", "appointments", "comment"]
-    STATUS_FIELD_NUMBER: _ClassVar[int]
-    APPOINTMENTS_FIELD_NUMBER: _ClassVar[int]
-    COMMENT_FIELD_NUMBER: _ClassVar[int]
-    status: str
-    appointments: _containers.RepeatedCompositeFieldContainer[ServiceAppointment]
-    comment: str
-    def __init__(self, status: _Optional[str] = ..., appointments: _Optional[_Iterable[_Union[ServiceAppointment, _Mapping]]] = ..., comment: _Optional[str] = ...) -> None: ...
+class GetServiceAppointmentSlotsRequest(_message.Message):
+    __slots__ = ["location_id"]
+    LOCATION_ID_FIELD_NUMBER: _ClassVar[int]
+    location_id: str
+    def __init__(self, location_id: _Optional[str] = ...) -> None: ...
+
+class GetServiceAppointmentSlotsResponse(_message.Message):
+    __slots__ = []
+    def __init__(self) -> None: ...
