@@ -349,6 +349,26 @@ class InternetStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     INTERNET_DISCONNECTED: _ClassVar[InternetStatus]
     INTERNET_CONNECTED: _ClassVar[InternetStatus]
 
+class MpbFaultStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = []
+    MPB_FAULT_STATUS_UNKNOWN: _ClassVar[MpbFaultStatus]
+    MPB_FAULT_STATUS_NORMAL: _ClassVar[MpbFaultStatus]
+
+class PowertrainMessage(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = []
+    POWERTRAIN_MESSAGE_UNKNOWN: _ClassVar[PowertrainMessage]
+    POWERTRAIN_MESSAGE_BLANK_NO_MESSAGE: _ClassVar[PowertrainMessage]
+
+class PowertrainNotifyStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = []
+    POWERTRAIN_NOTIFY_UNKNOWN: _ClassVar[PowertrainNotifyStatus]
+    POWERTRAIN_NOTIFY_NONE: _ClassVar[PowertrainNotifyStatus]
+
+class GeneralChargeStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = []
+    GENERAL_CHARGE_UNKNOWN: _ClassVar[GeneralChargeStatus]
+    GENERAL_CHARGE_DEFAULT: _ClassVar[GeneralChargeStatus]
+
 class ChargeAction(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = []
     CHARGE_ACTION_UNKNOWN: _ClassVar[ChargeAction]
@@ -558,6 +578,14 @@ LTE_TYPE_4G: LteType
 INTERNET_STATUS_UNKNOWN: InternetStatus
 INTERNET_DISCONNECTED: InternetStatus
 INTERNET_CONNECTED: InternetStatus
+MPB_FAULT_STATUS_UNKNOWN: MpbFaultStatus
+MPB_FAULT_STATUS_NORMAL: MpbFaultStatus
+POWERTRAIN_MESSAGE_UNKNOWN: PowertrainMessage
+POWERTRAIN_MESSAGE_BLANK_NO_MESSAGE: PowertrainMessage
+POWERTRAIN_NOTIFY_UNKNOWN: PowertrainNotifyStatus
+POWERTRAIN_NOTIFY_NONE: PowertrainNotifyStatus
+GENERAL_CHARGE_UNKNOWN: GeneralChargeStatus
+GENERAL_CHARGE_DEFAULT: GeneralChargeStatus
 CHARGE_ACTION_UNKNOWN: ChargeAction
 CHARGE_ACTION_START: ChargeAction
 CHARGE_ACTION_STOP: ChargeAction
@@ -901,8 +929,30 @@ class TcuInternetState(_message.Message):
     wifi_rssi: int
     def __init__(self, lte_type: _Optional[_Union[LteType, str]] = ..., lte_status: _Optional[_Union[InternetStatus, str]] = ..., wifi_status: _Optional[_Union[InternetStatus, str]] = ..., lte_rssi: _Optional[int] = ..., wifi_rssi: _Optional[int] = ...) -> None: ...
 
+class FaultState(_message.Message):
+    __slots__ = ["mpb_fault_status"]
+    MPB_FAULT_STATUS_FIELD_NUMBER: _ClassVar[int]
+    mpb_fault_status: MpbFaultStatus
+    def __init__(self, mpb_fault_status: _Optional[_Union[MpbFaultStatus, str]] = ...) -> None: ...
+
+class Notifications(_message.Message):
+    __slots__ = ["powertrain_message", "powertrain_notify_status", "charging_general_status", "gebattery_charge_status"]
+    POWERTRAIN_MESSAGE_FIELD_NUMBER: _ClassVar[int]
+    POWERTRAIN_NOTIFY_STATUS_FIELD_NUMBER: _ClassVar[int]
+    CHARGING_GENERAL_STATUS_FIELD_NUMBER: _ClassVar[int]
+    GEBATTERY_CHARGE_STATUS_FIELD_NUMBER: _ClassVar[int]
+    powertrain_message: PowertrainMessage
+    powertrain_notify_status: PowertrainNotifyStatus
+    charging_general_status: GeneralChargeStatus
+    gebattery_charge_status: GeneralChargeStatus
+    def __init__(self, powertrain_message: _Optional[_Union[PowertrainMessage, str]] = ..., powertrain_notify_status: _Optional[_Union[PowertrainNotifyStatus, str]] = ..., charging_general_status: _Optional[_Union[GeneralChargeStatus, str]] = ..., gebattery_charge_status: _Optional[_Union[GeneralChargeStatus, str]] = ...) -> None: ...
+
+class SentryState(_message.Message):
+    __slots__ = []
+    def __init__(self) -> None: ...
+
 class VehicleState(_message.Message):
-    __slots__ = ["battery", "power", "cabin", "body", "last_updated_ms", "chassis", "charging", "gps", "software_update", "alarm", "cloud_connection", "keyless_driving", "hvac", "drive_mode", "privacy_mode", "gear_position", "mobile_app_request", "tcu", "tcu_internet"]
+    __slots__ = ["battery", "power", "cabin", "body", "last_updated_ms", "chassis", "charging", "gps", "software_update", "alarm", "cloud_connection", "keyless_driving", "hvac", "drive_mode", "privacy_mode", "gear_position", "mobile_app_request", "tcu", "tcu_internet", "sentry_state", "fault_state", "notifications"]
     BATTERY_FIELD_NUMBER: _ClassVar[int]
     POWER_FIELD_NUMBER: _ClassVar[int]
     CABIN_FIELD_NUMBER: _ClassVar[int]
@@ -922,6 +972,9 @@ class VehicleState(_message.Message):
     MOBILE_APP_REQUEST_FIELD_NUMBER: _ClassVar[int]
     TCU_FIELD_NUMBER: _ClassVar[int]
     TCU_INTERNET_FIELD_NUMBER: _ClassVar[int]
+    SENTRY_STATE_FIELD_NUMBER: _ClassVar[int]
+    FAULT_STATE_FIELD_NUMBER: _ClassVar[int]
+    NOTIFICATIONS_FIELD_NUMBER: _ClassVar[int]
     battery: BatteryState
     power: PowerState
     cabin: CabinState
@@ -941,7 +994,10 @@ class VehicleState(_message.Message):
     mobile_app_request: MobileAppReqState
     tcu: TcuState
     tcu_internet: TcuInternetState
-    def __init__(self, battery: _Optional[_Union[BatteryState, _Mapping]] = ..., power: _Optional[_Union[PowerState, str]] = ..., cabin: _Optional[_Union[CabinState, _Mapping]] = ..., body: _Optional[_Union[BodyState, _Mapping]] = ..., last_updated_ms: _Optional[int] = ..., chassis: _Optional[_Union[ChassisState, _Mapping]] = ..., charging: _Optional[_Union[ChargingState, _Mapping]] = ..., gps: _Optional[_Union[Gps, _Mapping]] = ..., software_update: _Optional[_Union[SoftwareUpdate, _Mapping]] = ..., alarm: _Optional[_Union[AlarmState, _Mapping]] = ..., cloud_connection: _Optional[_Union[CloudConnectionState, str]] = ..., keyless_driving: _Optional[_Union[KeylessDrivingState, str]] = ..., hvac: _Optional[_Union[HvacState, _Mapping]] = ..., drive_mode: _Optional[_Union[DriveMode, str]] = ..., privacy_mode: _Optional[_Union[PrivacyMode, str]] = ..., gear_position: _Optional[_Union[GearPosition, str]] = ..., mobile_app_request: _Optional[_Union[MobileAppReqState, _Mapping]] = ..., tcu: _Optional[_Union[TcuState, str]] = ..., tcu_internet: _Optional[_Union[TcuInternetState, _Mapping]] = ...) -> None: ...
+    sentry_state: SentryState
+    fault_state: FaultState
+    notifications: Notifications
+    def __init__(self, battery: _Optional[_Union[BatteryState, _Mapping]] = ..., power: _Optional[_Union[PowerState, str]] = ..., cabin: _Optional[_Union[CabinState, _Mapping]] = ..., body: _Optional[_Union[BodyState, _Mapping]] = ..., last_updated_ms: _Optional[int] = ..., chassis: _Optional[_Union[ChassisState, _Mapping]] = ..., charging: _Optional[_Union[ChargingState, _Mapping]] = ..., gps: _Optional[_Union[Gps, _Mapping]] = ..., software_update: _Optional[_Union[SoftwareUpdate, _Mapping]] = ..., alarm: _Optional[_Union[AlarmState, _Mapping]] = ..., cloud_connection: _Optional[_Union[CloudConnectionState, str]] = ..., keyless_driving: _Optional[_Union[KeylessDrivingState, str]] = ..., hvac: _Optional[_Union[HvacState, _Mapping]] = ..., drive_mode: _Optional[_Union[DriveMode, str]] = ..., privacy_mode: _Optional[_Union[PrivacyMode, str]] = ..., gear_position: _Optional[_Union[GearPosition, str]] = ..., mobile_app_request: _Optional[_Union[MobileAppReqState, _Mapping]] = ..., tcu: _Optional[_Union[TcuState, str]] = ..., tcu_internet: _Optional[_Union[TcuInternetState, _Mapping]] = ..., sentry_state: _Optional[_Union[SentryState, _Mapping]] = ..., fault_state: _Optional[_Union[FaultState, _Mapping]] = ..., notifications: _Optional[_Union[Notifications, _Mapping]] = ...) -> None: ...
 
 class Vehicle(_message.Message):
     __slots__ = ["vehicle_id", "access_level", "config", "state"]

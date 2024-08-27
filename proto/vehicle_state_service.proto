@@ -552,6 +552,39 @@ message TcuInternetState {
     optional int32 wifi_rssi = 5;
 }
 
+enum MpbFaultStatus {
+    MPB_FAULT_STATUS_UNKNOWN = 0;
+    MPB_FAULT_STATUS_NORMAL = 1;
+}
+
+message FaultState {
+    MpbFaultStatus mpb_fault_status = 7;
+}
+
+enum PowertrainMessage {
+    POWERTRAIN_MESSAGE_UNKNOWN = 0;
+    POWERTRAIN_MESSAGE_BLANK_NO_MESSAGE = 1;
+}
+
+enum PowertrainNotifyStatus {
+    POWERTRAIN_NOTIFY_UNKNOWN = 0;
+    POWERTRAIN_NOTIFY_NONE = 1;
+}
+
+enum GeneralChargeStatus {
+    GENERAL_CHARGE_UNKNOWN = 0;
+    GENERAL_CHARGE_DEFAULT = 1;
+}
+
+message Notifications {
+    PowertrainMessage powertrain_message = 1;
+    PowertrainNotifyStatus powertrain_notify_status = 4;
+    GeneralChargeStatus charging_general_status = 5;
+    GeneralChargeStatus gebattery_charge_status = 6;
+}
+
+message SentryState { }
+
 message VehicleState {
     BatteryState battery = 1;
     PowerState power = 2;
@@ -572,6 +605,9 @@ message VehicleState {
     MobileAppReqState mobile_app_request = 21;
     TcuState tcu = 22;
     TcuInternetState tcu_internet = 23;
+    SentryState sentry_state = 24;
+    FaultState fault_state = 25;
+    Notifications notifications = 26;
 }
 
 message Vehicle {
