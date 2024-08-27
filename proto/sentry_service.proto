@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package mobilegateway.protos;
+
+message GetEventsRequest {
+    string vehicle_id = 1;
+    uint32 limit = 3;
+}
+
+message GetEventsResponse {
+}
+
+service SentryService {
+    rpc GetEvents(GetEventsRequest) returns (GetEventsResponse) {}
+}
