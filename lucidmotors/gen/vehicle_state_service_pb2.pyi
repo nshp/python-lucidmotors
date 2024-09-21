@@ -67,6 +67,7 @@ class ChargingVendor(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     CHARGING_VENDOR_UNKNOWN: _ClassVar[ChargingVendor]
     CHARGING_VENDOR_ELECTRIFY_AMERICA: _ClassVar[ChargingVendor]
+    CHARGING_VENDOR_ELECTRIFY_CANADA: _ClassVar[ChargingVendor]
     CHARGING_VENDOR_BOSCH: _ClassVar[ChargingVendor]
 
 class Edition(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
@@ -88,6 +89,7 @@ class BatteryType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     BATTERY_TYPE_07: _ClassVar[BatteryType]
     BATTERY_TYPE_08: _ClassVar[BatteryType]
     BATTERY_TYPE_09: _ClassVar[BatteryType]
+    BATTERY_TYPE_14: _ClassVar[BatteryType]
 
 class Interior(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -127,12 +129,15 @@ class BatteryCellType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     BATTERY_CELL_TYPE_UNKNOWN: _ClassVar[BatteryCellType]
     BATTERY_CELL_TYPE_LG_M48: _ClassVar[BatteryCellType]
     BATTERY_CELL_TYPE_SDI_50G: _ClassVar[BatteryCellType]
+    BATTERY_CELL_TYPE_PANA_2170M: _ClassVar[BatteryCellType]
+    BATTERY_CELL_TYPE_SDI_50GV2: _ClassVar[BatteryCellType]
 
 class BatteryPackType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     BATTERY_PACK_TYPE_UNKNOWN: _ClassVar[BatteryPackType]
     BATTERY_PACK_TYPE_AIR_22: _ClassVar[BatteryPackType]
     BATTERY_PACK_TYPE_AIR_18: _ClassVar[BatteryPackType]
+    BATTERY_PACK_TYPE_AIR_16: _ClassVar[BatteryPackType]
 
 class PowerState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -144,6 +149,8 @@ class PowerState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     POWER_STATE_LIVE_CHARGE: _ClassVar[PowerState]
     POWER_STATE_SLEEP_CHARGE: _ClassVar[PowerState]
     POWER_STATE_LIVE_UPDATE: _ClassVar[PowerState]
+    POWER_STATE_SLEEP_UPDATE: _ClassVar[PowerState]
+    POWER_STATE_CLOUD_1: _ClassVar[PowerState]
     POWER_STATE_CLOUD_2: _ClassVar[PowerState]
     POWER_STATE_MONITOR: _ClassVar[PowerState]
 
@@ -159,6 +166,7 @@ class DoorState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     DOOR_STATE_OPEN: _ClassVar[DoorState]
     DOOR_STATE_CLOSED: _ClassVar[DoorState]
     DOOR_STATE_AJAR: _ClassVar[DoorState]
+    DOOR_STATE_CLOSURE_ERROR: _ClassVar[DoorState]
 
 class WalkawayState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -190,6 +198,8 @@ class LightAction(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     LIGHT_ACTION_FLASH: _ClassVar[LightAction]
     LIGHT_ACTION_ON: _ClassVar[LightAction]
     LIGHT_ACTION_OFF: _ClassVar[LightAction]
+    LIGHT_ACTION_HAZARD_ON: _ClassVar[LightAction]
+    LIGHT_ACTION_HAZARD_OFF: _ClassVar[LightAction]
 
 class ChargeState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -218,12 +228,14 @@ class EnergyType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     ENERGY_TYPE_UNKNOWN: _ClassVar[EnergyType]
     ENERGY_TYPE_AC: _ClassVar[EnergyType]
     ENERGY_TYPE_DC: _ClassVar[EnergyType]
+    ENERGY_TYPE_DIGITAL: _ClassVar[EnergyType]
     ENERGY_TYPE_V2V: _ClassVar[EnergyType]
 
 class MobileDischargingCommand(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     MOBILE_DISCHARGING_COMMAND_UNKNOWN: _ClassVar[MobileDischargingCommand]
     MOBILE_DISCHARGING_COMMAND_START_DISCHARGING: _ClassVar[MobileDischargingCommand]
+    MOBILE_DISCHARGING_COMMAND_STOP_DISCHARGING: _ClassVar[MobileDischargingCommand]
 
 class UpdateState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -282,7 +294,10 @@ class HvacPreconditionStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     HVAC_PRECONDITION_STATUS_UNKNOWN: _ClassVar[HvacPreconditionStatus]
     HVAC_PRECONDITION_STATUS_STILL_ACTIVE: _ClassVar[HvacPreconditionStatus]
+    HVAC_PRECONDITION_STATUS_TEMP_REACHED: _ClassVar[HvacPreconditionStatus]
+    HVAC_PRECONDITION_STATUS_TIMEOUT: _ClassVar[HvacPreconditionStatus]
     HVAC_PRECONDITION_STATUS_USER_INPUT: _ClassVar[HvacPreconditionStatus]
+    HVAC_PRECONDITION_STATUS_HVAC_FAULT: _ClassVar[HvacPreconditionStatus]
 
 class KeepClimateStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -295,14 +310,22 @@ class KeepClimateStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
 class KeepClimateCondition(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     KEEP_CLIMATE_CONDITION_UNKNOWN: _ClassVar[KeepClimateCondition]
+    KEEP_CLIMATE_CONDITION_IDLE: _ClassVar[KeepClimateCondition]
+    KEEP_CLIMATE_CONDITION_OFF: _ClassVar[KeepClimateCondition]
+    KEEP_CLIMATE_CONDITION_ON_OCCUPIED: _ClassVar[KeepClimateCondition]
+    KEEP_CLIMATE_CONDITION_ON_NOT_OCCUPIED: _ClassVar[KeepClimateCondition]
+    KEEP_CLIMATE_CONDITION_INVALID: _ClassVar[KeepClimateCondition]
 
 class DriveMode(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     DRIVE_MODE_UNKNOWN: _ClassVar[DriveMode]
     DRIVE_MODE_COMFORT: _ClassVar[DriveMode]
     DRIVE_MODE_SWIFT: _ClassVar[DriveMode]
+    DRIVE_MODE_WINTER: _ClassVar[DriveMode]
+    DRIVE_MODE_VALET: _ClassVar[DriveMode]
     DRIVE_MODE_SPORT_PLUS: _ClassVar[DriveMode]
     DRIVE_MODE_SERVICE: _ClassVar[DriveMode]
+    DRIVE_MODE_LAUNCH: _ClassVar[DriveMode]
 
 class PrivacyMode(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -348,6 +371,7 @@ class InternetStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     INTERNET_STATUS_UNKNOWN: _ClassVar[InternetStatus]
     INTERNET_DISCONNECTED: _ClassVar[InternetStatus]
     INTERNET_CONNECTED: _ClassVar[InternetStatus]
+    INTERNET_CAPTIVE_PORTAL: _ClassVar[InternetStatus]
 
 class MpbFaultStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -368,6 +392,7 @@ class GeneralChargeStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     GENERAL_CHARGE_UNKNOWN: _ClassVar[GeneralChargeStatus]
     GENERAL_CHARGE_DEFAULT: _ClassVar[GeneralChargeStatus]
+    GENERAL_CHARGE_DERATED_CHARGING_POWER: _ClassVar[GeneralChargeStatus]
 
 class ChargeAction(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -420,6 +445,7 @@ CHARGING_ACCOUNT_STATUS_UNKNOWN: ChargingAccountStatus
 CHARGING_ACCOUNT_STATUS_ENROLLED: ChargingAccountStatus
 CHARGING_VENDOR_UNKNOWN: ChargingVendor
 CHARGING_VENDOR_ELECTRIFY_AMERICA: ChargingVendor
+CHARGING_VENDOR_ELECTRIFY_CANADA: ChargingVendor
 CHARGING_VENDOR_BOSCH: ChargingVendor
 EDITION_UNKNOWN: Edition
 EDITION_PERFORMANCE: Edition
@@ -435,6 +461,7 @@ BATTERY_TYPE_06: BatteryType
 BATTERY_TYPE_07: BatteryType
 BATTERY_TYPE_08: BatteryType
 BATTERY_TYPE_09: BatteryType
+BATTERY_TYPE_14: BatteryType
 INTERIOR_UNKNOWN: Interior
 INTERIOR_SANTA_CRUZ: Interior
 INTERIOR_TAHOE: Interior
@@ -456,9 +483,12 @@ BATTERY_PRECON_UNAVAILABLE: BatteryPreconStatus
 BATTERY_CELL_TYPE_UNKNOWN: BatteryCellType
 BATTERY_CELL_TYPE_LG_M48: BatteryCellType
 BATTERY_CELL_TYPE_SDI_50G: BatteryCellType
+BATTERY_CELL_TYPE_PANA_2170M: BatteryCellType
+BATTERY_CELL_TYPE_SDI_50GV2: BatteryCellType
 BATTERY_PACK_TYPE_UNKNOWN: BatteryPackType
 BATTERY_PACK_TYPE_AIR_22: BatteryPackType
 BATTERY_PACK_TYPE_AIR_18: BatteryPackType
+BATTERY_PACK_TYPE_AIR_16: BatteryPackType
 POWER_STATE_UNKNOWN: PowerState
 POWER_STATE_SLEEP: PowerState
 POWER_STATE_WINK: PowerState
@@ -467,6 +497,8 @@ POWER_STATE_DRIVE: PowerState
 POWER_STATE_LIVE_CHARGE: PowerState
 POWER_STATE_SLEEP_CHARGE: PowerState
 POWER_STATE_LIVE_UPDATE: PowerState
+POWER_STATE_SLEEP_UPDATE: PowerState
+POWER_STATE_CLOUD_1: PowerState
 POWER_STATE_CLOUD_2: PowerState
 POWER_STATE_MONITOR: PowerState
 LOCK_STATE_UNKNOWN: LockState
@@ -476,6 +508,7 @@ DOOR_STATE_UNKNOWN: DoorState
 DOOR_STATE_OPEN: DoorState
 DOOR_STATE_CLOSED: DoorState
 DOOR_STATE_AJAR: DoorState
+DOOR_STATE_CLOSURE_ERROR: DoorState
 WALKAWAY_UNKNOWN: WalkawayState
 WALKAWAY_ACTIVE: WalkawayState
 WALKAWAY_DISABLE: WalkawayState
@@ -492,6 +525,8 @@ LIGHT_ACTION_UNKNOWN: LightAction
 LIGHT_ACTION_FLASH: LightAction
 LIGHT_ACTION_ON: LightAction
 LIGHT_ACTION_OFF: LightAction
+LIGHT_ACTION_HAZARD_ON: LightAction
+LIGHT_ACTION_HAZARD_OFF: LightAction
 CHARGE_STATE_UNKNOWN: ChargeState
 CHARGE_STATE_NOT_CONNECTED: ChargeState
 CHARGE_STATE_CABLE_CONNECTED: ChargeState
@@ -508,9 +543,11 @@ SCHEDULED_CHARGE_UNAVAILABLE_NO_REQUEST: ScheduledChargeUnavailableState
 ENERGY_TYPE_UNKNOWN: EnergyType
 ENERGY_TYPE_AC: EnergyType
 ENERGY_TYPE_DC: EnergyType
+ENERGY_TYPE_DIGITAL: EnergyType
 ENERGY_TYPE_V2V: EnergyType
 MOBILE_DISCHARGING_COMMAND_UNKNOWN: MobileDischargingCommand
 MOBILE_DISCHARGING_COMMAND_START_DISCHARGING: MobileDischargingCommand
+MOBILE_DISCHARGING_COMMAND_STOP_DISCHARGING: MobileDischargingCommand
 UPDATE_STATE_UNKNOWN: UpdateState
 UPDATE_STATE_IN_PROGRESS: UpdateState
 UPDATE_STATE_SUCCESS: UpdateState
@@ -542,18 +579,29 @@ DEFROST_ON: DefrostState
 DEFROST_OFF: DefrostState
 HVAC_PRECONDITION_STATUS_UNKNOWN: HvacPreconditionStatus
 HVAC_PRECONDITION_STATUS_STILL_ACTIVE: HvacPreconditionStatus
+HVAC_PRECONDITION_STATUS_TEMP_REACHED: HvacPreconditionStatus
+HVAC_PRECONDITION_STATUS_TIMEOUT: HvacPreconditionStatus
 HVAC_PRECONDITION_STATUS_USER_INPUT: HvacPreconditionStatus
+HVAC_PRECONDITION_STATUS_HVAC_FAULT: HvacPreconditionStatus
 KEEP_CLIMATE_STATUS_UNKNOWN: KeepClimateStatus
 KEEP_CLIMATE_STATUS_INACTIVE: KeepClimateStatus
 KEEP_CLIMATE_STATUS_ENABLED: KeepClimateStatus
 KEEP_CLIMATE_STATUS_CANCELED: KeepClimateStatus
 KEEP_CLIMATE_STATUS_PET_MODE_ON: KeepClimateStatus
 KEEP_CLIMATE_CONDITION_UNKNOWN: KeepClimateCondition
+KEEP_CLIMATE_CONDITION_IDLE: KeepClimateCondition
+KEEP_CLIMATE_CONDITION_OFF: KeepClimateCondition
+KEEP_CLIMATE_CONDITION_ON_OCCUPIED: KeepClimateCondition
+KEEP_CLIMATE_CONDITION_ON_NOT_OCCUPIED: KeepClimateCondition
+KEEP_CLIMATE_CONDITION_INVALID: KeepClimateCondition
 DRIVE_MODE_UNKNOWN: DriveMode
 DRIVE_MODE_COMFORT: DriveMode
 DRIVE_MODE_SWIFT: DriveMode
+DRIVE_MODE_WINTER: DriveMode
+DRIVE_MODE_VALET: DriveMode
 DRIVE_MODE_SPORT_PLUS: DriveMode
 DRIVE_MODE_SERVICE: DriveMode
+DRIVE_MODE_LAUNCH: DriveMode
 PRIVACY_MODE_UNKNOWN: PrivacyMode
 PRIVACY_MODE_CONNECTIVITY_ENABLED: PrivacyMode
 PRIVACY_MODE_CONNECTIVITY_DISABLED: PrivacyMode
@@ -578,6 +626,7 @@ LTE_TYPE_4G: LteType
 INTERNET_STATUS_UNKNOWN: InternetStatus
 INTERNET_DISCONNECTED: InternetStatus
 INTERNET_CONNECTED: InternetStatus
+INTERNET_CAPTIVE_PORTAL: InternetStatus
 MPB_FAULT_STATUS_UNKNOWN: MpbFaultStatus
 MPB_FAULT_STATUS_NORMAL: MpbFaultStatus
 POWERTRAIN_MESSAGE_UNKNOWN: PowertrainMessage
@@ -586,6 +635,7 @@ POWERTRAIN_NOTIFY_UNKNOWN: PowertrainNotifyStatus
 POWERTRAIN_NOTIFY_NONE: PowertrainNotifyStatus
 GENERAL_CHARGE_UNKNOWN: GeneralChargeStatus
 GENERAL_CHARGE_DEFAULT: GeneralChargeStatus
+GENERAL_CHARGE_DERATED_CHARGING_POWER: GeneralChargeStatus
 CHARGE_ACTION_UNKNOWN: ChargeAction
 CHARGE_ACTION_START: ChargeAction
 CHARGE_ACTION_STOP: ChargeAction

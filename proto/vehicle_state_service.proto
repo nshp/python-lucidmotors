@@ -70,6 +70,7 @@ enum ChargingAccountStatus {
 enum ChargingVendor {
     CHARGING_VENDOR_UNKNOWN = 0;
     CHARGING_VENDOR_ELECTRIFY_AMERICA = 1;
+    CHARGING_VENDOR_ELECTRIFY_CANADA = 2;
     CHARGING_VENDOR_BOSCH = 3;
 }
 
@@ -100,6 +101,7 @@ enum BatteryType {
     BATTERY_TYPE_07 = 7;
     BATTERY_TYPE_08 = 8;
     BATTERY_TYPE_09 = 9;
+    BATTERY_TYPE_14 = 11;
 }
 
 enum Interior {
@@ -171,12 +173,15 @@ enum BatteryCellType {
     BATTERY_CELL_TYPE_UNKNOWN = 0;
     BATTERY_CELL_TYPE_LG_M48 = 1;
     BATTERY_CELL_TYPE_SDI_50G = 2;
+    BATTERY_CELL_TYPE_PANA_2170M = 3;
+    BATTERY_CELL_TYPE_SDI_50GV2 = 4;
 }
 
 enum BatteryPackType {
     BATTERY_PACK_TYPE_UNKNOWN = 0;
     BATTERY_PACK_TYPE_AIR_22 = 1;
     BATTERY_PACK_TYPE_AIR_18 = 2;
+    BATTERY_PACK_TYPE_AIR_16 = 3;
 }
 
 message BatteryState {
@@ -209,6 +214,8 @@ enum PowerState {
     POWER_STATE_LIVE_CHARGE = 5;
     POWER_STATE_SLEEP_CHARGE = 6;
     POWER_STATE_LIVE_UPDATE = 7;
+    POWER_STATE_SLEEP_UPDATE = 8;
+    POWER_STATE_CLOUD_1 = 9;
     POWER_STATE_CLOUD_2 = 10;
     POWER_STATE_MONITOR = 11;
 }
@@ -229,6 +236,7 @@ enum DoorState {
     DOOR_STATE_OPEN = 1;
     DOOR_STATE_CLOSED = 2;
     DOOR_STATE_AJAR = 3;
+    DOOR_STATE_CLOSURE_ERROR = 4;
 }
 
 enum WalkawayState {
@@ -278,6 +286,8 @@ enum LightAction {
     LIGHT_ACTION_FLASH = 1;
     LIGHT_ACTION_ON = 2;
     LIGHT_ACTION_OFF = 3;
+    LIGHT_ACTION_HAZARD_ON = 4;
+    LIGHT_ACTION_HAZARD_OFF = 5;
 }
 
 message ChassisState {
@@ -324,12 +334,14 @@ enum EnergyType {
     ENERGY_TYPE_UNKNOWN = 0;
     ENERGY_TYPE_AC = 1;
     ENERGY_TYPE_DC = 2;
+    ENERGY_TYPE_DIGITAL = 3;
     ENERGY_TYPE_V2V = 4;
 }
 
 enum MobileDischargingCommand {
     MOBILE_DISCHARGING_COMMAND_UNKNOWN = 0;
     MOBILE_DISCHARGING_COMMAND_START_DISCHARGING = 1;
+    MOBILE_DISCHARGING_COMMAND_STOP_DISCHARGING = 2;
 }
 
 message ChargingState {
@@ -437,7 +449,10 @@ enum DefrostState {
 enum HvacPreconditionStatus {
     HVAC_PRECONDITION_STATUS_UNKNOWN = 0;
     HVAC_PRECONDITION_STATUS_STILL_ACTIVE = 1;
+    HVAC_PRECONDITION_STATUS_TEMP_REACHED = 2;
+    HVAC_PRECONDITION_STATUS_TIMEOUT = 3;
     HVAC_PRECONDITION_STATUS_USER_INPUT = 4;
+    HVAC_PRECONDITION_STATUS_HVAC_FAULT = 5;
 }
 
 enum KeepClimateStatus {
@@ -450,6 +465,11 @@ enum KeepClimateStatus {
 
 enum KeepClimateCondition {
     KEEP_CLIMATE_CONDITION_UNKNOWN = 0;
+    KEEP_CLIMATE_CONDITION_IDLE = 1;
+    KEEP_CLIMATE_CONDITION_OFF = 2;
+    KEEP_CLIMATE_CONDITION_ON_OCCUPIED = 3;
+    KEEP_CLIMATE_CONDITION_ON_NOT_OCCUPIED = 4;
+    KEEP_CLIMATE_CONDITION_INVALID = 5;
 }
 
 message HvacState {
@@ -464,8 +484,11 @@ enum DriveMode {
     DRIVE_MODE_UNKNOWN = 0;
     DRIVE_MODE_COMFORT = 1;
     DRIVE_MODE_SWIFT = 2;
+    DRIVE_MODE_WINTER = 3;
+    DRIVE_MODE_VALET = 4;
     DRIVE_MODE_SPORT_PLUS = 5; /* aka Sprint */
     DRIVE_MODE_SERVICE = 8; /* Service mode - car is in shop and can't be remote controlled */
+    DRIVE_MODE_LAUNCH = 9;
 }
 
 enum PrivacyMode {
@@ -542,6 +565,7 @@ enum InternetStatus {
     INTERNET_STATUS_UNKNOWN = 0;
     INTERNET_DISCONNECTED = 1;
     INTERNET_CONNECTED = 2;
+    INTERNET_CAPTIVE_PORTAL = 3;
 }
 
 message TcuInternetState {
@@ -574,6 +598,7 @@ enum PowertrainNotifyStatus {
 enum GeneralChargeStatus {
     GENERAL_CHARGE_UNKNOWN = 0;
     GENERAL_CHARGE_DEFAULT = 1;
+    GENERAL_CHARGE_DERATED_CHARGING_POWER = 4;
 }
 
 message Notifications {
