@@ -1,12 +1,12 @@
 from typing import Any
-from google.protobuf.unknown_fields import UnknownFieldSet
+from google.protobuf.unknown_fields import UnknownFieldSet # type: ignore
 
 import uuid
 import grpc
 import time
 import logging
 import getpass
-import google._upb
+import google._upb # type: ignore
 import google.protobuf
 
 import sys
