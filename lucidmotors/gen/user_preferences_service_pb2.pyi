@@ -9,7 +9,7 @@ class Empty(_message.Message):
     def __init__(self) -> None: ...
 
 class UserPreferences(_message.Message):
-    __slots__ = ["first_name", "last_name", "photo_url", "updated_ns", "email"]
+    __slots__ = ("first_name", "last_name", "photo_url", "updated_ns", "email")
     FIRST_NAME_FIELD_NUMBER: _ClassVar[int]
     LAST_NAME_FIELD_NUMBER: _ClassVar[int]
     PHOTO_URL_FIELD_NUMBER: _ClassVar[int]
@@ -23,7 +23,7 @@ class UserPreferences(_message.Message):
     def __init__(self, first_name: _Optional[str] = ..., last_name: _Optional[str] = ..., photo_url: _Optional[str] = ..., updated_ns: _Optional[int] = ..., email: _Optional[str] = ...) -> None: ...
 
 class GetUserPreferencesResponse(_message.Message):
-    __slots__ = ["preferences", "commit_ns"]
+    __slots__ = ("preferences", "commit_ns")
     PREFERENCES_FIELD_NUMBER: _ClassVar[int]
     COMMIT_NS_FIELD_NUMBER: _ClassVar[int]
     preferences: UserPreferences
@@ -31,13 +31,13 @@ class GetUserPreferencesResponse(_message.Message):
     def __init__(self, preferences: _Optional[_Union[UserPreferences, _Mapping]] = ..., commit_ns: _Optional[int] = ...) -> None: ...
 
 class CreateUserPreferencesRequest(_message.Message):
-    __slots__ = ["preferences"]
+    __slots__ = ("preferences",)
     PREFERENCES_FIELD_NUMBER: _ClassVar[int]
     preferences: UserPreferences
     def __init__(self, preferences: _Optional[_Union[UserPreferences, _Mapping]] = ...) -> None: ...
 
 class GetUserPreferencesCommitIDResponse(_message.Message):
-    __slots__ = ["commit_ns"]
+    __slots__ = ("commit_ns",)
     COMMIT_NS_FIELD_NUMBER: _ClassVar[int]
     commit_ns: int
     def __init__(self, commit_ns: _Optional[int] = ...) -> None: ...

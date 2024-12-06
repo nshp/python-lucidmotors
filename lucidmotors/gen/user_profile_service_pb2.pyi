@@ -5,7 +5,7 @@ from typing import ClassVar as _ClassVar, Mapping as _Mapping, Optional as _Opti
 DESCRIPTOR: _descriptor.FileDescriptor
 
 class UserProfile(_message.Message):
-    __slots__ = ["email", "locale", "username", "photo_url", "first_name", "last_name"]
+    __slots__ = ("email", "locale", "username", "photo_url", "first_name", "last_name")
     EMAIL_FIELD_NUMBER: _ClassVar[int]
     LOCALE_FIELD_NUMBER: _ClassVar[int]
     USERNAME_FIELD_NUMBER: _ClassVar[int]
@@ -21,13 +21,13 @@ class UserProfile(_message.Message):
     def __init__(self, email: _Optional[str] = ..., locale: _Optional[str] = ..., username: _Optional[str] = ..., photo_url: _Optional[str] = ..., first_name: _Optional[str] = ..., last_name: _Optional[str] = ...) -> None: ...
 
 class PhoneNumber(_message.Message):
-    __slots__ = ["number"]
+    __slots__ = ("number",)
     NUMBER_FIELD_NUMBER: _ClassVar[int]
     number: str
     def __init__(self, number: _Optional[str] = ...) -> None: ...
 
 class UserProfileData(_message.Message):
-    __slots__ = ["first_name", "last_name", "email", "locale", "address", "city", "state", "postal_code", "country", "phone"]
+    __slots__ = ("first_name", "last_name", "email", "locale", "address", "city", "state", "postal_code", "country", "phone")
     FIRST_NAME_FIELD_NUMBER: _ClassVar[int]
     LAST_NAME_FIELD_NUMBER: _ClassVar[int]
     EMAIL_FIELD_NUMBER: _ClassVar[int]
@@ -63,19 +63,19 @@ class GetUserProfileRequest(_message.Message):
     def __init__(self) -> None: ...
 
 class GetUserProfileResponse(_message.Message):
-    __slots__ = ["profile"]
+    __slots__ = ("profile",)
     PROFILE_FIELD_NUMBER: _ClassVar[int]
     profile: UserProfileData
     def __init__(self, profile: _Optional[_Union[UserProfileData, _Mapping]] = ...) -> None: ...
 
 class UploadUserProfilePhotoRequest(_message.Message):
-    __slots__ = ["photo_bytes"]
+    __slots__ = ("photo_bytes",)
     PHOTO_BYTES_FIELD_NUMBER: _ClassVar[int]
     photo_bytes: str
     def __init__(self, photo_bytes: _Optional[str] = ...) -> None: ...
 
 class UploadUserProfilePhotoResponse(_message.Message):
-    __slots__ = ["photo_url"]
+    __slots__ = ("photo_url",)
     PHOTO_URL_FIELD_NUMBER: _ClassVar[int]
     photo_url: str
     def __init__(self, photo_url: _Optional[str] = ...) -> None: ...

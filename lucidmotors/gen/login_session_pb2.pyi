@@ -53,7 +53,7 @@ ENCRYPTION_UNKNOWN: Encryption
 ENCRYPTION_SINGLE: Encryption
 
 class LoginRequest(_message.Message):
-    __slots__ = ["username", "password", "notification_channel_type", "os", "notification_device_token", "locale", "device_id", "client_name"]
+    __slots__ = ("username", "password", "notification_channel_type", "os", "notification_device_token", "locale", "device_id", "client_name")
     USERNAME_FIELD_NUMBER: _ClassVar[int]
     PASSWORD_FIELD_NUMBER: _ClassVar[int]
     NOTIFICATION_CHANNEL_TYPE_FIELD_NUMBER: _ClassVar[int]
@@ -73,7 +73,7 @@ class LoginRequest(_message.Message):
     def __init__(self, username: _Optional[str] = ..., password: _Optional[str] = ..., notification_channel_type: _Optional[_Union[NotificationChannelType, str]] = ..., os: _Optional[_Union[Os, str]] = ..., notification_device_token: _Optional[str] = ..., locale: _Optional[str] = ..., device_id: _Optional[str] = ..., client_name: _Optional[str] = ...) -> None: ...
 
 class SessionInfo(_message.Message):
-    __slots__ = ["id_token", "expiry_time_sec", "refresh_token", "gigya_jwt"]
+    __slots__ = ("id_token", "expiry_time_sec", "refresh_token", "gigya_jwt")
     ID_TOKEN_FIELD_NUMBER: _ClassVar[int]
     EXPIRY_TIME_SEC_FIELD_NUMBER: _ClassVar[int]
     REFRESH_TOKEN_FIELD_NUMBER: _ClassVar[int]
@@ -85,7 +85,7 @@ class SessionInfo(_message.Message):
     def __init__(self, id_token: _Optional[str] = ..., expiry_time_sec: _Optional[int] = ..., refresh_token: _Optional[str] = ..., gigya_jwt: _Optional[str] = ...) -> None: ...
 
 class LoginResponse(_message.Message):
-    __slots__ = ["uid", "session_info", "user_profile", "user_vehicle_data", "subscriptions", "encryption"]
+    __slots__ = ("uid", "session_info", "user_profile", "user_vehicle_data", "subscriptions", "encryption")
     UID_FIELD_NUMBER: _ClassVar[int]
     SESSION_INFO_FIELD_NUMBER: _ClassVar[int]
     USER_PROFILE_FIELD_NUMBER: _ClassVar[int]
@@ -101,13 +101,13 @@ class LoginResponse(_message.Message):
     def __init__(self, uid: _Optional[str] = ..., session_info: _Optional[_Union[SessionInfo, _Mapping]] = ..., user_profile: _Optional[_Union[_user_profile_service_pb2.UserProfile, _Mapping]] = ..., user_vehicle_data: _Optional[_Iterable[_Union[_vehicle_state_service_pb2.Vehicle, _Mapping]]] = ..., subscriptions: _Optional[_Iterable[_Union[Subscription, str]]] = ..., encryption: _Optional[_Union[Encryption, str]] = ...) -> None: ...
 
 class GetNewJWTTokenRequest(_message.Message):
-    __slots__ = ["refresh_token"]
+    __slots__ = ("refresh_token",)
     REFRESH_TOKEN_FIELD_NUMBER: _ClassVar[int]
     refresh_token: str
     def __init__(self, refresh_token: _Optional[str] = ...) -> None: ...
 
 class GetNewJWTTokenResponse(_message.Message):
-    __slots__ = ["session_info"]
+    __slots__ = ("session_info",)
     SESSION_INFO_FIELD_NUMBER: _ClassVar[int]
     session_info: SessionInfo
     def __init__(self, session_info: _Optional[_Union[SessionInfo, _Mapping]] = ...) -> None: ...
@@ -125,7 +125,7 @@ class GetSubscriptionRequest(_message.Message):
     def __init__(self) -> None: ...
 
 class GetSubscriptionResponse(_message.Message):
-    __slots__ = ["subscriptions"]
+    __slots__ = ("subscriptions",)
     SUBSCRIPTIONS_FIELD_NUMBER: _ClassVar[int]
     subscriptions: _containers.RepeatedScalarFieldContainer[Subscription]
     def __init__(self, subscriptions: _Optional[_Iterable[_Union[Subscription, str]]] = ...) -> None: ...
@@ -135,7 +135,7 @@ class GetUserVehiclesRequest(_message.Message):
     def __init__(self) -> None: ...
 
 class GetUserVehiclesResponse(_message.Message):
-    __slots__ = ["user_vehicle_data"]
+    __slots__ = ("user_vehicle_data",)
     USER_VEHICLE_DATA_FIELD_NUMBER: _ClassVar[int]
     user_vehicle_data: _containers.RepeatedCompositeFieldContainer[_vehicle_state_service_pb2.Vehicle]
     def __init__(self, user_vehicle_data: _Optional[_Iterable[_Union[_vehicle_state_service_pb2.Vehicle, _Mapping]]] = ...) -> None: ...
@@ -157,7 +157,7 @@ class RefreshNotificationTokenResponse(_message.Message):
     def __init__(self) -> None: ...
 
 class SetNickNameRequest(_message.Message):
-    __slots__ = ["vehicle_id", "nickname"]
+    __slots__ = ("vehicle_id", "nickname")
     VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
     NICKNAME_FIELD_NUMBER: _ClassVar[int]
     vehicle_id: str

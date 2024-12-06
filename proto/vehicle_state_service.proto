@@ -296,6 +296,8 @@ message ChassisState {
     WarningState soft_warn_right_front = 14;
     WarningState soft_warn_right_rear = 15;
     string software_version = 16;
+    double speed = 29; /* in meters/second */
+    uint64 tire_pressure_last_updated = 34;
 }
 
 enum ChargeState {
@@ -305,6 +307,7 @@ enum ChargeState {
     CHARGE_STATE_CHARGING = 8;
     CHARGE_STATE_CHARGING_END_OK = 9;
     CHARGE_STATE_EVSE_MALFUNCTION = 11;
+    CHARGE_STATE_CHARGING_STOPPED = 13;
     CHARGE_STATE_DISCHARGING = 19;
 }
 
@@ -458,6 +461,7 @@ message HvacState {
     HvacPreconditionStatus precondition_status = 3;
     KeepClimateStatus keep_climate_status = 5;
     /* KeepClimateCondition keep_climate_condition = ???; */
+    double front_left_set_temperature = 13;
 }
 
 enum DriveMode {
@@ -555,6 +559,7 @@ message TcuInternetState {
 enum MpbFaultStatus {
     MPB_FAULT_STATUS_UNKNOWN = 0;
     MPB_FAULT_STATUS_NORMAL = 1;
+    MPB_FAULT_STATUS_CRITICAL = 3;
 }
 
 message FaultState {
@@ -583,7 +588,8 @@ message Notifications {
     GeneralChargeStatus gebattery_charge_status = 6;
 }
 
-message SentryState { }
+message SentryState {
+}
 
 message VehicleState {
     BatteryState battery = 1;
