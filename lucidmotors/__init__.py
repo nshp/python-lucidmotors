@@ -128,7 +128,7 @@ from .gen.salesforce_service_pb2 import (
     ReferralData,
 )
 
-__version__ = "1.1.11"
+__version__ = "1.1.12"
 
 _LOGGER = logging.getLogger(__name__)
 
