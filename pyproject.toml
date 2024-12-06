@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "lucidmotors"
-version = "1.1.10"
+version = "1.1.11"
 description = ""
 authors = ["Nick Shipp <git@segbrk.com>", "Michael Borohovski <borski@owlpost.lol>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-grpcio = "^1.68.0"
+grpcio = "1.67.0"
 grpc-stubs = "^1.53.0"
 protobuf = "^5.28.3"
 
@@ -23,7 +23,7 @@ flake8-black = "^0.3.6"
 pyjwt = "^2.8.0"
 mypy-protobuf = "^3.6.0"
 types-protobuf = "^4.24.0.4"
-grpcio-tools = "1.66.2"
+grpcio-tools = "1.67.0"
 poetry-plugin-export = "^1.6.0"
 
 [tool.black]
