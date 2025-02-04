@@ -770,6 +770,60 @@ message DischargeControlRequest {
 }
 message DischargeControlResponse {}
 
+enum WindowSwitchState {
+    WINDOW_SWITCH_STATE_UNKNOWN = 0;
+    WINDOW_SWITCH_STATE_CLOSE = 2;
+    WINDOW_SWITCH_STATE_OPEN = 3;
+}
+
+message AllWindowControlRequest {
+    WindowSwitchState state = 1;
+    string vehicle_id = 2;
+}
+message AllWindowControlResponse {}
+
+message SeatClimateControlRequest {
+    string vehicle_id = 1;
+}
+message SeatClimateControlResponse {}
+
+enum MaxACState {
+    MAX_AC_STATE_UNKNOWN = 0;
+    MAX_AC_STATE_OFF = 1;
+    MAX_AC_STATE_ON = 2;
+}
+
+message SetMaxACRequest {
+    MaxACState state = 1;
+    string vehicle_id = 2;
+}
+message SetMaxACResponse {}
+
+enum SteeringWheelHeaterLevel {
+    STEERING_WHEEL_HEATER_LEVEL_UNKNOWN = 0;
+    STEERING_WHEEL_HEATER_LEVEL_OFF = 1;
+    STEERING_WHEEL_HEATER_LEVEL_LOW = 2;
+    STEERING_WHEEL_HEATER_LEVEL_HIGH = 3;
+}
+
+message SteeringWheelHeaterRequest {
+    string vehicle_id = 1;
+    uint32 level = 2;
+}
+message SteeringWheelHeaterResponse {}
+
+enum CreatureComfortMode {
+    CREATURE_COMFORT_MODE_UNKNOWN = 0;
+    CREATURE_COMFORT_MODE_OFF = 1; /* guess */
+    CREATURE_COMFORT_MODE_PET = 2; /* guess, but works */
+}
+
+message SetCreatureComfortModeRequest {
+    CreatureComfortMode mode = 1;
+    string vehicle_id = 2;
+}
+message SetCreatureComfortModeResponse {}
+
 service VehicleStateService {
     rpc ApplySoftwareUpdate(ApplySoftwareUpdateRequest) returns (ApplySoftwareUpdateResponse) {}
     rpc CancelScheduledUpdate(CancelScheduledUpdateRequest) returns (CancelScheduledUpdateResponse) {}
@@ -790,4 +844,9 @@ service VehicleStateService {
     rpc SetBatteryPrecon(SetBatteryPreconRequest) returns (SetBatteryPreconResponse) {}
     rpc SetDischargeSoeLimit(SetDischargeSoeLimitRequest) returns (SetDischargeSoeLimitResponse) {}
     rpc DischargeControl(DischargeControlRequest) returns (DischargeControlResponse) {}
+    rpc AllWindowControl(AllWindowControlRequest) returns (AllWindowControlResponse) {}
+    rpc SeatClimateControl(SeatClimateControlRequest) returns (SeatClimateControlResponse) {}
+    rpc SetMaxAC(SetMaxACRequest) returns (SetMaxACResponse) {}
+    rpc SteeringWheelHeater(SteeringWheelHeaterRequest) returns (SteeringWheelHeaterResponse) {}
+    rpc SetCreatureComfortMode(SetCreatureComfortModeRequest) returns (SetCreatureComfortModeResponse) {}
 }

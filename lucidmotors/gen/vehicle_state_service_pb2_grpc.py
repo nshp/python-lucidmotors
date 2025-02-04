@@ -5,7 +5,7 @@ import warnings
 
 from . import vehicle_state_service_pb2 as vehicle__state__service__pb2
 
-GRPC_GENERATED_VERSION = '1.66.2'
+GRPC_GENERATED_VERSION = '1.67.1'
 GRPC_VERSION = grpc.__version__
 _version_not_supported = False
 
@@ -129,6 +129,31 @@ class VehicleStateServiceStub(object):
                 request_serializer=vehicle__state__service__pb2.DischargeControlRequest.SerializeToString,
                 response_deserializer=vehicle__state__service__pb2.DischargeControlResponse.FromString,
                 _registered_method=True)
+        self.AllWindowControl = channel.unary_unary(
+                '/mobilegateway.protos.VehicleStateService/AllWindowControl',
+                request_serializer=vehicle__state__service__pb2.AllWindowControlRequest.SerializeToString,
+                response_deserializer=vehicle__state__service__pb2.AllWindowControlResponse.FromString,
+                _registered_method=True)
+        self.SeatClimateControl = channel.unary_unary(
+                '/mobilegateway.protos.VehicleStateService/SeatClimateControl',
+                request_serializer=vehicle__state__service__pb2.SeatClimateControlRequest.SerializeToString,
+                response_deserializer=vehicle__state__service__pb2.SeatClimateControlResponse.FromString,
+                _registered_method=True)
+        self.SetMaxAC = channel.unary_unary(
+                '/mobilegateway.protos.VehicleStateService/SetMaxAC',
+                request_serializer=vehicle__state__service__pb2.SetMaxACRequest.SerializeToString,
+                response_deserializer=vehicle__state__service__pb2.SetMaxACResponse.FromString,
+                _registered_method=True)
+        self.SteeringWheelHeater = channel.unary_unary(
+                '/mobilegateway.protos.VehicleStateService/SteeringWheelHeater',
+                request_serializer=vehicle__state__service__pb2.SteeringWheelHeaterRequest.SerializeToString,
+                response_deserializer=vehicle__state__service__pb2.SteeringWheelHeaterResponse.FromString,
+                _registered_method=True)
+        self.SetCreatureComfortMode = channel.unary_unary(
+                '/mobilegateway.protos.VehicleStateService/SetCreatureComfortMode',
+                request_serializer=vehicle__state__service__pb2.SetCreatureComfortModeRequest.SerializeToString,
+                response_deserializer=vehicle__state__service__pb2.SetCreatureComfortModeResponse.FromString,
+                _registered_method=True)
 
 
 class VehicleStateServiceServicer(object):
@@ -248,6 +273,36 @@ class VehicleStateServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def AllWindowControl(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SeatClimateControl(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SetMaxAC(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SteeringWheelHeater(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SetCreatureComfortMode(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_VehicleStateServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -345,6 +400,31 @@ def add_VehicleStateServiceServicer_to_server(servicer, server):
                     servicer.DischargeControl,
                     request_deserializer=vehicle__state__service__pb2.DischargeControlRequest.FromString,
                     response_serializer=vehicle__state__service__pb2.DischargeControlResponse.SerializeToString,
+            ),
+            'AllWindowControl': grpc.unary_unary_rpc_method_handler(
+                    servicer.AllWindowControl,
+                    request_deserializer=vehicle__state__service__pb2.AllWindowControlRequest.FromString,
+                    response_serializer=vehicle__state__service__pb2.AllWindowControlResponse.SerializeToString,
+            ),
+            'SeatClimateControl': grpc.unary_unary_rpc_method_handler(
+                    servicer.SeatClimateControl,
+                    request_deserializer=vehicle__state__service__pb2.SeatClimateControlRequest.FromString,
+                    response_serializer=vehicle__state__service__pb2.SeatClimateControlResponse.SerializeToString,
+            ),
+            'SetMaxAC': grpc.unary_unary_rpc_method_handler(
+                    servicer.SetMaxAC,
+                    request_deserializer=vehicle__state__service__pb2.SetMaxACRequest.FromString,
+                    response_serializer=vehicle__state__service__pb2.SetMaxACResponse.SerializeToString,
+            ),
+            'SteeringWheelHeater': grpc.unary_unary_rpc_method_handler(
+                    servicer.SteeringWheelHeater,
+                    request_deserializer=vehicle__state__service__pb2.SteeringWheelHeaterRequest.FromString,
+                    response_serializer=vehicle__state__service__pb2.SteeringWheelHeaterResponse.SerializeToString,
+            ),
+            'SetCreatureComfortMode': grpc.unary_unary_rpc_method_handler(
+                    servicer.SetCreatureComfortMode,
+                    request_deserializer=vehicle__state__service__pb2.SetCreatureComfortModeRequest.FromString,
+                    response_serializer=vehicle__state__service__pb2.SetCreatureComfortModeResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -860,6 +940,141 @@ class VehicleStateService(object):
             '/mobilegateway.protos.VehicleStateService/DischargeControl',
             vehicle__state__service__pb2.DischargeControlRequest.SerializeToString,
             vehicle__state__service__pb2.DischargeControlResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def AllWindowControl(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.VehicleStateService/AllWindowControl',
+            vehicle__state__service__pb2.AllWindowControlRequest.SerializeToString,
+            vehicle__state__service__pb2.AllWindowControlResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def SeatClimateControl(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.VehicleStateService/SeatClimateControl',
+            vehicle__state__service__pb2.SeatClimateControlRequest.SerializeToString,
+            vehicle__state__service__pb2.SeatClimateControlResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def SetMaxAC(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.VehicleStateService/SetMaxAC',
+            vehicle__state__service__pb2.SetMaxACRequest.SerializeToString,
+            vehicle__state__service__pb2.SetMaxACResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def SteeringWheelHeater(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.VehicleStateService/SteeringWheelHeater',
+            vehicle__state__service__pb2.SteeringWheelHeaterRequest.SerializeToString,
+            vehicle__state__service__pb2.SteeringWheelHeaterResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def SetCreatureComfortMode(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.VehicleStateService/SetCreatureComfortMode',
+            vehicle__state__service__pb2.SetCreatureComfortModeRequest.SerializeToString,
+            vehicle__state__service__pb2.SetCreatureComfortModeResponse.FromString,
             options,
             channel_credentials,
             insecure,

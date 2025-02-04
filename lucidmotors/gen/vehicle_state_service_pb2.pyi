@@ -387,6 +387,25 @@ class DocumentType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
 class DischargeCommand(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     DISCHARGE_UNKNOWN: _ClassVar[DischargeCommand]
+
+class WindowSwitchState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    WINDOW_SWITCH_STATE_UNKNOWN: _ClassVar[WindowSwitchState]
+    WINDOW_SWITCH_STATE_CLOSE: _ClassVar[WindowSwitchState]
+    WINDOW_SWITCH_STATE_OPEN: _ClassVar[WindowSwitchState]
+
+class SteeringWheelHeaterLevel(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    STEERING_WHEEL_HEATER_LEVEL_UNKNOWN: _ClassVar[SteeringWheelHeaterLevel]
+    STEERING_WHEEL_HEATER_LEVEL_OFF: _ClassVar[SteeringWheelHeaterLevel]
+    STEERING_WHEEL_HEATER_LEVEL_LOW: _ClassVar[SteeringWheelHeaterLevel]
+    STEERING_WHEEL_HEATER_LEVEL_HIGH: _ClassVar[SteeringWheelHeaterLevel]
+
+class CreatureComfortMode(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    CREATURE_COMFORT_MODE_UNKNOWN: _ClassVar[CreatureComfortMode]
+    CREATURE_COMFORT_MODE_OFF: _ClassVar[CreatureComfortMode]
+    CREATURE_COMFORT_MODE_PET: _ClassVar[CreatureComfortMode]
 ACCESS_LEVEL_UNKNOWN: AccessLevel
 ACCESS_LEVEL_PREDELIVERY_OWNER: AccessLevel
 ACCESS_LEVEL_PRIMARY_OWNER: AccessLevel
@@ -598,6 +617,16 @@ DOCUMENT_TYPE_RELEASE_NOTES_PRE: DocumentType
 DOCUMENT_TYPE_RELEASE_NOTES_POST: DocumentType
 DOCUMENT_TYPE_OWNERS_MANUAL: DocumentType
 DISCHARGE_UNKNOWN: DischargeCommand
+WINDOW_SWITCH_STATE_UNKNOWN: WindowSwitchState
+WINDOW_SWITCH_STATE_CLOSE: WindowSwitchState
+WINDOW_SWITCH_STATE_OPEN: WindowSwitchState
+STEERING_WHEEL_HEATER_LEVEL_UNKNOWN: SteeringWheelHeaterLevel
+STEERING_WHEEL_HEATER_LEVEL_OFF: SteeringWheelHeaterLevel
+STEERING_WHEEL_HEATER_LEVEL_LOW: SteeringWheelHeaterLevel
+STEERING_WHEEL_HEATER_LEVEL_HIGH: SteeringWheelHeaterLevel
+CREATURE_COMFORT_MODE_UNKNOWN: CreatureComfortMode
+CREATURE_COMFORT_MODE_OFF: CreatureComfortMode
+CREATURE_COMFORT_MODE_PET: CreatureComfortMode
 
 class ChargingSubscription(_message.Message):
     __slots__ = ("name", "expiration_date", "start_date", "status")
@@ -1266,5 +1295,63 @@ class DischargeControlRequest(_message.Message):
     def __init__(self, discharge_command: _Optional[_Union[DischargeCommand, str]] = ..., vehicle_id: _Optional[str] = ...) -> None: ...
 
 class DischargeControlResponse(_message.Message):
+    __slots__ = ()
+    def __init__(self) -> None: ...
+
+class AllWindowControlRequest(_message.Message):
+    __slots__ = ("state", "vehicle_id")
+    STATE_FIELD_NUMBER: _ClassVar[int]
+    VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
+    state: WindowSwitchState
+    vehicle_id: str
+    def __init__(self, state: _Optional[_Union[WindowSwitchState, str]] = ..., vehicle_id: _Optional[str] = ...) -> None: ...
+
+class AllWindowControlResponse(_message.Message):
+    __slots__ = ()
+    def __init__(self) -> None: ...
+
+class SeatClimateControlRequest(_message.Message):
+    __slots__ = ("vehicle_id",)
+    VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
+    vehicle_id: str
+    def __init__(self, vehicle_id: _Optional[str] = ...) -> None: ...
+
+class SeatClimateControlResponse(_message.Message):
+    __slots__ = ()
+    def __init__(self) -> None: ...
+
+class SetMaxACRequest(_message.Message):
+    __slots__ = ("a", "vehicle_id")
+    A_FIELD_NUMBER: _ClassVar[int]
+    VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
+    a: int
+    vehicle_id: str
+    def __init__(self, a: _Optional[int] = ..., vehicle_id: _Optional[str] = ...) -> None: ...
+
+class SetMaxACResponse(_message.Message):
+    __slots__ = ()
+    def __init__(self) -> None: ...
+
+class SteeringWheelHeaterRequest(_message.Message):
+    __slots__ = ("vehicle_id", "level")
+    VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
+    LEVEL_FIELD_NUMBER: _ClassVar[int]
+    vehicle_id: str
+    level: int
+    def __init__(self, vehicle_id: _Optional[str] = ..., level: _Optional[int] = ...) -> None: ...
+
+class SteeringWheelHeaterResponse(_message.Message):
+    __slots__ = ()
+    def __init__(self) -> None: ...
+
+class SetCreatureComfortModeRequest(_message.Message):
+    __slots__ = ("mode", "vehicle_id")
+    MODE_FIELD_NUMBER: _ClassVar[int]
+    VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
+    mode: CreatureComfortMode
+    vehicle_id: str
+    def __init__(self, mode: _Optional[_Union[CreatureComfortMode, str]] = ..., vehicle_id: _Optional[str] = ...) -> None: ...
+
+class SetCreatureComfortModeResponse(_message.Message):
     __slots__ = ()
     def __init__(self) -> None: ...

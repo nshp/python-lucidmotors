@@ -39,12 +39,14 @@ requirements: requirements.txt requirements_dev.txt
 # Compile gRPC/ProtoBuf definitions
 #
 
-PROTOS= login_session.proto         \
-	user_profile_service.proto  \
-	user_preferences_service.proto  \
-	vehicle_state_service.proto \
-	trip_service.proto          \
-	charging_service.proto      \
+PROTOS= login_session.proto            \
+	user_profile_service.proto     \
+	user_preferences_service.proto \
+	vehicle_state_service.proto    \
+	trip_service.proto             \
+	charging_service.proto         \
+	sentry_service.proto           \
+	subscription_service.proto     \
 	salesforce_service.proto
 
 PROTOS_GEN := $(patsubst %.proto,%_pb2.py,$(PROTOS))      \
