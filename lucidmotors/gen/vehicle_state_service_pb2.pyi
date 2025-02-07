@@ -61,6 +61,7 @@ class SubscriptionStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
 class ChargingAccountStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     CHARGING_ACCOUNT_STATUS_UNKNOWN: _ClassVar[ChargingAccountStatus]
+    CHARGING_ACCOUNT_STATUS_DISABLED: _ClassVar[ChargingAccountStatus]
     CHARGING_ACCOUNT_STATUS_ENROLLED: _ClassVar[ChargingAccountStatus]
 
 class ChargingVendor(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
@@ -177,6 +178,17 @@ class KeyfobBatteryStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     KEYFOB_BATTERY_STATUS_UNKNOWN: _ClassVar[KeyfobBatteryStatus]
     KEYFOB_BATTERY_STATUS_SUFFICIENT: _ClassVar[KeyfobBatteryStatus]
 
+class AllWindowPosition(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    ALL_WINDOW_POSITION_UNKNOWN: _ClassVar[AllWindowPosition]
+    ALL_WINDOW_POSITION_IDLE: _ClassVar[AllWindowPosition]
+    ALL_WINDOW_POSITION_CLOSED: _ClassVar[AllWindowPosition]
+
+class WindowPositionStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    WINDOW_POSITION_STATUS_UNKNOWN: _ClassVar[WindowPositionStatus]
+    WINDOW_POSITION_STATUS_FULLY_CLOSED: _ClassVar[WindowPositionStatus]
+
 class LightState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     LIGHT_STATE_REALLY_UNKNOWN: _ClassVar[LightState]
@@ -240,6 +252,11 @@ class UpdateAvailability(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     UPDATE_AVAILABILITY_UNKNOWN: _ClassVar[UpdateAvailability]
     UPDATE_AVAILABLE: _ClassVar[UpdateAvailability]
 
+class TcuDownloadStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    TCU_SOFTWARE_DOWNLOAD_STATUS_UNKNOWN: _ClassVar[TcuDownloadStatus]
+    TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_COMPLETE: _ClassVar[TcuDownloadStatus]
+
 class AlarmStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     ALARM_STATUS_UNKNOWN: _ClassVar[AlarmStatus]
@@ -284,6 +301,7 @@ class HvacPreconditionStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     HVAC_PRECONDITION_STATUS_UNKNOWN: _ClassVar[HvacPreconditionStatus]
     HVAC_PRECONDITION_STATUS_STILL_ACTIVE: _ClassVar[HvacPreconditionStatus]
     HVAC_PRECONDITION_STATUS_USER_INPUT: _ClassVar[HvacPreconditionStatus]
+    HVAC_PRECONDITION_STATUS_NOT_ACTIVE_PRECONDITION: _ClassVar[HvacPreconditionStatus]
 
 class KeepClimateStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -296,6 +314,18 @@ class KeepClimateStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
 class KeepClimateCondition(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     KEEP_CLIMATE_CONDITION_UNKNOWN: _ClassVar[KeepClimateCondition]
+
+class SeatClimateMode(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    SEAT_CLIMATE_MODE_UNKNOWN: _ClassVar[SeatClimateMode]
+    SEAT_CLIMATE_MODE_OFF: _ClassVar[SeatClimateMode]
+    SEAT_CLIMATE_MODE_MEDIUM: _ClassVar[SeatClimateMode]
+
+class SteeringHeaterStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    STEERING_HEATER_STATUS_UNKNOWN: _ClassVar[SteeringHeaterStatus]
+    STEERING_HEATER_STATUS_OFF: _ClassVar[SteeringHeaterStatus]
+    STEERING_HEATER_STATUS_ON: _ClassVar[SteeringHeaterStatus]
 
 class DriveMode(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -371,6 +401,12 @@ class GeneralChargeStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     GENERAL_CHARGE_UNKNOWN: _ClassVar[GeneralChargeStatus]
     GENERAL_CHARGE_DEFAULT: _ClassVar[GeneralChargeStatus]
 
+class LowPowerModeStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    LOW_POWER_MODE_STATUS_UNKNOWN: _ClassVar[LowPowerModeStatus]
+    LOW_POWER_MODE_STATUS_INACTIVE: _ClassVar[LowPowerModeStatus]
+    LOW_POWER_MODE_STATUS_ACTIVE: _ClassVar[LowPowerModeStatus]
+
 class ChargeAction(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     CHARGE_ACTION_UNKNOWN: _ClassVar[ChargeAction]
@@ -393,6 +429,12 @@ class WindowSwitchState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     WINDOW_SWITCH_STATE_UNKNOWN: _ClassVar[WindowSwitchState]
     WINDOW_SWITCH_STATE_CLOSE: _ClassVar[WindowSwitchState]
     WINDOW_SWITCH_STATE_OPEN: _ClassVar[WindowSwitchState]
+
+class MaxACState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    MAX_AC_STATE_UNKNOWN: _ClassVar[MaxACState]
+    MAX_AC_STATE_OFF: _ClassVar[MaxACState]
+    MAX_AC_STATE_ON: _ClassVar[MaxACState]
 
 class SteeringWheelHeaterLevel(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -438,6 +480,7 @@ WHEELS_LITE_STEALTH: Wheels
 SUBSCRIPTION_STATUS_UNKNOWN: SubscriptionStatus
 SUBSCRIPTION_STATUS_CURRENT: SubscriptionStatus
 CHARGING_ACCOUNT_STATUS_UNKNOWN: ChargingAccountStatus
+CHARGING_ACCOUNT_STATUS_DISABLED: ChargingAccountStatus
 CHARGING_ACCOUNT_STATUS_ENROLLED: ChargingAccountStatus
 CHARGING_VENDOR_UNKNOWN: ChargingVendor
 CHARGING_VENDOR_ELECTRIFY_AMERICA: ChargingVendor
@@ -505,6 +548,11 @@ ACCESS_REQUEST_ACTIVE: AccessRequest
 ACCESS_REQUEST_PASSIVE: AccessRequest
 KEYFOB_BATTERY_STATUS_UNKNOWN: KeyfobBatteryStatus
 KEYFOB_BATTERY_STATUS_SUFFICIENT: KeyfobBatteryStatus
+ALL_WINDOW_POSITION_UNKNOWN: AllWindowPosition
+ALL_WINDOW_POSITION_IDLE: AllWindowPosition
+ALL_WINDOW_POSITION_CLOSED: AllWindowPosition
+WINDOW_POSITION_STATUS_UNKNOWN: WindowPositionStatus
+WINDOW_POSITION_STATUS_FULLY_CLOSED: WindowPositionStatus
 LIGHT_STATE_REALLY_UNKNOWN: LightState
 LIGHT_STATE_OFF: LightState
 LIGHT_STATE_ON: LightState
@@ -541,6 +589,8 @@ UPDATE_FAILED_DRIVE_ALLOWED: UpdateState
 UPDATE_SUCCESS_WITH_WARNINGS: UpdateState
 UPDATE_AVAILABILITY_UNKNOWN: UpdateAvailability
 UPDATE_AVAILABLE: UpdateAvailability
+TCU_SOFTWARE_DOWNLOAD_STATUS_UNKNOWN: TcuDownloadStatus
+TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_COMPLETE: TcuDownloadStatus
 ALARM_STATUS_UNKNOWN: AlarmStatus
 ALARM_STATUS_DISARMED: AlarmStatus
 ALARM_STATUS_ARMED: AlarmStatus
@@ -565,12 +615,19 @@ DEFROST_OFF: DefrostState
 HVAC_PRECONDITION_STATUS_UNKNOWN: HvacPreconditionStatus
 HVAC_PRECONDITION_STATUS_STILL_ACTIVE: HvacPreconditionStatus
 HVAC_PRECONDITION_STATUS_USER_INPUT: HvacPreconditionStatus
+HVAC_PRECONDITION_STATUS_NOT_ACTIVE_PRECONDITION: HvacPreconditionStatus
 KEEP_CLIMATE_STATUS_UNKNOWN: KeepClimateStatus
 KEEP_CLIMATE_STATUS_INACTIVE: KeepClimateStatus
 KEEP_CLIMATE_STATUS_ENABLED: KeepClimateStatus
 KEEP_CLIMATE_STATUS_CANCELED: KeepClimateStatus
 KEEP_CLIMATE_STATUS_PET_MODE_ON: KeepClimateStatus
 KEEP_CLIMATE_CONDITION_UNKNOWN: KeepClimateCondition
+SEAT_CLIMATE_MODE_UNKNOWN: SeatClimateMode
+SEAT_CLIMATE_MODE_OFF: SeatClimateMode
+SEAT_CLIMATE_MODE_MEDIUM: SeatClimateMode
+STEERING_HEATER_STATUS_UNKNOWN: SteeringHeaterStatus
+STEERING_HEATER_STATUS_OFF: SteeringHeaterStatus
+STEERING_HEATER_STATUS_ON: SteeringHeaterStatus
 DRIVE_MODE_UNKNOWN: DriveMode
 DRIVE_MODE_COMFORT: DriveMode
 DRIVE_MODE_SWIFT: DriveMode
@@ -609,6 +666,9 @@ POWERTRAIN_NOTIFY_UNKNOWN: PowertrainNotifyStatus
 POWERTRAIN_NOTIFY_NONE: PowertrainNotifyStatus
 GENERAL_CHARGE_UNKNOWN: GeneralChargeStatus
 GENERAL_CHARGE_DEFAULT: GeneralChargeStatus
+LOW_POWER_MODE_STATUS_UNKNOWN: LowPowerModeStatus
+LOW_POWER_MODE_STATUS_INACTIVE: LowPowerModeStatus
+LOW_POWER_MODE_STATUS_ACTIVE: LowPowerModeStatus
 CHARGE_ACTION_UNKNOWN: ChargeAction
 CHARGE_ACTION_START: ChargeAction
 CHARGE_ACTION_STOP: ChargeAction
@@ -620,6 +680,9 @@ DISCHARGE_UNKNOWN: DischargeCommand
 WINDOW_SWITCH_STATE_UNKNOWN: WindowSwitchState
 WINDOW_SWITCH_STATE_CLOSE: WindowSwitchState
 WINDOW_SWITCH_STATE_OPEN: WindowSwitchState
+MAX_AC_STATE_UNKNOWN: MaxACState
+MAX_AC_STATE_OFF: MaxACState
+MAX_AC_STATE_ON: MaxACState
 STEERING_WHEEL_HEATER_LEVEL_UNKNOWN: SteeringWheelHeaterLevel
 STEERING_WHEEL_HEATER_LEVEL_OFF: SteeringWheelHeaterLevel
 STEERING_WHEEL_HEATER_LEVEL_LOW: SteeringWheelHeaterLevel
@@ -641,20 +704,24 @@ class ChargingSubscription(_message.Message):
     def __init__(self, name: _Optional[str] = ..., expiration_date: _Optional[int] = ..., start_date: _Optional[int] = ..., status: _Optional[_Union[SubscriptionStatus, str]] = ...) -> None: ...
 
 class ChargingAccount(_message.Message):
-    __slots__ = ("ema_id", "vehicle_id", "status", "created_at_epoch_sec", "expiry_on_epoch_sec", "vendor_name")
+    __slots__ = ("ema_id", "vehicle_id", "status", "created_at_epoch_sec", "expiry_on_epoch_sec", "vendor_name", "valid_payment_method", "plan_id")
     EMA_ID_FIELD_NUMBER: _ClassVar[int]
     VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
     STATUS_FIELD_NUMBER: _ClassVar[int]
     CREATED_AT_EPOCH_SEC_FIELD_NUMBER: _ClassVar[int]
     EXPIRY_ON_EPOCH_SEC_FIELD_NUMBER: _ClassVar[int]
     VENDOR_NAME_FIELD_NUMBER: _ClassVar[int]
+    VALID_PAYMENT_METHOD_FIELD_NUMBER: _ClassVar[int]
+    PLAN_ID_FIELD_NUMBER: _ClassVar[int]
     ema_id: str
     vehicle_id: str
     status: ChargingAccountStatus
     created_at_epoch_sec: int
     expiry_on_epoch_sec: int
     vendor_name: ChargingVendor
-    def __init__(self, ema_id: _Optional[str] = ..., vehicle_id: _Optional[str] = ..., status: _Optional[_Union[ChargingAccountStatus, str]] = ..., created_at_epoch_sec: _Optional[int] = ..., expiry_on_epoch_sec: _Optional[int] = ..., vendor_name: _Optional[_Union[ChargingVendor, str]] = ...) -> None: ...
+    valid_payment_method: bool
+    plan_id: str
+    def __init__(self, ema_id: _Optional[str] = ..., vehicle_id: _Optional[str] = ..., status: _Optional[_Union[ChargingAccountStatus, str]] = ..., created_at_epoch_sec: _Optional[int] = ..., expiry_on_epoch_sec: _Optional[int] = ..., vendor_name: _Optional[_Union[ChargingVendor, str]] = ..., valid_payment_method: bool = ..., plan_id: _Optional[str] = ...) -> None: ...
 
 class SpecialIdentifiers(_message.Message):
     __slots__ = ("door_plate",)
@@ -762,8 +829,12 @@ class CabinState(_message.Message):
     exterior_temp: float
     def __init__(self, interior_temp: _Optional[float] = ..., exterior_temp: _Optional[float] = ...) -> None: ...
 
+class WindowPositionState(_message.Message):
+    __slots__ = ()
+    def __init__(self) -> None: ...
+
 class BodyState(_message.Message):
-    __slots__ = ("door_locks", "front_cargo", "rear_cargo", "front_left_door", "front_right_door", "rear_left_door", "rear_right_door", "charge_port", "walkaway_lock", "access_type_status", "keyfob_battery_status")
+    __slots__ = ("door_locks", "front_cargo", "rear_cargo", "front_left_door", "front_right_door", "rear_left_door", "rear_right_door", "charge_port", "walkaway_lock", "access_type_status", "keyfob_battery_status", "all_windows_position", "window_position")
     DOOR_LOCKS_FIELD_NUMBER: _ClassVar[int]
     FRONT_CARGO_FIELD_NUMBER: _ClassVar[int]
     REAR_CARGO_FIELD_NUMBER: _ClassVar[int]
@@ -775,6 +846,8 @@ class BodyState(_message.Message):
     WALKAWAY_LOCK_FIELD_NUMBER: _ClassVar[int]
     ACCESS_TYPE_STATUS_FIELD_NUMBER: _ClassVar[int]
     KEYFOB_BATTERY_STATUS_FIELD_NUMBER: _ClassVar[int]
+    ALL_WINDOWS_POSITION_FIELD_NUMBER: _ClassVar[int]
+    WINDOW_POSITION_FIELD_NUMBER: _ClassVar[int]
     door_locks: LockState
     front_cargo: DoorState
     rear_cargo: DoorState
@@ -786,7 +859,9 @@ class BodyState(_message.Message):
     walkaway_lock: WalkawayState
     access_type_status: AccessRequest
     keyfob_battery_status: KeyfobBatteryStatus
-    def __init__(self, door_locks: _Optional[_Union[LockState, str]] = ..., front_cargo: _Optional[_Union[DoorState, str]] = ..., rear_cargo: _Optional[_Union[DoorState, str]] = ..., front_left_door: _Optional[_Union[DoorState, str]] = ..., front_right_door: _Optional[_Union[DoorState, str]] = ..., rear_left_door: _Optional[_Union[DoorState, str]] = ..., rear_right_door: _Optional[_Union[DoorState, str]] = ..., charge_port: _Optional[_Union[DoorState, str]] = ..., walkaway_lock: _Optional[_Union[WalkawayState, str]] = ..., access_type_status: _Optional[_Union[AccessRequest, str]] = ..., keyfob_battery_status: _Optional[_Union[KeyfobBatteryStatus, str]] = ...) -> None: ...
+    all_windows_position: AllWindowPosition
+    window_position: WindowPositionState
+    def __init__(self, door_locks: _Optional[_Union[LockState, str]] = ..., front_cargo: _Optional[_Union[DoorState, str]] = ..., rear_cargo: _Optional[_Union[DoorState, str]] = ..., front_left_door: _Optional[_Union[DoorState, str]] = ..., front_right_door: _Optional[_Union[DoorState, str]] = ..., rear_left_door: _Optional[_Union[DoorState, str]] = ..., rear_right_door: _Optional[_Union[DoorState, str]] = ..., charge_port: _Optional[_Union[DoorState, str]] = ..., walkaway_lock: _Optional[_Union[WalkawayState, str]] = ..., access_type_status: _Optional[_Union[AccessRequest, str]] = ..., keyfob_battery_status: _Optional[_Union[KeyfobBatteryStatus, str]] = ..., all_windows_position: _Optional[_Union[AllWindowPosition, str]] = ..., window_position: _Optional[_Union[WindowPositionState, _Mapping]] = ...) -> None: ...
 
 class ChassisState(_message.Message):
     __slots__ = ("odometer_km", "front_left_tire_pressure_bar", "front_right_tire_pressure_bar", "rear_left_tire_pressure_bar", "rear_right_tire_pressure_bar", "headlights", "hard_warn_left_front", "hard_warn_left_rear", "hard_warn_right_front", "hard_warn_right_rear", "soft_warn_left_front", "soft_warn_left_rear", "soft_warn_right_front", "soft_warn_right_rear", "software_version", "speed", "tire_pressure_last_updated")
@@ -889,7 +964,7 @@ class Gps(_message.Message):
     def __init__(self, location: _Optional[_Union[Location, _Mapping]] = ..., elevation: _Optional[int] = ..., position_time: _Optional[int] = ..., heading_precise: _Optional[float] = ...) -> None: ...
 
 class SoftwareUpdate(_message.Message):
-    __slots__ = ("version_available", "install_duration_minutes", "percent_complete", "state", "version_available_raw", "update_available", "scheduled_start_time_sec")
+    __slots__ = ("version_available", "install_duration_minutes", "percent_complete", "state", "version_available_raw", "update_available", "scheduled_start_time_sec", "tcu_download_status")
     VERSION_AVAILABLE_FIELD_NUMBER: _ClassVar[int]
     INSTALL_DURATION_MINUTES_FIELD_NUMBER: _ClassVar[int]
     PERCENT_COMPLETE_FIELD_NUMBER: _ClassVar[int]
@@ -897,6 +972,7 @@ class SoftwareUpdate(_message.Message):
     VERSION_AVAILABLE_RAW_FIELD_NUMBER: _ClassVar[int]
     UPDATE_AVAILABLE_FIELD_NUMBER: _ClassVar[int]
     SCHEDULED_START_TIME_SEC_FIELD_NUMBER: _ClassVar[int]
+    TCU_DOWNLOAD_STATUS_FIELD_NUMBER: _ClassVar[int]
     version_available: str
     install_duration_minutes: int
     percent_complete: int
@@ -904,7 +980,8 @@ class SoftwareUpdate(_message.Message):
     version_available_raw: int
     update_available: UpdateAvailability
     scheduled_start_time_sec: int
-    def __init__(self, version_available: _Optional[str] = ..., install_duration_minutes: _Optional[int] = ..., percent_complete: _Optional[int] = ..., state: _Optional[_Union[UpdateState, str]] = ..., version_available_raw: _Optional[int] = ..., update_available: _Optional[_Union[UpdateAvailability, str]] = ..., scheduled_start_time_sec: _Optional[int] = ...) -> None: ...
+    tcu_download_status: TcuDownloadStatus
+    def __init__(self, version_available: _Optional[str] = ..., install_duration_minutes: _Optional[int] = ..., percent_complete: _Optional[int] = ..., state: _Optional[_Union[UpdateState, str]] = ..., version_available_raw: _Optional[int] = ..., update_available: _Optional[_Union[UpdateAvailability, str]] = ..., scheduled_start_time_sec: _Optional[int] = ..., tcu_download_status: _Optional[_Union[TcuDownloadStatus, str]] = ...) -> None: ...
 
 class AlarmState(_message.Message):
     __slots__ = ("status", "mode")
@@ -914,19 +991,27 @@ class AlarmState(_message.Message):
     mode: AlarmMode
     def __init__(self, status: _Optional[_Union[AlarmStatus, str]] = ..., mode: _Optional[_Union[AlarmMode, str]] = ...) -> None: ...
 
+class SeatClimateState(_message.Message):
+    __slots__ = ()
+    def __init__(self) -> None: ...
+
 class HvacState(_message.Message):
-    __slots__ = ("power", "defrost", "precondition_status", "keep_climate_status", "front_left_set_temperature")
+    __slots__ = ("power", "defrost", "precondition_status", "keep_climate_status", "seats", "steering_heater", "front_left_set_temperature")
     POWER_FIELD_NUMBER: _ClassVar[int]
     DEFROST_FIELD_NUMBER: _ClassVar[int]
     PRECONDITION_STATUS_FIELD_NUMBER: _ClassVar[int]
     KEEP_CLIMATE_STATUS_FIELD_NUMBER: _ClassVar[int]
+    SEATS_FIELD_NUMBER: _ClassVar[int]
+    STEERING_HEATER_FIELD_NUMBER: _ClassVar[int]
     FRONT_LEFT_SET_TEMPERATURE_FIELD_NUMBER: _ClassVar[int]
     power: HvacPower
     defrost: DefrostState
     precondition_status: HvacPreconditionStatus
     keep_climate_status: KeepClimateStatus
+    seats: SeatClimateState
+    steering_heater: SteeringHeaterStatus
     front_left_set_temperature: float
-    def __init__(self, power: _Optional[_Union[HvacPower, str]] = ..., defrost: _Optional[_Union[DefrostState, str]] = ..., precondition_status: _Optional[_Union[HvacPreconditionStatus, str]] = ..., keep_climate_status: _Optional[_Union[KeepClimateStatus, str]] = ..., front_left_set_temperature: _Optional[float] = ...) -> None: ...
+    def __init__(self, power: _Optional[_Union[HvacPower, str]] = ..., defrost: _Optional[_Union[DefrostState, str]] = ..., precondition_status: _Optional[_Union[HvacPreconditionStatus, str]] = ..., keep_climate_status: _Optional[_Union[KeepClimateStatus, str]] = ..., seats: _Optional[_Union[SeatClimateState, _Mapping]] = ..., steering_heater: _Optional[_Union[SteeringHeaterStatus, str]] = ..., front_left_set_temperature: _Optional[float] = ...) -> None: ...
 
 class MobileAppReqState(_message.Message):
     __slots__ = ("alarm_set_request", "charge_port_request", "frunk_cargo_request", "horn_request", "hvac_defrost", "hvac_precondition", "light_request", "panic_request", "shared_trip_request", "trunk_cargo_request", "vehicle_unlock_request")
@@ -991,7 +1076,7 @@ class SentryState(_message.Message):
     def __init__(self) -> None: ...
 
 class VehicleState(_message.Message):
-    __slots__ = ("battery", "power", "cabin", "body", "last_updated_ms", "chassis", "charging", "gps", "software_update", "alarm", "cloud_connection", "keyless_driving", "hvac", "drive_mode", "privacy_mode", "gear_position", "mobile_app_request", "tcu", "tcu_internet", "sentry_state", "fault_state", "notifications")
+    __slots__ = ("battery", "power", "cabin", "body", "last_updated_ms", "chassis", "charging", "gps", "software_update", "alarm", "cloud_connection", "keyless_driving", "hvac", "drive_mode", "privacy_mode", "gear_position", "mobile_app_request", "tcu", "tcu_internet", "sentry_state", "fault_state", "notifications", "low_power_mode_status")
     BATTERY_FIELD_NUMBER: _ClassVar[int]
     POWER_FIELD_NUMBER: _ClassVar[int]
     CABIN_FIELD_NUMBER: _ClassVar[int]
@@ -1014,6 +1099,7 @@ class VehicleState(_message.Message):
     SENTRY_STATE_FIELD_NUMBER: _ClassVar[int]
     FAULT_STATE_FIELD_NUMBER: _ClassVar[int]
     NOTIFICATIONS_FIELD_NUMBER: _ClassVar[int]
+    LOW_POWER_MODE_STATUS_FIELD_NUMBER: _ClassVar[int]
     battery: BatteryState
     power: PowerState
     cabin: CabinState
@@ -1036,7 +1122,8 @@ class VehicleState(_message.Message):
     sentry_state: SentryState
     fault_state: FaultState
     notifications: Notifications
-    def __init__(self, battery: _Optional[_Union[BatteryState, _Mapping]] = ..., power: _Optional[_Union[PowerState, str]] = ..., cabin: _Optional[_Union[CabinState, _Mapping]] = ..., body: _Optional[_Union[BodyState, _Mapping]] = ..., last_updated_ms: _Optional[int] = ..., chassis: _Optional[_Union[ChassisState, _Mapping]] = ..., charging: _Optional[_Union[ChargingState, _Mapping]] = ..., gps: _Optional[_Union[Gps, _Mapping]] = ..., software_update: _Optional[_Union[SoftwareUpdate, _Mapping]] = ..., alarm: _Optional[_Union[AlarmState, _Mapping]] = ..., cloud_connection: _Optional[_Union[CloudConnectionState, str]] = ..., keyless_driving: _Optional[_Union[KeylessDrivingState, str]] = ..., hvac: _Optional[_Union[HvacState, _Mapping]] = ..., drive_mode: _Optional[_Union[DriveMode, str]] = ..., privacy_mode: _Optional[_Union[PrivacyMode, str]] = ..., gear_position: _Optional[_Union[GearPosition, str]] = ..., mobile_app_request: _Optional[_Union[MobileAppReqState, _Mapping]] = ..., tcu: _Optional[_Union[TcuState, str]] = ..., tcu_internet: _Optional[_Union[TcuInternetState, _Mapping]] = ..., sentry_state: _Optional[_Union[SentryState, _Mapping]] = ..., fault_state: _Optional[_Union[FaultState, _Mapping]] = ..., notifications: _Optional[_Union[Notifications, _Mapping]] = ...) -> None: ...
+    low_power_mode_status: LowPowerModeStatus
+    def __init__(self, battery: _Optional[_Union[BatteryState, _Mapping]] = ..., power: _Optional[_Union[PowerState, str]] = ..., cabin: _Optional[_Union[CabinState, _Mapping]] = ..., body: _Optional[_Union[BodyState, _Mapping]] = ..., last_updated_ms: _Optional[int] = ..., chassis: _Optional[_Union[ChassisState, _Mapping]] = ..., charging: _Optional[_Union[ChargingState, _Mapping]] = ..., gps: _Optional[_Union[Gps, _Mapping]] = ..., software_update: _Optional[_Union[SoftwareUpdate, _Mapping]] = ..., alarm: _Optional[_Union[AlarmState, _Mapping]] = ..., cloud_connection: _Optional[_Union[CloudConnectionState, str]] = ..., keyless_driving: _Optional[_Union[KeylessDrivingState, str]] = ..., hvac: _Optional[_Union[HvacState, _Mapping]] = ..., drive_mode: _Optional[_Union[DriveMode, str]] = ..., privacy_mode: _Optional[_Union[PrivacyMode, str]] = ..., gear_position: _Optional[_Union[GearPosition, str]] = ..., mobile_app_request: _Optional[_Union[MobileAppReqState, _Mapping]] = ..., tcu: _Optional[_Union[TcuState, str]] = ..., tcu_internet: _Optional[_Union[TcuInternetState, _Mapping]] = ..., sentry_state: _Optional[_Union[SentryState, _Mapping]] = ..., fault_state: _Optional[_Union[FaultState, _Mapping]] = ..., notifications: _Optional[_Union[Notifications, _Mapping]] = ..., low_power_mode_status: _Optional[_Union[LowPowerModeStatus, str]] = ...) -> None: ...
 
 class Vehicle(_message.Message):
     __slots__ = ("vehicle_id", "access_level", "config", "state")
@@ -1321,12 +1408,12 @@ class SeatClimateControlResponse(_message.Message):
     def __init__(self) -> None: ...
 
 class SetMaxACRequest(_message.Message):
-    __slots__ = ("a", "vehicle_id")
-    A_FIELD_NUMBER: _ClassVar[int]
+    __slots__ = ("state", "vehicle_id")
+    STATE_FIELD_NUMBER: _ClassVar[int]
     VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
-    a: int
+    state: MaxACState
     vehicle_id: str
-    def __init__(self, a: _Optional[int] = ..., vehicle_id: _Optional[str] = ...) -> None: ...
+    def __init__(self, state: _Optional[_Union[MaxACState, str]] = ..., vehicle_id: _Optional[str] = ...) -> None: ...
 
 class SetMaxACResponse(_message.Message):
     __slots__ = ()

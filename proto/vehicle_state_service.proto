@@ -64,6 +64,7 @@ message ChargingSubscription {
 
 enum ChargingAccountStatus {
     CHARGING_ACCOUNT_STATUS_UNKNOWN = 0;
+    CHARGING_ACCOUNT_STATUS_DISABLED = 1;
     CHARGING_ACCOUNT_STATUS_ENROLLED = 2;
 }
 
@@ -80,6 +81,8 @@ message ChargingAccount {
     uint64 created_at_epoch_sec = 4;
     uint64 expiry_on_epoch_sec = 5;
     ChargingVendor vendor_name = 6;
+    bool valid_payment_method = 7;
+    string plan_id = 8;
 }
 
 enum Edition {
@@ -248,6 +251,20 @@ enum KeyfobBatteryStatus {
     KEYFOB_BATTERY_STATUS_SUFFICIENT = 2;
 }
 
+enum AllWindowPosition {
+    ALL_WINDOW_POSITION_UNKNOWN = 0;
+    ALL_WINDOW_POSITION_IDLE = 1;
+    ALL_WINDOW_POSITION_CLOSED = 3;
+}
+
+enum WindowPositionStatus {
+    WINDOW_POSITION_STATUS_UNKNOWN = 0;
+    WINDOW_POSITION_STATUS_FULLY_CLOSED = 1;;
+}
+
+message WindowPositionState {
+}
+
 message BodyState {
     LockState door_locks = 1;
     DoorState front_cargo = 2;
@@ -260,6 +277,8 @@ message BodyState {
     WalkawayState walkaway_lock = 9;
     AccessRequest access_type_status = 10;
     KeyfobBatteryStatus keyfob_battery_status = 11;
+    AllWindowPosition all_windows_position = 14;
+    WindowPositionState window_position = 16;
 }
 
 enum LightState {
@@ -383,6 +402,11 @@ enum UpdateAvailability {
     UPDATE_AVAILABLE = 1;
 }
 
+enum TcuDownloadStatus {
+    TCU_SOFTWARE_DOWNLOAD_STATUS_UNKNOWN = 0;
+    TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_COMPLETE = 4;
+}
+
 message SoftwareUpdate {
     string version_available = 1;
     uint32 install_duration_minutes = 2;
@@ -391,6 +415,7 @@ message SoftwareUpdate {
     uint32 version_available_raw = 8;
     UpdateAvailability update_available = 9;
     uint64 scheduled_start_time_sec = 10;
+    TcuDownloadStatus tcu_download_status = 17;
 }
 
 enum AlarmStatus {
@@ -441,6 +466,7 @@ enum HvacPreconditionStatus {
     HVAC_PRECONDITION_STATUS_UNKNOWN = 0;
     HVAC_PRECONDITION_STATUS_STILL_ACTIVE = 1;
     HVAC_PRECONDITION_STATUS_USER_INPUT = 4;
+    HVAC_PRECONDITION_STATUS_NOT_ACTIVE_PRECONDITION = 6;
 }
 
 enum KeepClimateStatus {
@@ -455,12 +481,29 @@ enum KeepClimateCondition {
     KEEP_CLIMATE_CONDITION_UNKNOWN = 0;
 }
 
+enum SeatClimateMode {
+    SEAT_CLIMATE_MODE_UNKNOWN = 0;
+    SEAT_CLIMATE_MODE_OFF = 2;
+    SEAT_CLIMATE_MODE_MEDIUM = 4;
+}
+
+message SeatClimateState {
+}
+
+enum SteeringHeaterStatus {
+    STEERING_HEATER_STATUS_UNKNOWN = 0;
+    STEERING_HEATER_STATUS_OFF = 1;
+    STEERING_HEATER_STATUS_ON = 2;
+}
+
 message HvacState {
     HvacPower power = 1;
     DefrostState defrost = 2;
     HvacPreconditionStatus precondition_status = 3;
     KeepClimateStatus keep_climate_status = 5;
     /* KeepClimateCondition keep_climate_condition = ???; */
+    SeatClimateState seats = 8;
+    SteeringHeaterStatus steering_heater = 11;
     double front_left_set_temperature = 13;
 }
 
@@ -591,6 +634,12 @@ message Notifications {
 message SentryState {
 }
 
+enum LowPowerModeStatus {
+    LOW_POWER_MODE_STATUS_UNKNOWN = 0;
+    LOW_POWER_MODE_STATUS_INACTIVE = 1;
+    LOW_POWER_MODE_STATUS_ACTIVE = 2;
+}
+
 message VehicleState {
     BatteryState battery = 1;
     PowerState power = 2;
@@ -614,6 +663,7 @@ message VehicleState {
     SentryState sentry_state = 24;
     FaultState fault_state = 25;
     Notifications notifications = 26;
+    LowPowerModeStatus low_power_mode_status = 30;
 }
 
 message Vehicle {
