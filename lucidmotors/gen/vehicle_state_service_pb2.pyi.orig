@@ -188,6 +188,8 @@ class WindowPositionStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     WINDOW_POSITION_STATUS_UNKNOWN: _ClassVar[WindowPositionStatus]
     WINDOW_POSITION_STATUS_FULLY_CLOSED: _ClassVar[WindowPositionStatus]
+    WINDOW_POSITION_STATUS_FULLY_OPEN: _ClassVar[WindowPositionStatus]
+    WINDOW_POSITION_STATUS_BETWEEN_SHORT_DROP_DOWN_AND_FULLY_OPEN: _ClassVar[WindowPositionStatus]
 
 class LightState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -300,6 +302,7 @@ class HvacPreconditionStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     HVAC_PRECONDITION_STATUS_UNKNOWN: _ClassVar[HvacPreconditionStatus]
     HVAC_PRECONDITION_STATUS_STILL_ACTIVE: _ClassVar[HvacPreconditionStatus]
+    HVAC_PRECONDITION_STATUS_TEMP_REACHED: _ClassVar[HvacPreconditionStatus]
     HVAC_PRECONDITION_STATUS_USER_INPUT: _ClassVar[HvacPreconditionStatus]
     HVAC_PRECONDITION_STATUS_NOT_ACTIVE_PRECONDITION: _ClassVar[HvacPreconditionStatus]
 
@@ -319,7 +322,9 @@ class SeatClimateMode(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     SEAT_CLIMATE_MODE_UNKNOWN: _ClassVar[SeatClimateMode]
     SEAT_CLIMATE_MODE_OFF: _ClassVar[SeatClimateMode]
+    SEAT_CLIMATE_MODE_LOW: _ClassVar[SeatClimateMode]
     SEAT_CLIMATE_MODE_MEDIUM: _ClassVar[SeatClimateMode]
+    SEAT_CLIMATE_MODE_HIGH: _ClassVar[SeatClimateMode]
 
 class SteeringHeaterStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -553,6 +558,8 @@ ALL_WINDOW_POSITION_IDLE: AllWindowPosition
 ALL_WINDOW_POSITION_CLOSED: AllWindowPosition
 WINDOW_POSITION_STATUS_UNKNOWN: WindowPositionStatus
 WINDOW_POSITION_STATUS_FULLY_CLOSED: WindowPositionStatus
+WINDOW_POSITION_STATUS_FULLY_OPEN: WindowPositionStatus
+WINDOW_POSITION_STATUS_BETWEEN_SHORT_DROP_DOWN_AND_FULLY_OPEN: WindowPositionStatus
 LIGHT_STATE_REALLY_UNKNOWN: LightState
 LIGHT_STATE_OFF: LightState
 LIGHT_STATE_ON: LightState
@@ -614,6 +621,7 @@ DEFROST_ON: DefrostState
 DEFROST_OFF: DefrostState
 HVAC_PRECONDITION_STATUS_UNKNOWN: HvacPreconditionStatus
 HVAC_PRECONDITION_STATUS_STILL_ACTIVE: HvacPreconditionStatus
+HVAC_PRECONDITION_STATUS_TEMP_REACHED: HvacPreconditionStatus
 HVAC_PRECONDITION_STATUS_USER_INPUT: HvacPreconditionStatus
 HVAC_PRECONDITION_STATUS_NOT_ACTIVE_PRECONDITION: HvacPreconditionStatus
 KEEP_CLIMATE_STATUS_UNKNOWN: KeepClimateStatus
@@ -624,7 +632,9 @@ KEEP_CLIMATE_STATUS_PET_MODE_ON: KeepClimateStatus
 KEEP_CLIMATE_CONDITION_UNKNOWN: KeepClimateCondition
 SEAT_CLIMATE_MODE_UNKNOWN: SeatClimateMode
 SEAT_CLIMATE_MODE_OFF: SeatClimateMode
+SEAT_CLIMATE_MODE_LOW: SeatClimateMode
 SEAT_CLIMATE_MODE_MEDIUM: SeatClimateMode
+SEAT_CLIMATE_MODE_HIGH: SeatClimateMode
 STEERING_HEATER_STATUS_UNKNOWN: SteeringHeaterStatus
 STEERING_HEATER_STATUS_OFF: SteeringHeaterStatus
 STEERING_HEATER_STATUS_ON: SteeringHeaterStatus
@@ -830,8 +840,16 @@ class CabinState(_message.Message):
     def __init__(self, interior_temp: _Optional[float] = ..., exterior_temp: _Optional[float] = ...) -> None: ...
 
 class WindowPositionState(_message.Message):
-    __slots__ = ()
-    def __init__(self) -> None: ...
+    __slots__ = ("left_front", "left_rear", "right_front", "right_rear")
+    LEFT_FRONT_FIELD_NUMBER: _ClassVar[int]
+    LEFT_REAR_FIELD_NUMBER: _ClassVar[int]
+    RIGHT_FRONT_FIELD_NUMBER: _ClassVar[int]
+    RIGHT_REAR_FIELD_NUMBER: _ClassVar[int]
+    left_front: WindowPositionStatus
+    left_rear: WindowPositionStatus
+    right_front: WindowPositionStatus
+    right_rear: WindowPositionStatus
+    def __init__(self, left_front: _Optional[_Union[WindowPositionStatus, str]] = ..., left_rear: _Optional[_Union[WindowPositionStatus, str]] = ..., right_front: _Optional[_Union[WindowPositionStatus, str]] = ..., right_rear: _Optional[_Union[WindowPositionStatus, str]] = ...) -> None: ...
 
 class BodyState(_message.Message):
     __slots__ = ("door_locks", "front_cargo", "rear_cargo", "front_left_door", "front_right_door", "rear_left_door", "rear_right_door", "charge_port", "walkaway_lock", "access_type_status", "keyfob_battery_status", "all_windows_position", "window_position")
@@ -992,8 +1010,38 @@ class AlarmState(_message.Message):
     def __init__(self, status: _Optional[_Union[AlarmStatus, str]] = ..., mode: _Optional[_Union[AlarmMode, str]] = ...) -> None: ...
 
 class SeatClimateState(_message.Message):
-    __slots__ = ()
-    def __init__(self) -> None: ...
+    __slots__ = ("driver_heat_backrest_zone2", "driver_heat_backrest_zone4", "driver_heat_cushion_zone2", "driver_heat_cushion_zone4", "driver_vent_backrest", "driver_vent_cushion", "front_passenger_heat_backrest_zone1", "front_passenger_heat_backrest_zone3", "front_passenger_heat_cushion_zone2", "front_passenger_heat_cushion_zone4", "front_passenger_vent_backrest", "front_passenger_vent_cushion", "rear_passenger_heat_left", "rear_passenger_heat_center", "rear_passenger_heat_right")
+    DRIVER_HEAT_BACKREST_ZONE2_FIELD_NUMBER: _ClassVar[int]
+    DRIVER_HEAT_BACKREST_ZONE4_FIELD_NUMBER: _ClassVar[int]
+    DRIVER_HEAT_CUSHION_ZONE2_FIELD_NUMBER: _ClassVar[int]
+    DRIVER_HEAT_CUSHION_ZONE4_FIELD_NUMBER: _ClassVar[int]
+    DRIVER_VENT_BACKREST_FIELD_NUMBER: _ClassVar[int]
+    DRIVER_VENT_CUSHION_FIELD_NUMBER: _ClassVar[int]
+    FRONT_PASSENGER_HEAT_BACKREST_ZONE1_FIELD_NUMBER: _ClassVar[int]
+    FRONT_PASSENGER_HEAT_BACKREST_ZONE3_FIELD_NUMBER: _ClassVar[int]
+    FRONT_PASSENGER_HEAT_CUSHION_ZONE2_FIELD_NUMBER: _ClassVar[int]
+    FRONT_PASSENGER_HEAT_CUSHION_ZONE4_FIELD_NUMBER: _ClassVar[int]
+    FRONT_PASSENGER_VENT_BACKREST_FIELD_NUMBER: _ClassVar[int]
+    FRONT_PASSENGER_VENT_CUSHION_FIELD_NUMBER: _ClassVar[int]
+    REAR_PASSENGER_HEAT_LEFT_FIELD_NUMBER: _ClassVar[int]
+    REAR_PASSENGER_HEAT_CENTER_FIELD_NUMBER: _ClassVar[int]
+    REAR_PASSENGER_HEAT_RIGHT_FIELD_NUMBER: _ClassVar[int]
+    driver_heat_backrest_zone2: SeatClimateMode
+    driver_heat_backrest_zone4: SeatClimateMode
+    driver_heat_cushion_zone2: SeatClimateMode
+    driver_heat_cushion_zone4: SeatClimateMode
+    driver_vent_backrest: SeatClimateMode
+    driver_vent_cushion: SeatClimateMode
+    front_passenger_heat_backrest_zone1: SeatClimateMode
+    front_passenger_heat_backrest_zone3: SeatClimateMode
+    front_passenger_heat_cushion_zone2: SeatClimateMode
+    front_passenger_heat_cushion_zone4: SeatClimateMode
+    front_passenger_vent_backrest: SeatClimateMode
+    front_passenger_vent_cushion: SeatClimateMode
+    rear_passenger_heat_left: SeatClimateMode
+    rear_passenger_heat_center: SeatClimateMode
+    rear_passenger_heat_right: SeatClimateMode
+    def __init__(self, driver_heat_backrest_zone2: _Optional[_Union[SeatClimateMode, str]] = ..., driver_heat_backrest_zone4: _Optional[_Union[SeatClimateMode, str]] = ..., driver_heat_cushion_zone2: _Optional[_Union[SeatClimateMode, str]] = ..., driver_heat_cushion_zone4: _Optional[_Union[SeatClimateMode, str]] = ..., driver_vent_backrest: _Optional[_Union[SeatClimateMode, str]] = ..., driver_vent_cushion: _Optional[_Union[SeatClimateMode, str]] = ..., front_passenger_heat_backrest_zone1: _Optional[_Union[SeatClimateMode, str]] = ..., front_passenger_heat_backrest_zone3: _Optional[_Union[SeatClimateMode, str]] = ..., front_passenger_heat_cushion_zone2: _Optional[_Union[SeatClimateMode, str]] = ..., front_passenger_heat_cushion_zone4: _Optional[_Union[SeatClimateMode, str]] = ..., front_passenger_vent_backrest: _Optional[_Union[SeatClimateMode, str]] = ..., front_passenger_vent_cushion: _Optional[_Union[SeatClimateMode, str]] = ..., rear_passenger_heat_left: _Optional[_Union[SeatClimateMode, str]] = ..., rear_passenger_heat_center: _Optional[_Union[SeatClimateMode, str]] = ..., rear_passenger_heat_right: _Optional[_Union[SeatClimateMode, str]] = ...) -> None: ...
 
 class HvacState(_message.Message):
     __slots__ = ("power", "defrost", "precondition_status", "keep_climate_status", "seats", "steering_heater", "front_left_set_temperature")

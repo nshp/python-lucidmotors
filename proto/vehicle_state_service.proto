@@ -259,10 +259,16 @@ enum AllWindowPosition {
 
 enum WindowPositionStatus {
     WINDOW_POSITION_STATUS_UNKNOWN = 0;
-    WINDOW_POSITION_STATUS_FULLY_CLOSED = 1;;
+    WINDOW_POSITION_STATUS_FULLY_CLOSED = 1;
+    WINDOW_POSITION_STATUS_FULLY_OPEN = 5;
+    WINDOW_POSITION_STATUS_BETWEEN_SHORT_DROP_DOWN_AND_FULLY_OPEN = 14;
 }
 
 message WindowPositionState {
+    WindowPositionStatus left_front = 1;
+    WindowPositionStatus left_rear = 2;
+    WindowPositionStatus right_front = 3;
+    WindowPositionStatus right_rear = 4;
 }
 
 message BodyState {
@@ -465,6 +471,7 @@ enum DefrostState {
 enum HvacPreconditionStatus {
     HVAC_PRECONDITION_STATUS_UNKNOWN = 0;
     HVAC_PRECONDITION_STATUS_STILL_ACTIVE = 1;
+    HVAC_PRECONDITION_STATUS_TEMP_REACHED = 2;
     HVAC_PRECONDITION_STATUS_USER_INPUT = 4;
     HVAC_PRECONDITION_STATUS_NOT_ACTIVE_PRECONDITION = 6;
 }
@@ -484,10 +491,27 @@ enum KeepClimateCondition {
 enum SeatClimateMode {
     SEAT_CLIMATE_MODE_UNKNOWN = 0;
     SEAT_CLIMATE_MODE_OFF = 2;
+    SEAT_CLIMATE_MODE_LOW = 3;
     SEAT_CLIMATE_MODE_MEDIUM = 4;
+    SEAT_CLIMATE_MODE_HIGH = 5;
 }
 
 message SeatClimateState {
+    SeatClimateMode driver_heat_backrest_zone2 = 1;
+    SeatClimateMode driver_heat_backrest_zone4 = 2;
+    SeatClimateMode driver_heat_cushion_zone2 = 3;
+    SeatClimateMode driver_heat_cushion_zone4 = 4;
+    SeatClimateMode driver_vent_backrest = 5;
+    SeatClimateMode driver_vent_cushion = 6;
+    SeatClimateMode front_passenger_heat_backrest_zone1 = 7;
+    SeatClimateMode front_passenger_heat_backrest_zone3 = 8;
+    SeatClimateMode front_passenger_heat_cushion_zone2 = 9;
+    SeatClimateMode front_passenger_heat_cushion_zone4 = 10;
+    SeatClimateMode front_passenger_vent_backrest = 11;
+    SeatClimateMode front_passenger_vent_cushion = 12;
+    SeatClimateMode rear_passenger_heat_left = 13;
+    SeatClimateMode rear_passenger_heat_center = 14;
+    SeatClimateMode rear_passenger_heat_right = 15;
 }
 
 enum SteeringHeaterStatus {
