@@ -846,8 +846,11 @@ message DischargeControlResponse {}
 
 enum WindowSwitchState {
     WINDOW_SWITCH_STATE_UNKNOWN = 0;
-    WINDOW_SWITCH_STATE_CLOSE = 2;
-    WINDOW_SWITCH_STATE_OPEN = 3;
+    WINDOW_SWITCH_STATE_IDLE = 1;
+    WINDOW_SWITCH_STATE_AUTO_UP_ALL = 2;
+    WINDOW_SWITCH_STATE_VENT_ALL = 3;
+    WINDOW_SWITCH_STATE_AUTO_DOWN_ALL = 4;
+    WINDOW_SWITCH_STATE_ERROR = 5;
 }
 
 message AllWindowControlRequest {
@@ -858,6 +861,21 @@ message AllWindowControlResponse {}
 
 message SeatClimateControlRequest {
     string vehicle_id = 1;
+    SeatClimateMode driver_heat_backrest_zone2 = 2;
+    SeatClimateMode driver_heat_backrest_zone4 = 3;
+    SeatClimateMode driver_heat_cushion_zone2 = 4;
+    SeatClimateMode driver_heat_cushion_zone4 = 5;
+    SeatClimateMode driver_vent_backrest = 6;
+    SeatClimateMode driver_vent_cushion = 7;
+    SeatClimateMode front_passenger_heat_backrest_zone1 = 8;
+    SeatClimateMode front_passenger_heat_backrest_zone3 = 9;
+    SeatClimateMode front_passenger_heat_cushion_zone2 = 10;
+    SeatClimateMode front_passenger_heat_cushion_zone4 = 11;
+    SeatClimateMode front_passenger_vent_backrest = 12;
+    SeatClimateMode front_passenger_vent_cushion = 13;
+    SeatClimateMode rear_passenger_heat_left = 14;
+    SeatClimateMode rear_passenger_heat_center = 15;
+    SeatClimateMode rear_passenger_heat_right = 16;
 }
 message SeatClimateControlResponse {}
 

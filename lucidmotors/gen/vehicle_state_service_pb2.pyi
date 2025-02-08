@@ -432,8 +432,11 @@ class DischargeCommand(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
 class WindowSwitchState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     WINDOW_SWITCH_STATE_UNKNOWN: _ClassVar[WindowSwitchState]
-    WINDOW_SWITCH_STATE_CLOSE: _ClassVar[WindowSwitchState]
-    WINDOW_SWITCH_STATE_OPEN: _ClassVar[WindowSwitchState]
+    WINDOW_SWITCH_STATE_IDLE: _ClassVar[WindowSwitchState]
+    WINDOW_SWITCH_STATE_AUTO_UP_ALL: _ClassVar[WindowSwitchState]
+    WINDOW_SWITCH_STATE_VENT_ALL: _ClassVar[WindowSwitchState]
+    WINDOW_SWITCH_STATE_AUTO_DOWN_ALL: _ClassVar[WindowSwitchState]
+    WINDOW_SWITCH_STATE_ERROR: _ClassVar[WindowSwitchState]
 
 class MaxACState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -688,8 +691,11 @@ DOCUMENT_TYPE_RELEASE_NOTES_POST: DocumentType
 DOCUMENT_TYPE_OWNERS_MANUAL: DocumentType
 DISCHARGE_UNKNOWN: DischargeCommand
 WINDOW_SWITCH_STATE_UNKNOWN: WindowSwitchState
-WINDOW_SWITCH_STATE_CLOSE: WindowSwitchState
-WINDOW_SWITCH_STATE_OPEN: WindowSwitchState
+WINDOW_SWITCH_STATE_IDLE: WindowSwitchState
+WINDOW_SWITCH_STATE_AUTO_UP_ALL: WindowSwitchState
+WINDOW_SWITCH_STATE_VENT_ALL: WindowSwitchState
+WINDOW_SWITCH_STATE_AUTO_DOWN_ALL: WindowSwitchState
+WINDOW_SWITCH_STATE_ERROR: WindowSwitchState
 MAX_AC_STATE_UNKNOWN: MaxACState
 MAX_AC_STATE_OFF: MaxACState
 MAX_AC_STATE_ON: MaxACState
@@ -1446,10 +1452,40 @@ class AllWindowControlResponse(_message.Message):
     def __init__(self) -> None: ...
 
 class SeatClimateControlRequest(_message.Message):
-    __slots__ = ("vehicle_id",)
+    __slots__ = ("vehicle_id", "driver_heat_backrest_zone2", "driver_heat_backrest_zone4", "driver_heat_cushion_zone2", "driver_heat_cushion_zone4", "driver_vent_backrest", "driver_vent_cushion", "front_passenger_heat_backrest_zone1", "front_passenger_heat_backrest_zone3", "front_passenger_heat_cushion_zone2", "front_passenger_heat_cushion_zone4", "front_passenger_vent_backrest", "front_passenger_vent_cushion", "rear_passenger_heat_left", "rear_passenger_heat_center", "rear_passenger_heat_right")
     VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
+    DRIVER_HEAT_BACKREST_ZONE2_FIELD_NUMBER: _ClassVar[int]
+    DRIVER_HEAT_BACKREST_ZONE4_FIELD_NUMBER: _ClassVar[int]
+    DRIVER_HEAT_CUSHION_ZONE2_FIELD_NUMBER: _ClassVar[int]
+    DRIVER_HEAT_CUSHION_ZONE4_FIELD_NUMBER: _ClassVar[int]
+    DRIVER_VENT_BACKREST_FIELD_NUMBER: _ClassVar[int]
+    DRIVER_VENT_CUSHION_FIELD_NUMBER: _ClassVar[int]
+    FRONT_PASSENGER_HEAT_BACKREST_ZONE1_FIELD_NUMBER: _ClassVar[int]
+    FRONT_PASSENGER_HEAT_BACKREST_ZONE3_FIELD_NUMBER: _ClassVar[int]
+    FRONT_PASSENGER_HEAT_CUSHION_ZONE2_FIELD_NUMBER: _ClassVar[int]
+    FRONT_PASSENGER_HEAT_CUSHION_ZONE4_FIELD_NUMBER: _ClassVar[int]
+    FRONT_PASSENGER_VENT_BACKREST_FIELD_NUMBER: _ClassVar[int]
+    FRONT_PASSENGER_VENT_CUSHION_FIELD_NUMBER: _ClassVar[int]
+    REAR_PASSENGER_HEAT_LEFT_FIELD_NUMBER: _ClassVar[int]
+    REAR_PASSENGER_HEAT_CENTER_FIELD_NUMBER: _ClassVar[int]
+    REAR_PASSENGER_HEAT_RIGHT_FIELD_NUMBER: _ClassVar[int]
     vehicle_id: str
-    def __init__(self, vehicle_id: _Optional[str] = ...) -> None: ...
+    driver_heat_backrest_zone2: SeatClimateMode
+    driver_heat_backrest_zone4: SeatClimateMode
+    driver_heat_cushion_zone2: SeatClimateMode
+    driver_heat_cushion_zone4: SeatClimateMode
+    driver_vent_backrest: SeatClimateMode
+    driver_vent_cushion: SeatClimateMode
+    front_passenger_heat_backrest_zone1: SeatClimateMode
+    front_passenger_heat_backrest_zone3: SeatClimateMode
+    front_passenger_heat_cushion_zone2: SeatClimateMode
+    front_passenger_heat_cushion_zone4: SeatClimateMode
+    front_passenger_vent_backrest: SeatClimateMode
+    front_passenger_vent_cushion: SeatClimateMode
+    rear_passenger_heat_left: SeatClimateMode
+    rear_passenger_heat_center: SeatClimateMode
+    rear_passenger_heat_right: SeatClimateMode
+    def __init__(self, vehicle_id: _Optional[str] = ..., driver_heat_backrest_zone2: _Optional[_Union[SeatClimateMode, str]] = ..., driver_heat_backrest_zone4: _Optional[_Union[SeatClimateMode, str]] = ..., driver_heat_cushion_zone2: _Optional[_Union[SeatClimateMode, str]] = ..., driver_heat_cushion_zone4: _Optional[_Union[SeatClimateMode, str]] = ..., driver_vent_backrest: _Optional[_Union[SeatClimateMode, str]] = ..., driver_vent_cushion: _Optional[_Union[SeatClimateMode, str]] = ..., front_passenger_heat_backrest_zone1: _Optional[_Union[SeatClimateMode, str]] = ..., front_passenger_heat_backrest_zone3: _Optional[_Union[SeatClimateMode, str]] = ..., front_passenger_heat_cushion_zone2: _Optional[_Union[SeatClimateMode, str]] = ..., front_passenger_heat_cushion_zone4: _Optional[_Union[SeatClimateMode, str]] = ..., front_passenger_vent_backrest: _Optional[_Union[SeatClimateMode, str]] = ..., front_passenger_vent_cushion: _Optional[_Union[SeatClimateMode, str]] = ..., rear_passenger_heat_left: _Optional[_Union[SeatClimateMode, str]] = ..., rear_passenger_heat_center: _Optional[_Union[SeatClimateMode, str]] = ..., rear_passenger_heat_right: _Optional[_Union[SeatClimateMode, str]] = ...) -> None: ...
 
 class SeatClimateControlResponse(_message.Message):
     __slots__ = ()
