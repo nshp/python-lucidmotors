@@ -448,14 +448,15 @@ class SteeringWheelHeaterLevel(int, metaclass=_enum_type_wrapper.EnumTypeWrapper
     __slots__ = ()
     STEERING_WHEEL_HEATER_LEVEL_UNKNOWN: _ClassVar[SteeringWheelHeaterLevel]
     STEERING_WHEEL_HEATER_LEVEL_OFF: _ClassVar[SteeringWheelHeaterLevel]
-    STEERING_WHEEL_HEATER_LEVEL_LOW: _ClassVar[SteeringWheelHeaterLevel]
-    STEERING_WHEEL_HEATER_LEVEL_HIGH: _ClassVar[SteeringWheelHeaterLevel]
+    STEERING_WHEEL_HEATER_LEVEL_1: _ClassVar[SteeringWheelHeaterLevel]
+    STEERING_WHEEL_HEATER_LEVEL_2: _ClassVar[SteeringWheelHeaterLevel]
+    STEERING_WHEEL_HEATER_LEVEL_3: _ClassVar[SteeringWheelHeaterLevel]
 
 class CreatureComfortMode(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     CREATURE_COMFORT_MODE_UNKNOWN: _ClassVar[CreatureComfortMode]
     CREATURE_COMFORT_MODE_OFF: _ClassVar[CreatureComfortMode]
-    CREATURE_COMFORT_MODE_PET: _ClassVar[CreatureComfortMode]
+    CREATURE_COMFORT_MODE_ON: _ClassVar[CreatureComfortMode]
 ACCESS_LEVEL_UNKNOWN: AccessLevel
 ACCESS_LEVEL_PREDELIVERY_OWNER: AccessLevel
 ACCESS_LEVEL_PRIMARY_OWNER: AccessLevel
@@ -701,11 +702,12 @@ MAX_AC_STATE_OFF: MaxACState
 MAX_AC_STATE_ON: MaxACState
 STEERING_WHEEL_HEATER_LEVEL_UNKNOWN: SteeringWheelHeaterLevel
 STEERING_WHEEL_HEATER_LEVEL_OFF: SteeringWheelHeaterLevel
-STEERING_WHEEL_HEATER_LEVEL_LOW: SteeringWheelHeaterLevel
-STEERING_WHEEL_HEATER_LEVEL_HIGH: SteeringWheelHeaterLevel
+STEERING_WHEEL_HEATER_LEVEL_1: SteeringWheelHeaterLevel
+STEERING_WHEEL_HEATER_LEVEL_2: SteeringWheelHeaterLevel
+STEERING_WHEEL_HEATER_LEVEL_3: SteeringWheelHeaterLevel
 CREATURE_COMFORT_MODE_UNKNOWN: CreatureComfortMode
 CREATURE_COMFORT_MODE_OFF: CreatureComfortMode
-CREATURE_COMFORT_MODE_PET: CreatureComfortMode
+CREATURE_COMFORT_MODE_ON: CreatureComfortMode
 
 class ChargingSubscription(_message.Message):
     __slots__ = ("name", "expiration_date", "start_date", "status")
@@ -1508,8 +1510,8 @@ class SteeringWheelHeaterRequest(_message.Message):
     VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
     LEVEL_FIELD_NUMBER: _ClassVar[int]
     vehicle_id: str
-    level: int
-    def __init__(self, vehicle_id: _Optional[str] = ..., level: _Optional[int] = ...) -> None: ...
+    level: SteeringWheelHeaterLevel
+    def __init__(self, vehicle_id: _Optional[str] = ..., level: _Optional[_Union[SteeringWheelHeaterLevel, str]] = ...) -> None: ...
 
 class SteeringWheelHeaterResponse(_message.Message):
     __slots__ = ()

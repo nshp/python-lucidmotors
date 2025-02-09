@@ -894,20 +894,21 @@ message SetMaxACResponse {}
 enum SteeringWheelHeaterLevel {
     STEERING_WHEEL_HEATER_LEVEL_UNKNOWN = 0;
     STEERING_WHEEL_HEATER_LEVEL_OFF = 1;
-    STEERING_WHEEL_HEATER_LEVEL_LOW = 2;
-    STEERING_WHEEL_HEATER_LEVEL_HIGH = 3;
+    STEERING_WHEEL_HEATER_LEVEL_1 = 2;
+    STEERING_WHEEL_HEATER_LEVEL_2 = 3;
+    STEERING_WHEEL_HEATER_LEVEL_3 = 4;
 }
 
 message SteeringWheelHeaterRequest {
     string vehicle_id = 1;
-    uint32 level = 2;
+    SteeringWheelHeaterLevel level = 2;
 }
 message SteeringWheelHeaterResponse {}
 
 enum CreatureComfortMode {
     CREATURE_COMFORT_MODE_UNKNOWN = 0;
-    CREATURE_COMFORT_MODE_OFF = 1; /* guess */
-    CREATURE_COMFORT_MODE_PET = 2; /* guess, but works */
+    CREATURE_COMFORT_MODE_OFF = 1;
+    CREATURE_COMFORT_MODE_ON = 2;
 }
 
 message SetCreatureComfortModeRequest {

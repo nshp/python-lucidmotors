@@ -97,6 +97,11 @@ from .gen.vehicle_state_service_pb2 import (
     Vehicle,
     GetDocumentInfoResponse,
     DocumentType,
+    WindowSwitchState,
+    SeatClimateMode,
+    MaxACState,
+    SteeringWheelHeaterLevel,
+    CreatureComfortMode,
 )
 from .gen.charging_service_pb2 import (
     DateTime,
@@ -128,7 +133,7 @@ from .gen.salesforce_service_pb2 import (
     ReferralData,
 )
 
-__version__ = "1.1.12"
+__version__ = "1.2.0"
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -907,3 +912,139 @@ class LucidAPI:
             vehicle_id=vehicle.vehicle_id,
         )
         await _check_for_api_error(self._vehicle_service.SecurityAlarmControl(request))
+
+    async def all_windows_control(
+        self, vehicle: Vehicle, action: WindowSwitchState
+    ) -> None:
+        """
+        Control all of the windows of a specific vehicle.
+        """
+
+        if self._auto_wake and not self.vehicle_is_awake(vehicle):
+            await self.wakeup_vehicle(vehicle)
+
+        request = vehicle_state_service_pb2.AllWindowControlRequest(
+            state=action,
+            vehicle_id=vehicle.vehicle_id,
+        )
+        await _check_for_api_error(self._vehicle_service.AllWindowControl(request))
+
+    async def close_all_windows(self, vehicle: Vehicle) -> None:
+        """
+        Close all of the windows of a specific vehicle.
+        """
+
+        await self.all_windows_control(
+            vehicle, WindowSwitchState.WINDOW_SWITCH_STATE_AUTO_UP_ALL
+        )
+
+    async def open_all_windows(self, vehicle: Vehicle) -> None:
+        """
+        Open all of the windows of a specific vehicle slightly.
+        Repeated calls roll down the windows further.
+        """
+
+        await self.all_windows_control(
+            vehicle, WindowSwitchState.WINDOW_SWITCH_STATE_VENT_ALL
+        )
+
+    async def seat_climate_control(
+        self, vehicle: Vehicle, **kwargs: SeatClimateMode
+    ) -> None:
+        """
+        Control individual seat heating or venting of a specific vehicle.
+
+        Possible zones to change are:
+
+            - driver_heat_backrest_zone2
+            - driver_heat_backrest_zone4
+            - driver_heat_cushion_zone2
+            - driver_heat_cushion_zone4
+            - driver_vent_backrest
+            - driver_vent_cushion
+            - front_passenger_heat_backrest_zone1
+            - front_passenger_heat_backrest_zone3
+            - front_passenger_heat_cushion_zone2
+            - front_passenger_heat_cushion_zone4
+            - front_passenger_vent_backrest
+            - front_passenger_vent_cushion
+            - rear_passenger_heat_left
+            - rear_passenger_heat_center
+            - rear_passenger_heat_right
+
+        Omitted zones will be unchanged.
+
+        At least in the Air, the pairs of e.g. "zone2" and "zone4" are bound
+        together and cannot be changed individually. Maybe those are for future
+        vehicles.
+        """
+
+        if self._auto_wake and not self.vehicle_is_awake(vehicle):
+            await self.wakeup_vehicle(vehicle)
+
+        request = vehicle_state_service_pb2.SeatClimateControlRequest(
+            vehicle_id=vehicle.vehicle_id, **kwargs
+        )
+        await _check_for_api_error(self._vehicle_service.SeatClimateControl(request))
+
+    async def max_ac_control(self, vehicle: Vehicle, action: MaxACState) -> None:
+        """
+        Control the Max A/C setting of a specific vehicle.
+        """
+
+        if self._auto_wake and not self.vehicle_is_awake(vehicle):
+            await self.wakeup_vehicle(vehicle)
+
+        request = vehicle_state_service_pb2.SetMaxACRequest(
+            state=action,
+            vehicle_id=vehicle.vehicle_id,
+        )
+        await _check_for_api_error(self._vehicle_service.SetMaxAC(request))
+
+    async def max_ac_on(self, vehicle: Vehicle) -> None:
+        """
+        Turn on the Max A/C setting of a specific vehicle.
+        """
+
+        await self.max_ac_control(vehicle, MaxACState.MAX_AC_STATE_ON)
+
+    async def max_ac_off(self, vehicle: Vehicle) -> None:
+        """
+        Turn off the Max A/C setting of a specific vehicle.
+        """
+
+        await self.max_ac_control(vehicle, MaxACState.MAX_AC_STATE_OFF)
+
+    async def steering_wheel_heater_control(
+        self, vehicle: Vehicle, level: SteeringWheelHeaterLevel
+    ) -> None:
+        """
+        Control the steering wheel heater of a specific vehicle.
+        """
+
+        if self._auto_wake and not self.vehicle_is_awake(vehicle):
+            await self.wakeup_vehicle(vehicle)
+
+        request = vehicle_state_service_pb2.SteeringWheelHeaterRequest(
+            level=level,
+            vehicle_id=vehicle.vehicle_id,
+        )
+        await _check_for_api_error(self._vehicle_service.SteeringWheelHeater(request))
+
+    async def creature_comfort_control(
+        self, vehicle: Vehicle, mode: CreatureComfortMode
+    ) -> None:
+        """
+        Control the creature comfort mode of a specific vehicle.
+        """
+
+        if self._auto_wake and not self.vehicle_is_awake(vehicle):
+            await self.wakeup_vehicle(vehicle)
+
+        request = vehicle_state_service_pb2.SetCreatureComfortModeRequest(
+            mode=mode,
+            vehicle_id=vehicle.vehicle_id,
+        )
+        await _check_for_api_error(
+            self._vehicle_service.SetCreatureComfortMode(request)
+        )
