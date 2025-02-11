@@ -526,6 +526,7 @@ message HvacState {
     HvacPreconditionStatus precondition_status = 3;
     KeepClimateStatus keep_climate_status = 5;
     /* KeepClimateCondition keep_climate_condition = ???; */
+    MaxACState max_ac_status = 7;
     SeatClimateState seats = 8;
     SteeringHeaterStatus steering_heater = 11;
     double front_left_set_temperature = 13;
@@ -646,13 +647,14 @@ enum PowertrainNotifyStatus {
 enum GeneralChargeStatus {
     GENERAL_CHARGE_UNKNOWN = 0;
     GENERAL_CHARGE_DEFAULT = 1;
+    GENERAL_CHARGE_DERATED_CHARGING_POWER = 4;
 }
 
 message Notifications {
     PowertrainMessage powertrain_message = 1;
     PowertrainNotifyStatus powertrain_notify_status = 4;
     GeneralChargeStatus charging_general_status = 5;
-    GeneralChargeStatus gebattery_charge_status = 6;
+    GeneralChargeStatus battery_charge_status = 6;
 }
 
 message SentryState {

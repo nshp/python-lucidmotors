@@ -405,6 +405,7 @@ class GeneralChargeStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     GENERAL_CHARGE_UNKNOWN: _ClassVar[GeneralChargeStatus]
     GENERAL_CHARGE_DEFAULT: _ClassVar[GeneralChargeStatus]
+    GENERAL_CHARGE_DERATED_CHARGING_POWER: _ClassVar[GeneralChargeStatus]
 
 class LowPowerModeStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -680,6 +681,7 @@ POWERTRAIN_NOTIFY_UNKNOWN: PowertrainNotifyStatus
 POWERTRAIN_NOTIFY_NONE: PowertrainNotifyStatus
 GENERAL_CHARGE_UNKNOWN: GeneralChargeStatus
 GENERAL_CHARGE_DEFAULT: GeneralChargeStatus
+GENERAL_CHARGE_DERATED_CHARGING_POWER: GeneralChargeStatus
 LOW_POWER_MODE_STATUS_UNKNOWN: LowPowerModeStatus
 LOW_POWER_MODE_STATUS_INACTIVE: LowPowerModeStatus
 LOW_POWER_MODE_STATUS_ACTIVE: LowPowerModeStatus
@@ -1052,11 +1054,12 @@ class SeatClimateState(_message.Message):
     def __init__(self, driver_heat_backrest_zone2: _Optional[_Union[SeatClimateMode, str]] = ..., driver_heat_backrest_zone4: _Optional[_Union[SeatClimateMode, str]] = ..., driver_heat_cushion_zone2: _Optional[_Union[SeatClimateMode, str]] = ..., driver_heat_cushion_zone4: _Optional[_Union[SeatClimateMode, str]] = ..., driver_vent_backrest: _Optional[_Union[SeatClimateMode, str]] = ..., driver_vent_cushion: _Optional[_Union[SeatClimateMode, str]] = ..., front_passenger_heat_backrest_zone1: _Optional[_Union[SeatClimateMode, str]] = ..., front_passenger_heat_backrest_zone3: _Optional[_Union[SeatClimateMode, str]] = ..., front_passenger_heat_cushion_zone2: _Optional[_Union[SeatClimateMode, str]] = ..., front_passenger_heat_cushion_zone4: _Optional[_Union[SeatClimateMode, str]] = ..., front_passenger_vent_backrest: _Optional[_Union[SeatClimateMode, str]] = ..., front_passenger_vent_cushion: _Optional[_Union[SeatClimateMode, str]] = ..., rear_passenger_heat_left: _Optional[_Union[SeatClimateMode, str]] = ..., rear_passenger_heat_center: _Optional[_Union[SeatClimateMode, str]] = ..., rear_passenger_heat_right: _Optional[_Union[SeatClimateMode, str]] = ...) -> None: ...
 
 class HvacState(_message.Message):
-    __slots__ = ("power", "defrost", "precondition_status", "keep_climate_status", "seats", "steering_heater", "front_left_set_temperature")
+    __slots__ = ("power", "defrost", "precondition_status", "keep_climate_status", "max_ac_status", "seats", "steering_heater", "front_left_set_temperature")
     POWER_FIELD_NUMBER: _ClassVar[int]
     DEFROST_FIELD_NUMBER: _ClassVar[int]
     PRECONDITION_STATUS_FIELD_NUMBER: _ClassVar[int]
     KEEP_CLIMATE_STATUS_FIELD_NUMBER: _ClassVar[int]
+    MAX_AC_STATUS_FIELD_NUMBER: _ClassVar[int]
     SEATS_FIELD_NUMBER: _ClassVar[int]
     STEERING_HEATER_FIELD_NUMBER: _ClassVar[int]
     FRONT_LEFT_SET_TEMPERATURE_FIELD_NUMBER: _ClassVar[int]
@@ -1064,10 +1067,11 @@ class HvacState(_message.Message):
     defrost: DefrostState
     precondition_status: HvacPreconditionStatus
     keep_climate_status: KeepClimateStatus
+    max_ac_status: MaxACState
     seats: SeatClimateState
     steering_heater: SteeringHeaterStatus
     front_left_set_temperature: float
-    def __init__(self, power: _Optional[_Union[HvacPower, str]] = ..., defrost: _Optional[_Union[DefrostState, str]] = ..., precondition_status: _Optional[_Union[HvacPreconditionStatus, str]] = ..., keep_climate_status: _Optional[_Union[KeepClimateStatus, str]] = ..., seats: _Optional[_Union[SeatClimateState, _Mapping]] = ..., steering_heater: _Optional[_Union[SteeringHeaterStatus, str]] = ..., front_left_set_temperature: _Optional[float] = ...) -> None: ...
+    def __init__(self, power: _Optional[_Union[HvacPower, str]] = ..., defrost: _Optional[_Union[DefrostState, str]] = ..., precondition_status: _Optional[_Union[HvacPreconditionStatus, str]] = ..., keep_climate_status: _Optional[_Union[KeepClimateStatus, str]] = ..., max_ac_status: _Optional[_Union[MaxACState, str]] = ..., seats: _Optional[_Union[SeatClimateState, _Mapping]] = ..., steering_heater: _Optional[_Union[SteeringHeaterStatus, str]] = ..., front_left_set_temperature: _Optional[float] = ...) -> None: ...
 
 class MobileAppReqState(_message.Message):
     __slots__ = ("alarm_set_request", "charge_port_request", "frunk_cargo_request", "horn_request", "hvac_defrost", "hvac_precondition", "light_request", "panic_request", "shared_trip_request", "trunk_cargo_request", "vehicle_unlock_request")
@@ -1116,16 +1120,16 @@ class FaultState(_message.Message):
     def __init__(self, mpb_fault_status: _Optional[_Union[MpbFaultStatus, str]] = ...) -> None: ...
 
 class Notifications(_message.Message):
-    __slots__ = ("powertrain_message", "powertrain_notify_status", "charging_general_status", "gebattery_charge_status")
+    __slots__ = ("powertrain_message", "powertrain_notify_status", "charging_general_status", "battery_charge_status")
     POWERTRAIN_MESSAGE_FIELD_NUMBER: _ClassVar[int]
     POWERTRAIN_NOTIFY_STATUS_FIELD_NUMBER: _ClassVar[int]
     CHARGING_GENERAL_STATUS_FIELD_NUMBER: _ClassVar[int]
-    GEBATTERY_CHARGE_STATUS_FIELD_NUMBER: _ClassVar[int]
+    BATTERY_CHARGE_STATUS_FIELD_NUMBER: _ClassVar[int]
     powertrain_message: PowertrainMessage
     powertrain_notify_status: PowertrainNotifyStatus
     charging_general_status: GeneralChargeStatus
-    gebattery_charge_status: GeneralChargeStatus
-    def __init__(self, powertrain_message: _Optional[_Union[PowertrainMessage, str]] = ..., powertrain_notify_status: _Optional[_Union[PowertrainNotifyStatus, str]] = ..., charging_general_status: _Optional[_Union[GeneralChargeStatus, str]] = ..., gebattery_charge_status: _Optional[_Union[GeneralChargeStatus, str]] = ...) -> None: ...
+    battery_charge_status: GeneralChargeStatus
+    def __init__(self, powertrain_message: _Optional[_Union[PowertrainMessage, str]] = ..., powertrain_notify_status: _Optional[_Union[PowertrainNotifyStatus, str]] = ..., charging_general_status: _Optional[_Union[GeneralChargeStatus, str]] = ..., battery_charge_status: _Optional[_Union[GeneralChargeStatus, str]] = ...) -> None: ...
 
 class SentryState(_message.Message):
     __slots__ = ()
