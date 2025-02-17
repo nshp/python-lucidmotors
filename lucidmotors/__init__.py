@@ -100,8 +100,14 @@ from .gen.vehicle_state_service_pb2 import (
     WindowSwitchState,
     SeatClimateMode,
     MaxACState,
+    SteeringHeaterStatus,
     SteeringWheelHeaterLevel,
     CreatureComfortMode,
+    FrontSeatsHeatingAvailability,
+    FrontSeatsVentilationAvailability,
+    SecondRowHeatedSeatsAvailability,
+    RearSeatConfig,
+    HeatedSteeringWheelAvailability,
 )
 from .gen.charging_service_pb2 import (
     DateTime,
@@ -956,8 +962,8 @@ class LucidAPI:
 
         Possible zones to change are:
 
-            - driver_heat_backrest_zone2
-            - driver_heat_backrest_zone4
+            - driver_heat_backrest_zone1
+            - driver_heat_backrest_zone3
             - driver_heat_cushion_zone2
             - driver_heat_cushion_zone4
             - driver_vent_backrest

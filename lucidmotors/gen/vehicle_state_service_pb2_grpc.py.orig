@@ -154,6 +154,11 @@ class VehicleStateServiceStub(object):
                 request_serializer=vehicle__state__service__pb2.SetCreatureComfortModeRequest.SerializeToString,
                 response_deserializer=vehicle__state__service__pb2.SetCreatureComfortModeResponse.FromString,
                 _registered_method=True)
+        self.WelcomeControl = channel.unary_unary(
+                '/mobilegateway.protos.VehicleStateService/WelcomeControl',
+                request_serializer=vehicle__state__service__pb2.WelcomeControlRequest.SerializeToString,
+                response_deserializer=vehicle__state__service__pb2.WelcomeControlRequest.FromString,
+                _registered_method=True)
 
 
 class VehicleStateServiceServicer(object):
@@ -303,6 +308,12 @@ class VehicleStateServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def WelcomeControl(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_VehicleStateServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -425,6 +436,11 @@ def add_VehicleStateServiceServicer_to_server(servicer, server):
                     servicer.SetCreatureComfortMode,
                     request_deserializer=vehicle__state__service__pb2.SetCreatureComfortModeRequest.FromString,
                     response_serializer=vehicle__state__service__pb2.SetCreatureComfortModeResponse.SerializeToString,
+            ),
+            'WelcomeControl': grpc.unary_unary_rpc_method_handler(
+                    servicer.WelcomeControl,
+                    request_deserializer=vehicle__state__service__pb2.WelcomeControlRequest.FromString,
+                    response_serializer=vehicle__state__service__pb2.WelcomeControlRequest.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -1075,6 +1091,33 @@ class VehicleStateService(object):
             '/mobilegateway.protos.VehicleStateService/SetCreatureComfortMode',
             vehicle__state__service__pb2.SetCreatureComfortModeRequest.SerializeToString,
             vehicle__state__service__pb2.SetCreatureComfortModeResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def WelcomeControl(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.VehicleStateService/WelcomeControl',
+            vehicle__state__service__pb2.WelcomeControlRequest.SerializeToString,
+            vehicle__state__service__pb2.WelcomeControlRequest.FromString,
             options,
             channel_credentials,
             insecure,

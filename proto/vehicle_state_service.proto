@@ -48,6 +48,7 @@ enum Wheels {
     WHEELS_RANGE = 4;
     WHEELS_SPORT_STEALTH = 6;
     WHEELS_LITE_STEALTH = 8;
+    WHEELS_RANGE_STEALTH = 11;
 }
 
 enum SubscriptionStatus {
@@ -133,6 +134,37 @@ enum RoofType {
     ROOF_TYPE_METAL = 2;
 }
 
+enum FrontSeatsVentilationAvailability {
+    FRONT_SEATS_VENTILATION_UNKNOWN = 0;
+    FRONT_SEATS_VENTILATION_UNAVAILABLE = 1;
+    FRONT_SEATS_VENTILATION_AVAILABLE = 2;
+}
+
+enum FrontSeatsHeatingAvailability {
+    FRONT_SEATS_HEATING_UNKNOWN = 0;
+    FRONT_SEATS_HEATING_UNAVAILABLE = 1;
+    FRONT_SEATS_HEATING_AVAILABLE = 2;
+}
+
+enum SecondRowHeatedSeatsAvailability {
+    SECOND_ROW_HEATED_SEATS_UNKNOWN = 0;
+    SECOND_ROW_HEATED_SEATS_UNAVAILABLE = 1;
+    SECOND_ROW_HEATED_SEATS_AVAILABLE = 2;
+}
+
+enum HeatedSteeringWheelAvailability {
+    HEATED_STEERING_WHEEL_UNKNOWN = 0;
+    HEATED_STEERING_WHEEL_UNAVAILABLE = 1;
+    HEATED_STEERING_WHEEL_AVAILABLE = 2;
+}
+
+enum RearSeatConfig {
+    REAR_SEAT_CONFIG_UNKNOWN = 0;
+    REAR_SEAT_CONFIG_5_SEAT = 1;
+    REAR_SEAT_CONFIG_6_SEAT = 2;
+    REAR_SEAT_CONFIG_7_SEAT = 3;
+}
+
 message VehicleConfig {
     string vin = 1;
     Model model = 2;
@@ -155,6 +187,11 @@ message VehicleConfig {
     StrutType frunk_strut = 20;
     Reservation reservation = 21;
     RoofType roof = 22;
+    FrontSeatsHeatingAvailability front_seats_heating = 23;
+    FrontSeatsVentilationAvailability front_seats_ventilation = 24;
+    SecondRowHeatedSeatsAvailability second_row_heated_seats = 25;
+    RearSeatConfig rear_seat_config = 26;
+    HeatedSteeringWheelAvailability heated_steering_wheel = 27;
 }
 
 enum WarningState {
@@ -174,12 +211,19 @@ enum BatteryCellType {
     BATTERY_CELL_TYPE_UNKNOWN = 0;
     BATTERY_CELL_TYPE_LG_M48 = 1;
     BATTERY_CELL_TYPE_SDI_50G = 2;
+    BATTERY_CELL_TYPE_PANA_2170M = 3;
+
+    // BATTERY_CELL_TYPE_SDI_50GV2 = ?;
+    // BATTERY_CELL_TYPE_LG_M52V = ?;
+    // BATTERY_CELL_TYPE_LG_M50L = ?;
+    // BATTERY_CELL_TYPE_LG_H40B = ?;
 }
 
 enum BatteryPackType {
     BATTERY_PACK_TYPE_UNKNOWN = 0;
     BATTERY_PACK_TYPE_AIR_22 = 1;
     BATTERY_PACK_TYPE_AIR_18 = 2;
+    BATTERY_PACK_TYPE_AIR_16 = 3;
 }
 
 message BatteryState {
@@ -244,23 +288,38 @@ enum AccessRequest {
     ACCESS_REQUEST_UNKNOWN = 0;
     ACCESS_REQUEST_ACTIVE = 1;
     ACCESS_REQUEST_PASSIVE = 2;
+    ACCESS_REQUEST_PASSIVE_DRIVER = 3;
+    ACCESS_REQUEST_PASSIVE_TEMP_DISABLED = 4;
 }
 
 enum KeyfobBatteryStatus {
     KEYFOB_BATTERY_STATUS_UNKNOWN = 0;
+    KEYFOB_BATTERY_STATUS_LOW = 1;
     KEYFOB_BATTERY_STATUS_SUFFICIENT = 2;
 }
 
 enum AllWindowPosition {
     ALL_WINDOW_POSITION_UNKNOWN = 0;
     ALL_WINDOW_POSITION_IDLE = 1;
+    ALL_WINDOW_POSITION_OPEN = 2;
     ALL_WINDOW_POSITION_CLOSED = 3;
+    ALL_WINDOW_POSITION_ERROR = 4;
 }
 
 enum WindowPositionStatus {
     WINDOW_POSITION_STATUS_UNKNOWN = 0;
     WINDOW_POSITION_STATUS_FULLY_CLOSED = 1;
+    WINDOW_POSITION_STATUS_ABOVE_SHORT_DROP_POSITION = 2;
+    WINDOW_POSITION_STATUS_SHORT_DROP_POSITION = 3;
+    WINDOW_POSITION_STATUS_BELOW_SHORT_DROP_POSITION = 4;
     WINDOW_POSITION_STATUS_FULLY_OPEN = 5;
+    // WINDOW_POSITION_STATUS_UNKNOWN_DE_INITIALIZED = ?;
+    // WINDOW_POSITION_STATUS_ATP_REVERSE_POSITION = ?;
+    // WINDOW_POSITION_STATUS_HARD_STOP_UP = ?;
+    // WINDOW_POSITION_STATUS_HARD_STOP_DOWN = ?;
+    // WINDOW_POSITION_STATUS_LONG_DROP_POSITION = ?;
+    // WINDOW_POSITION_STATUS_VENT_DROP_POSITION = ?;
+    // WINDOW_POSITION_STATUS_BETWEEN_FULLY_CLOSED_AND_SHORT_DROP_DOWN = ?;
     WINDOW_POSITION_STATUS_BETWEEN_SHORT_DROP_DOWN_AND_FULLY_OPEN = 14;
 }
 
@@ -269,6 +328,22 @@ message WindowPositionState {
     WindowPositionStatus left_rear = 2;
     WindowPositionStatus right_front = 3;
     WindowPositionStatus right_rear = 4;
+}
+
+enum MirrorFoldState {
+    MIRROR_FOLD_STATE_UNKNOWN = 0;
+    MIRROR_FOLD_STATE_IDLE = 1;
+    MIRROR_FOLD_STATE_FOLDED_OUT = 2;
+    MIRROR_FOLD_STATE_FOLDED_IN = 3;
+}
+
+enum LivingObjectDetectionStatus {
+    LIVING_OBJECT_DETECTION_STATUS_UNKNOWN = 0;
+    LIVING_OBJECT_DETECTION_STATUS_DISABLED = 1;
+    LIVING_OBJECT_DETECTION_STATUS_NOT_ACTIVE = 2;
+    LIVING_OBJECT_DETECTION_STATUS_LEVEL_1_WARNING = 3;
+    LIVING_OBJECT_DETECTION_STATUS_LEVEL_2_WARNING = 4;
+    LIVING_OBJECT_DETECTION_STATUS_LEVEL_3_WARNING = 5;
 }
 
 message BodyState {
@@ -283,7 +358,10 @@ message BodyState {
     WalkawayState walkaway_lock = 9;
     AccessRequest access_type_status = 10;
     KeyfobBatteryStatus keyfob_battery_status = 11;
+    MirrorFoldState front_left_mirror_fold_state = 12;
+    MirrorFoldState front_right_mirror_fold_state = 13;
     AllWindowPosition all_windows_position = 14;
+    LivingObjectDetectionStatus living_object_detection_status = 15;
     WindowPositionState window_position = 16;
 }
 
@@ -303,6 +381,22 @@ enum LightAction {
     LIGHT_ACTION_FLASH = 1;
     LIGHT_ACTION_ON = 2;
     LIGHT_ACTION_OFF = 3;
+    LIGHT_ACTION_HAZARD_ON = 4;
+    LIGHT_ACTION_HAZARD_OFF = 5;
+}
+
+enum WelcomeAction {
+    WELCOME_ACTION_UNKNOWN = 0;
+    WELCOME_ACTION_UNLOCK = 1;
+    WELCOME_ACTION_DEPARTURE = 2;
+    WELCOME_ACTION_LIGHTS = 3;
+    WELCOME_ACTION_BLINKERS = 4;
+}
+
+enum TirePressureSensorDefective {
+    TIRE_PRESSURE_SENSOR_DEFECTIVE_UNKNOWN = 0;
+    TIRE_PRESSURE_SENSOR_DEFECTIVE_OFF = 1;
+    TIRE_PRESSURE_SENSOR_DEFECTIVE_ON = 2;
 }
 
 message ChassisState {
@@ -322,6 +416,10 @@ message ChassisState {
     WarningState soft_warn_right_rear = 15;
     string software_version = 16;
     double speed = 29; /* in meters/second */
+    TirePressureSensorDefective sensor_defective_left_front = 30;
+    TirePressureSensorDefective sensor_defective_left_rear = 31;
+    TirePressureSensorDefective sensor_defective_right_front = 32;
+    TirePressureSensorDefective sensor_defective_right_rear = 33;
     uint64 tire_pressure_last_updated = 34;
 }
 
@@ -329,11 +427,20 @@ enum ChargeState {
     CHARGE_STATE_UNKNOWN = 0;
     CHARGE_STATE_NOT_CONNECTED = 1;
     CHARGE_STATE_CABLE_CONNECTED = 2;
+    CHARGE_STATE_ESTABLISHING_SESSION = 3;
+    CHARGE_STATE_AUTHORIZING_PNC = 4;
+    CHARGE_STATE_AUTHORIZING_EXTERNAL = 5;
+    CHARGE_STATE_AUTHORIZED = 6;
+    CHARGE_STATE_CHARGER_PREPARATION = 7;
     CHARGE_STATE_CHARGING = 8;
     CHARGE_STATE_CHARGING_END_OK = 9;
+    CHARGE_STATE_CHARGING_STOPPED = 10;
     CHARGE_STATE_EVSE_MALFUNCTION = 11;
-    CHARGE_STATE_CHARGING_STOPPED = 13;
     CHARGE_STATE_DISCHARGING = 19;
+    CHARGE_STATE_DISCHARGING_COMPLETED = 20;
+    CHARGE_STATE_DISCHARGING_STOPPED = 21;
+    CHARGE_STATE_DISCHARGING_FAULT = 22;
+    CHARGE_STATE_DISCHARGING_UNAVAILABLE = 23;
 }
 
 enum ScheduledChargeState {
@@ -360,6 +467,33 @@ enum MobileDischargingCommand {
     MOBILE_DISCHARGING_COMMAND_START_DISCHARGING = 1;
 }
 
+enum ChargingSessionRestartAllowed {
+    CHARGING_SESSION_RESTART_ALLOWED_STATUS_UNKNOWN = 0;
+    CHARGING_SESSION_RESTART_ALLOWED_STATUS_IDLE = 1;
+    CHARGING_SESSION_RESTART_ALLOWED_STATUS_NOT_ALLOWED = 2;
+    CHARGING_SESSION_RESTART_ALLOWED_STATUS_ALLOWED = 3;
+}
+
+enum EaPncStatus {
+    EA_PNC_STATUS_UNKNOWN = 0;
+    EA_PNC_STATUS_IDLE = 1;
+    EA_PNC_STATUS_ENABLE = 2;
+    EA_PNC_STATUS_DISABLE = 3;
+    EA_PNC_STATUS_NO_NOTIFICATION = 4;
+}
+
+enum AcOutletUnavailableReason {
+    AC_OUTLET_UNAVAILABLE_REASON_UNKNOWN = 0;
+    AC_OUTLET_UNAVAILABLE_REASON_NONE = 1;
+    AC_OUTLET_UNAVAILABLE_REASON_WARNING_FAULT = 2;
+    AC_OUTLET_UNAVAILABLE_REASON_CRITICAL_FAULT = 3;
+    AC_OUTLET_UNAVAILABLE_REASON_CHARGING = 4;
+    AC_OUTLET_UNAVAILABLE_REASON_LOW_VEH_RANGE = 5;
+    AC_OUTLET_UNAVAILABLE_REASON_WARNING_FAULT_CAMP = 6;
+    AC_OUTLET_UNAVAILABLE_REASON_CRITICAL_FAULT_CAMP = 7;
+    AC_OUTLET_UNAVAILABLE_REASON_LOW_VEH_RANGE_CAMP = 8;
+}
+
 message ChargingState {
     ChargeState charge_state = 1;
     EnergyType energy_type = 2;
@@ -376,10 +510,15 @@ message ChargingState {
     ScheduledChargeState scheduled_charge = 17;
     ScheduledChargeUnavailableState scheduled_charge_unavailable = 18;
     double port_power = 19;
+    AcOutletUnavailableReason ac_outlet_unavailable_reason = 22;
     MobileDischargingCommand discharge_command = 24;
     uint32 discharge_soe_limit = 25;
     uint32 discharge_target_soe = 26;
     double discharge_energy = 27;
+    uint32 active_session_ac_current_limit = 29;
+    uint32 energy_ac_current_limit = 30;
+    EaPncStatus ea_pnc_status = 31;
+    ChargingSessionRestartAllowed charging_session_restart_allowed = 32;
 }
 
 message Location {
@@ -410,7 +549,12 @@ enum UpdateAvailability {
 
 enum TcuDownloadStatus {
     TCU_SOFTWARE_DOWNLOAD_STATUS_UNKNOWN = 0;
+    TCU_SOFTWARE_DOWNLOAD_STATUS_IDLE = 1;
+    TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOADING = 2;
+    TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_PAUSED = 3;
     TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_COMPLETE = 4;
+    TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_FAILED = 5;
+    TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_CANCELED = 6;
 }
 
 message SoftwareUpdate {
@@ -472,6 +616,7 @@ enum HvacPreconditionStatus {
     HVAC_PRECONDITION_STATUS_UNKNOWN = 0;
     HVAC_PRECONDITION_STATUS_STILL_ACTIVE = 1;
     HVAC_PRECONDITION_STATUS_TEMP_REACHED = 2;
+    HVAC_PRECONDITION_STATUS_TIMEOUT = 3;
     HVAC_PRECONDITION_STATUS_USER_INPUT = 4;
     HVAC_PRECONDITION_STATUS_NOT_ACTIVE_PRECONDITION = 6;
 }
@@ -497,8 +642,8 @@ enum SeatClimateMode {
 }
 
 message SeatClimateState {
-    SeatClimateMode driver_heat_backrest_zone2 = 1;
-    SeatClimateMode driver_heat_backrest_zone4 = 2;
+    SeatClimateMode driver_heat_backrest_zone1 = 1;
+    SeatClimateMode driver_heat_backrest_zone3 = 2;
     SeatClimateMode driver_heat_cushion_zone2 = 3;
     SeatClimateMode driver_heat_cushion_zone4 = 4;
     SeatClimateMode driver_vent_backrest = 5;
@@ -520,6 +665,26 @@ enum SteeringHeaterStatus {
     STEERING_HEATER_STATUS_ON = 2;
 }
 
+enum SyncSet {
+    SYNC_SET_UNKNOWN = 0;
+    SYNC_SET_OFF = 1;
+    SYNC_SET_ON = 2;
+}
+
+enum RearWindowHeatingStatus {
+    REAR_WINDOW_HEATING_STATUS_UNKNOWN = 0;
+    REAR_WINDOW_HEATING_STATUS_OFF = 1;
+    REAR_WINDOW_HEATING_STATUS_ON = 2;
+    REAR_WINDOW_HEATING_STATUS_OFF_LOST_COMM_WITH_DCM = 3;
+    REAR_WINDOW_HEATING_STATUS_ON_LOST_COMM_WITH_DCM = 4;
+}
+
+enum HvacLimited {
+    HVAC_LIMITED_UNKNOWN = 0;
+    HVAC_LIMITED_OFF = 1;
+    HVAC_LIMITED_ON = 2;
+}
+
 message HvacState {
     HvacPower power = 1;
     DefrostState defrost = 2;
@@ -528,8 +693,12 @@ message HvacState {
     /* KeepClimateCondition keep_climate_condition = ???; */
     MaxACState max_ac_status = 7;
     SeatClimateState seats = 8;
+    SyncSet sync_set = 9;
+    RearWindowHeatingStatus rear_window_heating_status = 10;
     SteeringHeaterStatus steering_heater = 11;
+    SteeringWheelHeaterLevel steering_heater_level = 12;
     double front_left_set_temperature = 13;
+    HvacLimited hvac_limited = 14;
 }
 
 enum DriveMode {
@@ -657,7 +826,51 @@ message Notifications {
     GeneralChargeStatus battery_charge_status = 6;
 }
 
+enum EnablementState {
+    ENABLEMENT_STATE_UNKNOWN = 0;
+    ENABLEMENT_STATE_IDLE = 3;
+}
+
+enum SentryThreat {
+    SENTRY_THREAT_LEVEL_UNKNOWN = 0;
+    SENTRY_THREAT_IDLE = 1;
+    SENTRY_THREAT_LEVEL_ONE = 2;
+    SENTRY_THREAT_LEVEL_TWO = 3;
+    SENTRY_THREAT_LEVEL_THREE = 4;
+    SENTRY_THREAT_NO_THREAT = 5;
+}
+
+enum SentryUsbDriveStatus {
+    UNKNOWN_SENTRY_USB_DRIVE_STATUS = 0;
+    SENTRY_USB_DRIVE_IDLE = 1;
+    SENTRY_USB_DRIVE_CONNECTED = 2;
+    SENTRY_USB_DRIVE_NOT_CONNECTED = 3;
+}
+
+message MultiplexValues { }
+
+enum EnhancedDeterrenceState {
+    ENHANCED_DETERRENCE_STATE_UNKNOWN = 0;
+    ENHANCED_DETERRENCE_ENABLED = 1;
+    ENHANCED_DETERRENCE_DISABLED = 2;
+    ENHANCED_DETERRENCE_IDLE = 3;
+}
+
+enum SentryRemoteAlarmState {
+    SENTRY_REMOTE_ALARM_STATE_UNKNOWN = 0;
+    SENTRY_REMOTE_ALARM_IDLE = 1;
+    SENTRY_REMOTE_ALARM_ON = 2;
+    SENTRY_REMOTE_ALARM_OFF = 3;
+}
+
 message SentryState {
+    EnablementState enablement_state = 1;
+    SentryThreat threat_level = 2;
+    MultiplexValues multiplex_values = 3;
+    SentryUsbDriveStatus usb_drive_status = 4;
+    EnhancedDeterrenceState enhanced_deterrence_state = 5;
+    uint32 range_cost_per_day = 6;
+    SentryRemoteAlarmState remote_alarm_state = 7;
 }
 
 enum LowPowerModeStatus {
@@ -863,8 +1076,8 @@ message AllWindowControlResponse {}
 
 message SeatClimateControlRequest {
     string vehicle_id = 1;
-    SeatClimateMode driver_heat_backrest_zone2 = 2;
-    SeatClimateMode driver_heat_backrest_zone4 = 3;
+    SeatClimateMode driver_heat_backrest_zone1 = 2;
+    SeatClimateMode driver_heat_backrest_zone3 = 3;
     SeatClimateMode driver_heat_cushion_zone2 = 4;
     SeatClimateMode driver_heat_cushion_zone4 = 5;
     SeatClimateMode driver_vent_backrest = 6;
@@ -919,6 +1132,12 @@ message SetCreatureComfortModeRequest {
 }
 message SetCreatureComfortModeResponse {}
 
+message WelcomeControlRequest {
+    WelcomeAction action = 1;
+    string vehicle_id = 2;
+}
+message WelcomeControlResponse {}
+
 service VehicleStateService {
     rpc ApplySoftwareUpdate(ApplySoftwareUpdateRequest) returns (ApplySoftwareUpdateResponse) {}
     rpc CancelScheduledUpdate(CancelScheduledUpdateRequest) returns (CancelScheduledUpdateResponse) {}
@@ -944,4 +1163,5 @@ service VehicleStateService {
     rpc SetMaxAC(SetMaxACRequest) returns (SetMaxACResponse) {}
     rpc SteeringWheelHeater(SteeringWheelHeaterRequest) returns (SteeringWheelHeaterResponse) {}
     rpc SetCreatureComfortMode(SetCreatureComfortModeRequest) returns (SetCreatureComfortModeResponse) {}
+    rpc WelcomeControl(WelcomeControlRequest) returns (WelcomeControlRequest) {}
 }
