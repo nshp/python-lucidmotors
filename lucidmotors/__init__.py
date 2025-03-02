@@ -98,6 +98,7 @@ from .gen.vehicle_state_service_pb2 import (
     GetDocumentInfoResponse,
     DocumentType,
     WindowSwitchState,
+    WindowPositionStatus,
     SeatClimateMode,
     MaxACState,
     SteeringHeaterStatus,
@@ -197,6 +198,8 @@ def enum_to_str(enum_type: EnumTypeWrapper, value: int) -> str:
             return "Touring"
         case (VSS.ModelVariant, ModelVariant.MODEL_VARIANT_PURE):
             return "Pure"
+        case (VSS.ModelVariant, ModelVariant.MODEL_VARIANT_SAPPHIRE):
+            return "Sapphire"
 
         case (VSS.PaintColor, PaintColor.PAINT_COLOR_EUREKA_GOLD):
             return "Eureka Gold"
@@ -212,11 +215,21 @@ def enum_to_str(enum_type: EnumTypeWrapper, value: int) -> str:
             return "Zenith Red"
         case (VSS.PaintColor, PaintColor.PAINT_COLOR_FATHOM_BLUE):
             return "Fathom Blue"
+        case (VSS.PaintColor, PaintColor.PAINT_COLOR_CUSTOM):
+            return "Custom"
+        case (VSS.PaintColor, PaintColor.PAINT_COLOR_SAPPHIRE_BLUE):
+            return "Sapphire Blue"
 
         case (VSS.Look, Look.LOOK_PLATINUM):
             return "Platinum"
         case (VSS.Look, Look.LOOK_STEALTH):
             return "Stealth"
+        case (VSS.Look, Look.LOOK_SAPPHIRE):
+            return "Sapphire"
+        case (VSS.Look, Look.LOOK_SURFRIDER):
+            return "Surfrider"
+        case (VSS.Look, Look.LOOK_BASE):
+            return "Base"
 
         case (VSS.Wheels, Wheels.WHEELS_DREAM):
             return "Dream"
@@ -228,8 +241,16 @@ def enum_to_str(enum_type: EnumTypeWrapper, value: int) -> str:
             return "Range"
         case (VSS.Wheels, Wheels.WHEELS_SPORT_STEALTH):
             return "Sport Stealth"
+        case (VSS.Wheels, Wheels.WHEELS_BLADE_GRAPHITE):
+            return "Blade Graphite"
         case (VSS.Wheels, Wheels.WHEELS_LITE_STEALTH):
             return "Lite Stealth"
+        case (VSS.Wheels, Wheels.WHEELS_SPORT_LUSTER):
+            return "Sport Luster"
+        case (VSS.Wheels, Wheels.WHEELS_SAPPHIRE_PACKAGE):
+            return "Sapphire Package"
+        case (VSS.Wheels, Wheels.WHEELS_RANGE_STEALTH):
+            return "Range Stealth"
 
         case (VSS.PowerState, PowerState.POWER_STATE_SLEEP):
             return "Sleep"
@@ -261,10 +282,22 @@ def enum_to_str(enum_type: EnumTypeWrapper, value: int) -> str:
             return "Smooth"
         case (VSS.DriveMode, DriveMode.DRIVE_MODE_SWIFT):
             return "Swift"
+        case (VSS.DriveMode, DriveMode.DRIVE_MODE_WINTER):
+            return "Winter"
+        case (VSS.DriveMode, DriveMode.DRIVE_MODE_VALET):
+            return "Valet"
         case (VSS.DriveMode, DriveMode.DRIVE_MODE_SPORT_PLUS):
             return "Sprint"
         case (VSS.DriveMode, DriveMode.DRIVE_MODE_SERVICE):
             return "Service"
+        case (VSS.DriveMode, DriveMode.DRIVE_MODE_LAUNCH):
+            return "Launch"
+        case (VSS.DriveMode, DriveMode.DRIVE_MODE_FACTORY):
+            return "Factory"
+        case (VSS.DriveMode, DriveMode.DRIVE_MODE_TRANSPORT):
+            return "Transport"
+        case (VSS.DriveMode, DriveMode.DRIVE_MODE_TOW):
+            return "Tow"
 
         case (VSS.GearPosition, GearPosition.GEAR_PARK):
             return "Park"

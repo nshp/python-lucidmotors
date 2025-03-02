@@ -21,6 +21,9 @@ enum ModelVariant {
     MODEL_VARIANT_GRAND_TOURING = 2;
     MODEL_VARIANT_TOURING = 3;
     MODEL_VARIANT_PURE = 4;
+    MODEL_VARIANT_SAPPHIRE = 5;
+    MODEL_VARIANT_HYPER = 6;
+    MODEL_VARIANT_EXECUTIVE = 7;
 }
 
 enum PaintColor {
@@ -32,12 +35,17 @@ enum PaintColor {
     PAINT_COLOR_QUANTUM_GREY = 5;
     PAINT_COLOR_ZENITH_RED = 6;
     PAINT_COLOR_FATHOM_BLUE = 7;
+    PAINT_COLOR_CUSTOM = 8;
+    PAINT_COLOR_SAPPHIRE_BLUE = 9;
 }
 
 enum Look {
     LOOK_UNKNOWN = 0;
     LOOK_PLATINUM = 1;
     LOOK_STEALTH = 2;
+    LOOK_SAPPHIRE = 3;
+    LOOK_SURFRIDER = 4;
+    LOOK_BASE = 5;
 }
 
 enum Wheels {
@@ -47,7 +55,10 @@ enum Wheels {
     WHEELS_LITE = 3;
     WHEELS_RANGE = 4;
     WHEELS_SPORT_STEALTH = 6;
+    WHEELS_BLADE_GRAPHITE = 7;
     WHEELS_LITE_STEALTH = 8;
+    WHEELS_SPORT_LUSTER = 9;
+    WHEELS_SAPPHIRE_PACKAGE = 10;
     WHEELS_RANGE_STEALTH = 11;
 }
 
@@ -319,7 +330,7 @@ enum WindowPositionStatus {
     // WINDOW_POSITION_STATUS_HARD_STOP_DOWN = ?;
     // WINDOW_POSITION_STATUS_LONG_DROP_POSITION = ?;
     // WINDOW_POSITION_STATUS_VENT_DROP_POSITION = ?;
-    // WINDOW_POSITION_STATUS_BETWEEN_FULLY_CLOSED_AND_SHORT_DROP_DOWN = ?;
+    WINDOW_POSITION_STATUS_BETWEEN_FULLY_CLOSED_AND_SHORT_DROP_DOWN = 13;
     WINDOW_POSITION_STATUS_BETWEEN_SHORT_DROP_DOWN_AND_FULLY_OPEN = 14;
 }
 
@@ -705,8 +716,21 @@ enum DriveMode {
     DRIVE_MODE_UNKNOWN = 0;
     DRIVE_MODE_COMFORT = 1;
     DRIVE_MODE_SWIFT = 2;
+    DRIVE_MODE_WINTER = 3;
+    DRIVE_MODE_VALET = 4;
     DRIVE_MODE_SPORT_PLUS = 5; /* aka Sprint */
+    DRIVE_MODE_RESERVED_1 = 6;
+    DRIVE_MODE_RESERVED_2 = 7;
     DRIVE_MODE_SERVICE = 8; /* Service mode - car is in shop and can't be remote controlled */
+    DRIVE_MODE_LAUNCH = 9;
+    DRIVE_MODE_FACTORY = 10;
+    DRIVE_MODE_DEV1 = 11;
+    DRIVE_MODE_DEV2 = 12;
+    DRIVE_MODE_TRANSPORT = 13;
+    DRIVE_MODE_SHOWROOM = 14;
+    DRIVE_MODE_TOW = 15;
+    DRIVE_MODE_TEST_DRIVE = 16;
+    DRIVE_MODE_RESERVED_3 = 17;
 }
 
 enum PrivacyMode {
@@ -771,6 +795,8 @@ enum TcuState {
     TCU_DROWSY = 2;
     TCU_FULL = 4;
     TCU_FACTORY = 5; /* State during an update */
+    TCU_POWER = 6;
+    TCU_OFF = 7;
 }
 
 enum LteType {
@@ -902,7 +928,7 @@ message VehicleState {
     SentryState sentry_state = 24;
     FaultState fault_state = 25;
     Notifications notifications = 26;
-    LowPowerModeStatus low_power_mode_status = 30;
+    LowPowerModeStatus low_power_mode_status = 28;
 }
 
 message Vehicle {

@@ -25,6 +25,9 @@ class ModelVariant(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     MODEL_VARIANT_GRAND_TOURING: _ClassVar[ModelVariant]
     MODEL_VARIANT_TOURING: _ClassVar[ModelVariant]
     MODEL_VARIANT_PURE: _ClassVar[ModelVariant]
+    MODEL_VARIANT_SAPPHIRE: _ClassVar[ModelVariant]
+    MODEL_VARIANT_HYPER: _ClassVar[ModelVariant]
+    MODEL_VARIANT_EXECUTIVE: _ClassVar[ModelVariant]
 
 class PaintColor(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -36,12 +39,17 @@ class PaintColor(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     PAINT_COLOR_QUANTUM_GREY: _ClassVar[PaintColor]
     PAINT_COLOR_ZENITH_RED: _ClassVar[PaintColor]
     PAINT_COLOR_FATHOM_BLUE: _ClassVar[PaintColor]
+    PAINT_COLOR_CUSTOM: _ClassVar[PaintColor]
+    PAINT_COLOR_SAPPHIRE_BLUE: _ClassVar[PaintColor]
 
 class Look(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     LOOK_UNKNOWN: _ClassVar[Look]
     LOOK_PLATINUM: _ClassVar[Look]
     LOOK_STEALTH: _ClassVar[Look]
+    LOOK_SAPPHIRE: _ClassVar[Look]
+    LOOK_SURFRIDER: _ClassVar[Look]
+    LOOK_BASE: _ClassVar[Look]
 
 class Wheels(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -51,7 +59,10 @@ class Wheels(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     WHEELS_LITE: _ClassVar[Wheels]
     WHEELS_RANGE: _ClassVar[Wheels]
     WHEELS_SPORT_STEALTH: _ClassVar[Wheels]
+    WHEELS_BLADE_GRAPHITE: _ClassVar[Wheels]
     WHEELS_LITE_STEALTH: _ClassVar[Wheels]
+    WHEELS_SPORT_LUSTER: _ClassVar[Wheels]
+    WHEELS_SAPPHIRE_PACKAGE: _ClassVar[Wheels]
     WHEELS_RANGE_STEALTH: _ClassVar[Wheels]
 
 class SubscriptionStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
@@ -231,6 +242,7 @@ class WindowPositionStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     WINDOW_POSITION_STATUS_SHORT_DROP_POSITION: _ClassVar[WindowPositionStatus]
     WINDOW_POSITION_STATUS_BELOW_SHORT_DROP_POSITION: _ClassVar[WindowPositionStatus]
     WINDOW_POSITION_STATUS_FULLY_OPEN: _ClassVar[WindowPositionStatus]
+    WINDOW_POSITION_STATUS_BETWEEN_FULLY_CLOSED_AND_SHORT_DROP_DOWN: _ClassVar[WindowPositionStatus]
     WINDOW_POSITION_STATUS_BETWEEN_SHORT_DROP_DOWN_AND_FULLY_OPEN: _ClassVar[WindowPositionStatus]
 
 class MirrorFoldState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
@@ -473,8 +485,21 @@ class DriveMode(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     DRIVE_MODE_UNKNOWN: _ClassVar[DriveMode]
     DRIVE_MODE_COMFORT: _ClassVar[DriveMode]
     DRIVE_MODE_SWIFT: _ClassVar[DriveMode]
+    DRIVE_MODE_WINTER: _ClassVar[DriveMode]
+    DRIVE_MODE_VALET: _ClassVar[DriveMode]
     DRIVE_MODE_SPORT_PLUS: _ClassVar[DriveMode]
+    DRIVE_MODE_RESERVED_1: _ClassVar[DriveMode]
+    DRIVE_MODE_RESERVED_2: _ClassVar[DriveMode]
     DRIVE_MODE_SERVICE: _ClassVar[DriveMode]
+    DRIVE_MODE_LAUNCH: _ClassVar[DriveMode]
+    DRIVE_MODE_FACTORY: _ClassVar[DriveMode]
+    DRIVE_MODE_DEV1: _ClassVar[DriveMode]
+    DRIVE_MODE_DEV2: _ClassVar[DriveMode]
+    DRIVE_MODE_TRANSPORT: _ClassVar[DriveMode]
+    DRIVE_MODE_SHOWROOM: _ClassVar[DriveMode]
+    DRIVE_MODE_TOW: _ClassVar[DriveMode]
+    DRIVE_MODE_TEST_DRIVE: _ClassVar[DriveMode]
+    DRIVE_MODE_RESERVED_3: _ClassVar[DriveMode]
 
 class PrivacyMode(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -508,6 +533,8 @@ class TcuState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     TCU_DROWSY: _ClassVar[TcuState]
     TCU_FULL: _ClassVar[TcuState]
     TCU_FACTORY: _ClassVar[TcuState]
+    TCU_POWER: _ClassVar[TcuState]
+    TCU_OFF: _ClassVar[TcuState]
 
 class LteType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -640,6 +667,9 @@ MODEL_VARIANT_DREAM_EDITION: ModelVariant
 MODEL_VARIANT_GRAND_TOURING: ModelVariant
 MODEL_VARIANT_TOURING: ModelVariant
 MODEL_VARIANT_PURE: ModelVariant
+MODEL_VARIANT_SAPPHIRE: ModelVariant
+MODEL_VARIANT_HYPER: ModelVariant
+MODEL_VARIANT_EXECUTIVE: ModelVariant
 PAINT_COLOR_UNKNOWN: PaintColor
 PAINT_COLOR_EUREKA_GOLD: PaintColor
 PAINT_COLOR_STELLAR_WHITE: PaintColor
@@ -648,16 +678,24 @@ PAINT_COLOR_COSMOS_SILVER: PaintColor
 PAINT_COLOR_QUANTUM_GREY: PaintColor
 PAINT_COLOR_ZENITH_RED: PaintColor
 PAINT_COLOR_FATHOM_BLUE: PaintColor
+PAINT_COLOR_CUSTOM: PaintColor
+PAINT_COLOR_SAPPHIRE_BLUE: PaintColor
 LOOK_UNKNOWN: Look
 LOOK_PLATINUM: Look
 LOOK_STEALTH: Look
+LOOK_SAPPHIRE: Look
+LOOK_SURFRIDER: Look
+LOOK_BASE: Look
 WHEELS_UNKNOWN: Wheels
 WHEELS_DREAM: Wheels
 WHEELS_BLADE: Wheels
 WHEELS_LITE: Wheels
 WHEELS_RANGE: Wheels
 WHEELS_SPORT_STEALTH: Wheels
+WHEELS_BLADE_GRAPHITE: Wheels
 WHEELS_LITE_STEALTH: Wheels
+WHEELS_SPORT_LUSTER: Wheels
+WHEELS_SAPPHIRE_PACKAGE: Wheels
 WHEELS_RANGE_STEALTH: Wheels
 SUBSCRIPTION_STATUS_UNKNOWN: SubscriptionStatus
 SUBSCRIPTION_STATUS_CURRENT: SubscriptionStatus
@@ -762,6 +800,7 @@ WINDOW_POSITION_STATUS_ABOVE_SHORT_DROP_POSITION: WindowPositionStatus
 WINDOW_POSITION_STATUS_SHORT_DROP_POSITION: WindowPositionStatus
 WINDOW_POSITION_STATUS_BELOW_SHORT_DROP_POSITION: WindowPositionStatus
 WINDOW_POSITION_STATUS_FULLY_OPEN: WindowPositionStatus
+WINDOW_POSITION_STATUS_BETWEEN_FULLY_CLOSED_AND_SHORT_DROP_DOWN: WindowPositionStatus
 WINDOW_POSITION_STATUS_BETWEEN_SHORT_DROP_DOWN_AND_FULLY_OPEN: WindowPositionStatus
 MIRROR_FOLD_STATE_UNKNOWN: MirrorFoldState
 MIRROR_FOLD_STATE_IDLE: MirrorFoldState
@@ -908,8 +947,21 @@ HVAC_LIMITED_ON: HvacLimited
 DRIVE_MODE_UNKNOWN: DriveMode
 DRIVE_MODE_COMFORT: DriveMode
 DRIVE_MODE_SWIFT: DriveMode
+DRIVE_MODE_WINTER: DriveMode
+DRIVE_MODE_VALET: DriveMode
 DRIVE_MODE_SPORT_PLUS: DriveMode
+DRIVE_MODE_RESERVED_1: DriveMode
+DRIVE_MODE_RESERVED_2: DriveMode
 DRIVE_MODE_SERVICE: DriveMode
+DRIVE_MODE_LAUNCH: DriveMode
+DRIVE_MODE_FACTORY: DriveMode
+DRIVE_MODE_DEV1: DriveMode
+DRIVE_MODE_DEV2: DriveMode
+DRIVE_MODE_TRANSPORT: DriveMode
+DRIVE_MODE_SHOWROOM: DriveMode
+DRIVE_MODE_TOW: DriveMode
+DRIVE_MODE_TEST_DRIVE: DriveMode
+DRIVE_MODE_RESERVED_3: DriveMode
 PRIVACY_MODE_UNKNOWN: PrivacyMode
 PRIVACY_MODE_CONNECTIVITY_ENABLED: PrivacyMode
 PRIVACY_MODE_CONNECTIVITY_DISABLED: PrivacyMode
@@ -928,6 +980,8 @@ TCU_SLEEP: TcuState
 TCU_DROWSY: TcuState
 TCU_FULL: TcuState
 TCU_FACTORY: TcuState
+TCU_POWER: TcuState
+TCU_OFF: TcuState
 LTE_TYPE_UNKNOWN: LteType
 LTE_TYPE_3G: LteType
 LTE_TYPE_4G: LteType
