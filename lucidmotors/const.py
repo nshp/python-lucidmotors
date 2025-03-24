@@ -6,6 +6,7 @@ from enum import Enum
 class Region(Enum):
     US = 'us'
     SA = 'sa'
+    ME = 'me' # Middle East
     EU = 'eu'
 
     @property
