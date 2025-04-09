@@ -101,6 +101,7 @@ class BatteryType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     BATTERY_TYPE_07: _ClassVar[BatteryType]
     BATTERY_TYPE_08: _ClassVar[BatteryType]
     BATTERY_TYPE_09: _ClassVar[BatteryType]
+    BATTERY_TYPE_25: _ClassVar[BatteryType]
 
 class Interior(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -172,6 +173,7 @@ class BatteryCellType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     BATTERY_CELL_TYPE_LG_M48: _ClassVar[BatteryCellType]
     BATTERY_CELL_TYPE_SDI_50G: _ClassVar[BatteryCellType]
     BATTERY_CELL_TYPE_PANA_2170M: _ClassVar[BatteryCellType]
+    BATTERY_CELL_TYPE_SDI_50GV2: _ClassVar[BatteryCellType]
 
 class BatteryPackType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -370,6 +372,7 @@ class UpdateState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     UPDATE_STATE_FAILED: _ClassVar[UpdateState]
     UPDATE_FAILED_DRIVE_ALLOWED: _ClassVar[UpdateState]
     UPDATE_SUCCESS_WITH_WARNINGS: _ClassVar[UpdateState]
+    UPDATE_NOTSTARTED_WITH_WARNINGS: _ClassVar[UpdateState]
 
 class UpdateAvailability(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -569,6 +572,7 @@ class GeneralChargeStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     GENERAL_CHARGE_UNKNOWN: _ClassVar[GeneralChargeStatus]
     GENERAL_CHARGE_DEFAULT: _ClassVar[GeneralChargeStatus]
     GENERAL_CHARGE_DERATED_CHARGING_POWER: _ClassVar[GeneralChargeStatus]
+    GENERAL_CHARGE_SAVETIME_TEMP_PRECON: _ClassVar[GeneralChargeStatus]
 
 class EnablementState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -719,6 +723,7 @@ BATTERY_TYPE_06: BatteryType
 BATTERY_TYPE_07: BatteryType
 BATTERY_TYPE_08: BatteryType
 BATTERY_TYPE_09: BatteryType
+BATTERY_TYPE_25: BatteryType
 INTERIOR_UNKNOWN: Interior
 INTERIOR_SANTA_CRUZ: Interior
 INTERIOR_TAHOE: Interior
@@ -757,6 +762,7 @@ BATTERY_CELL_TYPE_UNKNOWN: BatteryCellType
 BATTERY_CELL_TYPE_LG_M48: BatteryCellType
 BATTERY_CELL_TYPE_SDI_50G: BatteryCellType
 BATTERY_CELL_TYPE_PANA_2170M: BatteryCellType
+BATTERY_CELL_TYPE_SDI_50GV2: BatteryCellType
 BATTERY_PACK_TYPE_UNKNOWN: BatteryPackType
 BATTERY_PACK_TYPE_AIR_22: BatteryPackType
 BATTERY_PACK_TYPE_AIR_18: BatteryPackType
@@ -883,6 +889,7 @@ UPDATE_STATE_SUCCESS: UpdateState
 UPDATE_STATE_FAILED: UpdateState
 UPDATE_FAILED_DRIVE_ALLOWED: UpdateState
 UPDATE_SUCCESS_WITH_WARNINGS: UpdateState
+UPDATE_NOTSTARTED_WITH_WARNINGS: UpdateState
 UPDATE_AVAILABILITY_UNKNOWN: UpdateAvailability
 UPDATE_AVAILABLE: UpdateAvailability
 TCU_SOFTWARE_DOWNLOAD_STATUS_UNKNOWN: TcuDownloadStatus
@@ -998,6 +1005,7 @@ POWERTRAIN_NOTIFY_NONE: PowertrainNotifyStatus
 GENERAL_CHARGE_UNKNOWN: GeneralChargeStatus
 GENERAL_CHARGE_DEFAULT: GeneralChargeStatus
 GENERAL_CHARGE_DERATED_CHARGING_POWER: GeneralChargeStatus
+GENERAL_CHARGE_SAVETIME_TEMP_PRECON: GeneralChargeStatus
 ENABLEMENT_STATE_UNKNOWN: EnablementState
 ENABLEMENT_STATE_IDLE: EnablementState
 SENTRY_THREAT_LEVEL_UNKNOWN: SentryThreat

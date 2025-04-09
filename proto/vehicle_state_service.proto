@@ -115,6 +115,7 @@ enum BatteryType {
     BATTERY_TYPE_07 = 7;
     BATTERY_TYPE_08 = 8;
     BATTERY_TYPE_09 = 9;
+    BATTERY_TYPE_25 = 25;
 }
 
 enum Interior {
@@ -223,8 +224,8 @@ enum BatteryCellType {
     BATTERY_CELL_TYPE_LG_M48 = 1;
     BATTERY_CELL_TYPE_SDI_50G = 2;
     BATTERY_CELL_TYPE_PANA_2170M = 3;
+    BATTERY_CELL_TYPE_SDI_50GV2 = 4;
 
-    // BATTERY_CELL_TYPE_SDI_50GV2 = ?;
     // BATTERY_CELL_TYPE_LG_M52V = ?;
     // BATTERY_CELL_TYPE_LG_M50L = ?;
     // BATTERY_CELL_TYPE_LG_H40B = ?;
@@ -551,6 +552,7 @@ enum UpdateState {
     UPDATE_STATE_FAILED = 3;
     UPDATE_FAILED_DRIVE_ALLOWED = 5;
     UPDATE_SUCCESS_WITH_WARNINGS = 7;
+    UPDATE_NOTSTARTED_WITH_WARNINGS = 8;
 }
 
 enum UpdateAvailability {
@@ -843,6 +845,7 @@ enum GeneralChargeStatus {
     GENERAL_CHARGE_UNKNOWN = 0;
     GENERAL_CHARGE_DEFAULT = 1;
     GENERAL_CHARGE_DERATED_CHARGING_POWER = 4;
+    GENERAL_CHARGE_SAVETIME_TEMP_PRECON = 5;
 }
 
 message Notifications {
