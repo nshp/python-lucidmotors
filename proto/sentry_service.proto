@@ -124,10 +124,10 @@ message TurnOffSentryAlarmRequest {
 message TurnOffSentryAlarmResponse {}
 
 service SentryService {
-    rpc GetEvent(GetEventRequest) returns (GetEventResponse);
+    rpc GetEvent(GetEventRequest) returns (GetEventResponse) {}
     rpc GetEvents(GetEventsRequest) returns (GetEventsResponse) {}
     rpc SetSentryMode(SetSentryModeRequest) returns (SetSentryModeResponse) {}
-    rpc SetEnhancedDeterrence(SetEnhancedDeterrenceRequest) returns (SetEnhancedDeterrenceResponse);
+    rpc SetEnhancedDeterrence(SetEnhancedDeterrenceRequest) returns (SetEnhancedDeterrenceResponse) {}
     rpc SetSentryModeAtHome(SetSentryModeAtHomeRequest) returns (SetSentryModeAtHomeResponse) {}
     rpc SetSentryModeAtWork(SetSentryModeAtWorkRequest) returns (SetSentryModeAtWorkResponse) {}
     rpc TurnOffSentryAlarm(TurnOffSentryAlarmRequest) returns (TurnOffSentryAlarmResponse) {}
