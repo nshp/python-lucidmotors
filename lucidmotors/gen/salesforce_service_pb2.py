@@ -24,33 +24,59 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x18salesforce_service.proto\x12\x14mobilegateway.protos\"\xae\x01\n\x0fReferralHistory\x12\x14\n\x0crefereeEmail\x18\x01 \x01(\t\x12\x16\n\x0ereferralStatus\x18\x02 \x01(\t\x12\x16\n\x0ereferralPoints\x18\x03 \x01(\x01\x12\x18\n\x10refereeFirstName\x18\x04 \x01(\t\x12\x17\n\x0frefereeLastName\x18\x05 \x01(\t\x12\x14\n\x0creferralDate\x18\x06 \x01(\t\x12\x0c\n\x04trim\x18\x07 \x01(\t\"/\n\x10MemberAttributes\x12\r\n\x05value\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"\xaa\x02\n\x0cReferralData\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x0e\n\x06status\x18\x02 \x01(\t\x12\x14\n\x0creferralCode\x18\x03 \x01(\t\x12\x15\n\rpointsBalance\x18\x04 \x01(\r\x12\x1a\n\x12totalReferralCount\x18\x05 \x01(\r\x12\x38\n\treferrals\x18\x06 \x03(\x0b\x32%.mobilegateway.protos.ReferralHistory\x12\x41\n\x11member_attributes\x18\x07 \x03(\x0b\x32&.mobilegateway.protos.MemberAttributes\x12\x12\n\nvalidState\x18\x08 \x01(\x08\x12\x10\n\x08validAge\x18\t \x01(\x08\x12\x0f\n\x07\x63ountry\x18\n \x01(\t\"\'\n\x16ReferralHistoryRequest\x12\r\n\x05\x65mail\x18\x01 \x01(\t\"p\n\x17ReferralHistoryResponse\x12\x12\n\nstatusCode\x18\x01 \x01(\r\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x30\n\x04\x64\x61ta\x18\x03 \x01(\x0b\x32\".mobilegateway.protos.ReferralData\"\x14\n\x12ServiceAppointment\"6\n\x1fGetServiceAppointmentsV1Request\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\t\"\"\n GetServiceAppointmentsV1Response\"8\n!GetServiceAppointmentSlotsRequest\x12\x13\n\x0blocation_id\x18\x01 \x01(\t\"$\n\"GetServiceAppointmentSlotsResponse2\xa7\x03\n\x11SalesforceService\x12\x8b\x01\n\x18GetServiceAppointmentsV1\x12\x35.mobilegateway.protos.GetServiceAppointmentsV1Request\x1a\x36.mobilegateway.protos.GetServiceAppointmentsV1Response\"\x00\x12\x91\x01\n\x1aGetServiceAppointmentSlots\x12\x37.mobilegateway.protos.GetServiceAppointmentSlotsRequest\x1a\x38.mobilegateway.protos.GetServiceAppointmentSlotsResponse\"\x00\x12p\n\x0fReferralHistory\x12,.mobilegateway.protos.ReferralHistoryRequest\x1a-.mobilegateway.protos.ReferralHistoryResponse\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x18salesforce_service.proto\x12\x14mobilegateway.protos\"\xb6\x01\n\x0fReferralHistory\x12\x15\n\rreferee_email\x18\x01 \x01(\t\x12\x17\n\x0freferral_status\x18\x02 \x01(\t\x12\x17\n\x0freferral_points\x18\x03 \x01(\x01\x12\x1a\n\x12referee_first_name\x18\x04 \x01(\t\x12\x19\n\x11referee_last_name\x18\x05 \x01(\t\x12\x15\n\rreferral_date\x18\x06 \x01(\t\x12\x0c\n\x04trim\x18\x07 \x01(\t\"/\n\x10MemberAttributes\x12\r\n\x05value\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"\xb0\x02\n\x0cReferralData\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x0e\n\x06status\x18\x02 \x01(\t\x12\x15\n\rreferral_code\x18\x03 \x01(\t\x12\x16\n\x0epoints_balance\x18\x04 \x01(\r\x12\x1c\n\x14total_referral_count\x18\x05 \x01(\r\x12\x38\n\treferrals\x18\x06 \x03(\x0b\x32%.mobilegateway.protos.ReferralHistory\x12\x41\n\x11member_attributes\x18\x07 \x03(\x0b\x32&.mobilegateway.protos.MemberAttributes\x12\x13\n\x0bvalid_state\x18\x08 \x01(\x08\x12\x11\n\tvalid_age\x18\t \x01(\x08\x12\x0f\n\x07\x63ountry\x18\n \x01(\t\"O\n\x17\x42igCommerceLoginRequest\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x12\n\nfirst_name\x18\x02 \x01(\t\x12\x11\n\tlast_name\x18\x03 \x01(\t\"9\n\x18\x42igCommerceLoginResponse\x12\x10\n\x08\x63ustomer\x18\x01 \x01(\t\x12\x0b\n\x03url\x18\x02 \x01(\t\"\x85\x01\n\x1a\x43reateLoyaltyMemberRequest\x12\x12\n\nfirst_name\x18\x01 \x01(\t\x12\x11\n\tlast_name\x18\x02 \x01(\t\x12\x1a\n\x12preferred_language\x18\x03 \x01(\t\x12\r\n\x05\x65mail\x18\x04 \x01(\t\x12\x15\n\rreferral_code\x18\x05 \x01(\t\"\x91\x01\n\x1b\x43reateLoyaltyMemberResponse\x12\x13\n\x0bstatus_code\x18\x01 \x01(\r\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x44\n\x04\x64\x61ta\x18\x03 \x01(\x0b\x32\x36.mobilegateway.protos.CreateLoyaltyMemberResponse.Data\x1a\x06\n\x04\x44\x61ta\"\'\n\x16ReferralHistoryRequest\x12\r\n\x05\x65mail\x18\x01 \x01(\t\"q\n\x17ReferralHistoryResponse\x12\x13\n\x0bstatus_code\x18\x01 \x01(\r\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x30\n\x04\x64\x61ta\x18\x03 \x01(\x0b\x32\".mobilegateway.protos.ReferralData\"N\n\rConcernDetail\x12.\n\x07\x63oncern\x18\x01 \x01(\x0e\x32\x1d.mobilegateway.protos.Concern\x12\r\n\x05notes\x18\x02 \x01(\t\"\xb2\x01\n\x1f\x43reateServiceAppointmentRequest\x12\x0b\n\x03vin\x18\x01 \x01(\t\x12\x19\n\x11lucid_customer_id\x18\x02 \x01(\t\x12\x13\n\x0blocation_id\x18\x03 \x01(\t\x12\x14\n\x0c\x61rrival_time\x18\x04 \x01(\t\x12<\n\x0f\x63oncern_details\x18\x05 \x03(\x0b\x32#.mobilegateway.protos.ConcernDetail\"\xcf\x01\n CreateServiceAppointmentResponse\x12\x0e\n\x06status\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x1b\n\x13service_appt_number\x18\x03 \x01(\t\x12\x17\n\x0fservice_appt_id\x18\x04 \x01(\t\x12\x1a\n\x12\x61ppointment_status\x18\x05 \x01(\t\x12\x1c\n\x14\x65stimated_start_time\x18\x06 \x01(\t\x12\x1a\n\x12\x65stimated_end_time\x18\x07 \x01(\t\"y\n UpdateServiceAppointmentResponse\x12\x0e\n\x06status\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x1b\n\x13service_appt_number\x18\x03 \x01(\t\x12\x17\n\x0fservice_appt_id\x18\x04 \x01(\t\"\x92\x01\n\x1fUpdateServiceAppointmentRequest\x12\x17\n\x0fservice_appt_id\x18\x01 \x01(\t\x12\x18\n\x10\x61rrival_datetime\x18\x02 \x01(\t\x12<\n\x0f\x63oncern_details\x18\x05 \x03(\x0b\x32#.mobilegateway.protos.ConcernDetail\"N\n!GetServiceAppointmentSlotsRequest\x12\x13\n\x0blocation_id\x18\x01 \x01(\t\x12\x14\n\x0cservice_date\x18\x02 \x01(\t\"X\n\"GetServiceAppointmentSlotsResponse\x12\x0e\n\x06status\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x11\n\ttimeslots\x18\x03 \x03(\t\"6\n\x1fGetServiceAppointmentsV1Request\x12\x13\n\x0b\x63ustomer_id\x18\x01 \x01(\t\"\xae\x03\n\x19ServiceAppointmentsV1Data\x12\x19\n\x11work_order_number\x18\x01 \x01(\t\x12\x0b\n\x03vin\x18\x02 \x01(\t\x12\x11\n\ttime_zone\x18\x03 \x01(\t\x12\x1a\n\x12\x61ppointment_status\x18\x04 \x01(\t\x12\x14\n\x0cservice_type\x18\x05 \x01(\t\x12\x13\n\x0blocation_id\x18\x06 \x01(\t\x12\x17\n\x0fservice_appt_id\x18\x07 \x01(\t\x12\x1b\n\x13service_appt_number\x18\x08 \x01(\t\x12\x17\n\x0ftechnician_name\x18\t \x01(\t\x12\x14\n\x0c\x61\x64visor_name\x18\n \x01(\t\x12\x10\n\x08lucid_id\x18\x0b \x01(\t\x12\x14\n\x0c\x61rrival_time\x18\x0c \x01(\t\x12\x14\n\x0c\x63reated_date\x18\r \x01(\t\x12\x0e\n\x06street\x18\x0e \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x0f \x01(\t\x12\r\n\x05phone\x18\x10 \x01(\t\x12<\n\x0f\x63oncern_details\x18\x11 \x03(\x0b\x32#.mobilegateway.protos.ConcernDetail\"\x82\x01\n GetServiceAppointmentsV1Response\x12\x0e\n\x06status\x18\x01 \x01(\t\x12=\n\x04\x64\x61ta\x18\x02 \x03(\x0b\x32/.mobilegateway.protos.ServiceAppointmentsV1Data\x12\x0f\n\x07message\x18\x03 \x01(\t\":\n\x1f\x43\x61ncelServiceAppointmentRequest\x12\x17\n\x0fservice_appt_id\x18\x01 \x01(\t\"C\n CancelServiceAppointmentResponse\x12\x0e\n\x06status\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t*\x95\x02\n\x07\x43oncern\x12\x13\n\x0f\x43ONCERN_UNKNOWN\x10\x00\x12&\n\"CONCERN_TIRE_SERVICE_TIRE_PURCHASE\x10\x01\x12\"\n\x1e\x43ONCERN_TIRE_SERVICE_TIRE_SWAP\x10\x02\x12&\n\"CONCERN_TIRE_SERVICE_TIRE_ROTATION\x10\x03\x12\x34\n0CONCERN_TIRE_SERVICE_BALANCE_AND_WHEEL_ALIGNMENT\x10\x04\x12+\n\'CONCERN_TIRE_SERVICE_OTHER_TIRE_SERVICE\x10\x05\x12\x1e\n\x1a\x43ONCERN_ANNUAL_MAINTENANCE\x10\x06\x32\xc4\x08\n\x11SalesforceService\x12|\n\x13\x43reateLoyaltyMember\x12\x30.mobilegateway.protos.CreateLoyaltyMemberRequest\x1a\x31.mobilegateway.protos.CreateLoyaltyMemberResponse\"\x00\x12p\n\x0fReferralHistory\x12,.mobilegateway.protos.ReferralHistoryRequest\x1a-.mobilegateway.protos.ReferralHistoryResponse\"\x00\x12s\n\x10\x42igCommerceLogin\x12-.mobilegateway.protos.BigCommerceLoginRequest\x1a..mobilegateway.protos.BigCommerceLoginResponse\"\x00\x12\x8b\x01\n\x18\x43reateServiceAppointment\x12\x35.mobilegateway.protos.CreateServiceAppointmentRequest\x1a\x36.mobilegateway.protos.CreateServiceAppointmentResponse\"\x00\x12\x8b\x01\n\x18UpdateServiceAppointment\x12\x35.mobilegateway.protos.UpdateServiceAppointmentRequest\x1a\x36.mobilegateway.protos.UpdateServiceAppointmentResponse\"\x00\x12\x91\x01\n\x1aGetServiceAppointmentSlots\x12\x37.mobilegateway.protos.GetServiceAppointmentSlotsRequest\x1a\x38.mobilegateway.protos.GetServiceAppointmentSlotsResponse\"\x00\x12\x8b\x01\n\x18GetServiceAppointmentsV1\x12\x35.mobilegateway.protos.GetServiceAppointmentsV1Request\x1a\x36.mobilegateway.protos.GetServiceAppointmentsV1Response\"\x00\x12\x8b\x01\n\x18\x43\x61ncelServiceAppointment\x12\x35.mobilegateway.protos.CancelServiceAppointmentRequest\x1a\x36.mobilegateway.protos.CancelServiceAppointmentResponse\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'salesforce_service_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
+  _globals['_CONCERN']._serialized_start=2836
+  _globals['_CONCERN']._serialized_end=3113
   _globals['_REFERRALHISTORY']._serialized_start=51
-  _globals['_REFERRALHISTORY']._serialized_end=225
-  _globals['_MEMBERATTRIBUTES']._serialized_start=227
-  _globals['_MEMBERATTRIBUTES']._serialized_end=274
-  _globals['_REFERRALDATA']._serialized_start=277
-  _globals['_REFERRALDATA']._serialized_end=575
-  _globals['_REFERRALHISTORYREQUEST']._serialized_start=577
-  _globals['_REFERRALHISTORYREQUEST']._serialized_end=616
-  _globals['_REFERRALHISTORYRESPONSE']._serialized_start=618
-  _globals['_REFERRALHISTORYRESPONSE']._serialized_end=730
-  _globals['_SERVICEAPPOINTMENT']._serialized_start=732
-  _globals['_SERVICEAPPOINTMENT']._serialized_end=752
-  _globals['_GETSERVICEAPPOINTMENTSV1REQUEST']._serialized_start=754
-  _globals['_GETSERVICEAPPOINTMENTSV1REQUEST']._serialized_end=808
-  _globals['_GETSERVICEAPPOINTMENTSV1RESPONSE']._serialized_start=810
-  _globals['_GETSERVICEAPPOINTMENTSV1RESPONSE']._serialized_end=844
-  _globals['_GETSERVICEAPPOINTMENTSLOTSREQUEST']._serialized_start=846
-  _globals['_GETSERVICEAPPOINTMENTSLOTSREQUEST']._serialized_end=902
-  _globals['_GETSERVICEAPPOINTMENTSLOTSRESPONSE']._serialized_start=904
-  _globals['_GETSERVICEAPPOINTMENTSLOTSRESPONSE']._serialized_end=940
-  _globals['_SALESFORCESERVICE']._serialized_start=943
-  _globals['_SALESFORCESERVICE']._serialized_end=1366
+  _globals['_REFERRALHISTORY']._serialized_end=233
+  _globals['_MEMBERATTRIBUTES']._serialized_start=235
+  _globals['_MEMBERATTRIBUTES']._serialized_end=282
+  _globals['_REFERRALDATA']._serialized_start=285
+  _globals['_REFERRALDATA']._serialized_end=589
+  _globals['_BIGCOMMERCELOGINREQUEST']._serialized_start=591
+  _globals['_BIGCOMMERCELOGINREQUEST']._serialized_end=670
+  _globals['_BIGCOMMERCELOGINRESPONSE']._serialized_start=672
+  _globals['_BIGCOMMERCELOGINRESPONSE']._serialized_end=729
+  _globals['_CREATELOYALTYMEMBERREQUEST']._serialized_start=732
+  _globals['_CREATELOYALTYMEMBERREQUEST']._serialized_end=865
+  _globals['_CREATELOYALTYMEMBERRESPONSE']._serialized_start=868
+  _globals['_CREATELOYALTYMEMBERRESPONSE']._serialized_end=1013
+  _globals['_CREATELOYALTYMEMBERRESPONSE_DATA']._serialized_start=1007
+  _globals['_CREATELOYALTYMEMBERRESPONSE_DATA']._serialized_end=1013
+  _globals['_REFERRALHISTORYREQUEST']._serialized_start=1015
+  _globals['_REFERRALHISTORYREQUEST']._serialized_end=1054
+  _globals['_REFERRALHISTORYRESPONSE']._serialized_start=1056
+  _globals['_REFERRALHISTORYRESPONSE']._serialized_end=1169
+  _globals['_CONCERNDETAIL']._serialized_start=1171
+  _globals['_CONCERNDETAIL']._serialized_end=1249
+  _globals['_CREATESERVICEAPPOINTMENTREQUEST']._serialized_start=1252
+  _globals['_CREATESERVICEAPPOINTMENTREQUEST']._serialized_end=1430
+  _globals['_CREATESERVICEAPPOINTMENTRESPONSE']._serialized_start=1433
+  _globals['_CREATESERVICEAPPOINTMENTRESPONSE']._serialized_end=1640
+  _globals['_UPDATESERVICEAPPOINTMENTRESPONSE']._serialized_start=1642
+  _globals['_UPDATESERVICEAPPOINTMENTRESPONSE']._serialized_end=1763
+  _globals['_UPDATESERVICEAPPOINTMENTREQUEST']._serialized_start=1766
+  _globals['_UPDATESERVICEAPPOINTMENTREQUEST']._serialized_end=1912
+  _globals['_GETSERVICEAPPOINTMENTSLOTSREQUEST']._serialized_start=1914
+  _globals['_GETSERVICEAPPOINTMENTSLOTSREQUEST']._serialized_end=1992
+  _globals['_GETSERVICEAPPOINTMENTSLOTSRESPONSE']._serialized_start=1994
+  _globals['_GETSERVICEAPPOINTMENTSLOTSRESPONSE']._serialized_end=2082
+  _globals['_GETSERVICEAPPOINTMENTSV1REQUEST']._serialized_start=2084
+  _globals['_GETSERVICEAPPOINTMENTSV1REQUEST']._serialized_end=2138
+  _globals['_SERVICEAPPOINTMENTSV1DATA']._serialized_start=2141
+  _globals['_SERVICEAPPOINTMENTSV1DATA']._serialized_end=2571
+  _globals['_GETSERVICEAPPOINTMENTSV1RESPONSE']._serialized_start=2574
+  _globals['_GETSERVICEAPPOINTMENTSV1RESPONSE']._serialized_end=2704
+  _globals['_CANCELSERVICEAPPOINTMENTREQUEST']._serialized_start=2706
+  _globals['_CANCELSERVICEAPPOINTMENTREQUEST']._serialized_end=2764
+  _globals['_CANCELSERVICEAPPOINTMENTRESPONSE']._serialized_start=2766
+  _globals['_CANCELSERVICEAPPOINTMENTRESPONSE']._serialized_end=2833
+  _globals['_SALESFORCESERVICE']._serialized_start=3116
+  _globals['_SALESFORCESERVICE']._serialized_end=4208
 # @@protoc_insertion_point(module_scope)

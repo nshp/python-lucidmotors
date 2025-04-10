@@ -5,7 +5,7 @@ import warnings
 
 from . import salesforce_service_pb2 as salesforce__service__pb2
 
-GRPC_GENERATED_VERSION = '1.66.2'
+GRPC_GENERATED_VERSION = '1.67.1'
 GRPC_VERSION = grpc.__version__
 _version_not_supported = False
 
@@ -34,33 +34,52 @@ class SalesforceServiceStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.GetServiceAppointmentsV1 = channel.unary_unary(
-                '/mobilegateway.protos.SalesforceService/GetServiceAppointmentsV1',
-                request_serializer=salesforce__service__pb2.GetServiceAppointmentsV1Request.SerializeToString,
-                response_deserializer=salesforce__service__pb2.GetServiceAppointmentsV1Response.FromString,
-                _registered_method=True)
-        self.GetServiceAppointmentSlots = channel.unary_unary(
-                '/mobilegateway.protos.SalesforceService/GetServiceAppointmentSlots',
-                request_serializer=salesforce__service__pb2.GetServiceAppointmentSlotsRequest.SerializeToString,
-                response_deserializer=salesforce__service__pb2.GetServiceAppointmentSlotsResponse.FromString,
+        self.CreateLoyaltyMember = channel.unary_unary(
+                '/mobilegateway.protos.SalesforceService/CreateLoyaltyMember',
+                request_serializer=salesforce__service__pb2.CreateLoyaltyMemberRequest.SerializeToString,
+                response_deserializer=salesforce__service__pb2.CreateLoyaltyMemberResponse.FromString,
                 _registered_method=True)
         self.ReferralHistory = channel.unary_unary(
                 '/mobilegateway.protos.SalesforceService/ReferralHistory',
                 request_serializer=salesforce__service__pb2.ReferralHistoryRequest.SerializeToString,
                 response_deserializer=salesforce__service__pb2.ReferralHistoryResponse.FromString,
                 _registered_method=True)
+        self.BigCommerceLogin = channel.unary_unary(
+                '/mobilegateway.protos.SalesforceService/BigCommerceLogin',
+                request_serializer=salesforce__service__pb2.BigCommerceLoginRequest.SerializeToString,
+                response_deserializer=salesforce__service__pb2.BigCommerceLoginResponse.FromString,
+                _registered_method=True)
+        self.CreateServiceAppointment = channel.unary_unary(
+                '/mobilegateway.protos.SalesforceService/CreateServiceAppointment',
+                request_serializer=salesforce__service__pb2.CreateServiceAppointmentRequest.SerializeToString,
+                response_deserializer=salesforce__service__pb2.CreateServiceAppointmentResponse.FromString,
+                _registered_method=True)
+        self.UpdateServiceAppointment = channel.unary_unary(
+                '/mobilegateway.protos.SalesforceService/UpdateServiceAppointment',
+                request_serializer=salesforce__service__pb2.UpdateServiceAppointmentRequest.SerializeToString,
+                response_deserializer=salesforce__service__pb2.UpdateServiceAppointmentResponse.FromString,
+                _registered_method=True)
+        self.GetServiceAppointmentSlots = channel.unary_unary(
+                '/mobilegateway.protos.SalesforceService/GetServiceAppointmentSlots',
+                request_serializer=salesforce__service__pb2.GetServiceAppointmentSlotsRequest.SerializeToString,
+                response_deserializer=salesforce__service__pb2.GetServiceAppointmentSlotsResponse.FromString,
+                _registered_method=True)
+        self.GetServiceAppointmentsV1 = channel.unary_unary(
+                '/mobilegateway.protos.SalesforceService/GetServiceAppointmentsV1',
+                request_serializer=salesforce__service__pb2.GetServiceAppointmentsV1Request.SerializeToString,
+                response_deserializer=salesforce__service__pb2.GetServiceAppointmentsV1Response.FromString,
+                _registered_method=True)
+        self.CancelServiceAppointment = channel.unary_unary(
+                '/mobilegateway.protos.SalesforceService/CancelServiceAppointment',
+                request_serializer=salesforce__service__pb2.CancelServiceAppointmentRequest.SerializeToString,
+                response_deserializer=salesforce__service__pb2.CancelServiceAppointmentResponse.FromString,
+                _registered_method=True)
 
 
 class SalesforceServiceServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def GetServiceAppointmentsV1(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def GetServiceAppointmentSlots(self, request, context):
+    def CreateLoyaltyMember(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -72,23 +91,84 @@ class SalesforceServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def BigCommerceLogin(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CreateServiceAppointment(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateServiceAppointment(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetServiceAppointmentSlots(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetServiceAppointmentsV1(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CancelServiceAppointment(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_SalesforceServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'GetServiceAppointmentsV1': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetServiceAppointmentsV1,
-                    request_deserializer=salesforce__service__pb2.GetServiceAppointmentsV1Request.FromString,
-                    response_serializer=salesforce__service__pb2.GetServiceAppointmentsV1Response.SerializeToString,
+            'CreateLoyaltyMember': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateLoyaltyMember,
+                    request_deserializer=salesforce__service__pb2.CreateLoyaltyMemberRequest.FromString,
+                    response_serializer=salesforce__service__pb2.CreateLoyaltyMemberResponse.SerializeToString,
+            ),
+            'ReferralHistory': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReferralHistory,
+                    request_deserializer=salesforce__service__pb2.ReferralHistoryRequest.FromString,
+                    response_serializer=salesforce__service__pb2.ReferralHistoryResponse.SerializeToString,
+            ),
+            'BigCommerceLogin': grpc.unary_unary_rpc_method_handler(
+                    servicer.BigCommerceLogin,
+                    request_deserializer=salesforce__service__pb2.BigCommerceLoginRequest.FromString,
+                    response_serializer=salesforce__service__pb2.BigCommerceLoginResponse.SerializeToString,
+            ),
+            'CreateServiceAppointment': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateServiceAppointment,
+                    request_deserializer=salesforce__service__pb2.CreateServiceAppointmentRequest.FromString,
+                    response_serializer=salesforce__service__pb2.CreateServiceAppointmentResponse.SerializeToString,
+            ),
+            'UpdateServiceAppointment': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateServiceAppointment,
+                    request_deserializer=salesforce__service__pb2.UpdateServiceAppointmentRequest.FromString,
+                    response_serializer=salesforce__service__pb2.UpdateServiceAppointmentResponse.SerializeToString,
             ),
             'GetServiceAppointmentSlots': grpc.unary_unary_rpc_method_handler(
                     servicer.GetServiceAppointmentSlots,
                     request_deserializer=salesforce__service__pb2.GetServiceAppointmentSlotsRequest.FromString,
                     response_serializer=salesforce__service__pb2.GetServiceAppointmentSlotsResponse.SerializeToString,
             ),
-            'ReferralHistory': grpc.unary_unary_rpc_method_handler(
-                    servicer.ReferralHistory,
-                    request_deserializer=salesforce__service__pb2.ReferralHistoryRequest.FromString,
-                    response_serializer=salesforce__service__pb2.ReferralHistoryResponse.SerializeToString,
+            'GetServiceAppointmentsV1': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetServiceAppointmentsV1,
+                    request_deserializer=salesforce__service__pb2.GetServiceAppointmentsV1Request.FromString,
+                    response_serializer=salesforce__service__pb2.GetServiceAppointmentsV1Response.SerializeToString,
+            ),
+            'CancelServiceAppointment': grpc.unary_unary_rpc_method_handler(
+                    servicer.CancelServiceAppointment,
+                    request_deserializer=salesforce__service__pb2.CancelServiceAppointmentRequest.FromString,
+                    response_serializer=salesforce__service__pb2.CancelServiceAppointmentResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -102,7 +182,7 @@ class SalesforceService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def GetServiceAppointmentsV1(request,
+    def CreateLoyaltyMember(request,
             target,
             options=(),
             channel_credentials=None,
@@ -115,9 +195,117 @@ class SalesforceService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/mobilegateway.protos.SalesforceService/GetServiceAppointmentsV1',
-            salesforce__service__pb2.GetServiceAppointmentsV1Request.SerializeToString,
-            salesforce__service__pb2.GetServiceAppointmentsV1Response.FromString,
+            '/mobilegateway.protos.SalesforceService/CreateLoyaltyMember',
+            salesforce__service__pb2.CreateLoyaltyMemberRequest.SerializeToString,
+            salesforce__service__pb2.CreateLoyaltyMemberResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ReferralHistory(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.SalesforceService/ReferralHistory',
+            salesforce__service__pb2.ReferralHistoryRequest.SerializeToString,
+            salesforce__service__pb2.ReferralHistoryResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def BigCommerceLogin(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.SalesforceService/BigCommerceLogin',
+            salesforce__service__pb2.BigCommerceLoginRequest.SerializeToString,
+            salesforce__service__pb2.BigCommerceLoginResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def CreateServiceAppointment(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.SalesforceService/CreateServiceAppointment',
+            salesforce__service__pb2.CreateServiceAppointmentRequest.SerializeToString,
+            salesforce__service__pb2.CreateServiceAppointmentResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateServiceAppointment(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.SalesforceService/UpdateServiceAppointment',
+            salesforce__service__pb2.UpdateServiceAppointmentRequest.SerializeToString,
+            salesforce__service__pb2.UpdateServiceAppointmentResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -156,7 +344,7 @@ class SalesforceService(object):
             _registered_method=True)
 
     @staticmethod
-    def ReferralHistory(request,
+    def GetServiceAppointmentsV1(request,
             target,
             options=(),
             channel_credentials=None,
@@ -169,9 +357,36 @@ class SalesforceService(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/mobilegateway.protos.SalesforceService/ReferralHistory',
-            salesforce__service__pb2.ReferralHistoryRequest.SerializeToString,
-            salesforce__service__pb2.ReferralHistoryResponse.FromString,
+            '/mobilegateway.protos.SalesforceService/GetServiceAppointmentsV1',
+            salesforce__service__pb2.GetServiceAppointmentsV1Request.SerializeToString,
+            salesforce__service__pb2.GetServiceAppointmentsV1Response.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def CancelServiceAppointment(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.SalesforceService/CancelServiceAppointment',
+            salesforce__service__pb2.CancelServiceAppointmentRequest.SerializeToString,
+            salesforce__service__pb2.CancelServiceAppointmentResponse.FromString,
             options,
             channel_credentials,
             insecure,

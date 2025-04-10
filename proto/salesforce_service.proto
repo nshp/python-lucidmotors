@@ -3,12 +3,12 @@ syntax = "proto3";
 package mobilegateway.protos;
 
 message ReferralHistory {
-    string refereeEmail = 1;
-    string referralStatus = 2;
-    double referralPoints = 3;
-    string refereeFirstName = 4;
-    string refereeLastName = 5;
-    string referralDate = 6;
+    string referee_email = 1;
+    string referral_status = 2;
+    double referral_points = 3;
+    string referee_first_name = 4;
+    string referee_last_name = 5;
+    string referral_date = 6;
     string trim = 7;
 }
 
@@ -20,14 +20,41 @@ message MemberAttributes {
 message ReferralData {
     string email = 1;
     string status = 2;
-    string referralCode = 3;
-    uint32 pointsBalance = 4;
-    uint32 totalReferralCount = 5;
+    string referral_code = 3;
+    uint32 points_balance = 4;
+    uint32 total_referral_count = 5;
     repeated ReferralHistory referrals = 6;
     repeated MemberAttributes member_attributes = 7;
-    bool validState = 8;
-    bool validAge = 9;
+    bool valid_state = 8;
+    bool valid_age = 9;
     string country = 10;
+}
+
+message BigCommerceLoginRequest {
+    string email = 1;
+    string first_name = 2;
+    string last_name = 3;
+}
+
+message BigCommerceLoginResponse {
+    string customer = 1;
+    string url = 2;
+}
+
+message CreateLoyaltyMemberRequest {
+    string first_name = 1;
+    string last_name = 2;
+    string preferred_language = 3;
+    string email = 4;
+    string referral_code = 5;
+}
+
+message CreateLoyaltyMemberResponse {
+    message Data {
+    }
+    uint32 status_code = 1;
+    string message = 2;
+    Data data = 3;
 }
 
 message ReferralHistoryRequest {
@@ -35,31 +62,114 @@ message ReferralHistoryRequest {
 }
 
 message ReferralHistoryResponse {
-    uint32 statusCode = 1;
+    uint32 status_code = 1;
     string message = 2;
     ReferralData data = 3;
 }
 
-message ServiceAppointment {
+enum Concern {
+    CONCERN_UNKNOWN = 0;
+    CONCERN_TIRE_SERVICE_TIRE_PURCHASE = 1;
+    CONCERN_TIRE_SERVICE_TIRE_SWAP = 2;
+    CONCERN_TIRE_SERVICE_TIRE_ROTATION = 3;
+    CONCERN_TIRE_SERVICE_BALANCE_AND_WHEEL_ALIGNMENT = 4;
+    CONCERN_TIRE_SERVICE_OTHER_TIRE_SERVICE = 5;
+    CONCERN_ANNUAL_MAINTENANCE = 6;
+}
+
+message ConcernDetail {
+    Concern concern = 1;
+    string notes = 2;
+}
+
+message CreateServiceAppointmentRequest {
+    string vin = 1;
+    string lucid_customer_id = 2;
+    string location_id = 3;
+    string arrival_time = 4;
+    repeated ConcernDetail concern_details = 5;
+}
+
+message CreateServiceAppointmentResponse {
+    string status = 1;
+    string message = 2;
+    string service_appt_number = 3;
+    string service_appt_id = 4;
+    string appointment_status = 5;
+    string estimated_start_time = 6;
+    string estimated_end_time = 7;
+}
+
+message UpdateServiceAppointmentResponse {
+    string status = 1;
+    string message = 2;
+    string service_appt_number = 3;
+    string service_appt_id = 4;
+}
+
+message UpdateServiceAppointmentRequest {
+    string service_appt_id = 1;
+    string arrival_datetime = 2;
+    repeated ConcernDetail concern_details = 5;
+}
+
+message GetServiceAppointmentSlotsRequest {
+    string location_id = 1;
+    string service_date = 2;
+}
+
+message GetServiceAppointmentSlotsResponse {
+    string status = 1;
+    string message = 2;
+    repeated string timeslots = 3;
 }
 
 message GetServiceAppointmentsV1Request {
     string customer_id = 1;
 }
-message GetServiceAppointmentsV1Response {
-    /* These _used_ to be response fields, but the API has changed a lot since then */
-    /* string status = 1; */
-    /* repeated ServiceAppointment appointments = 2; */
-    /* string comment = 3; */
+
+message ServiceAppointmentsV1Data {
+    string work_order_number = 1;
+    string vin = 2;
+    string time_zone = 3;
+    string appointment_status = 4;
+    string service_type = 5;
+    string location_id = 6;
+    string service_appt_id = 7;
+    string service_appt_number = 8;
+    string technician_name = 9;
+    string advisor_name = 10;
+    string lucid_id = 11;
+    string arrival_time = 12;
+    string created_date = 13;
+    string street = 14;
+    string address = 15;
+    string phone = 16;
+    repeated ConcernDetail concern_details = 17;
 }
 
-message GetServiceAppointmentSlotsRequest {
-    string location_id = 1;
+message GetServiceAppointmentsV1Response {
+    string status = 1;
+    repeated ServiceAppointmentsV1Data data = 2;
+    string message = 3;
 }
-message GetServiceAppointmentSlotsResponse { }
+
+message CancelServiceAppointmentRequest {
+    string service_appt_id = 1;
+}
+
+message CancelServiceAppointmentResponse {
+    string status = 1;
+    string message = 2;
+}
 
 service SalesforceService {
-    rpc GetServiceAppointmentsV1(GetServiceAppointmentsV1Request) returns (GetServiceAppointmentsV1Response) {}
-    rpc GetServiceAppointmentSlots(GetServiceAppointmentSlotsRequest) returns (GetServiceAppointmentSlotsResponse) {}
+    rpc CreateLoyaltyMember(CreateLoyaltyMemberRequest) returns (CreateLoyaltyMemberResponse) {}
     rpc ReferralHistory(ReferralHistoryRequest) returns (ReferralHistoryResponse) {}
+    rpc BigCommerceLogin(BigCommerceLoginRequest) returns (BigCommerceLoginResponse) {}
+    rpc CreateServiceAppointment(CreateServiceAppointmentRequest) returns (CreateServiceAppointmentResponse) {}
+    rpc UpdateServiceAppointment(UpdateServiceAppointmentRequest) returns (UpdateServiceAppointmentResponse) {}
+    rpc GetServiceAppointmentSlots(GetServiceAppointmentSlotsRequest) returns (GetServiceAppointmentSlotsResponse) {}
+    rpc GetServiceAppointmentsV1(GetServiceAppointmentsV1Request) returns (GetServiceAppointmentsV1Response) {}
+    rpc CancelServiceAppointment(CancelServiceAppointmentRequest) returns (CancelServiceAppointmentResponse) {}
 }
