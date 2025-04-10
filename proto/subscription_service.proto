@@ -2,8 +2,64 @@ syntax = "proto3";
 
 package mobilegateway.protos;
 
+import "google/protobuf/timestamp.proto";
+
+enum SubscriptionSKU {
+  SUBSCRIPTION_SKU_UNKNOWN = 0;
+  SUBSCRIPTION_SKU_AD02TRIAL = 1; // DD Pro
+  SUBSCRIPTION_SKU_AD02 = 2;
+  SUBSCRIPTION_SKU_AU01TRIAL = 3; // SS Pro
+  SUBSCRIPTION_SKU_AU01 = 4;
+  SUBSCRIPTION_SKU_AD01 = 5;      // DD Premium
+  SUBSCRIPTION_SKU_DCSCUS = 6;    // DreamConnect Standard Connectivity (US)
+  SUBSCRIPTION_SKU_DCSCCA = 7;    // DreamConnect Standard Connectivity (CA)
+  SUBSCRIPTION_SKU_DCPUS = 8;     // DreamConnect Premium Connectivity (US)
+  SUBSCRIPTION_SKU_DCPCA = 9;     // DreamConnect Premium Connectivity (CA)
+  SUBSCRIPTION_SKU_LCBP = 10;     // Lucid Charging Base Plan
+}
+
+message Feature {
+  string text = 1;
+}
+
+message Description {
+  string text = 1;
+  repeated Feature features = 2;
+}
+
+message Entitlement {
+  bool should_notify = 1;
+  string billing_type_description = 2;
+  string entitlement_type = 3;
+  google.protobuf.Timestamp start_date = 4;
+  google.protobuf.Timestamp end_date = 5;
+  string cancel_status = 6;
+  string renewal_status = 7;
+  google.protobuf.Timestamp renewal_date = 8;
+  SubscriptionSKU sku = 9;
+  repeated string restricts_products = 10;
+  double price = 11;
+  string currency = 12;
+  string product_id = 13;
+  string billing_type_frequency = 14;
+  string name = 15;
+  Description description = 16;
+}
+
+message Subscription {
+  string vin = 1;
+  repeated Entitlement active_entitlements = 2;
+}
+
+message UserEntitlement {
+  string user_id = 1;
+  repeated Subscription subscriptions = 2;
+}
+
 message GetUserActiveEntitlementsRequest {}
-message GetUserActiveEntitlementsResponse {}
+message GetUserActiveEntitlementsResponse {
+    UserEntitlement user_entitlements = 1;
+}
 
 service SubscriptionService {
     rpc GetUserActiveEntitlements(GetUserActiveEntitlementsRequest) returns (GetUserActiveEntitlementsResponse) {}

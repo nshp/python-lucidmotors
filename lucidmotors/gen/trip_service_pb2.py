@@ -24,23 +24,23 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12trip_service.proto\x12\x14mobilegateway.protos\"{\n\x08Waypoint\x12\x10\n\x08latitude\x18\x01 \x01(\x01\x12\x11\n\tlongitude\x18\x02 \x01(\x01\x12\x0f\n\x07\x61\x64\x64ress\x18\x03 \x01(\t\x12\x39\n\rwaypoint_type\x18\x05 \x01(\x0e\x32\".mobilegateway.protos.WaypointType\"\x89\x02\n\x04Trip\x12\x18\n\x10\x64\x65stination_name\x18\x02 \x01(\t\x12\x1c\n\x0f\x64istance_meters\x18\x03 \x01(\x04H\x00\x88\x01\x01\x12\x1d\n\x10\x65lapsed_time_sec\x18\x04 \x01(\x04H\x01\x88\x01\x01\x12\x1b\n\x0e\x63harging_stops\x18\x05 \x01(\rH\x02\x88\x01\x01\x12\x31\n\twaypoints\x18\x07 \x03(\x0b\x32\x1e.mobilegateway.protos.Waypoint\x12\x13\n\x06sender\x18\x08 \x01(\tH\x03\x88\x01\x01\x42\x12\n\x10_distance_metersB\x13\n\x11_elapsed_time_secB\x11\n\x0f_charging_stopsB\t\n\x07_sender\"P\n\x10ShareTripRequest\x12(\n\x04trip\x18\x02 \x01(\x0b\x32\x1a.mobilegateway.protos.Trip\x12\x12\n\nvehicle_id\x18\x03 \x01(\t\"\x13\n\x11ShareTripResponse*a\n\x0cWaypointType\x12\x19\n\x15WAYPOINT_TYPE_UNKNOWN\x10\x00\x12\x1a\n\x16WAYPOINT_TYPE_CHARGING\x10\x01\x12\x1a\n\x16WAYPOINT_TYPE_WAYPOINT\x10\x02\x32m\n\x0bTripService\x12^\n\tShareTrip\x12&.mobilegateway.protos.ShareTripRequest\x1a\'.mobilegateway.protos.ShareTripResponse\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12trip_service.proto\x12\x14mobilegateway.protos\"\xf2\x01\n\x08Waypoint\x12\x10\n\x08latitude\x18\x01 \x01(\x01\x12\x11\n\tlongitude\x18\x02 \x01(\x01\x12\x0f\n\x07\x61\x64\x64ress\x18\x03 \x01(\t\x12\x15\n\rwaypoint_name\x18\x04 \x01(\t\x12\x39\n\rwaypoint_type\x18\x05 \x01(\x0e\x32\".mobilegateway.protos.WaypointType\x12\x1e\n\x16\x61rrival_charge_percent\x18\x06 \x01(\x01\x12 \n\x18\x64\x65parture_charge_percent\x18\x07 \x01(\x01\x12\x1c\n\x14\x63harge_duration_secs\x18\x08 \x01(\x04\"\xb3\x02\n\x04Trip\x12\x0f\n\x07trip_id\x18\x01 \x01(\t\x12\x18\n\x10\x64\x65stination_name\x18\x02 \x01(\t\x12\x1c\n\x0f\x64istance_meters\x18\x03 \x01(\x04H\x00\x88\x01\x01\x12\x1d\n\x10\x65lapsed_time_sec\x18\x04 \x01(\x04H\x01\x88\x01\x01\x12\x1b\n\x0e\x63harging_stops\x18\x05 \x01(\rH\x02\x88\x01\x01\x12\x17\n\x0f\x63reated_time_ms\x18\x06 \x01(\x04\x12\x31\n\twaypoints\x18\x07 \x03(\x0b\x32\x1e.mobilegateway.protos.Waypoint\x12\x13\n\x06sender\x18\x08 \x01(\tH\x03\x88\x01\x01\x42\x12\n\x10_distance_metersB\x13\n\x11_elapsed_time_secB\x11\n\x0f_charging_stopsB\t\n\x07_sender\"P\n\x10ShareTripRequest\x12(\n\x04trip\x18\x02 \x01(\x0b\x32\x1a.mobilegateway.protos.Trip\x12\x12\n\nvehicle_id\x18\x03 \x01(\t\"\x13\n\x11ShareTripResponse*c\n\x0cWaypointType\x12\x19\n\x15WAYPOINT_TYPE_UNKNOWN\x10\x00\x12\x1a\n\x16WAYPOINT_TYPE_WAYPOINT\x10\x01\x12\x1c\n\x18WAYPOINT_TYPE_EV_CHARGER\x10\x02\x32m\n\x0bTripService\x12^\n\tShareTrip\x12&.mobilegateway.protos.ShareTripRequest\x1a\'.mobilegateway.protos.ShareTripResponse\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'trip_service_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_WAYPOINTTYPE']._serialized_start=540
-  _globals['_WAYPOINTTYPE']._serialized_end=637
-  _globals['_WAYPOINT']._serialized_start=44
-  _globals['_WAYPOINT']._serialized_end=167
-  _globals['_TRIP']._serialized_start=170
-  _globals['_TRIP']._serialized_end=435
-  _globals['_SHARETRIPREQUEST']._serialized_start=437
-  _globals['_SHARETRIPREQUEST']._serialized_end=517
-  _globals['_SHARETRIPRESPONSE']._serialized_start=519
-  _globals['_SHARETRIPRESPONSE']._serialized_end=538
-  _globals['_TRIPSERVICE']._serialized_start=639
-  _globals['_TRIPSERVICE']._serialized_end=748
+  _globals['_WAYPOINTTYPE']._serialized_start=702
+  _globals['_WAYPOINTTYPE']._serialized_end=801
+  _globals['_WAYPOINT']._serialized_start=45
+  _globals['_WAYPOINT']._serialized_end=287
+  _globals['_TRIP']._serialized_start=290
+  _globals['_TRIP']._serialized_end=597
+  _globals['_SHARETRIPREQUEST']._serialized_start=599
+  _globals['_SHARETRIPREQUEST']._serialized_end=679
+  _globals['_SHARETRIPRESPONSE']._serialized_start=681
+  _globals['_SHARETRIPRESPONSE']._serialized_end=700
+  _globals['_TRIPSERVICE']._serialized_start=803
+  _globals['_TRIPSERVICE']._serialized_end=912
 # @@protoc_insertion_point(module_scope)

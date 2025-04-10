@@ -4,22 +4,28 @@ package mobilegateway.protos;
 
 enum WaypointType {
     WAYPOINT_TYPE_UNKNOWN = 0;
-    WAYPOINT_TYPE_CHARGING = 1;
-    WAYPOINT_TYPE_WAYPOINT = 2;
+    WAYPOINT_TYPE_WAYPOINT = 1;
+    WAYPOINT_TYPE_EV_CHARGER = 2;
 }
 
 message Waypoint {
     double latitude = 1;
     double longitude = 2;
     string address = 3;
+    string waypoint_name = 4;
     WaypointType waypoint_type = 5;
+    double arrival_charge_percent = 6;
+    double departure_charge_percent = 7;
+    uint64 charge_duration_secs = 8;
 }
 
 message Trip {
+    string trip_id = 1;
     string destination_name = 2;
     optional uint64 distance_meters = 3;
     optional uint64 elapsed_time_sec = 4;
     optional uint32 charging_stops = 5;
+    uint64 created_time_ms = 6;
     repeated Waypoint waypoints = 7;
     optional string sender = 8;
 }

@@ -5,7 +5,7 @@ import warnings
 
 import user_preferences_service_pb2 as user__preferences__service__pb2
 
-GRPC_GENERATED_VERSION = '1.66.2'
+GRPC_GENERATED_VERSION = '1.67.1'
 GRPC_VERSION = grpc.__version__
 _version_not_supported = False
 
@@ -47,11 +47,51 @@ class UserPreferencesServiceStub(object):
         self.GetUserPreferencesCommitID = channel.unary_unary(
                 '/mobilegateway.protos.UserPreferencesService/GetUserPreferencesCommitID',
                 request_serializer=user__preferences__service__pb2.Empty.SerializeToString,
-                response_deserializer=user__preferences__service__pb2.Empty.FromString,
+                response_deserializer=user__preferences__service__pb2.GetUserPreferencesCommitIDResponse.FromString,
                 _registered_method=True)
         self.SetUserPreferences = channel.unary_unary(
                 '/mobilegateway.protos.UserPreferencesService/SetUserPreferences',
-                request_serializer=user__preferences__service__pb2.Empty.SerializeToString,
+                request_serializer=user__preferences__service__pb2.SetUserPreferencesRequest.SerializeToString,
+                response_deserializer=user__preferences__service__pb2.SetUserPreferencesResponse.FromString,
+                _registered_method=True)
+        self.CreateUserVinPreferences = channel.unary_unary(
+                '/mobilegateway.protos.UserPreferencesService/CreateUserVinPreferences',
+                request_serializer=user__preferences__service__pb2.CreateUserVinPreferencesRequest.SerializeToString,
+                response_deserializer=user__preferences__service__pb2.CreateUserVinPreferencesResponse.FromString,
+                _registered_method=True)
+        self.GetUserVinPreferences = channel.unary_unary(
+                '/mobilegateway.protos.UserPreferencesService/GetUserVinPreferences',
+                request_serializer=user__preferences__service__pb2.GetUserVinPreferencesRequest.SerializeToString,
+                response_deserializer=user__preferences__service__pb2.GetUserVinPreferencesResponse.FromString,
+                _registered_method=True)
+        self.SetUserVinPreferences = channel.unary_unary(
+                '/mobilegateway.protos.UserPreferencesService/SetUserVinPreferences',
+                request_serializer=user__preferences__service__pb2.SetUserVinPreferencesRequest.SerializeToString,
+                response_deserializer=user__preferences__service__pb2.SetUserVinPreferencesResponse.FromString,
+                _registered_method=True)
+        self.CreateUserModelPreferences = channel.unary_unary(
+                '/mobilegateway.protos.UserPreferencesService/CreateUserModelPreferences',
+                request_serializer=user__preferences__service__pb2.CreateUserModelPreferencesRequest.SerializeToString,
+                response_deserializer=user__preferences__service__pb2.CreateUserModelPreferencesResponse.FromString,
+                _registered_method=True)
+        self.GetUserModelPreferences = channel.unary_unary(
+                '/mobilegateway.protos.UserPreferencesService/GetUserModelPreferences',
+                request_serializer=user__preferences__service__pb2.GetUserModelPreferencesRequest.SerializeToString,
+                response_deserializer=user__preferences__service__pb2.GetUserModelPreferencesResponse.FromString,
+                _registered_method=True)
+        self.SetUserModelPreferences = channel.unary_unary(
+                '/mobilegateway.protos.UserPreferencesService/SetUserModelPreferences',
+                request_serializer=user__preferences__service__pb2.SetUserModelPreferencesRequest.SerializeToString,
+                response_deserializer=user__preferences__service__pb2.SetUserModelPreferencesResponse.FromString,
+                _registered_method=True)
+        self.InviteSecondaryOwner = channel.unary_unary(
+                '/mobilegateway.protos.UserPreferencesService/InviteSecondaryOwner',
+                request_serializer=user__preferences__service__pb2.InviteSecondaryOwnerRequest.SerializeToString,
+                response_deserializer=user__preferences__service__pb2.Empty.FromString,
+                _registered_method=True)
+        self.RemoveSecondaryOwner = channel.unary_unary(
+                '/mobilegateway.protos.UserPreferencesService/RemoveSecondaryOwner',
+                request_serializer=user__preferences__service__pb2.RemoveSecondaryOwnerRequest.SerializeToString,
                 response_deserializer=user__preferences__service__pb2.Empty.FromString,
                 _registered_method=True)
 
@@ -83,6 +123,54 @@ class UserPreferencesServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def CreateUserVinPreferences(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetUserVinPreferences(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SetUserVinPreferences(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CreateUserModelPreferences(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetUserModelPreferences(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SetUserModelPreferences(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def InviteSecondaryOwner(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def RemoveSecondaryOwner(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_UserPreferencesServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -99,11 +187,51 @@ def add_UserPreferencesServiceServicer_to_server(servicer, server):
             'GetUserPreferencesCommitID': grpc.unary_unary_rpc_method_handler(
                     servicer.GetUserPreferencesCommitID,
                     request_deserializer=user__preferences__service__pb2.Empty.FromString,
-                    response_serializer=user__preferences__service__pb2.Empty.SerializeToString,
+                    response_serializer=user__preferences__service__pb2.GetUserPreferencesCommitIDResponse.SerializeToString,
             ),
             'SetUserPreferences': grpc.unary_unary_rpc_method_handler(
                     servicer.SetUserPreferences,
-                    request_deserializer=user__preferences__service__pb2.Empty.FromString,
+                    request_deserializer=user__preferences__service__pb2.SetUserPreferencesRequest.FromString,
+                    response_serializer=user__preferences__service__pb2.SetUserPreferencesResponse.SerializeToString,
+            ),
+            'CreateUserVinPreferences': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateUserVinPreferences,
+                    request_deserializer=user__preferences__service__pb2.CreateUserVinPreferencesRequest.FromString,
+                    response_serializer=user__preferences__service__pb2.CreateUserVinPreferencesResponse.SerializeToString,
+            ),
+            'GetUserVinPreferences': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetUserVinPreferences,
+                    request_deserializer=user__preferences__service__pb2.GetUserVinPreferencesRequest.FromString,
+                    response_serializer=user__preferences__service__pb2.GetUserVinPreferencesResponse.SerializeToString,
+            ),
+            'SetUserVinPreferences': grpc.unary_unary_rpc_method_handler(
+                    servicer.SetUserVinPreferences,
+                    request_deserializer=user__preferences__service__pb2.SetUserVinPreferencesRequest.FromString,
+                    response_serializer=user__preferences__service__pb2.SetUserVinPreferencesResponse.SerializeToString,
+            ),
+            'CreateUserModelPreferences': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateUserModelPreferences,
+                    request_deserializer=user__preferences__service__pb2.CreateUserModelPreferencesRequest.FromString,
+                    response_serializer=user__preferences__service__pb2.CreateUserModelPreferencesResponse.SerializeToString,
+            ),
+            'GetUserModelPreferences': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetUserModelPreferences,
+                    request_deserializer=user__preferences__service__pb2.GetUserModelPreferencesRequest.FromString,
+                    response_serializer=user__preferences__service__pb2.GetUserModelPreferencesResponse.SerializeToString,
+            ),
+            'SetUserModelPreferences': grpc.unary_unary_rpc_method_handler(
+                    servicer.SetUserModelPreferences,
+                    request_deserializer=user__preferences__service__pb2.SetUserModelPreferencesRequest.FromString,
+                    response_serializer=user__preferences__service__pb2.SetUserModelPreferencesResponse.SerializeToString,
+            ),
+            'InviteSecondaryOwner': grpc.unary_unary_rpc_method_handler(
+                    servicer.InviteSecondaryOwner,
+                    request_deserializer=user__preferences__service__pb2.InviteSecondaryOwnerRequest.FromString,
+                    response_serializer=user__preferences__service__pb2.Empty.SerializeToString,
+            ),
+            'RemoveSecondaryOwner': grpc.unary_unary_rpc_method_handler(
+                    servicer.RemoveSecondaryOwner,
+                    request_deserializer=user__preferences__service__pb2.RemoveSecondaryOwnerRequest.FromString,
                     response_serializer=user__preferences__service__pb2.Empty.SerializeToString,
             ),
     }
@@ -187,7 +315,7 @@ class UserPreferencesService(object):
             target,
             '/mobilegateway.protos.UserPreferencesService/GetUserPreferencesCommitID',
             user__preferences__service__pb2.Empty.SerializeToString,
-            user__preferences__service__pb2.Empty.FromString,
+            user__preferences__service__pb2.GetUserPreferencesCommitIDResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -213,7 +341,223 @@ class UserPreferencesService(object):
             request,
             target,
             '/mobilegateway.protos.UserPreferencesService/SetUserPreferences',
-            user__preferences__service__pb2.Empty.SerializeToString,
+            user__preferences__service__pb2.SetUserPreferencesRequest.SerializeToString,
+            user__preferences__service__pb2.SetUserPreferencesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def CreateUserVinPreferences(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.UserPreferencesService/CreateUserVinPreferences',
+            user__preferences__service__pb2.CreateUserVinPreferencesRequest.SerializeToString,
+            user__preferences__service__pb2.CreateUserVinPreferencesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetUserVinPreferences(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.UserPreferencesService/GetUserVinPreferences',
+            user__preferences__service__pb2.GetUserVinPreferencesRequest.SerializeToString,
+            user__preferences__service__pb2.GetUserVinPreferencesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def SetUserVinPreferences(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.UserPreferencesService/SetUserVinPreferences',
+            user__preferences__service__pb2.SetUserVinPreferencesRequest.SerializeToString,
+            user__preferences__service__pb2.SetUserVinPreferencesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def CreateUserModelPreferences(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.UserPreferencesService/CreateUserModelPreferences',
+            user__preferences__service__pb2.CreateUserModelPreferencesRequest.SerializeToString,
+            user__preferences__service__pb2.CreateUserModelPreferencesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetUserModelPreferences(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.UserPreferencesService/GetUserModelPreferences',
+            user__preferences__service__pb2.GetUserModelPreferencesRequest.SerializeToString,
+            user__preferences__service__pb2.GetUserModelPreferencesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def SetUserModelPreferences(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.UserPreferencesService/SetUserModelPreferences',
+            user__preferences__service__pb2.SetUserModelPreferencesRequest.SerializeToString,
+            user__preferences__service__pb2.SetUserModelPreferencesResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def InviteSecondaryOwner(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.UserPreferencesService/InviteSecondaryOwner',
+            user__preferences__service__pb2.InviteSecondaryOwnerRequest.SerializeToString,
+            user__preferences__service__pb2.Empty.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def RemoveSecondaryOwner(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.UserPreferencesService/RemoveSecondaryOwner',
+            user__preferences__service__pb2.RemoveSecondaryOwnerRequest.SerializeToString,
             user__preferences__service__pb2.Empty.FromString,
             options,
             channel_credentials,

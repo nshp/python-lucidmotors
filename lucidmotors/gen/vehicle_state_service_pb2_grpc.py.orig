@@ -54,6 +54,11 @@ class VehicleStateServiceStub(object):
                 request_serializer=vehicle__state__service__pb2.ControlChargePortRequest.SerializeToString,
                 response_deserializer=vehicle__state__service__pb2.ControlChargePortResponse.FromString,
                 _registered_method=True)
+        self.DoorControl = channel.unary_unary(
+                '/mobilegateway.protos.VehicleStateService/DoorControl',
+                request_serializer=vehicle__state__service__pb2.DoorControlRequest.SerializeToString,
+                response_deserializer=vehicle__state__service__pb2.DoorControlResponse.FromString,
+                _registered_method=True)
         self.DoorLocksControl = channel.unary_unary(
                 '/mobilegateway.protos.VehicleStateService/DoorLocksControl',
                 request_serializer=vehicle__state__service__pb2.DoorLocksControlRequest.SerializeToString,
@@ -68,6 +73,11 @@ class VehicleStateServiceStub(object):
                 '/mobilegateway.protos.VehicleStateService/GetDocumentInfo',
                 request_serializer=vehicle__state__service__pb2.GetDocumentInfoRequest.SerializeToString,
                 response_deserializer=vehicle__state__service__pb2.GetDocumentInfoResponse.FromString,
+                _registered_method=True)
+        self.GetOtaVersionHistory = channel.unary_unary(
+                '/mobilegateway.protos.VehicleStateService/GetOtaVersionHistory',
+                request_serializer=vehicle__state__service__pb2.GetOtaVersionHistoryRequest.SerializeToString,
+                response_deserializer=vehicle__state__service__pb2.GetOtaVersionHistoryResponse.FromString,
                 _registered_method=True)
         self.GetVehicleState = channel.unary_unary(
                 '/mobilegateway.protos.VehicleStateService/GetVehicleState',
@@ -84,10 +94,20 @@ class VehicleStateServiceStub(object):
                 request_serializer=vehicle__state__service__pb2.HvacDefrostControlRequest.SerializeToString,
                 response_deserializer=vehicle__state__service__pb2.HvacDefrostControlResponse.FromString,
                 _registered_method=True)
+        self.KeylessDrivingAction = channel.unary_unary(
+                '/mobilegateway.protos.VehicleStateService/KeylessDrivingAction',
+                request_serializer=vehicle__state__service__pb2.KeylessDrivingActionRequest.SerializeToString,
+                response_deserializer=vehicle__state__service__pb2.KeylessDrivingActionResponse.FromString,
+                _registered_method=True)
         self.LightsControl = channel.unary_unary(
                 '/mobilegateway.protos.VehicleStateService/LightsControl',
                 request_serializer=vehicle__state__service__pb2.LightsControlRequest.SerializeToString,
                 response_deserializer=vehicle__state__service__pb2.LightsControlResponse.FromString,
+                _registered_method=True)
+        self.PanicAlarmAction = channel.unary_unary(
+                '/mobilegateway.protos.VehicleStateService/PanicAlarmAction',
+                request_serializer=vehicle__state__service__pb2.PanicAlarmActionRequest.SerializeToString,
+                response_deserializer=vehicle__state__service__pb2.PanicAlarmActionResponse.FromString,
                 _registered_method=True)
         self.RearCargoControl = channel.unary_unary(
                 '/mobilegateway.protos.VehicleStateService/RearCargoControl',
@@ -154,10 +174,35 @@ class VehicleStateServiceStub(object):
                 request_serializer=vehicle__state__service__pb2.SetCreatureComfortModeRequest.SerializeToString,
                 response_deserializer=vehicle__state__service__pb2.SetCreatureComfortModeResponse.FromString,
                 _registered_method=True)
+        self.UpdateChargingSchedule = channel.unary_unary(
+                '/mobilegateway.protos.VehicleStateService/UpdateChargingSchedule',
+                request_serializer=vehicle__state__service__pb2.UpdateChargingScheduleRequest.SerializeToString,
+                response_deserializer=vehicle__state__service__pb2.UpdateChargingScheduleResponse.FromString,
+                _registered_method=True)
         self.WelcomeControl = channel.unary_unary(
                 '/mobilegateway.protos.VehicleStateService/WelcomeControl',
                 request_serializer=vehicle__state__service__pb2.WelcomeControlRequest.SerializeToString,
                 response_deserializer=vehicle__state__service__pb2.WelcomeControlRequest.FromString,
+                _registered_method=True)
+        self.SetACCurrLimit = channel.unary_unary(
+                '/mobilegateway.protos.VehicleStateService/SetACCurrLimit',
+                request_serializer=vehicle__state__service__pb2.SetACCurrLimitRequest.SerializeToString,
+                response_deserializer=vehicle__state__service__pb2.SetACCurrLimitResponse.FromString,
+                _registered_method=True)
+        self.InitiatePhoneAsKey = channel.unary_unary(
+                '/mobilegateway.protos.VehicleStateService/InitiatePhoneAsKey',
+                request_serializer=vehicle__state__service__pb2.InitiatePhoneAsKeyRequest.SerializeToString,
+                response_deserializer=vehicle__state__service__pb2.InitiatePhoneAsKeyResponse.FromString,
+                _registered_method=True)
+        self.ReadStatusPhoneAsKey = channel.unary_unary(
+                '/mobilegateway.protos.VehicleStateService/ReadStatusPhoneAsKey',
+                request_serializer=vehicle__state__service__pb2.ReadStatusPhoneAsKeyRequest.SerializeToString,
+                response_deserializer=vehicle__state__service__pb2.ReadStatusPhoneAsKeyResponse.FromString,
+                _registered_method=True)
+        self.SetScheduledOta = channel.unary_unary(
+                '/mobilegateway.protos.VehicleStateService/SetScheduledOta',
+                request_serializer=vehicle__state__service__pb2.SetScheduledOtaRequest.SerializeToString,
+                response_deserializer=vehicle__state__service__pb2.SetScheduledOtaResponse.FromString,
                 _registered_method=True)
 
 
@@ -188,6 +233,12 @@ class VehicleStateServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def DoorControl(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def DoorLocksControl(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -201,6 +252,12 @@ class VehicleStateServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def GetDocumentInfo(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetOtaVersionHistory(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -224,7 +281,19 @@ class VehicleStateServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def KeylessDrivingAction(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def LightsControl(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def PanicAlarmAction(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -308,7 +377,37 @@ class VehicleStateServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def UpdateChargingSchedule(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def WelcomeControl(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SetACCurrLimit(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def InitiatePhoneAsKey(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ReadStatusPhoneAsKey(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def SetScheduledOta(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -337,6 +436,11 @@ def add_VehicleStateServiceServicer_to_server(servicer, server):
                     request_deserializer=vehicle__state__service__pb2.ControlChargePortRequest.FromString,
                     response_serializer=vehicle__state__service__pb2.ControlChargePortResponse.SerializeToString,
             ),
+            'DoorControl': grpc.unary_unary_rpc_method_handler(
+                    servicer.DoorControl,
+                    request_deserializer=vehicle__state__service__pb2.DoorControlRequest.FromString,
+                    response_serializer=vehicle__state__service__pb2.DoorControlResponse.SerializeToString,
+            ),
             'DoorLocksControl': grpc.unary_unary_rpc_method_handler(
                     servicer.DoorLocksControl,
                     request_deserializer=vehicle__state__service__pb2.DoorLocksControlRequest.FromString,
@@ -351,6 +455,11 @@ def add_VehicleStateServiceServicer_to_server(servicer, server):
                     servicer.GetDocumentInfo,
                     request_deserializer=vehicle__state__service__pb2.GetDocumentInfoRequest.FromString,
                     response_serializer=vehicle__state__service__pb2.GetDocumentInfoResponse.SerializeToString,
+            ),
+            'GetOtaVersionHistory': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetOtaVersionHistory,
+                    request_deserializer=vehicle__state__service__pb2.GetOtaVersionHistoryRequest.FromString,
+                    response_serializer=vehicle__state__service__pb2.GetOtaVersionHistoryResponse.SerializeToString,
             ),
             'GetVehicleState': grpc.unary_unary_rpc_method_handler(
                     servicer.GetVehicleState,
@@ -367,10 +476,20 @@ def add_VehicleStateServiceServicer_to_server(servicer, server):
                     request_deserializer=vehicle__state__service__pb2.HvacDefrostControlRequest.FromString,
                     response_serializer=vehicle__state__service__pb2.HvacDefrostControlResponse.SerializeToString,
             ),
+            'KeylessDrivingAction': grpc.unary_unary_rpc_method_handler(
+                    servicer.KeylessDrivingAction,
+                    request_deserializer=vehicle__state__service__pb2.KeylessDrivingActionRequest.FromString,
+                    response_serializer=vehicle__state__service__pb2.KeylessDrivingActionResponse.SerializeToString,
+            ),
             'LightsControl': grpc.unary_unary_rpc_method_handler(
                     servicer.LightsControl,
                     request_deserializer=vehicle__state__service__pb2.LightsControlRequest.FromString,
                     response_serializer=vehicle__state__service__pb2.LightsControlResponse.SerializeToString,
+            ),
+            'PanicAlarmAction': grpc.unary_unary_rpc_method_handler(
+                    servicer.PanicAlarmAction,
+                    request_deserializer=vehicle__state__service__pb2.PanicAlarmActionRequest.FromString,
+                    response_serializer=vehicle__state__service__pb2.PanicAlarmActionResponse.SerializeToString,
             ),
             'RearCargoControl': grpc.unary_unary_rpc_method_handler(
                     servicer.RearCargoControl,
@@ -437,10 +556,35 @@ def add_VehicleStateServiceServicer_to_server(servicer, server):
                     request_deserializer=vehicle__state__service__pb2.SetCreatureComfortModeRequest.FromString,
                     response_serializer=vehicle__state__service__pb2.SetCreatureComfortModeResponse.SerializeToString,
             ),
+            'UpdateChargingSchedule': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateChargingSchedule,
+                    request_deserializer=vehicle__state__service__pb2.UpdateChargingScheduleRequest.FromString,
+                    response_serializer=vehicle__state__service__pb2.UpdateChargingScheduleResponse.SerializeToString,
+            ),
             'WelcomeControl': grpc.unary_unary_rpc_method_handler(
                     servicer.WelcomeControl,
                     request_deserializer=vehicle__state__service__pb2.WelcomeControlRequest.FromString,
                     response_serializer=vehicle__state__service__pb2.WelcomeControlRequest.SerializeToString,
+            ),
+            'SetACCurrLimit': grpc.unary_unary_rpc_method_handler(
+                    servicer.SetACCurrLimit,
+                    request_deserializer=vehicle__state__service__pb2.SetACCurrLimitRequest.FromString,
+                    response_serializer=vehicle__state__service__pb2.SetACCurrLimitResponse.SerializeToString,
+            ),
+            'InitiatePhoneAsKey': grpc.unary_unary_rpc_method_handler(
+                    servicer.InitiatePhoneAsKey,
+                    request_deserializer=vehicle__state__service__pb2.InitiatePhoneAsKeyRequest.FromString,
+                    response_serializer=vehicle__state__service__pb2.InitiatePhoneAsKeyResponse.SerializeToString,
+            ),
+            'ReadStatusPhoneAsKey': grpc.unary_unary_rpc_method_handler(
+                    servicer.ReadStatusPhoneAsKey,
+                    request_deserializer=vehicle__state__service__pb2.ReadStatusPhoneAsKeyRequest.FromString,
+                    response_serializer=vehicle__state__service__pb2.ReadStatusPhoneAsKeyResponse.SerializeToString,
+            ),
+            'SetScheduledOta': grpc.unary_unary_rpc_method_handler(
+                    servicer.SetScheduledOta,
+                    request_deserializer=vehicle__state__service__pb2.SetScheduledOtaRequest.FromString,
+                    response_serializer=vehicle__state__service__pb2.SetScheduledOtaResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -562,6 +706,33 @@ class VehicleStateService(object):
             _registered_method=True)
 
     @staticmethod
+    def DoorControl(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.VehicleStateService/DoorControl',
+            vehicle__state__service__pb2.DoorControlRequest.SerializeToString,
+            vehicle__state__service__pb2.DoorControlResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
     def DoorLocksControl(request,
             target,
             options=(),
@@ -632,6 +803,33 @@ class VehicleStateService(object):
             '/mobilegateway.protos.VehicleStateService/GetDocumentInfo',
             vehicle__state__service__pb2.GetDocumentInfoRequest.SerializeToString,
             vehicle__state__service__pb2.GetDocumentInfoResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetOtaVersionHistory(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.VehicleStateService/GetOtaVersionHistory',
+            vehicle__state__service__pb2.GetOtaVersionHistoryRequest.SerializeToString,
+            vehicle__state__service__pb2.GetOtaVersionHistoryResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -724,6 +922,33 @@ class VehicleStateService(object):
             _registered_method=True)
 
     @staticmethod
+    def KeylessDrivingAction(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.VehicleStateService/KeylessDrivingAction',
+            vehicle__state__service__pb2.KeylessDrivingActionRequest.SerializeToString,
+            vehicle__state__service__pb2.KeylessDrivingActionResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
     def LightsControl(request,
             target,
             options=(),
@@ -740,6 +965,33 @@ class VehicleStateService(object):
             '/mobilegateway.protos.VehicleStateService/LightsControl',
             vehicle__state__service__pb2.LightsControlRequest.SerializeToString,
             vehicle__state__service__pb2.LightsControlResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def PanicAlarmAction(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.VehicleStateService/PanicAlarmAction',
+            vehicle__state__service__pb2.PanicAlarmActionRequest.SerializeToString,
+            vehicle__state__service__pb2.PanicAlarmActionResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -1102,6 +1354,33 @@ class VehicleStateService(object):
             _registered_method=True)
 
     @staticmethod
+    def UpdateChargingSchedule(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.VehicleStateService/UpdateChargingSchedule',
+            vehicle__state__service__pb2.UpdateChargingScheduleRequest.SerializeToString,
+            vehicle__state__service__pb2.UpdateChargingScheduleResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
     def WelcomeControl(request,
             target,
             options=(),
@@ -1118,6 +1397,114 @@ class VehicleStateService(object):
             '/mobilegateway.protos.VehicleStateService/WelcomeControl',
             vehicle__state__service__pb2.WelcomeControlRequest.SerializeToString,
             vehicle__state__service__pb2.WelcomeControlRequest.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def SetACCurrLimit(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.VehicleStateService/SetACCurrLimit',
+            vehicle__state__service__pb2.SetACCurrLimitRequest.SerializeToString,
+            vehicle__state__service__pb2.SetACCurrLimitResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def InitiatePhoneAsKey(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.VehicleStateService/InitiatePhoneAsKey',
+            vehicle__state__service__pb2.InitiatePhoneAsKeyRequest.SerializeToString,
+            vehicle__state__service__pb2.InitiatePhoneAsKeyResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ReadStatusPhoneAsKey(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.VehicleStateService/ReadStatusPhoneAsKey',
+            vehicle__state__service__pb2.ReadStatusPhoneAsKeyRequest.SerializeToString,
+            vehicle__state__service__pb2.ReadStatusPhoneAsKeyResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def SetScheduledOta(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.VehicleStateService/SetScheduledOta',
+            vehicle__state__service__pb2.SetScheduledOtaRequest.SerializeToString,
+            vehicle__state__service__pb2.SetScheduledOtaResponse.FromString,
             options,
             channel_credentials,
             insecure,
