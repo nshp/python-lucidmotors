@@ -57,7 +57,7 @@ enum Encryption {
 message LoginResponse {
     string uid = 1;
     SessionInfo session_info = 2;
-    UserProfile user_profile = 3;
+    UserProfileData user_profile = 3;
     repeated Vehicle user_vehicle_data = 4;
     repeated Subscription subscriptions = 5;
     Encryption encryption = 6;

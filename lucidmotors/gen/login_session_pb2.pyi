@@ -94,11 +94,11 @@ class LoginResponse(_message.Message):
     ENCRYPTION_FIELD_NUMBER: _ClassVar[int]
     uid: str
     session_info: SessionInfo
-    user_profile: _user_profile_service_pb2.UserProfile
+    user_profile: _user_profile_service_pb2.UserProfileData
     user_vehicle_data: _containers.RepeatedCompositeFieldContainer[_vehicle_state_service_pb2.Vehicle]
     subscriptions: _containers.RepeatedScalarFieldContainer[Subscription]
     encryption: Encryption
-    def __init__(self, uid: _Optional[str] = ..., session_info: _Optional[_Union[SessionInfo, _Mapping]] = ..., user_profile: _Optional[_Union[_user_profile_service_pb2.UserProfile, _Mapping]] = ..., user_vehicle_data: _Optional[_Iterable[_Union[_vehicle_state_service_pb2.Vehicle, _Mapping]]] = ..., subscriptions: _Optional[_Iterable[_Union[Subscription, str]]] = ..., encryption: _Optional[_Union[Encryption, str]] = ...) -> None: ...
+    def __init__(self, uid: _Optional[str] = ..., session_info: _Optional[_Union[SessionInfo, _Mapping]] = ..., user_profile: _Optional[_Union[_user_profile_service_pb2.UserProfileData, _Mapping]] = ..., user_vehicle_data: _Optional[_Iterable[_Union[_vehicle_state_service_pb2.Vehicle, _Mapping]]] = ..., subscriptions: _Optional[_Iterable[_Union[Subscription, str]]] = ..., encryption: _Optional[_Union[Encryption, str]] = ...) -> None: ...
 
 class GetNewJWTTokenRequest(_message.Message):
     __slots__ = ("refresh_token",)

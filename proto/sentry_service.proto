@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package mobilegateway.protos;
 
-import "vehicle_state_service.proto";
-
 message GetEventsRequest {
     string vehicle_id = 1;
     string a = 2;

@@ -2,16 +2,8 @@ syntax = "proto3";
 
 package mobilegateway.protos;
 
-message UserProfile {
-    string email = 1;
-    optional string locale = 2;
-    string username = 3;
-    optional string photo_url = 4;
-    string first_name = 5;
-    string last_name = 6;
-}
-
 message PhoneNumber {
+    string type = 1;
     string number = 2;
 }
 
@@ -26,14 +18,20 @@ message UserProfileData {
     string state = 8;
     string postal_code = 9;
     string country = 10;
-    PhoneNumber phone = 11;
+    repeated PhoneNumber phones = 11;
+    string preferred_name = 12;
 }
-
-message SetUserProfileRequest {}
-message SetUserProfileResponse {}
 
 message GetUserProfileRequest {}
 message GetUserProfileResponse {
+    UserProfileData profile = 1;
+}
+
+message SetUserProfileRequest {
+    string first_name = 1;
+    string last_name = 2;
+}
+message SetUserProfileResponse {
     UserProfileData profile = 1;
 }
 
