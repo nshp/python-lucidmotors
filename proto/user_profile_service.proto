@@ -7,7 +7,7 @@ message PhoneNumber {
     string number = 2;
 }
 
-message UserProfileData {
+message UserProfile {
     string first_name = 1;
     string last_name = 2;
     string email = 3;
@@ -24,7 +24,7 @@ message UserProfileData {
 
 message GetUserProfileRequest {}
 message GetUserProfileResponse {
-    UserProfileData profile = 1;
+    UserProfile profile = 1;
 }
 
 message SetUserProfileRequest {
@@ -32,7 +32,7 @@ message SetUserProfileRequest {
     string last_name = 2;
 }
 message SetUserProfileResponse {
-    UserProfileData profile = 1;
+    UserProfile profile = 1;
 }
 
 message UploadUserProfilePhotoRequest {

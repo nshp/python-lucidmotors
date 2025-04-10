@@ -7,15 +7,12 @@ import "vehicle_state_service.proto";
 
 enum NotificationChannelType {
     NOTIFICATION_CHANNEL_UNKNOWN = 0;
-    /* No idea what these actually mean, but these are the only accepted values */
-    /* One of these is FIREBASE */
-    NOTIFICATION_CHANNEL_ONE = 1;
-    NOTIFICATION_CHANNEL_TWO = 2;
+    NOTIFICATION_CHANNEL_FIREBASE = 1;
+    NOTIFICATION_CHANNEL_BAIDU = 2;
 }
 
 enum Os {
     OS_UNKNOWN = 0;
-    /* Could have these backwards */
     OS_IOS = 1;
     OS_ANDROID = 2;
 }
@@ -38,28 +35,35 @@ message SessionInfo {
     string gigya_jwt = 4;
 }
 
-enum Subscription {
-    SUBSCRIPTION_UNKNOWN = 0;
-    SUBSCRIPTION_CHARGE = 1;
-    SUBSCRIPTION_SECURITY = 2;
-    SUBSCRIPTION_SOFTWARE = 3;
-    SUBSCRIPTION_HVAC = 4;
-    SUBSCRIPTION_REQUIRED = 5;
-    SUBSCRIPTION_CDR_EMAIL = 6;
-    SUBSCRIPTION_SUBSCRIPTION = 7;
+enum NotificationCategory {
+    NOTIFICATION_CATEGORY_UNKNOWN = 0;
+    NOTIFICATION_CATEGORY_CHARGE = 1;
+    NOTIFICATION_CATEGORY_SECURITY = 2;
+    NOTIFICATION_CATEGORY_SOFTWARE = 3;
+    NOTIFICATION_CATEGORY_HVAC = 4;
+    NOTIFICATION_CATEGORY_REQUIRED = 5;
+    NOTIFICATION_CATEGORY_CDR_EMAIL = 6;
+    NOTIFICATION_CATEGORY_SUBSCRIPTION = 7;
+    NOTIFICATION_CATEGORY_REFERRAL_CAMPAIGN = 8;
+    NOTIFICATION_CATEGORY_RECALL_CAMPAIGN = 9;
+    NOTIFICATION_CATEGORY_CLOSURE = 10;
+    NOTIFICATION_CATEGORY_ACCESSORIES = 11;
+    NOTIFICATION_CATEGORY_USER_PROFILE = 12;
+    NOTIFICATION_CATEGORY_TIRE_PRESSURE = 13;
 }
 
 enum Encryption {
     ENCRYPTION_UNKNOWN = 0;
     ENCRYPTION_SINGLE = 1;
+    ENCRYPTION_MUTUAL = 2;
 }
 
 message LoginResponse {
     string uid = 1;
     SessionInfo session_info = 2;
-    UserProfileData user_profile = 3;
+    UserProfile user_profile = 3;
     repeated Vehicle user_vehicle_data = 4;
-    repeated Subscription subscriptions = 5;
+    repeated NotificationCategory subscriptions = 5;
     Encryption encryption = 6;
 }
 
@@ -69,15 +73,45 @@ message GetNewJWTTokenRequest {
 
 message GetNewJWTTokenResponse {
     SessionInfo session_info = 1;
+    Encryption encryption = 2;
 }
 
-message ConfirmResetPinRequest {}
+message RefreshTokenRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message RefreshTokenResponse {
+    string jwt_token = 1;
+    int32 expiry_time_sec = 2;
+    string gigya_jwt = 3;
+}
+
+
+enum ResetPinStatus {
+    RESET_PIN_STATUS_UNKNOWN = 0;
+    RESET_PIN_STATUS_PENDING = 1;
+    RESET_PIN_STATUS_APPROVED = 2;
+    RESET_PIN_STATUS_DENIED = 3;
+}
+
+message ConfirmResetPinRequest {
+    string reset_pin_id = 1;
+    ResetPinStatus status = 2;
+}
+
 message ConfirmResetPinResponse {}
 
 message GetSubscriptionRequest {}
 message GetSubscriptionResponse {
-    repeated Subscription subscriptions = 1;
+    repeated NotificationCategory subscriptions = 1;
 }
+
+message UpdateSubscriptionRequest {
+    repeated NotificationCategory enable = 2;
+    repeated NotificationCategory disable = 3;
+}
+message UpdateSubscriptionResponse {}
 
 message GetUserVehiclesRequest {}
 message GetUserVehiclesResponse {
@@ -90,7 +124,13 @@ message LogoutRequest {
 
 message LogoutResponse {}
 
-message RefreshNotificationTokenRequest {}
+message RefreshNotificationTokenRequest {
+    NotificationChannelType notification_channel_type = 1;
+    Os os = 2;
+    string old_device_token = 3;
+    string new_device_token = 4;
+    string locale = 5;
+}
 message RefreshNotificationTokenResponse {}
 
 message SetNickNameRequest {
@@ -99,17 +139,34 @@ message SetNickNameRequest {
 }
 message SetNickNameResponse {}
 
-message SetSubscriptionRequest {}
-message SetSubscriptionResponse {}
+message ActivateDeviceRequest{
+    string activation_pin = 1;
+}
+
+message ActivateDeviceResponse{
+    SessionInfo session_info = 1;
+    repeated Vehicle user_vehicle_data = 2;
+}
+
+message DeviceEnrollRequest {
+    string certificate_request = 1;
+}
+
+message DeviceEnrollResponse {
+    string certificate = 1;
+}
 
 service LoginSession {
+    rpc ActivateDevice(ActivateDeviceRequest) returns (ActivateDeviceResponse) {}
+    rpc DeviceEnroll(DeviceEnrollRequest) returns (DeviceEnrollResponse) {}
     rpc ConfirmResetPin(ConfirmResetPinRequest) returns (ConfirmResetPinResponse) {}
     rpc GetNewJWTToken(GetNewJWTTokenRequest) returns (GetNewJWTTokenResponse) {}
+    rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse) {}
     rpc GetSubscription(GetSubscriptionRequest) returns (GetSubscriptionResponse) {}
+    rpc UpdateSubscription(UpdateSubscriptionRequest) returns (UpdateSubscriptionResponse) {}
     rpc GetUserVehicles(GetUserVehiclesRequest) returns (GetUserVehiclesResponse) {}
     rpc Login(LoginRequest) returns (LoginResponse) {}
     rpc Logout(LogoutRequest) returns (LogoutResponse) {}
     rpc RefreshNotificationToken(RefreshNotificationTokenRequest) returns (RefreshNotificationTokenResponse) {}
     rpc SetNickName(SetNickNameRequest) returns (SetNickNameResponse) {}
-    rpc SetSubscription(SetSubscriptionRequest) returns (SetSubscriptionResponse) {}
 }

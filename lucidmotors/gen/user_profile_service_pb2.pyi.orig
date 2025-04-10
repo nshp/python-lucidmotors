@@ -13,7 +13,7 @@ class PhoneNumber(_message.Message):
     number: str
     def __init__(self, type: _Optional[str] = ..., number: _Optional[str] = ...) -> None: ...
 
-class UserProfileData(_message.Message):
+class UserProfile(_message.Message):
     __slots__ = ("first_name", "last_name", "email", "locale", "photo_url", "address", "city", "state", "postal_code", "country", "phones", "preferred_name")
     FIRST_NAME_FIELD_NUMBER: _ClassVar[int]
     LAST_NAME_FIELD_NUMBER: _ClassVar[int]
@@ -48,8 +48,8 @@ class GetUserProfileRequest(_message.Message):
 class GetUserProfileResponse(_message.Message):
     __slots__ = ("profile",)
     PROFILE_FIELD_NUMBER: _ClassVar[int]
-    profile: UserProfileData
-    def __init__(self, profile: _Optional[_Union[UserProfileData, _Mapping]] = ...) -> None: ...
+    profile: UserProfile
+    def __init__(self, profile: _Optional[_Union[UserProfile, _Mapping]] = ...) -> None: ...
 
 class SetUserProfileRequest(_message.Message):
     __slots__ = ("first_name", "last_name")
@@ -62,8 +62,8 @@ class SetUserProfileRequest(_message.Message):
 class SetUserProfileResponse(_message.Message):
     __slots__ = ("profile",)
     PROFILE_FIELD_NUMBER: _ClassVar[int]
-    profile: UserProfileData
-    def __init__(self, profile: _Optional[_Union[UserProfileData, _Mapping]] = ...) -> None: ...
+    profile: UserProfile
+    def __init__(self, profile: _Optional[_Union[UserProfile, _Mapping]] = ...) -> None: ...
 
 class UploadUserProfilePhotoRequest(_message.Message):
     __slots__ = ("photo_bytes",)
