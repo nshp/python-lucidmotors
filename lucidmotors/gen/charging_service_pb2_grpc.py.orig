@@ -64,6 +64,11 @@ class ChargingServiceStub(object):
                 request_serializer=charging__service__pb2.RegisterRFIDRequest.SerializeToString,
                 response_deserializer=charging__service__pb2.RegisterRFIDResponse.FromString,
                 _registered_method=True)
+        self.DeleteRFID = channel.unary_unary(
+                '/mobilegateway.protos.ChargingService/DeleteRFID',
+                request_serializer=charging__service__pb2.DeleteRFIDRequest.SerializeToString,
+                response_deserializer=charging__service__pb2.DeleteRFIDResponse.FromString,
+                _registered_method=True)
         self.StartSession = channel.unary_unary(
                 '/mobilegateway.protos.ChargingService/StartSession',
                 request_serializer=charging__service__pb2.StartSessionRequest.SerializeToString,
@@ -73,6 +78,16 @@ class ChargingServiceStub(object):
                 '/mobilegateway.protos.ChargingService/StopSession',
                 request_serializer=charging__service__pb2.StopSessionRequest.SerializeToString,
                 response_deserializer=charging__service__pb2.StopSessionResponse.FromString,
+                _registered_method=True)
+        self.GetChargingAccountInfo = channel.unary_unary(
+                '/mobilegateway.protos.ChargingService/GetChargingAccountInfo',
+                request_serializer=charging__service__pb2.GetChargingAccountInfoRequest.SerializeToString,
+                response_deserializer=charging__service__pb2.GetChargingAccountInfoResponse.FromString,
+                _registered_method=True)
+        self.GetChargingAccountInfoV2 = channel.unary_unary(
+                '/mobilegateway.protos.ChargingService/GetChargingAccountInfoV2',
+                request_serializer=charging__service__pb2.GetChargingAccountInfoRequest.SerializeToString,
+                response_deserializer=charging__service__pb2.GetChargingAccountInfoV2Response.FromString,
                 _registered_method=True)
 
 
@@ -115,6 +130,12 @@ class ChargingServiceServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def DeleteRFID(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def StartSession(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -122,6 +143,18 @@ class ChargingServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def StopSession(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetChargingAccountInfo(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetChargingAccountInfoV2(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -160,6 +193,11 @@ def add_ChargingServiceServicer_to_server(servicer, server):
                     request_deserializer=charging__service__pb2.RegisterRFIDRequest.FromString,
                     response_serializer=charging__service__pb2.RegisterRFIDResponse.SerializeToString,
             ),
+            'DeleteRFID': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteRFID,
+                    request_deserializer=charging__service__pb2.DeleteRFIDRequest.FromString,
+                    response_serializer=charging__service__pb2.DeleteRFIDResponse.SerializeToString,
+            ),
             'StartSession': grpc.unary_unary_rpc_method_handler(
                     servicer.StartSession,
                     request_deserializer=charging__service__pb2.StartSessionRequest.FromString,
@@ -169,6 +207,16 @@ def add_ChargingServiceServicer_to_server(servicer, server):
                     servicer.StopSession,
                     request_deserializer=charging__service__pb2.StopSessionRequest.FromString,
                     response_serializer=charging__service__pb2.StopSessionResponse.SerializeToString,
+            ),
+            'GetChargingAccountInfo': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetChargingAccountInfo,
+                    request_deserializer=charging__service__pb2.GetChargingAccountInfoRequest.FromString,
+                    response_serializer=charging__service__pb2.GetChargingAccountInfoResponse.SerializeToString,
+            ),
+            'GetChargingAccountInfoV2': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetChargingAccountInfoV2,
+                    request_deserializer=charging__service__pb2.GetChargingAccountInfoRequest.FromString,
+                    response_serializer=charging__service__pb2.GetChargingAccountInfoV2Response.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -344,6 +392,33 @@ class ChargingService(object):
             _registered_method=True)
 
     @staticmethod
+    def DeleteRFID(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.ChargingService/DeleteRFID',
+            charging__service__pb2.DeleteRFIDRequest.SerializeToString,
+            charging__service__pb2.DeleteRFIDResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
     def StartSession(request,
             target,
             options=(),
@@ -387,6 +462,60 @@ class ChargingService(object):
             '/mobilegateway.protos.ChargingService/StopSession',
             charging__service__pb2.StopSessionRequest.SerializeToString,
             charging__service__pb2.StopSessionResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetChargingAccountInfo(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.ChargingService/GetChargingAccountInfo',
+            charging__service__pb2.GetChargingAccountInfoRequest.SerializeToString,
+            charging__service__pb2.GetChargingAccountInfoResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def GetChargingAccountInfoV2(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.ChargingService/GetChargingAccountInfoV2',
+            charging__service__pb2.GetChargingAccountInfoRequest.SerializeToString,
+            charging__service__pb2.GetChargingAccountInfoV2Response.FromString,
             options,
             channel_credentials,
             insecure,

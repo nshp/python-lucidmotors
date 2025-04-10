@@ -2,24 +2,133 @@ syntax = "proto3";
 
 package mobilegateway.protos;
 
+import "google/protobuf/timestamp.proto";
+
+enum EventType {
+  EVENT_TYPE_UNDEFINED = 0;
+  EVENT_TYPE_COLLISION = 1;
+  EVENT_TYPE_BREAKIN = 2;
+  EVENT_TYPE_TOWING = 3;
+};
+
+enum EventThreatLevel {
+  EVENT_THREAT_LEVEL_UNDEFINED = 0;
+  EVENT_THREAT_LEVEL_1 = 1; // light threat; someone walking by
+  EVENT_THREAT_LEVEL_2 = 2; // high threat; someone tampering with the vehicle
+  EVENT_THREAT_LEVEL_3 = 3; // security breach; collision, dent, or interior intrusion
+};
+
+message EventGeoLocation {
+  double latitude = 1;
+  double longitude = 2;
+}
+
+enum MediaFormat {
+  MEDIA_FORMAT_UNDEFINED = 0;
+  MEDIA_FORMAT_JPEG = 1;
+}
+
+enum MediaSource {
+  MEDIA_SOURCE_UNDEFINED = 0;
+  MEDIA_SOURCE_FRONT_LEFT_CAMERA = 1;
+  MEDIA_SOURCE_FRONT_RIGHT_CAMERA = 2;
+  MEDIA_SOURCE_REAR_LEFT_CAMERA = 3;
+  MEDIA_SOURCE_REAR_RIGHT_CAMERA = 4;
+  MEDIA_SOURCE_INTERIOR_CAMERA = 5;
+}
+
+message MediaInfo {
+  string name = 1;
+  uint64 media_size = 2;
+  MediaFormat media_format = 3;
+  MediaSource media_source = 4;
+  string md5_checksum = 5;
+}
+
+enum MediaType {
+  MEDIA_TYPE_UNDEFINED = 0;
+  MEDIA_TYPE_IMAGE = 1;
+}
+
+message Media {
+  MediaInfo media_info = 1;
+  MediaType media_type = 2;
+  string media_download_url = 3;
+}
+
+message Event {
+  string event_id = 1;
+  string vehicle_id = 2;
+  string hmi_event_id = 3;
+  string primary_user_id = 4;
+  EventGeoLocation event_geo_location = 5;
+  EventThreatLevel event_threat_level = 6;
+  EventType event_type = 7;
+  .google.protobuf.Timestamp recorded_at = 8;
+  repeated Media media_list = 9;
+}
+
+message GetEventRequest {
+  string event_id = 1;
+}
+
+message GetEventResponse {
+  Event event = 1;
+}
+
 message GetEventsRequest {
     string vehicle_id = 1;
-    string a = 2;
-    uint32 limit = 3;
-    uint32 b = 4;
+    uint64 offset = 2;
+    uint64 limit = 3;
+    google.protobuf.Timestamp start_time_utc = 4;
+    google.protobuf.Timestamp end_time_utc = 5;
 }
 
 message GetEventsResponse {
+    repeated Event events = 1;
+}
+
+enum SentryModeState {
+  SENTRY_MODE_STATE_UNKNOWN = 0;
+  SENTRY_MODE_ENABLED = 1;
+  SENTRY_MODE_DISABLED = 2;
 }
 
 message SetSentryModeRequest {
     string vehicle_id = 1;
-    uint32 state = 2;
+    SentryModeState state = 2;
 }
-message SetSentryModeResponse {
+message SetSentryModeResponse {}
+
+message SetEnhancedDeterrenceRequest {
+  string vehicle_id = 1;
+  SentryModeState state = 2;
 }
+message SetEnhancedDeterrenceResponse {}
+
+message SetSentryModeAtHomeRequest {
+    string vehicle_id = 1;
+    SentryModeState state = 2;
+}
+message SetSentryModeAtHomeResponse {}
+
+message SetSentryModeAtWorkRequest {
+    string vehicle_id = 1;
+    SentryModeState state = 2;
+}
+message SetSentryModeAtWorkResponse {}
+
+message TurnOffSentryAlarmRequest {
+    string vehicle_id = 1;
+}
+message TurnOffSentryAlarmResponse {}
 
 service SentryService {
+    rpc GetEvent(GetEventRequest) returns (GetEventResponse);
     rpc GetEvents(GetEventsRequest) returns (GetEventsResponse) {}
     rpc SetSentryMode(SetSentryModeRequest) returns (SetSentryModeResponse) {}
+    rpc SetEnhancedDeterrence(SetEnhancedDeterrenceRequest) returns (SetEnhancedDeterrenceResponse);
+    rpc SetSentryModeAtHome(SetSentryModeAtHomeRequest) returns (SetSentryModeAtHomeResponse) {}
+    rpc SetSentryModeAtWork(SetSentryModeAtWorkRequest) returns (SetSentryModeAtWorkResponse) {}
+    rpc TurnOffSentryAlarm(TurnOffSentryAlarmRequest) returns (TurnOffSentryAlarmResponse) {}
 }

@@ -90,11 +90,17 @@ class ChargingAccountStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     CHARGING_ACCOUNT_STATUS_UNKNOWN: _ClassVar[ChargingAccountStatus]
     CHARGING_ACCOUNT_STATUS_DISABLED: _ClassVar[ChargingAccountStatus]
     CHARGING_ACCOUNT_STATUS_ENROLLED: _ClassVar[ChargingAccountStatus]
+    CHARGING_ACCOUNT_STATUS_ENROLL_ERROR: _ClassVar[ChargingAccountStatus]
+    CHARGING_ACCOUNT_STATUS_TERMINATED: _ClassVar[ChargingAccountStatus]
+    CHARGING_ACCOUNT_STATUS_BACKED_UP: _ClassVar[ChargingAccountStatus]
+    CHARGING_ACCOUNT_STATUS_EMAIL_UNVERIFIED: _ClassVar[ChargingAccountStatus]
+    CHARGING_ACCOUNT_STATUS_SUSPENDED: _ClassVar[ChargingAccountStatus]
 
 class ChargingVendor(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     CHARGING_VENDOR_UNKNOWN: _ClassVar[ChargingVendor]
     CHARGING_VENDOR_ELECTRIFY_AMERICA: _ClassVar[ChargingVendor]
+    CHARGING_VENDOR_ELECTRIFY_CANADA: _ClassVar[ChargingVendor]
     CHARGING_VENDOR_BOSCH: _ClassVar[ChargingVendor]
 
 class Edition(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
@@ -905,8 +911,14 @@ SUBSCRIPTION_STATUS_CURRENT: SubscriptionStatus
 CHARGING_ACCOUNT_STATUS_UNKNOWN: ChargingAccountStatus
 CHARGING_ACCOUNT_STATUS_DISABLED: ChargingAccountStatus
 CHARGING_ACCOUNT_STATUS_ENROLLED: ChargingAccountStatus
+CHARGING_ACCOUNT_STATUS_ENROLL_ERROR: ChargingAccountStatus
+CHARGING_ACCOUNT_STATUS_TERMINATED: ChargingAccountStatus
+CHARGING_ACCOUNT_STATUS_BACKED_UP: ChargingAccountStatus
+CHARGING_ACCOUNT_STATUS_EMAIL_UNVERIFIED: ChargingAccountStatus
+CHARGING_ACCOUNT_STATUS_SUSPENDED: ChargingAccountStatus
 CHARGING_VENDOR_UNKNOWN: ChargingVendor
 CHARGING_VENDOR_ELECTRIFY_AMERICA: ChargingVendor
+CHARGING_VENDOR_ELECTRIFY_CANADA: ChargingVendor
 CHARGING_VENDOR_BOSCH: ChargingVendor
 EDITION_UNKNOWN: Edition
 EDITION_PERFORMANCE: Edition
