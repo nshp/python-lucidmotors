@@ -6,6 +6,7 @@ from enum import Enum
 class Region(Enum):
     US = 'us'
     SA = 'sa'
+    ME = 'me' # Middle East
     EU = 'eu'
 
     @property
@@ -17,7 +18,8 @@ class Region(Enum):
 # their mobile apps for now.
 MOBILE_API_REGIONS = {
     Region.US: "mobile.deneb.prod.infotainment.pdx.atieva.com",
-    Region.SA: "mobile.ksap.prod.do.lucidcars.io",
+    Region.SA: "mobile.ksag.prod.do.lucidcars.io",
+    Region.ME: "mobile.ksap.prod.do.lucidcars.io",
     Region.EU: "mobile.do.prod.eu.lcid.io",
 }
 
