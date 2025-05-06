@@ -11,6 +11,11 @@ class AccessLevel(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     ACCESS_LEVEL_UNKNOWN: _ClassVar[AccessLevel]
     ACCESS_LEVEL_PREDELIVERY_OWNER: _ClassVar[AccessLevel]
     ACCESS_LEVEL_PRIMARY_OWNER: _ClassVar[AccessLevel]
+    ACCESS_LEVEL_SECONDARY_OWNER: _ClassVar[AccessLevel]
+    ACCESS_LEVEL_DELIVERY_TEAM: _ClassVar[AccessLevel]
+    ACCESS_LEVEL_SERVICE_TEAM: _ClassVar[AccessLevel]
+    ACCESS_LEVEL_CUSTOMER_SUPPORT_TEAM: _ClassVar[AccessLevel]
+    ACCESS_LEVEL_READ_ONLY: _ClassVar[AccessLevel]
 
 class Model(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -41,6 +46,10 @@ class PaintColor(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     PAINT_COLOR_FATHOM_BLUE: _ClassVar[PaintColor]
     PAINT_COLOR_CUSTOM: _ClassVar[PaintColor]
     PAINT_COLOR_SAPPHIRE_BLUE: _ClassVar[PaintColor]
+    PAINT_COLOR_LUNAR_TITANIUM: _ClassVar[PaintColor]
+    PAINT_COLOR_AURORA_GREEN: _ClassVar[PaintColor]
+    PAINT_COLOR_SUPERNOVA_BRONZE: _ClassVar[PaintColor]
+    PAINT_COLOR_GLOSS_BLACK_PRIMARY: _ClassVar[PaintColor]
 
 class Look(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -58,6 +67,7 @@ class Wheels(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     WHEELS_BLADE: _ClassVar[Wheels]
     WHEELS_LITE: _ClassVar[Wheels]
     WHEELS_RANGE: _ClassVar[Wheels]
+    WHEELS_SPORT: _ClassVar[Wheels]
     WHEELS_SPORT_STEALTH: _ClassVar[Wheels]
     WHEELS_BLADE_GRAPHITE: _ClassVar[Wheels]
     WHEELS_LITE_STEALTH: _ClassVar[Wheels]
@@ -122,6 +132,7 @@ class RoofType(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     ROOF_TYPE_UNKNOWN: _ClassVar[RoofType]
     ROOF_TYPE_GLASS_CANOPY: _ClassVar[RoofType]
     ROOF_TYPE_METAL: _ClassVar[RoofType]
+    ROOF_TYPE_CARBON_FIBER: _ClassVar[RoofType]
 
 class FrontSeatsVentilationAvailability(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -663,6 +674,11 @@ class CreatureComfortMode(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
 ACCESS_LEVEL_UNKNOWN: AccessLevel
 ACCESS_LEVEL_PREDELIVERY_OWNER: AccessLevel
 ACCESS_LEVEL_PRIMARY_OWNER: AccessLevel
+ACCESS_LEVEL_SECONDARY_OWNER: AccessLevel
+ACCESS_LEVEL_DELIVERY_TEAM: AccessLevel
+ACCESS_LEVEL_SERVICE_TEAM: AccessLevel
+ACCESS_LEVEL_CUSTOMER_SUPPORT_TEAM: AccessLevel
+ACCESS_LEVEL_READ_ONLY: AccessLevel
 MODEL_UNKNOWN: Model
 MODEL_AIR: Model
 MODEL_GRAVITY: Model
@@ -684,6 +700,10 @@ PAINT_COLOR_ZENITH_RED: PaintColor
 PAINT_COLOR_FATHOM_BLUE: PaintColor
 PAINT_COLOR_CUSTOM: PaintColor
 PAINT_COLOR_SAPPHIRE_BLUE: PaintColor
+PAINT_COLOR_LUNAR_TITANIUM: PaintColor
+PAINT_COLOR_AURORA_GREEN: PaintColor
+PAINT_COLOR_SUPERNOVA_BRONZE: PaintColor
+PAINT_COLOR_GLOSS_BLACK_PRIMARY: PaintColor
 LOOK_UNKNOWN: Look
 LOOK_PLATINUM: Look
 LOOK_STEALTH: Look
@@ -695,6 +715,7 @@ WHEELS_DREAM: Wheels
 WHEELS_BLADE: Wheels
 WHEELS_LITE: Wheels
 WHEELS_RANGE: Wheels
+WHEELS_SPORT: Wheels
 WHEELS_SPORT_STEALTH: Wheels
 WHEELS_BLADE_GRAPHITE: Wheels
 WHEELS_LITE_STEALTH: Wheels
@@ -735,6 +756,7 @@ STRUT_TYPE_POWER: StrutType
 ROOF_TYPE_UNKNOWN: RoofType
 ROOF_TYPE_GLASS_CANOPY: RoofType
 ROOF_TYPE_METAL: RoofType
+ROOF_TYPE_CARBON_FIBER: RoofType
 FRONT_SEATS_VENTILATION_UNKNOWN: FrontSeatsVentilationAvailability
 FRONT_SEATS_VENTILATION_UNAVAILABLE: FrontSeatsVentilationAvailability
 FRONT_SEATS_VENTILATION_AVAILABLE: FrontSeatsVentilationAvailability
