@@ -1,0 +1,13 @@
+ConnectToDeviceRequest
+ConfirmResetPinRequest
+DisconnectFromDeviceRequest
+DiscoverServicesRequest
+ManualPermissionRequest
+NegotiateMtuRequest
+PerformanceModeRequest
+PhoneKeyBluetoothConnectRequest
+PhoneKeyCancelLinkRequest
+PhoneKeyLinkingRequest
+ReadCharacteristicRequest
+ScanForDevicesRequest
+ReadCharacteristicRequest
