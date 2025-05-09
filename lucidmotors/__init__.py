@@ -110,6 +110,9 @@ from .gen.vehicle_state_service_pb2 import (
     SecondRowHeatedSeatsAvailability,
     RearSeatConfig,
     HeatedSteeringWheelAvailability,
+    TcuDownloadStatus,
+    SoftwareDownloadStatus,
+    SoftwareDownloadInterface,
 )
 from .gen.charging_service_pb2 import (
     DateTime,
@@ -171,6 +174,7 @@ def enum_to_str(enum_type: EnumTypeWrapper, value: int) -> str:
             | (VSS.EnergyType, EnergyType.ENERGY_TYPE_UNKNOWN)
             | (VSS.DriveMode, DriveMode.DRIVE_MODE_UNKNOWN)
             | (VSS.GearPosition, GearPosition.GEAR_UNKNOWN)
+            | (VSS.TcuDownloadStatus, TcuDownloadStatus.TCU_SOFTWARE_DOWNLOAD_STATUS_UNKNOWN)
         ):
             return "Unknown"
 
@@ -220,6 +224,14 @@ def enum_to_str(enum_type: EnumTypeWrapper, value: int) -> str:
             return "Custom"
         case (VSS.PaintColor, PaintColor.PAINT_COLOR_SAPPHIRE_BLUE):
             return "Sapphire Blue"
+        case (VSS.PaintColor, PaintColor.PAINT_COLOR_LUNAR_TITANIUM):
+            return "Lunar Titanium"
+        case (VSS.PaintColor, PaintColor.PAINT_COLOR_AURORA_GREEN):
+            return "Aurora Green"
+        case (VSS.PaintColor, PaintColor.PAINT_COLOR_SUPERNOVA_BRONZE):
+            return "Supernova Bronze"
+        case (VSS.PaintColor, PaintColor.PAINT_COLOR_GLOSS_BLACK_PRIMARY):
+            return "Gloss Black Primary"
 
         case (VSS.Look, Look.LOOK_PLATINUM):
             return "Platinum"
@@ -299,6 +311,8 @@ def enum_to_str(enum_type: EnumTypeWrapper, value: int) -> str:
             return "Transport"
         case (VSS.DriveMode, DriveMode.DRIVE_MODE_TOW):
             return "Tow"
+        case (VSS.DriveMode, DriveMode.DRIVE_MODE_TEST_DRIVE):
+            return "Test Drive"
 
         case (VSS.GearPosition, GearPosition.GEAR_PARK):
             return "Park"
@@ -308,6 +322,19 @@ def enum_to_str(enum_type: EnumTypeWrapper, value: int) -> str:
             return "Neutral"
         case (VSS.GearPosition, GearPosition.GEAR_DRIVE):
             return "Drive"
+
+        case (VSS.TcuDownloadStatus, TcuDownloadStatus.TCU_SOFTWARE_DOWNLOAD_STATUS_IDLE):
+            return "Idle"
+        case (VSS.TcuDownloadStatus, TcuDownloadStatus.TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOADING):
+            return "Downloading"
+        case (VSS.TcuDownloadStatus, TcuDownloadStatus.TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_PAUSED):
+            return "Paused"
+        case (VSS.TcuDownloadStatus, TcuDownloadStatus.TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_COMPLETE):
+            return "Complete"
+        case (VSS.TcuDownloadStatus, TcuDownloadStatus.TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_FAILED):
+            return "Failed"
+        case (VSS.TcuDownloadStatus, TcuDownloadStatus.TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_CANCELED):
+            return "Canceled"
 
         case _:
             if value in enum_type.values():
