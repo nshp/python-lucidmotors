@@ -174,7 +174,10 @@ def enum_to_str(enum_type: EnumTypeWrapper, value: int) -> str:
             | (VSS.EnergyType, EnergyType.ENERGY_TYPE_UNKNOWN)
             | (VSS.DriveMode, DriveMode.DRIVE_MODE_UNKNOWN)
             | (VSS.GearPosition, GearPosition.GEAR_UNKNOWN)
-            | (VSS.TcuDownloadStatus, TcuDownloadStatus.TCU_SOFTWARE_DOWNLOAD_STATUS_UNKNOWN)
+            | (
+                VSS.TcuDownloadStatus,
+                TcuDownloadStatus.TCU_SOFTWARE_DOWNLOAD_STATUS_UNKNOWN,
+            )
         ):
             return "Unknown"
 
@@ -323,17 +326,35 @@ def enum_to_str(enum_type: EnumTypeWrapper, value: int) -> str:
         case (VSS.GearPosition, GearPosition.GEAR_DRIVE):
             return "Drive"
 
-        case (VSS.TcuDownloadStatus, TcuDownloadStatus.TCU_SOFTWARE_DOWNLOAD_STATUS_IDLE):
+        case (
+            VSS.TcuDownloadStatus,
+            TcuDownloadStatus.TCU_SOFTWARE_DOWNLOAD_STATUS_IDLE,
+        ):
             return "Idle"
-        case (VSS.TcuDownloadStatus, TcuDownloadStatus.TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOADING):
+        case (
+            VSS.TcuDownloadStatus,
+            TcuDownloadStatus.TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOADING,
+        ):
             return "Downloading"
-        case (VSS.TcuDownloadStatus, TcuDownloadStatus.TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_PAUSED):
+        case (
+            VSS.TcuDownloadStatus,
+            TcuDownloadStatus.TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_PAUSED,
+        ):
             return "Paused"
-        case (VSS.TcuDownloadStatus, TcuDownloadStatus.TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_COMPLETE):
+        case (
+            VSS.TcuDownloadStatus,
+            TcuDownloadStatus.TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_COMPLETE,
+        ):
             return "Complete"
-        case (VSS.TcuDownloadStatus, TcuDownloadStatus.TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_FAILED):
+        case (
+            VSS.TcuDownloadStatus,
+            TcuDownloadStatus.TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_FAILED,
+        ):
             return "Failed"
-        case (VSS.TcuDownloadStatus, TcuDownloadStatus.TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_CANCELED):
+        case (
+            VSS.TcuDownloadStatus,
+            TcuDownloadStatus.TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_CANCELED,
+        ):
             return "Canceled"
 
         case _:
