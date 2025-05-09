@@ -99,6 +99,7 @@ from .gen.vehicle_state_service_pb2 import (
     DocumentType,
     WindowSwitchState,
     WindowPositionStatus,
+    AllWindowPosition,
     SeatClimateMode,
     MaxACState,
     SteeringHeaterStatus,
@@ -140,7 +141,7 @@ from .gen.salesforce_service_pb2 import (
     ReferralData,
 )
 
-__version__ = "1.2.0"
+__version__ = "1.2.1"
 
 _LOGGER = logging.getLogger(__name__)
 

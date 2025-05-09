@@ -255,6 +255,12 @@ class WindowPositionStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     WINDOW_POSITION_STATUS_SHORT_DROP_POSITION: _ClassVar[WindowPositionStatus]
     WINDOW_POSITION_STATUS_BELOW_SHORT_DROP_POSITION: _ClassVar[WindowPositionStatus]
     WINDOW_POSITION_STATUS_FULLY_OPEN: _ClassVar[WindowPositionStatus]
+    WINDOW_POSITION_STATUS_UNKNOWN_DE_INITIALIZED: _ClassVar[WindowPositionStatus]
+    WINDOW_POSITION_STATUS_ATP_REVERSE_POSITION: _ClassVar[WindowPositionStatus]
+    WINDOW_POSITION_STATUS_HARD_STOP_UP: _ClassVar[WindowPositionStatus]
+    WINDOW_POSITION_STATUS_HARD_STOP_DOWN: _ClassVar[WindowPositionStatus]
+    WINDOW_POSITION_STATUS_LONG_DROP_POSITION: _ClassVar[WindowPositionStatus]
+    WINDOW_POSITION_STATUS_VENT_DROP_POSITION: _ClassVar[WindowPositionStatus]
     WINDOW_POSITION_STATUS_BETWEEN_FULLY_CLOSED_AND_SHORT_DROP_DOWN: _ClassVar[WindowPositionStatus]
     WINDOW_POSITION_STATUS_BETWEEN_SHORT_DROP_DOWN_AND_FULLY_OPEN: _ClassVar[WindowPositionStatus]
 
@@ -381,7 +387,9 @@ class UpdateState(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     UPDATE_STATE_IN_PROGRESS: _ClassVar[UpdateState]
     UPDATE_STATE_SUCCESS: _ClassVar[UpdateState]
     UPDATE_STATE_FAILED: _ClassVar[UpdateState]
+    UPDATE_STATE_WAITING_ON_BCM: _ClassVar[UpdateState]
     UPDATE_FAILED_DRIVE_ALLOWED: _ClassVar[UpdateState]
+    UPDATE_FAILED_NO_ACTION: _ClassVar[UpdateState]
     UPDATE_SUCCESS_WITH_WARNINGS: _ClassVar[UpdateState]
     UPDATE_NOTSTARTED_WITH_WARNINGS: _ClassVar[UpdateState]
 
@@ -399,6 +407,27 @@ class TcuDownloadStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_COMPLETE: _ClassVar[TcuDownloadStatus]
     TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_FAILED: _ClassVar[TcuDownloadStatus]
     TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_CANCELED: _ClassVar[TcuDownloadStatus]
+
+class SoftwareDownloadStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    SOFTWARE_DOWNLOAD_STATUS_UNKNOWN: _ClassVar[SoftwareDownloadStatus]
+    SOFTWARE_DOWNLOAD_STATUS_IDLE: _ClassVar[SoftwareDownloadStatus]
+    SOFTWARE_DOWNLOAD_STATUS_DOWNLOADING: _ClassVar[SoftwareDownloadStatus]
+    SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_PAUSED: _ClassVar[SoftwareDownloadStatus]
+    SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_COMPLETE: _ClassVar[SoftwareDownloadStatus]
+    SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_FAILED: _ClassVar[SoftwareDownloadStatus]
+    SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_CANCELED: _ClassVar[SoftwareDownloadStatus]
+    SOFTWARE_DOWNLOAD_STATUS_WAITING_ON_WIFI: _ClassVar[SoftwareDownloadStatus]
+    SOFTWARE_DOWNLOAD_STATUS_WAITING_ON_LTE: _ClassVar[SoftwareDownloadStatus]
+    SOFTWARE_DOWNLOAD_STATUS_PAUSED_WAITING_ON_WIFI: _ClassVar[SoftwareDownloadStatus]
+
+class SoftwareDownloadInterface(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    SOFTWARE_DOWNLOAD_INTERFACE_UNKNOWN: _ClassVar[SoftwareDownloadInterface]
+    SOFTWARE_DOWNLOAD_INTERFACE_IDLE: _ClassVar[SoftwareDownloadInterface]
+    SOFTWARE_DOWNLOAD_INTERFACE_WIFI_ONLY: _ClassVar[SoftwareDownloadInterface]
+    SOFTWARE_DOWNLOAD_INTERFACE_LTE: _ClassVar[SoftwareDownloadInterface]
+    SOFTWARE_DOWNLOAD_INTERFACE_ANY: _ClassVar[SoftwareDownloadInterface]
 
 class AlarmStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -828,6 +857,12 @@ WINDOW_POSITION_STATUS_ABOVE_SHORT_DROP_POSITION: WindowPositionStatus
 WINDOW_POSITION_STATUS_SHORT_DROP_POSITION: WindowPositionStatus
 WINDOW_POSITION_STATUS_BELOW_SHORT_DROP_POSITION: WindowPositionStatus
 WINDOW_POSITION_STATUS_FULLY_OPEN: WindowPositionStatus
+WINDOW_POSITION_STATUS_UNKNOWN_DE_INITIALIZED: WindowPositionStatus
+WINDOW_POSITION_STATUS_ATP_REVERSE_POSITION: WindowPositionStatus
+WINDOW_POSITION_STATUS_HARD_STOP_UP: WindowPositionStatus
+WINDOW_POSITION_STATUS_HARD_STOP_DOWN: WindowPositionStatus
+WINDOW_POSITION_STATUS_LONG_DROP_POSITION: WindowPositionStatus
+WINDOW_POSITION_STATUS_VENT_DROP_POSITION: WindowPositionStatus
 WINDOW_POSITION_STATUS_BETWEEN_FULLY_CLOSED_AND_SHORT_DROP_DOWN: WindowPositionStatus
 WINDOW_POSITION_STATUS_BETWEEN_SHORT_DROP_DOWN_AND_FULLY_OPEN: WindowPositionStatus
 MIRROR_FOLD_STATE_UNKNOWN: MirrorFoldState
@@ -909,7 +944,9 @@ UPDATE_STATE_UNKNOWN: UpdateState
 UPDATE_STATE_IN_PROGRESS: UpdateState
 UPDATE_STATE_SUCCESS: UpdateState
 UPDATE_STATE_FAILED: UpdateState
+UPDATE_STATE_WAITING_ON_BCM: UpdateState
 UPDATE_FAILED_DRIVE_ALLOWED: UpdateState
+UPDATE_FAILED_NO_ACTION: UpdateState
 UPDATE_SUCCESS_WITH_WARNINGS: UpdateState
 UPDATE_NOTSTARTED_WITH_WARNINGS: UpdateState
 UPDATE_AVAILABILITY_UNKNOWN: UpdateAvailability
@@ -921,6 +958,21 @@ TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_PAUSED: TcuDownloadStatus
 TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_COMPLETE: TcuDownloadStatus
 TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_FAILED: TcuDownloadStatus
 TCU_SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_CANCELED: TcuDownloadStatus
+SOFTWARE_DOWNLOAD_STATUS_UNKNOWN: SoftwareDownloadStatus
+SOFTWARE_DOWNLOAD_STATUS_IDLE: SoftwareDownloadStatus
+SOFTWARE_DOWNLOAD_STATUS_DOWNLOADING: SoftwareDownloadStatus
+SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_PAUSED: SoftwareDownloadStatus
+SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_COMPLETE: SoftwareDownloadStatus
+SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_FAILED: SoftwareDownloadStatus
+SOFTWARE_DOWNLOAD_STATUS_DOWNLOAD_CANCELED: SoftwareDownloadStatus
+SOFTWARE_DOWNLOAD_STATUS_WAITING_ON_WIFI: SoftwareDownloadStatus
+SOFTWARE_DOWNLOAD_STATUS_WAITING_ON_LTE: SoftwareDownloadStatus
+SOFTWARE_DOWNLOAD_STATUS_PAUSED_WAITING_ON_WIFI: SoftwareDownloadStatus
+SOFTWARE_DOWNLOAD_INTERFACE_UNKNOWN: SoftwareDownloadInterface
+SOFTWARE_DOWNLOAD_INTERFACE_IDLE: SoftwareDownloadInterface
+SOFTWARE_DOWNLOAD_INTERFACE_WIFI_ONLY: SoftwareDownloadInterface
+SOFTWARE_DOWNLOAD_INTERFACE_LTE: SoftwareDownloadInterface
+SOFTWARE_DOWNLOAD_INTERFACE_ANY: SoftwareDownloadInterface
 ALARM_STATUS_UNKNOWN: AlarmStatus
 ALARM_STATUS_DISARMED: AlarmStatus
 ALARM_STATUS_ARMED: AlarmStatus
@@ -1392,7 +1444,7 @@ class Gps(_message.Message):
     def __init__(self, location: _Optional[_Union[Location, _Mapping]] = ..., elevation: _Optional[int] = ..., position_time: _Optional[int] = ..., heading_precise: _Optional[float] = ...) -> None: ...
 
 class SoftwareUpdate(_message.Message):
-    __slots__ = ("version_available", "install_duration_minutes", "percent_complete", "state", "version_available_raw", "update_available", "scheduled_start_time_sec", "tcu_download_status")
+    __slots__ = ("version_available", "install_duration_minutes", "percent_complete", "state", "version_available_raw", "update_available", "scheduled_start_time_sec", "download_status", "download_interface", "tcu_download_status")
     VERSION_AVAILABLE_FIELD_NUMBER: _ClassVar[int]
     INSTALL_DURATION_MINUTES_FIELD_NUMBER: _ClassVar[int]
     PERCENT_COMPLETE_FIELD_NUMBER: _ClassVar[int]
@@ -1400,6 +1452,8 @@ class SoftwareUpdate(_message.Message):
     VERSION_AVAILABLE_RAW_FIELD_NUMBER: _ClassVar[int]
     UPDATE_AVAILABLE_FIELD_NUMBER: _ClassVar[int]
     SCHEDULED_START_TIME_SEC_FIELD_NUMBER: _ClassVar[int]
+    DOWNLOAD_STATUS_FIELD_NUMBER: _ClassVar[int]
+    DOWNLOAD_INTERFACE_FIELD_NUMBER: _ClassVar[int]
     TCU_DOWNLOAD_STATUS_FIELD_NUMBER: _ClassVar[int]
     version_available: str
     install_duration_minutes: int
@@ -1408,8 +1462,10 @@ class SoftwareUpdate(_message.Message):
     version_available_raw: int
     update_available: UpdateAvailability
     scheduled_start_time_sec: int
+    download_status: SoftwareDownloadStatus
+    download_interface: SoftwareDownloadInterface
     tcu_download_status: TcuDownloadStatus
-    def __init__(self, version_available: _Optional[str] = ..., install_duration_minutes: _Optional[int] = ..., percent_complete: _Optional[int] = ..., state: _Optional[_Union[UpdateState, str]] = ..., version_available_raw: _Optional[int] = ..., update_available: _Optional[_Union[UpdateAvailability, str]] = ..., scheduled_start_time_sec: _Optional[int] = ..., tcu_download_status: _Optional[_Union[TcuDownloadStatus, str]] = ...) -> None: ...
+    def __init__(self, version_available: _Optional[str] = ..., install_duration_minutes: _Optional[int] = ..., percent_complete: _Optional[int] = ..., state: _Optional[_Union[UpdateState, str]] = ..., version_available_raw: _Optional[int] = ..., update_available: _Optional[_Union[UpdateAvailability, str]] = ..., scheduled_start_time_sec: _Optional[int] = ..., download_status: _Optional[_Union[SoftwareDownloadStatus, str]] = ..., download_interface: _Optional[_Union[SoftwareDownloadInterface, str]] = ..., tcu_download_status: _Optional[_Union[TcuDownloadStatus, str]] = ...) -> None: ...
 
 class AlarmState(_message.Message):
     __slots__ = ("status", "mode")
