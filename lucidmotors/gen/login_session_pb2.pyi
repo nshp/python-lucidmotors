@@ -141,8 +141,10 @@ class GetUserVehiclesResponse(_message.Message):
     def __init__(self, user_vehicle_data: _Optional[_Iterable[_Union[_vehicle_state_service_pb2.Vehicle, _Mapping]]] = ...) -> None: ...
 
 class LogoutRequest(_message.Message):
-    __slots__ = ()
-    def __init__(self) -> None: ...
+    __slots__ = ("notification_device_token",)
+    NOTIFICATION_DEVICE_TOKEN_FIELD_NUMBER: _ClassVar[int]
+    notification_device_token: str
+    def __init__(self, notification_device_token: _Optional[str] = ...) -> None: ...
 
 class LogoutResponse(_message.Message):
     __slots__ = ()

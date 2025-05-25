@@ -20,6 +20,7 @@ message UserProfileData {
     string last_name = 2;
     string email = 3;
     string locale = 4;
+    optional string photo_url = 5;
     string address = 6;
     string city = 7;
     string state = 8;
