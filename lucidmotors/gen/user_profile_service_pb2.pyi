@@ -27,11 +27,12 @@ class PhoneNumber(_message.Message):
     def __init__(self, number: _Optional[str] = ...) -> None: ...
 
 class UserProfileData(_message.Message):
-    __slots__ = ("first_name", "last_name", "email", "locale", "address", "city", "state", "postal_code", "country", "phone")
+    __slots__ = ("first_name", "last_name", "email", "locale", "photo_url", "address", "city", "state", "postal_code", "country", "phone")
     FIRST_NAME_FIELD_NUMBER: _ClassVar[int]
     LAST_NAME_FIELD_NUMBER: _ClassVar[int]
     EMAIL_FIELD_NUMBER: _ClassVar[int]
     LOCALE_FIELD_NUMBER: _ClassVar[int]
+    PHOTO_URL_FIELD_NUMBER: _ClassVar[int]
     ADDRESS_FIELD_NUMBER: _ClassVar[int]
     CITY_FIELD_NUMBER: _ClassVar[int]
     STATE_FIELD_NUMBER: _ClassVar[int]
@@ -42,13 +43,14 @@ class UserProfileData(_message.Message):
     last_name: str
     email: str
     locale: str
+    photo_url: str
     address: str
     city: str
     state: str
     postal_code: str
     country: str
     phone: PhoneNumber
-    def __init__(self, first_name: _Optional[str] = ..., last_name: _Optional[str] = ..., email: _Optional[str] = ..., locale: _Optional[str] = ..., address: _Optional[str] = ..., city: _Optional[str] = ..., state: _Optional[str] = ..., postal_code: _Optional[str] = ..., country: _Optional[str] = ..., phone: _Optional[_Union[PhoneNumber, _Mapping]] = ...) -> None: ...
+    def __init__(self, first_name: _Optional[str] = ..., last_name: _Optional[str] = ..., email: _Optional[str] = ..., locale: _Optional[str] = ..., photo_url: _Optional[str] = ..., address: _Optional[str] = ..., city: _Optional[str] = ..., state: _Optional[str] = ..., postal_code: _Optional[str] = ..., country: _Optional[str] = ..., phone: _Optional[_Union[PhoneNumber, _Mapping]] = ...) -> None: ...
 
 class SetUserProfileRequest(_message.Message):
     __slots__ = ()
