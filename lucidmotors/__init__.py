@@ -5,6 +5,7 @@ from typing import Optional, Any, Callable, TypeVar, Awaitable
 from datetime import datetime, timezone, timedelta
 from grpc.aio import ClientCallDetails, UnaryUnaryCall
 from google.protobuf.internal.enum_type_wrapper import EnumTypeWrapper
+from google.protobuf.timestamp_pb2 import Timestamp
 from base64 import b64encode
 
 import uuid
@@ -29,6 +30,8 @@ from .gen import (
     charging_service_pb2_grpc,
     salesforce_service_pb2,
     salesforce_service_pb2_grpc,
+    sentry_service_pb2,
+    sentry_service_pb2_grpc,
 )
 from .gen.login_session_pb2 import NotificationChannelType
 from .gen.user_profile_service_pb2 import UserProfile
@@ -62,7 +65,6 @@ from .gen.vehicle_state_service_pb2 import (
     WalkawayState,
     AccessRequest,
     BodyState,
-    LightState,
     LightAction,
     ChassisState,
     ChargeState,
@@ -121,7 +123,7 @@ from .gen.charging_service_pb2 import (
     Image,
     Operator,
     ChargingStatus,
-    ConnectorStandard,
+    ConnectorType,
     ConnectorFormat,
     PowerType,
     Connector,
@@ -131,7 +133,7 @@ from .gen.charging_service_pb2 import (
     FeeName,
     FeeType,
     Fee,
-    Cdr,
+    ChargingDataRecord,
 )
 from .gen.trip_service_pb2 import (
     WaypointType,
@@ -142,6 +144,11 @@ from .gen.salesforce_service_pb2 import (
     ReferralHistory,
     MemberAttributes,
     ReferralData,
+)
+from .gen.sentry_service_pb2 import (
+    SentryModeState,
+    GetEventResponse,
+    GetEventsResponse,
 )
 
 __version__ = "1.2.3"
@@ -428,6 +435,7 @@ class LucidAPI:
     _vehicle_service: vehicle_state_service_pb2_grpc.VehicleStateServiceStub
     _charging_service: charging_service_pb2_grpc.ChargingServiceStub
     _salesforce_service: salesforce_service_pb2_grpc.SalesforceServiceStub
+    _sentry_service: sentry_service_pb2_grpc.SentryServiceStub
 
     # Automatically wake sleeping vehicle along with commands?
     _auto_wake: bool
@@ -465,6 +473,7 @@ class LucidAPI:
         self._salesforce_service = salesforce_service_pb2_grpc.SalesforceServiceStub(
             self._channel
         )
+        self._sentry_service = sentry_service_pb2_grpc.SentryServiceStub(self._channel)
         self._refresh_token = None
         self._gigya_jwt = None
         self._token_expiry_time = None
@@ -523,7 +532,7 @@ class LucidAPI:
         request = login_session_pb2.LoginRequest(
             username=username,
             password=password,
-            notification_channel_type=NotificationChannelType.NOTIFICATION_CHANNEL_ONE,
+            notification_channel_type=NotificationChannelType.NOTIFICATION_CHANNEL_FIREBASE,
             notification_device_token=device_id,
             os=login_session_pb2.Os.OS_IOS,
             locale='en_US',
@@ -986,6 +995,188 @@ class LucidAPI:
         """
 
         await self.charging_control(vehicle, ChargeAction.CHARGE_ACTION_STOP)
+
+    async def sentry_mode_control(
+        self, vehicle: Vehicle, state: SentryModeState
+    ) -> None:
+        """
+        Enable or disable sentry mode for a specific vehicle.
+        """
+
+        if self._auto_wake and not self.vehicle_is_awake(vehicle):
+            await self.wakeup_vehicle(vehicle)
+
+        request = sentry_service_pb2.SetSentryModeRequest(
+            vehicle_id=vehicle.vehicle_id,
+            state=state,
+        )
+        await _check_for_api_error(self._sentry_service.SetSentryMode(request))
+
+    async def sentry_mode_on(self, vehicle: Vehicle) -> None:
+        """
+        Enable sentry mode for a specific vehicle.
+        """
+
+        await self.sentry_mode_control(vehicle, SentryModeState.SENTRY_MODE_ENABLED)
+
+    async def sentry_mode_off(self, vehicle: Vehicle) -> None:
+        """
+        Disable sentry mode for a specific vehicle.
+        """
+
+        await self.sentry_mode_control(vehicle, SentryModeState.SENTRY_MODE_DISABLED)
+
+    async def enhanced_deterrence_control(
+        self, vehicle: Vehicle, state: SentryModeState
+    ) -> None:
+        """
+        Enable or disable enhanced deterrence for a specific vehicle.
+        """
+
+        if self._auto_wake and not self.vehicle_is_awake(vehicle):
+            await self.wakeup_vehicle(vehicle)
+
+        request = sentry_service_pb2.SetEnhancedDeterrenceRequest(
+            vehicle_id=vehicle.vehicle_id,
+            state=state,
+        )
+        await _check_for_api_error(self._sentry_service.SetEnhancedDeterrence(request))
+
+    async def enhanced_deterrence_on(self, vehicle: Vehicle) -> None:
+        """
+        Enable enhanced deterrence for a specific vehicle.
+        """
+
+        await self.enhanced_deterrence_control(
+            vehicle, SentryModeState.SENTRY_MODE_ENABLED
+        )
+
+    async def enhanced_deterrence_off(self, vehicle: Vehicle) -> None:
+        """
+        Disable enhanced deterrence for a specific vehicle.
+        """
+
+        await self.enhanced_deterrence_control(
+            vehicle, SentryModeState.SENTRY_MODE_DISABLED
+        )
+
+    async def sentry_mode_at_home_control(
+        self, vehicle: Vehicle, state: SentryModeState
+    ) -> None:
+        """
+        Enable or disable sentry mode at home for a specific vehicle.
+        """
+
+        if self._auto_wake and not self.vehicle_is_awake(vehicle):
+            await self.wakeup_vehicle(vehicle)
+
+        request = sentry_service_pb2.SetSentryModeAtHomeRequest(
+            vehicle_id=vehicle.vehicle_id,
+            state=state,
+        )
+        await _check_for_api_error(self._sentry_service.SetSentryModeAtHome(request))
+
+    async def sentry_mode_at_home_on(self, vehicle: Vehicle) -> None:
+        """
+        Enable sentry mode at home for a specific vehicle.
+        """
+
+        await self.sentry_mode_at_home_control(
+            vehicle, SentryModeState.SENTRY_MODE_ENABLED
+        )
+
+    async def sentry_mode_at_home_off(self, vehicle: Vehicle) -> None:
+        """
+        Disable sentry mode at home for a specific vehicle.
+        """
+
+        await self.sentry_mode_at_home_control(
+            vehicle, SentryModeState.SENTRY_MODE_DISABLED
+        )
+
+    async def sentry_mode_at_work_control(
+        self, vehicle: Vehicle, state: SentryModeState
+    ) -> None:
+        """
+        Enable or disable sentry mode at work for a specific vehicle.
+        """
+
+        if self._auto_wake and not self.vehicle_is_awake(vehicle):
+            await self.wakeup_vehicle(vehicle)
+
+        request = sentry_service_pb2.SetSentryModeAtWorkRequest(
+            vehicle_id=vehicle.vehicle_id,
+            state=state,
+        )
+        await _check_for_api_error(self._sentry_service.SetSentryModeAtWork(request))
+
+    async def sentry_mode_at_work_on(self, vehicle: Vehicle) -> None:
+        """
+        Enable sentry mode at work for a specific vehicle.
+        """
+
+        await self.sentry_mode_at_work_control(
+            vehicle, SentryModeState.SENTRY_MODE_ENABLED
+        )
+
+    async def sentry_mode_at_work_off(self, vehicle: Vehicle) -> None:
+        """
+        Disable sentry mode at work for a specific vehicle.
+        """
+
+        await self.sentry_mode_at_work_control(
+            vehicle, SentryModeState.SENTRY_MODE_DISABLED
+        )
+
+    async def turn_off_sentry_alarm(self, vehicle: Vehicle) -> None:
+        """
+        Turn off the sentry alarm for a specific vehicle.
+        """
+
+        if self._auto_wake and not self.vehicle_is_awake(vehicle):
+            await self.wakeup_vehicle(vehicle)
+
+        request = sentry_service_pb2.TurnOffSentryAlarmRequest(
+            vehicle_id=vehicle.vehicle_id,
+        )
+        await _check_for_api_error(self._sentry_service.TurnOffSentryAlarm(request))
+
+    async def get_sentry_event(self, event_id: str) -> GetEventResponse:
+        """
+        Get a specific sentry event for a specific vehicle.
+        """
+
+        request = sentry_service_pb2.GetEventRequest(
+            event_id=event_id,
+        )
+        return await _check_for_api_error(self._sentry_service.GetEvent(request))
+
+    async def get_sentry_events(
+        self,
+        vehicle_id: str,
+        start_time_utc: datetime,
+        end_time_utc: datetime,
+        offset: int = 0,
+        limit: int = 100,
+    ) -> GetEventsResponse:
+        """
+        Get all sentry events for a specific vehicle.
+        """
+
+        start_time_utc_pb = Timestamp()
+        end_time_utc_pb = Timestamp()
+
+        start_time_utc_pb.FromDatetime(start_time_utc)
+        end_time_utc_pb.FromDatetime(end_time_utc)
+
+        request = sentry_service_pb2.GetEventsRequest(
+            vehicle_id=vehicle_id,
+            offset=offset,
+            limit=limit,
+            start_time_utc=start_time_utc_pb,
+            end_time_utc=end_time_utc_pb,
+        )
+        return await _check_for_api_error(self._sentry_service.GetEvents(request))
 
     async def alarm_control(self, vehicle: Vehicle, mode: AlarmMode) -> None:
         """

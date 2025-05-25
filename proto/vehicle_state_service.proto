@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package mobilegateway.protos;
 
+import "google/protobuf/timestamp.proto";
+
 enum AccessLevel {
     ACCESS_LEVEL_UNKNOWN = 0;
     ACCESS_LEVEL_PREDELIVERY_OWNER = 1;
@@ -69,6 +71,10 @@ enum Wheels {
     WHEELS_SPORT_LUSTER = 9;
     WHEELS_SAPPHIRE_PACKAGE = 10;
     WHEELS_RANGE_STEALTH = 11;
+    WHEELS_DREAM_MAGNESIUM = 12;
+    WHEELS_AETHER = 13;
+    WHEELS_ORION = 14;
+    WHEELS_VOYAGER = 15;
 }
 
 enum SubscriptionStatus {
@@ -87,11 +93,17 @@ enum ChargingAccountStatus {
     CHARGING_ACCOUNT_STATUS_UNKNOWN = 0;
     CHARGING_ACCOUNT_STATUS_DISABLED = 1;
     CHARGING_ACCOUNT_STATUS_ENROLLED = 2;
+    CHARGING_ACCOUNT_STATUS_ENROLL_ERROR = 3;
+    CHARGING_ACCOUNT_STATUS_TERMINATED = 4;
+    CHARGING_ACCOUNT_STATUS_BACKED_UP = 5;
+    CHARGING_ACCOUNT_STATUS_EMAIL_UNVERIFIED = 6;
+    CHARGING_ACCOUNT_STATUS_SUSPENDED = 7;
 }
 
 enum ChargingVendor {
     CHARGING_VENDOR_UNKNOWN = 0;
     CHARGING_VENDOR_ELECTRIFY_AMERICA = 1;
+    CHARGING_VENDOR_ELECTRIFY_CANADA = 2;
     CHARGING_VENDOR_BOSCH = 3;
 }
 
@@ -124,7 +136,21 @@ enum BatteryType {
     BATTERY_TYPE_07 = 7;
     BATTERY_TYPE_08 = 8;
     BATTERY_TYPE_09 = 9;
-    BATTERY_TYPE_25 = 25;
+    BATTERY_TYPE_13 = 10;
+    BATTERY_TYPE_14 = 11;
+    BATTERY_TYPE_15 = 12;
+    BATTERY_TYPE_10 = 13;
+    BATTERY_TYPE_11 = 14;
+    BATTERY_TYPE_12 = 15;
+    BATTERY_TYPE_16 = 16;
+    BATTERY_TYPE_17 = 17;
+    BATTERY_TYPE_18 = 18;
+    BATTERY_TYPE_19 = 19;
+    BATTERY_TYPE_20 = 20;
+    BATTERY_TYPE_21 = 21;
+    BATTERY_TYPE_22 = 22;
+    BATTERY_TYPE_23 = 23;
+    BATTERY_TYPE_24 = 24;
 }
 
 enum Interior {
@@ -132,7 +158,12 @@ enum Interior {
     INTERIOR_SANTA_CRUZ = 1;
     INTERIOR_TAHOE = 2;
     INTERIOR_MOJAVE = 3;
+    INTERIOR_MOJAVE_PURLUXE = 4;
     INTERIOR_SANTA_MONICA = 5;
+    INTERIOR_BIG_BASIN = 6;
+    INTERIOR_YOSEMITE = 7;
+    INTERIOR_OJAI = 8;
+    INTERIOR_SAPPHIRE = 9;
 }
 
 message SpecialIdentifiers {
@@ -235,10 +266,9 @@ enum BatteryCellType {
     BATTERY_CELL_TYPE_SDI_50G = 2;
     BATTERY_CELL_TYPE_PANA_2170M = 3;
     BATTERY_CELL_TYPE_SDI_50GV2 = 4;
-
-    // BATTERY_CELL_TYPE_LG_M52V = ?;
-    // BATTERY_CELL_TYPE_LG_M50L = ?;
-    // BATTERY_CELL_TYPE_LG_H40B = ?;
+    BATTERY_CELL_TYPE_LG_M52V = 5;
+    BATTERY_CELL_TYPE_LG_M50L = 6;
+    BATTERY_CELL_TYPE_LG_H40B = 7;
 }
 
 enum BatteryPackType {
@@ -278,6 +308,8 @@ enum PowerState {
     POWER_STATE_LIVE_CHARGE = 5;
     POWER_STATE_SLEEP_CHARGE = 6;
     POWER_STATE_LIVE_UPDATE = 7;
+    POWER_STATE_SLEEP_UPDATE = 8;
+    POWER_STATE_CLOUD_1 = 9;
     POWER_STATE_CLOUD_2 = 10;
     POWER_STATE_MONITOR = 11;
 }
@@ -298,10 +330,12 @@ enum DoorState {
     DOOR_STATE_OPEN = 1;
     DOOR_STATE_CLOSED = 2;
     DOOR_STATE_AJAR = 3;
+    DOOR_STATE_CLOSE_ERROR = 4;
 }
 
 enum WalkawayState {
     WALKAWAY_UNKNOWN = 0;
+    WALKAWAY_IDLE = 1;
     WALKAWAY_ACTIVE = 2;
     WALKAWAY_DISABLE = 3;
 }
@@ -337,6 +371,7 @@ enum WindowPositionStatus {
     WINDOW_POSITION_STATUS_FULLY_OPEN = 5;
     WINDOW_POSITION_STATUS_UNKNOWN_DE_INITIALIZED = 6;
     WINDOW_POSITION_STATUS_ATP_REVERSE_POSITION = 7;
+    WINDOW_POSITION_STATUS_ANTICLATTER_POSITION = 8;
     WINDOW_POSITION_STATUS_HARD_STOP_UP = 9;
     WINDOW_POSITION_STATUS_HARD_STOP_DOWN = 10;
     WINDOW_POSITION_STATUS_LONG_DROP_POSITION = 11;
@@ -387,17 +422,6 @@ message BodyState {
     WindowPositionState window_position = 16;
 }
 
-enum LightState {
-    /*
-     * There's an explicit unknown state here in addition to 0, which I guess
-     * is more like undefined?
-     */
-    LIGHT_STATE_REALLY_UNKNOWN = 0;
-    LIGHT_STATE_OFF = 1;
-    LIGHT_STATE_ON = 2;
-    LIGHT_STATE_UNKNOWN = 3;
-}
-
 enum LightAction {
     LIGHT_ACTION_UNKNOWN = 0;
     LIGHT_ACTION_FLASH = 1;
@@ -427,7 +451,8 @@ message ChassisState {
     double front_right_tire_pressure_bar = 3;
     double rear_left_tire_pressure_bar = 4;
     double rear_right_tire_pressure_bar = 5;
-    LightState headlights = 6;
+    LightAction headlights = 6;
+    LightAction hazard_lights = 7;
     WarningState hard_warn_left_front = 8;
     WarningState hard_warn_left_rear = 9;
     WarningState hard_warn_right_front = 10;
@@ -456,13 +481,26 @@ enum ChargeState {
     CHARGE_STATE_CHARGER_PREPARATION = 7;
     CHARGE_STATE_CHARGING = 8;
     CHARGE_STATE_CHARGING_END_OK = 9;
-    CHARGE_STATE_CHARGING_STOPPED = 10;
+    CHARGE_STATE_CHARGING_END_ERROR = 10;
     CHARGE_STATE_EVSE_MALFUNCTION = 11;
+    CHARGE_STATE_AUTHENTICATION_FAILURE = 12;
+    CHARGE_STATE_CHARGING_STOPPED = 13;
+    CHARGE_STATE_CHARGING_PAUSED = 14;
+    CHARGE_STATE_AUTHENTICATION_PNC_FAILURE = 15;
+    CHARGE_STATE_INTERNAL_HARDWARE_FAULT = 16;
+    CHARGE_STATE_READY_TO_DISCHARGE = 17;
+    CHARGE_STATE_PREPARING_DISCHARGE = 18;
     CHARGE_STATE_DISCHARGING = 19;
     CHARGE_STATE_DISCHARGING_COMPLETED = 20;
     CHARGE_STATE_DISCHARGING_STOPPED = 21;
     CHARGE_STATE_DISCHARGING_FAULT = 22;
     CHARGE_STATE_DISCHARGING_UNAVAILABLE = 23;
+    CHARGE_STATE_EVSE_NOT_READY = 25;
+    CHARGE_STATE_AC_INPUT_UNDER_VOLTAGE = 26;
+    CHARGE_STATE_CABLE_LOCK_FAULT = 27;
+    CHARGE_STATE_CABLE_CONNECTION_FAULT = 28;
+    CHARGE_STATE_TEMP_PROTECTION = 29;
+    CHARGE_STATE_CHARGING_SCHEDULED = 30;
 }
 
 enum ScheduledChargeState {
@@ -481,7 +519,9 @@ enum EnergyType {
     ENERGY_TYPE_UNKNOWN = 0;
     ENERGY_TYPE_AC = 1;
     ENERGY_TYPE_DC = 2;
+    ENERGY_TYPE_DIGITAL = 3;
     ENERGY_TYPE_V2V = 4;
+    ENERGY_TYPE_NONE = 5;
 }
 
 enum MobileDischargingCommand {
@@ -516,6 +556,37 @@ enum AcOutletUnavailableReason {
     AC_OUTLET_UNAVAILABLE_REASON_LOW_VEH_RANGE_CAMP = 8;
 }
 
+enum MobileChargingControlRequestEnum {
+    MOBILE_CHARGING_CONTROL_REQUEST_UNKNOWN = 0;
+    MOBILE_CHARGING_CONTROL_REQUEST_IDLE = 1;
+    MOBILE_CHARGING_CONTROL_REQUEST_START = 2;
+    MOBILE_CHARGING_CONTROL_REQUEST_STOP = 3;
+}
+
+enum FastChargingPreConditionRequestEnum {
+    FAST_CHARGING_PRE_CONDITION_REQUEST_UNKNOWN = 0;
+    FAST_CHARGING_PRE_CONDITION_REQUEST_IDLE = 1;
+    FAST_CHARGING_PRE_CONDITION_REQUEST_OFF = 2;
+    FAST_CHARGING_PRE_CONDITION_REQUEST_ON = 3;
+}
+
+enum ChargeNotification {
+  CHARGE_NOTIFICATION_IDLE = 0;
+  CHARGE_NOTIFICATION_DIGITAL_CHRG_SC_OVRIDE = 1;
+  CHARGE_NOTIFICATION_LOW_SOE_SC_OVRIDE = 2;
+  CHARGE_NOTIFICATION_CHARGING_SCHEDULED = 3;
+  CHARGE_NOTIFICATION_NACS_DC_CHRG_NOT_ALLWD = 4;
+}
+
+enum HvacKeepClimateCondition {
+  KEEP_CLIMATE_CONDITION_UNKNOWN = 0;
+  KEEP_CLIMATE_CONDITION_IDLE = 1;
+  KEEP_CLIMATE_CONDITION_OFF = 2;
+  KEEP_CLIMATE_CONDITION_ON_OCCUPIED = 3;
+  KEEP_CLIMATE_CONDITION_ON_NOT_OCCUPIED = 4;
+  KEEP_CLIMATE_CONDITION_INVALID = 8;
+}
+
 message ChargingState {
     ChargeState charge_state = 1;
     EnergyType energy_type = 2;
@@ -532,11 +603,15 @@ message ChargingState {
     ScheduledChargeState scheduled_charge = 17;
     ScheduledChargeUnavailableState scheduled_charge_unavailable = 18;
     double port_power = 19;
+    MobileChargingControlRequestEnum mobile_charging_control_request = 20;
+    int32 mobile_charging_target_soe_request = 21;
     AcOutletUnavailableReason ac_outlet_unavailable_reason = 22;
+    FastChargingPreConditionRequestEnum fast_charging_pre_condition_request = 23;
     MobileDischargingCommand discharge_command = 24;
     uint32 discharge_soe_limit = 25;
     uint32 discharge_target_soe = 26;
     double discharge_energy = 27;
+    ChargeNotification charge_notification = 28;
     uint32 active_session_ac_current_limit = 29;
     uint32 energy_ac_current_limit = 30;
     EaPncStatus ea_pnc_status = 31;
@@ -595,6 +670,13 @@ enum SoftwareDownloadStatus {
     SOFTWARE_DOWNLOAD_STATUS_PAUSED_WAITING_ON_WIFI = 9;
 }
 
+enum SoftwareRollbackState {
+  ROLLBACK_STATE_UNKNOWN = 0;
+  ROLLBACK_IN_PROGRESS = 1;
+  ROLLBACK_SUCCESS = 2;
+  ROLLBACK_FAILED = 3;
+}
+
 enum SoftwareDownloadInterface {
     SOFTWARE_DOWNLOAD_INTERFACE_UNKNOWN = 0;
     SOFTWARE_DOWNLOAD_INTERFACE_IDLE = 1;
@@ -608,6 +690,8 @@ message SoftwareUpdate {
     uint32 install_duration_minutes = 2;
     uint32 percent_complete = 4;
     UpdateState state = 5;
+    SoftwareRollbackState rollback_state = 6;
+    int32 rollback_percent_complete = 7;
     uint32 version_available_raw = 8;
     UpdateAvailability update_available = 9;
     uint64 scheduled_start_time_sec = 10;
@@ -620,6 +704,11 @@ enum AlarmStatus {
     ALARM_STATUS_UNKNOWN = 0;
     ALARM_STATUS_DISARMED = 1;
     ALARM_STATUS_ARMED = 2;
+    ALARM_STATUS_PRE_ALARM = 3;
+    ALARM_STATUS_TILT = 4;
+    ALARM_STATUS_SHOCK = 5;
+    ALARM_STATUS_INTRUSION = 6;
+    ALARM_STATUS_PANIC_MODE = 7;
 }
 
 enum AlarmMode {
@@ -640,18 +729,14 @@ enum CloudConnectionState {
     CLOUD_CONNECTION_DISCONNECTED = 2;
 }
 
-enum KeylessDrivingState {
-    KEYLESS_DRIVING_UNKNOWN = 0;
-    KEYLESS_DRIVING_ON = 1;
-    KEYLESS_DRIVING_OFF = 2;
-}
-
 enum HvacPower {
     HVAC_POWER_UNKNOWN = 0;
     HVAC_ON = 1;
     HVAC_OFF = 2;
     HVAC_PRECONDITION = 3;
+    HVAC_RESIDUAL_HEATING = 5;
     HVAC_KEEP_TEMP = 6;
+    HVAC_HEATSTROKE_PREVENTION = 7;
 }
 
 enum DefrostState {
@@ -675,10 +760,6 @@ enum KeepClimateStatus {
     KEEP_CLIMATE_STATUS_ENABLED = 2;
     KEEP_CLIMATE_STATUS_CANCELED = 3;
     KEEP_CLIMATE_STATUS_PET_MODE_ON = 4;
-}
-
-enum KeepClimateCondition {
-    KEEP_CLIMATE_CONDITION_UNKNOWN = 0;
 }
 
 enum SeatClimateMode {
@@ -738,7 +819,7 @@ message HvacState {
     DefrostState defrost = 2;
     HvacPreconditionStatus precondition_status = 3;
     KeepClimateStatus keep_climate_status = 5;
-    /* KeepClimateCondition keep_climate_condition = ???; */
+    HvacKeepClimateCondition keep_climate_condition = 6;
     MaxACState max_ac_status = 7;
     SeatClimateState seats = 8;
     SyncSet sync_set = 9;
@@ -768,6 +849,14 @@ enum DriveMode {
     DRIVE_MODE_TOW = 15;
     DRIVE_MODE_TEST_DRIVE = 16;
     DRIVE_MODE_RESERVED_3 = 17;
+    DRIVEMODE_TRACK_MODE_A = 19;
+    DRIVEMODE_TRACK_MODE_B = 20;
+    DRIVEMODE_TRACK_MODE_C = 21;
+    DRIVEMODE_TRAILER = 22;
+    DRIVEMODE_YOUNG_ADULT = 23;
+    DRIVEMODE_CAMPING = 24;
+    DRIVEMODE_TRAIN = 25;
+    DRIVEMODE_CUSTOM = 26;
 }
 
 enum PrivacyMode {
@@ -790,46 +879,33 @@ enum SharedTripState {
     SHARED_TRIP_PROFILE_UPDATED = 3;
 }
 
-enum PanicState {
-    PANIC_ALARM_UNKNOWN = 0;
-    PANIC_ALARM_ON = 1;
-}
-
 /* Set of pending requests from API? */
 message MobileAppReqState {
     AlarmMode alarm_set_request = 1;
     DoorState charge_port_request = 2;
+    LockState charge_lock_req = 3;
+    DoorState door_left_front_req = 4;
+    DoorState door_left_rear_req = 5;
+    DoorState door_right_front_req = 6;
+    DoorState door_right_rear_req = 7;
+    KeylessDrivingState drive_enable = 8;
     DoorState frunk_cargo_request = 9;
     DoorState horn_request = 10; /* That's right, the horn is a door. */
     DefrostState hvac_defrost = 11;
     HvacPower hvac_precondition = 12;
     LightAction light_request = 13;
-    PanicState panic_request = 14;
+    PanicAlarmAction panic_request = 14;
     SharedTripState shared_trip_request = 15;
     DoorState trunk_cargo_request = 16;
     LockState vehicle_unlock_request = 17;
-
-/*
-Other fields (all optional):
- 'alarmSetReq': 'UNKNOWN_ALARM_MODE',
- 'chargePortReq': 'UNKNOWN_CLOSURE_STATE',
- 'chargeLockReq': 'UNKNOWN_LOCK_STATE',
- 'doorLeftFrontReq': 'UNKNOWN_CLOSURE_STATE',
- 'doorLeftRearReq': 'UNKNOWN_CLOSURE_STATE',
- 'doorRightFrontReq': 'UNKNOWN_CLOSURE_STATE',
- 'doorRightRearReq': 'UNKNOWN_CLOSURE_STATE',
- 'driveEnable': 'KEYLESS_DRIVING_STATE_UNKNOWN',
- 'hornReq': 'UNKNOWN_CLOSURE_STATE',
- 'hvacDefrostEnable': 'UNKNOWN_HVAC_DEFROST',
- 'hvacPreconditionEnable': 'UNKNOWN_HVAC_STATE',
- 'panicReq': 'PANIC_ALARM_UNKNOWN',
-*/
+    int32 ac_current_limit_req = 18;
 }
 
 enum TcuState {
     TCU_UNKNOWN = 0;
     TCU_SLEEP = 1;
     TCU_DROWSY = 2;
+    TCU_CLOUD = 3;
     TCU_FULL = 4;
     TCU_FACTORY = 5; /* State during an update */
     TCU_POWER = 6;
@@ -859,7 +935,13 @@ message TcuInternetState {
 enum MpbFaultStatus {
     MPB_FAULT_STATUS_UNKNOWN = 0;
     MPB_FAULT_STATUS_NORMAL = 1;
+    MPB_FAULT_STATUS_WARNING = 2;
     MPB_FAULT_STATUS_CRITICAL = 3;
+    MPB_FAULT_STATUS_WARNING_HAPS = 4;
+    MPB_FAULT_STATUS_CRITICAL_HAPS = 5;
+    MPB_FAULT_STATUS_CRITICAL_HW_FLT = 6;
+    MPB_FAULT_STATUS_RESERVED = 7;
+    MPB_FAULT_STATUS_INVALID = 8;
 }
 
 message FaultState {
@@ -890,9 +972,11 @@ message Notifications {
     GeneralChargeStatus battery_charge_status = 6;
 }
 
-enum EnablementState {
-    ENABLEMENT_STATE_UNKNOWN = 0;
-    ENABLEMENT_STATE_IDLE = 3;
+enum SentryEnablementState {
+  SENTRY_ENABLEMENT_STATE_UNKNOWN = 0;
+  SENTRY_STATE_ENABLED = 1;
+  SENTRY_STATE_DISABLED = 2;
+  SENTRY_STATE_IDLE = 3;
 }
 
 enum SentryThreat {
@@ -911,7 +995,10 @@ enum SentryUsbDriveStatus {
     SENTRY_USB_DRIVE_NOT_CONNECTED = 3;
 }
 
-message MultiplexValues { }
+message SentryMultiplexValues {
+    int32 sentry_active_status_raw = 1;
+    int32 sentry_location_settings_raw = 2;
+}
 
 enum EnhancedDeterrenceState {
     ENHANCED_DETERRENCE_STATE_UNKNOWN = 0;
@@ -927,20 +1014,54 @@ enum SentryRemoteAlarmState {
     SENTRY_REMOTE_ALARM_OFF = 3;
 }
 
+message SentryActiveState {
+    bool is_active = 1;
+    bool inactive_reason_low_soc = 2;
+    bool inactive_reason_ota = 3;
+    bool inactive_reason_veh_occupied = 4;
+    bool inactive_reason_at_home = 5;
+    bool inactive_reason_at_work = 6;
+    bool inactive_reason_usb_full = 7;
+    bool inactive_reason_usb_error = 8;
+    bool inactive_reason_tow_mode = 9;
+    bool inactive_reason_camera_error = 10;
+    bool inactive_reason_uod = 11;
+    bool inactive_reason_creature_cmft_mode = 12;
+}
+
 message SentryState {
-    EnablementState enablement_state = 1;
+    SentryEnablementState enablement_state = 1;
     SentryThreat threat_level = 2;
-    MultiplexValues multiplex_values = 3;
+    SentryMultiplexValues multiplex_values = 3;
     SentryUsbDriveStatus usb_drive_status = 4;
     EnhancedDeterrenceState enhanced_deterrence_state = 5;
     uint32 range_cost_per_day = 6;
     SentryRemoteAlarmState remote_alarm_state = 7;
+    SentryActiveState sentry_active_state = 9;
 }
 
-enum LowPowerModeStatus {
-    LOW_POWER_MODE_STATUS_UNKNOWN = 0;
-    LOW_POWER_MODE_STATUS_INACTIVE = 1;
-    LOW_POWER_MODE_STATUS_ACTIVE = 2;
+enum FactoryResetState {
+  FACTORY_RESET_STATE_UNKNOWN = 0;
+  FACTORY_RESET_STATE_IDLE = 1;
+  FACTORY_RESET_STATE_TRIGGERED = 2;
+}
+
+enum AirSuspensionLevelStatus {
+  AIR_SUSPENSION_LEVEL_STATUS_UNKNOWN = 0;
+  AIR_SUSPENSION_LEVEL_STATUS_IDLE = 1;
+  AIR_SUSPENSION_LEVEL_STATUS_RAISING = 2;
+  AIR_SUSPENSION_LEVEL_STATUS_LOWERING = 3;
+  AIR_SUSPENSION_LEVEL_STATUS_PENDING = 4;
+}
+
+enum RideHeightStatus {
+  RIDE_HEIGHT_STATUS_UNKNOWN = 0;
+  RIDE_HEIGHT_STATUS_UNDEFINED = 1;
+  RIDE_HEIGHT_STATUS_LOWEST = 2;
+  RIDE_HEIGHT_STATUS_LOW = 3;
+  RIDE_HEIGHT_STATUS_STANDARD = 4;
+  RIDE_HEIGHT_STATUS_HIGH = 5;
+  RIDE_HEIGHT_STATUS_HIGHEST = 6;
 }
 
 message VehicleState {
@@ -966,7 +1087,9 @@ message VehicleState {
     SentryState sentry_state = 24;
     FaultState fault_state = 25;
     Notifications notifications = 26;
-    LowPowerModeStatus low_power_mode_status = 28;
+    FactoryResetState factory_reset_state = 27;
+    AirSuspensionLevelStatus air_suspension_level_status = 28;
+    RideHeightStatus ride_height_status = 29;
 }
 
 message Vehicle {
@@ -1004,6 +1127,22 @@ message ControlChargePortRequest {
 }
 message ControlChargePortResponse {}
 
+enum DoorLocation {
+    DOOR_LOCATION_UNKNOWN = 0;
+    DOOR_LOCATION_FRONT_LEFT = 1;
+    DOOR_LOCATION_FRONT_RIGHT = 2;
+    DOOR_LOCATION_REAR_LEFT = 3;
+    DOOR_LOCATION_REAR_RIGHT = 4;
+}
+
+message DoorControlRequest {
+  repeated DoorLocation door_location = 1; // min=1,max=4; one or more
+  DoorState closure_state = 2;
+  string vehicle_id = 3;
+}
+
+message DoorControlResponse {}
+
 message DoorLocksControlRequest {
     repeated int32 door_location = 1;
     LockState lock_state = 2;
@@ -1022,34 +1161,74 @@ enum DocumentType {
     DOCUMENT_TYPE_RELEASE_NOTES_PRE = 1;
     DOCUMENT_TYPE_RELEASE_NOTES_POST = 2;
     DOCUMENT_TYPE_OWNERS_MANUAL = 3;
-}
-
-message DocumentInfoUnknown {
-    uint64 timestamp = 1;
+    DOCUMENT_TYPE_SERVICE_NOTICE = 4;
+    DOCUMENT_TYPE_RECALL_NOTICE = 5;
+    DOCUMENT_TYPE_OWNERS_MANUAL_MOBILE = 9;
+    DOCUMENT_TYPE_OWNERS_MANUAL_SAPPHIRE = 10;
+    DOCUMENT_TYPE_OWNERS_MANUAL_SAPPHIRE_MOBILE = 11;
+    DOCUMENT_TYPE_GTY_RELEASE_NOTES_PRE = 12;
+    DOCUMENT_TYPE_GTY_RELEASE_NOTES_POST = 13;
+    DOCUMENT_TYPE_GTY_OWNERS_MANUAL = 14;
+    DOCUMENT_TYPE_GTY_OWNERS_MANUAL_MOBILE = 15;
+    DOCUMENT_TYPE_GTY_SERVICE_NOTICE = 16;
+    DOCUMENT_TYPE_GTY_RECALL_NOTICE = 17;
 }
 
 message DocumentInfo {
     DocumentType type = 1;
     string version = 2;
+    string revision = 3;
     string description = 4;
-    DocumentInfoUnknown unknown = 5;
+    .google.protobuf.Timestamp created_at = 5;
 }
 
 message GetDocumentInfoRequest {
+    string vehicle_id = 1;
+    string vin = 2;
     string version = 3;
     DocumentType document_type = 4;
+    string revision = 5;
 }
 message GetDocumentInfoResponse {
     string url = 1;
     DocumentInfo info = 2;
 }
 
+message GetOtaVersionHistoryRequest {
+    string vin = 1;
+    int64 offset = 2;
+    int64 limit = 3;
+}
+
+message OtaVersionHistoryValue {
+    string version = 1;
+    string name = 2;
+    string updateTime = 3;
+}
+
+message GetOtaVersionHistoryResponse {
+    repeated OtaVersionHistoryValue values = 1;
+    int64 total = 2;
+    int64 offset = 3;
+    int64 limit = 4;
+}
+
 message GetVehicleStateRequest {
     string vehicle_id = 1;
 }
+
+message ChargingSchedule {
+  bool schedule_on = 1;
+  string start_time = 2; 
+  string end_time = 3; 
+  bool weekday_on = 4;
+  bool charging_available = 5;
+}
+
 message GetVehicleStateResponse {
     string vehicle_id = 1;
     VehicleState state = 2;
+    ChargingSchedule charging_schedule = 3;
 }
 
 message HonkHornRequest {
@@ -1062,6 +1241,19 @@ message HvacDefrostControlRequest {
     DefrostState hvac_defrost = 2;
 }
 message HvacDefrostControlResponse {}
+
+enum KeylessDrivingState {
+    KEYLESS_DRIVING_UNKNOWN = 0;
+    KEYLESS_DRIVING_ON = 1;
+    KEYLESS_DRIVING_OFF = 2;
+}
+
+message KeylessDrivingActionRequest{
+  KeylessDrivingState action = 1;
+  string vehicle_id = 2;
+}
+
+message KeylessDrivingActionResponse{}
 
 message LightsControlRequest {
     LightAction action = 1;
@@ -1114,7 +1306,9 @@ message SetDischargeSoeLimitRequest {
 message SetDischargeSoeLimitResponse {}
 
 enum DischargeCommand {
-    DISCHARGE_UNKNOWN = 0;
+    DISCHARGE_COMMAND_IDLE = 0;
+    DISCHARGE_COMMAND_START = 1;
+    DISCHARGE_COMMAND_STOP = 2;
 }
 
 message DischargeControlRequest {
@@ -1170,6 +1364,19 @@ message SetMaxACRequest {
 }
 message SetMaxACResponse {}
 
+enum PanicAlarmAction {
+  PANIC_ALARM_UNKNOWN = 0;
+  PANIC_ALARM_ON = 1;
+  PANIC_ALARM_OFF = 2;
+}
+
+message PanicAlarmActionRequest {
+  PanicAlarmAction action = 1;
+  string vehicle_id = 2;
+}
+
+message PanicAlarmActionResponse{}
+
 enum SteeringWheelHeaterLevel {
     STEERING_WHEEL_HEATER_LEVEL_UNKNOWN = 0;
     STEERING_WHEEL_HEATER_LEVEL_OFF = 1;
@@ -1184,6 +1391,13 @@ message SteeringWheelHeaterRequest {
 }
 message SteeringWheelHeaterResponse {}
 
+message SetACCurrLimitRequest {
+  int32 ac_curr_lim = 1;
+  string vehicle_id = 2;
+}
+
+message SetACCurrLimitResponse {}
+
 enum CreatureComfortMode {
     CREATURE_COMFORT_MODE_UNKNOWN = 0;
     CREATURE_COMFORT_MODE_OFF = 1;
@@ -1196,6 +1410,45 @@ message SetCreatureComfortModeRequest {
 }
 message SetCreatureComfortModeResponse {}
 
+message UpdateChargingScheduleRequest {
+  bool schedule_on = 1;
+  string start_time = 2; 
+  string end_time = 3; 
+  bool weekday_on = 4;
+  string vehicle_id = 5; 
+}
+
+message UpdateChargingScheduleResponse {}
+
+message InitiatePhoneAsKeyRequest {
+  string uuid = 1;
+  string vin = 2;
+}
+
+message InitiatePhoneAsKeyResponse {}
+
+enum PhoneAsKeyStatus {
+  PHONE_AS_KEY_UNKNOWN = 0;
+  PHONE_AS_KEY_PENDING = 1;
+  PHONE_AS_KEY_MATCH = 2;
+  PHONE_AS_KEY_NO_MATCH = 3;
+}
+
+message ReadStatusPhoneAsKeyRequest {
+  string uuid = 1;
+}
+
+message ReadStatusPhoneAsKeyResponse {
+    PhoneAsKeyStatus status = 1;
+}
+
+message SetScheduledOtaRequest {
+  .google.protobuf.Timestamp scheduled_time = 1;
+  string vehicle_id = 2;
+}
+
+message SetScheduledOtaResponse {}
+
 message WelcomeControlRequest {
     WelcomeAction action = 1;
     string vehicle_id = 2;
@@ -1207,13 +1460,17 @@ service VehicleStateService {
     rpc CancelScheduledUpdate(CancelScheduledUpdateRequest) returns (CancelScheduledUpdateResponse) {}
     rpc ChargeControl(ChargeControlRequest) returns (ChargeControlResponse) {}
     rpc ControlChargePort(ControlChargePortRequest) returns (ControlChargePortResponse) {}
+    rpc DoorControl(DoorControlRequest) returns (DoorControlResponse) {}
     rpc DoorLocksControl(DoorLocksControlRequest) returns (DoorLocksControlResponse) {}
     rpc FrontCargoControl(FrontCargoControlRequest) returns (FrontCargoControlResponse) {}
     rpc GetDocumentInfo(GetDocumentInfoRequest) returns (GetDocumentInfoResponse) {}
+    rpc GetOtaVersionHistory(GetOtaVersionHistoryRequest) returns (GetOtaVersionHistoryResponse) {}
     rpc GetVehicleState(GetVehicleStateRequest) returns (GetVehicleStateResponse) {}
     rpc HonkHorn(HonkHornRequest) returns (HonkHornResponse) {}
     rpc HvacDefrostControl(HvacDefrostControlRequest) returns (HvacDefrostControlResponse) {}
+    rpc KeylessDrivingAction(KeylessDrivingActionRequest) returns (KeylessDrivingActionResponse) {} // Panic alarm
     rpc LightsControl(LightsControlRequest) returns (LightsControlResponse) {}
+    rpc PanicAlarmAction(PanicAlarmActionRequest) returns (PanicAlarmActionResponse) {}
     rpc RearCargoControl(RearCargoControlRequest) returns (RearCargoControlResponse) {}
     rpc SecurityAlarmControl(SecurityAlarmControlRequest) returns (SecurityAlarmControlResponse) {}
     rpc SetCabinTemperature(SetCabinTemperatureRequest) returns (SetCabinTemperatureResponse) {}
@@ -1227,5 +1484,10 @@ service VehicleStateService {
     rpc SetMaxAC(SetMaxACRequest) returns (SetMaxACResponse) {}
     rpc SteeringWheelHeater(SteeringWheelHeaterRequest) returns (SteeringWheelHeaterResponse) {}
     rpc SetCreatureComfortMode(SetCreatureComfortModeRequest) returns (SetCreatureComfortModeResponse) {}
+    rpc UpdateChargingSchedule(UpdateChargingScheduleRequest) returns (UpdateChargingScheduleResponse) {}
     rpc WelcomeControl(WelcomeControlRequest) returns (WelcomeControlRequest) {}
+    rpc SetACCurrLimit(SetACCurrLimitRequest) returns (SetACCurrLimitResponse) {}
+    rpc InitiatePhoneAsKey(InitiatePhoneAsKeyRequest) returns (InitiatePhoneAsKeyResponse) {}
+    rpc ReadStatusPhoneAsKey(ReadStatusPhoneAsKeyRequest) returns (ReadStatusPhoneAsKeyResponse) {}
+    rpc SetScheduledOta(SetScheduledOtaRequest) returns (SetScheduledOtaResponse) {}
 }

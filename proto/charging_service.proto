@@ -23,7 +23,18 @@ message Image {
 
 message Operator {
     string name = 1;
+    string website = 2;
     Image logo = 3;
+}
+
+enum Capability {
+    CAPABILITY_UNKNOWN = 0;
+    CAPABILITY_CHARGING_PROFILE_CAPABLE = 1;
+    CAPABILITY_CREDIT_CARD_PAYABLE = 2;
+    CAPABILITY_REMOTE_START_STOP_CAPABLE = 3;
+    CAPABILITY_RESERVABLE = 4;
+    CAPABILITY_RFID_READER = 5;
+    CAPABILITY_UNLOCK_CAPABLE = 6;
 }
 
 enum ChargingStatus {
@@ -31,47 +42,100 @@ enum ChargingStatus {
     CHARGING_STATUS_CHARGING = 3;
 }
 
-enum ConnectorStandard {
-    CONNECTOR_STANDARD_UNKNOWN = 0;
-    CONNECTOR_STANDARD_IEC_62196_T1_COMBO = 19;
+enum ConnectorType {
+    CONNECTOR_TYPE_UNKNOWN = 0;
+    CONNECTOR_TYPE_CHADEMO = 1;
+    CONNECTOR_TYPE_DOMESTIC_A = 2;
+    CONNECTOR_TYPE_DOMESTIC_B = 3;
+    CONNECTOR_TYPE_DOMESTIC_C = 4;
+    CONNECTOR_TYPE_DOMESTIC_D = 5;
+    CONNECTOR_TYPE_DOMESTIC_E = 6;
+    CONNECTOR_TYPE_DOMESTIC_F = 7;
+    CONNECTOR_TYPE_DOMESTIC_G = 8;
+    CONNECTOR_TYPE_DOMESTIC_H = 9;
+    CONNECTOR_TYPE_DOMESTIC_I = 10;
+    CONNECTOR_TYPE_DOMESTIC_J = 11;
+    CONNECTOR_TYPE_DOMESTIC_K = 12;
+    CONNECTOR_TYPE_DOMESTIC_L = 13;
+    CONNECTOR_TYPE_IEC_60309_2_single_16 = 14;
+    CONNECTOR_TYPE_IEC_60309_2_three_16 = 15;
+    CONNECTOR_TYPE_IEC_60309_2_three_32 = 16;
+    CONNECTOR_TYPE_IEC_60309_2_three_64 = 17;
+    CONNECTOR_TYPE_IEC_62196_T1 = 18;
+    CONNECTOR_TYPE_IEC_62196_T1_COMBO = 19;
+    CONNECTOR_TYPE_IEC_62196_T2 = 20;
+    CONNECTOR_TYPE_IEC_62196_T2_COMBO = 21;
+    CONNECTOR_TYPE_IEC_62196_T3A = 22;
+    CONNECTOR_TYPE_IEC_62196_T3C = 23;
+    CONNECTOR_TYPE_TESLA_R = 24;
+    CONNECTOR_TYPE_TESLA_S = 25;
 }
 
 enum ConnectorFormat {
     CONNECTOR_FORMAT_UNKNOWN = 0;
+    CONNECTOR_FORMAT_SOCKET = 1;
     CONNECTOR_FORMAT_CABLE = 2;
 }
 
 enum PowerType {
     POWER_TYPE_UNKNOWN = 0;
+    POWER_TYPE_AC_1_PHASE = 1;
+    POWER_TYPE_AC_3_PHASE = 2;
     POWER_TYPE_DC = 3;
 }
 
 message Connector {
     string id = 1;
-    ConnectorStandard standard = 2;
+    ConnectorType standard = 2;
     ConnectorFormat format = 3;
     PowerType power_type = 4;
     uint32 voltage = 5;
     uint32 amperage = 6;
-    ChargingStatus status = 11;
-    uint32 power = 12;
+    string tariff_id = 7;
+    string terms_and_conditions = 8;
+    DateTime last_updated = 9;
+}
+
+message DisplayText {
+    string language = 1;
+    string text = 2;
 }
 
 message ChargingSession {
     string uid = 1;
     string evse_id = 2;
     ChargingStatus status = 3;
+    repeated Capability capabilities = 5;
     repeated Connector connectors = 6;
+    string floor_level = 7;
     Location coordinates = 8;
     string physical_reference = 9;
+    DisplayText directions = 10;
+    DateTime last_updated = 13;
 }
 
 message OpeningTimes {
     bool twentyfourseven = 1;
 }
 
+message AdditionalLocation {
+    double latitude = 1;
+    double longitude = 2;
+    string name = 3;
+}
+
+enum LocationType {
+    LOCATION_TYPE_ON_STREET = 0;
+    LOCATION_TYPE_PARKING_GARAGE = 1;
+    LOCATION_TYPE_UNDERGROUND_GARAGE = 2;
+    LOCATION_TYPE_PARKING_LOT = 3;
+    LOCATION_TYPE_OTHER = 4;
+    LOCATION_TYPE_UNKNOWN = 5;
+}
+
 message ChargingLocation {
     string id = 1;
+    LocationType type = 2;
     string name = 3;
     string address = 4;
     string city = 5;
@@ -79,12 +143,16 @@ message ChargingLocation {
     string state = 7;
     string country = 8;
     Location coordinates = 9;
+    repeated AdditionalLocation related_locations = 10;
     ChargingSession session = 11;
     Operator operator = 13;
     Operator suboperator = 14;
+    Operator owner = 15;
     string timezone = 17;
     OpeningTimes opening_times = 18;
-    /* DateTime last_updated = ??; */
+    bool charging_when_closed = 19;
+    repeated Image images = 20;
+    DateTime last_updated = 22;
 }
 
 enum FeeName {
@@ -104,8 +172,7 @@ message Fee {
     FeeType type = 4;
 }
 
-/* Charging data something? Describes a charging session */
-message Cdr {
+message ChargingDataRecord {
     string id = 1;
     DateTime start_datetime = 2;
     DateTime stop_datetime = 3;
@@ -120,47 +187,140 @@ message Cdr {
     string currency = 21;
 }
 
-message GetCdrRequest {}
-message GetCdrResponse {}
+message GetCdrRequest {
+    string cdr_id = 1;
+}
+message GetCdrResponse {
+    ChargingDataRecord cdr = 2;
+}
 
 message GetCdrsRequest {
     string ema_id = 1;
+    uint32 offset = 2;
     uint32 limit = 3;
 }
 message GetCdrsResponse {
-    repeated Cdr cdr = 1;
+    repeated ChargingDataRecord cdr = 1;
 }
-
-message GetLocationsBoxRequest {}
-message GetLocationsBoxResponse {}
 
 message ChargingLocationDistance {
     ChargingLocation location = 1;
     uint64 distance = 2;
 }
 
+enum AdditionalFilters {
+    FILTER_UNKNOWN = 0;
+    FILTER_OPEN_24_HOURS = 1;
+    FILTER_CURRENTLY_AVAILABLE = 2;
+    FILTER_GREEN_ENERGY_ONLY = 3;
+}
+
+message LocationFilter {
+    int32 min_kw = 1;
+    repeated string brand_substring = 2;
+    repeated Capability auth_type = 3;
+    repeated PowerType plug_type = 4;
+    repeated AdditionalFilters additional_filters = 5;
+}
+
+message GetLocationsBoxRequest {
+    Location ne_corner = 1;
+    Location sw_corner = 2;
+    Location origin = 3;
+    int32 limit = 4;
+    LocationFilter filters = 5;
+}
+
+message GetLocationsBoxResponse {
+  repeated ChargingLocationDistance locations = 1;
+}
+
 message GetLocationsByRadiusRequest {
     Location origin = 1;
     uint32 radius = 2;
+    uint32 limit = 3;
+    LocationFilter filters = 4;
 }
+
 message GetLocationsByRadiusResponse {
     repeated ChargingLocationDistance locations = 1;
 }
 
-message GetTariffRequest {}
-message GetTariffResponse {}
+message Tariff {
+    string id = 1;
+    string currency = 2;
+    DisplayText tariff_alt_text = 3;
+    string tariff_alt_url = 4;
+    DateTime last_updated = 7;
+}
+
+message GetTariffRequest {
+    string tariff_id = 1;
+}
+message GetTariffResponse {
+    Tariff tariff = 1;
+}
 
 message RegisterRFIDRequest {
     string ema_id = 1;
     string rfid_token = 2;
 }
-message RegisterRFIDResponse {}
 
-message StartSessionRequest {}
-message StartSessionResponse {}
+message RegisterRFIDResponse {
+    uint64 status = 1;
+    string status_message = 2;
+    uint64 status_code = 3;
+}
 
-message StopSessionRequest {}
-message StopSessionResponse {}
+message DeleteRFIDRequest {
+    string ema_id = 1;
+    string rfid_token = 2;
+}
+message DeleteRFIDResponse {
+    uint64 status = 1;
+    string status_message = 2;
+    uint64 status_code = 3;
+}
+
+enum CommandResponseType {
+    COMMAND_RESPONSE_TYPE_UNKNOWN = 0;
+    COMMAND_RESPONSE_TYPE_NOT_SUPPORTED = 1;
+    COMMAND_RESPONSE_TYPE_REJECTED = 2;
+    COMMAND_RESPONSE_TYPE_ACCEPTED = 3;
+    COMMAND_RESPONSE_TYPE_TIMEOUT = 4;
+    COMMAND_RESPONSE_TYPE_UNKNOWN_SESSION = 5;
+}
+
+message StartSessionRequest {
+    string ema_id = 1;
+    string location_id = 2;
+    string evse_uid = 3;
+    ChargingVendor vendor_name = 4;
+}
+message StartSessionResponse {
+    CommandResponseType response_type = 1;
+}
+
+message StopSessionRequest {
+    string ema_id = 1;
+    ChargingVendor vendor_name = 2;
+}
+
+message StopSessionResponse {
+    CommandResponseType response_type = 1;
+}
+
+message GetChargingAccountInfoRequest {
+    string vin = 1;
+}
+
+message GetChargingAccountInfoResponse {
+    ChargingAccount charging_account = 1;
+}
+
+message GetChargingAccountInfoV2Response {
+    repeated ChargingAccount charging_account = 1;
+}
 
 service ChargingService {
     rpc GetCdr(GetCdrRequest) returns (GetCdrResponse) {}
@@ -169,6 +329,9 @@ service ChargingService {
     rpc GetLocationsByRadius(GetLocationsByRadiusRequest) returns (GetLocationsByRadiusResponse) {}
     rpc GetTariff(GetTariffRequest) returns (GetTariffResponse) {}
     rpc RegisterRFID(RegisterRFIDRequest) returns (RegisterRFIDResponse) {}
+    rpc DeleteRFID(DeleteRFIDRequest) returns (DeleteRFIDResponse) {}
     rpc StartSession(StartSessionRequest) returns (StartSessionResponse) {}
     rpc StopSession(StopSessionRequest) returns (StopSessionResponse) {}
+    rpc GetChargingAccountInfo(GetChargingAccountInfoRequest) returns (GetChargingAccountInfoResponse) {}
+    rpc GetChargingAccountInfoV2(GetChargingAccountInfoRequest) returns (GetChargingAccountInfoV2Response) {}
 }

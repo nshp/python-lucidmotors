@@ -4,11 +4,130 @@ package mobilegateway.protos;
 
 message Empty {}
 
+enum VinAccessType {
+    VIN_ACCESS_TYPE_UNKNOWN = 0;
+    VIN_ACCESS_TYPE_PRIMARY = 1;
+    VIN_ACCESS_TYPE_SECONDARY = 2;
+    VIN_ACCESS_TYPE_NONE = 3;
+}
+
+message MobileKeyPairing {
+    int32 device_type = 1;
+    string device_id = 2;
+}
+
+message KeyFobLinking {
+    int32 device_type = 1;
+    string deviceId = 2;
+}
+
+message PreferencesManagement {
+    bool key_assignment = 1;
+    bool key_reassignment = 2;
+    bool key_unassignment = 3;
+    bool remove_preferences = 4;
+}
+
+enum Theme {
+    THEME_UNKNOWN = 0;
+    THEME_DAY = 1;
+    THEME_NIGHT = 2;
+    THEME_SOLITUDE = 3;
+    THEME_SERENE = 4;
+    THEME_ESCAPE = 5;
+    THEME_SPACE = 6;
+    THEME_SAPPHIRE = 7;
+    THEME_INSPIRE = 8;
+    THEME_WONDER = 9;
+}
+
+enum BluetoothState {
+    BLUETOOTH_STATE_UNKNOWN = 0;
+    BLUETOOTH_STATE_ON = 1;
+    BLUETOOTH_STATE_OFF = 2;
+}
+
+message BluetoothDevice {
+    string device_id = 1;
+    string mac_address = 2;
+    int32 pairing_priority_phone_functions = 3;
+    int32 pairing_priority_audio_functions = 4;
+}
+
+enum TemperatureUnits {
+    TEMPERATURE_UNITS_UNKNOWN = 0;
+    TEMPERATURE_UNITS_FAHRENHEIT = 1;
+    TEMPERATURE_UNITS_CELSIUS = 2;
+}
+
+enum TimeFormat {
+    TIME_FORMAT_UNKNOWN = 0;
+    TIME_FORMAT_TWELVE_HOUR = 1;
+    TIME_FORMAT_TWENTY_FOUR_HOUR = 2;
+}
+
+enum SystemLanguage {
+    SYSTEM_LANGUAGE_UNKNOWN = 0;
+    SYSTEM_LANGUAGE_EN_US = 1;
+    SYSTEM_LANGUAGE_EN_CA = 2;
+    SYSTEM_LANGUAGE_TODO_LANGUAGES = 3; // TODO Get the list of 8
+}
+
+enum BatteryUnits {
+    BATTERY_UNITS_UNKNOWN = 0;
+    BATTERY_UNITS_DISTANCE = 1;
+    BATTERY_UNITS_PERCENTAGE = 2;
+}
+
+enum TirePressureUnits {
+    TIRE_PRESSURE_UNITS_UNKNOWN = 0;
+    TIRE_PRESSURE_UNITS_PSI = 1;
+    TIRE_PRESSURE_UNITS_KILOPASCAL = 2;
+}
+
+enum DistanceUnits {
+    DISTANCE_UNITS_UNKNOWN = 0;
+    DISTANCE_UNITS_MILES = 1;
+    DISTANCE_UNITS_KILOMETERS = 2;
+}
+
+message DataSharing {
+    bool data_sharing = 1;
+    bool vehicle_privacy_policy = 2;
+}
+
+message VinPreferences {
+    string vin = 1;
+    VinAccessType access_type = 2;
+    MobileKeyPairing mobile_key_pairing = 3;
+    KeyFobLinking key_fob_linking = 4;
+    PreferencesManagement preferences_management = 5;
+    Theme theme = 6;
+    bool ota_trigger_and_scheduling = 7;
+    bytes face_id = 8;
+    BluetoothState bluetooth_state = 9;
+    repeated BluetoothDevice bluetooth_saved_devices = 10;
+}
+
 message UserPreferences {
     string first_name = 1;
     string last_name = 2;
+    string nickname = 3;
     string photo_url = 4;
+    repeated VinPreferences vin_preferences = 5;
+    int32 pin = 6;
+    bytes pin_to_switch_toggle = 7;
+    TemperatureUnits temperature_units = 8;
+    TimeFormat time_format = 9;
+    SystemLanguage system_language = 10;
+    BatteryUnits battery_units = 11;
+    TirePressureUnits tire_pressure_units = 12;
+    DistanceUnits distance_units = 13;
+    DataSharing data_sharing = 14;
+    string home_address = 15;
+    string work_address = 16;
     uint64 updated_ns = 18;
+    repeated VehicleModelPreferences vehicle_model_preferences = 17;
     string email = 19;
 }
 
@@ -25,9 +144,126 @@ message GetUserPreferencesCommitIDResponse {
     uint64 commit_ns = 1;
 }
 
+message SetUserPreferencesRequest {
+    UserPreferences preferences = 1;
+    uint64 prev_commit_id = 2;
+}
+
+message SetUserPreferencesResponse {
+    uint64 commit_id = 1;
+}
+
+message CreateUserVinPreferencesRequest {
+    VinPreferences preferences = 1;
+}
+
+message CreateUserVinPreferencesResponse {
+    uint64 commit_id = 1;
+}
+
+message GetUserVinPreferencesRequest {
+    string vin = 1;
+}
+
+message GetUserVinPreferencesResponse {
+    VinPreferences preferences = 1;
+    uint64 commit_id = 2;
+}
+
+message SetUserVinPreferencesRequest {
+    VinPreferences preferences = 1;
+    uint64 prev_commit_id = 2;
+}
+
+message SetUserVinPreferencesResponse {
+    uint64 commit_id = 1;
+}
+
+enum HeightSetting {
+    HEIGHT_SETTING_UNKNOWN = 0;
+    HEIGHT_SETTING_LEVEL_1 = 1;
+    HEIGHT_SETTING_LEVEL_2 = 2;
+    HEIGHT_SETTING_LEVEL_3 = 3;
+    HEIGHT_SETTING_LEVEL_4 = 4;
+}
+
+enum EasyEntrySetting {
+    EASY_ENTRY_SETTING_UNKNOWN = 0;
+    EASY_ENTRY_SETTING_SEATS_ONLY = 1;
+    EASY_ENTRY_SETTING_SEATS_AND_STEERING = 2;
+}
+
+enum EasyEntryRideHeight {
+    EASY_ENTRY_RIDE_HEIGHT_UNKNOWN = 0;
+    EASY_ENTRY_RIDE_HEIGHT_LOWEST = 1;
+}
+
+message AudioSettings {
+    bool lucid_ui_sounds = 1;
+    bool dynamic_volume = 2;
+    bool speed_compensation = 3;
+    bool avas = 4;
+}
+
+message VehicleModelPreferences {
+    string model = 1;
+    HeightSetting height_setting = 2;
+    bool passive_lock = 3;
+    bool passive_unlock = 4;
+    bool easy_entry = 5;
+    EasyEntrySetting easy_entry_setting = 6;
+    EasyEntryRideHeight easy_entry_ride_height = 7;
+    int32 screen_brightness = 8;
+    AudioSettings audio_settings = 9;
+}
+
+message CreateUserModelPreferencesRequest {
+    VehicleModelPreferences preferences = 1;
+}
+
+message CreateUserModelPreferencesResponse {
+    uint64 commit_id = 1;
+}
+
+message GetUserModelPreferencesRequest {
+    string model = 1;
+}
+
+message GetUserModelPreferencesResponse {
+    VehicleModelPreferences preferences = 1;
+    uint64 commit_id = 2;
+}
+
+message SetUserModelPreferencesRequest {
+    VehicleModelPreferences preferences = 1;
+    uint64 prev_commit_id = 2;
+}
+
+message SetUserModelPreferencesResponse {
+    uint64 commit_id = 1;
+}
+
+message InviteSecondaryOwnerRequest {
+    string vin = 1;
+    string invite_email = 2;
+}
+
+message RemoveSecondaryOwnerRequest {
+    string vin = 1;
+    string secondary_user_id = 2;
+}
+
 service UserPreferencesService {
     rpc CreateUserPreferences(CreateUserPreferencesRequest) returns (Empty) {}
     rpc GetUserPreferences(Empty) returns (GetUserPreferencesResponse) {}
-    rpc GetUserPreferencesCommitID(Empty) returns (Empty) {}
-    rpc SetUserPreferences(Empty) returns (Empty) {}
+    rpc GetUserPreferencesCommitID(Empty) returns (GetUserPreferencesCommitIDResponse) {}
+    rpc SetUserPreferences(SetUserPreferencesRequest) returns (SetUserPreferencesResponse) {}
+    rpc CreateUserVinPreferences(CreateUserVinPreferencesRequest) returns (CreateUserVinPreferencesResponse) {}
+    rpc GetUserVinPreferences(GetUserVinPreferencesRequest) returns (GetUserVinPreferencesResponse) {}
+    rpc SetUserVinPreferences(SetUserVinPreferencesRequest) returns (SetUserVinPreferencesResponse) {}
+    rpc CreateUserModelPreferences(CreateUserModelPreferencesRequest) returns (CreateUserModelPreferencesResponse) {}
+    rpc GetUserModelPreferences(GetUserModelPreferencesRequest) returns (GetUserModelPreferencesResponse) {}
+    rpc SetUserModelPreferences(SetUserModelPreferencesRequest) returns (SetUserModelPreferencesResponse) {}
+    rpc InviteSecondaryOwner(InviteSecondaryOwnerRequest) returns (Empty){}
+    rpc RemoveSecondaryOwner(RemoveSecondaryOwnerRequest) returns (Empty){}
 }

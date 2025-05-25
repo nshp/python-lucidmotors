@@ -5,7 +5,7 @@ import warnings
 
 import login_session_pb2 as login__session__pb2
 
-GRPC_GENERATED_VERSION = '1.66.2'
+GRPC_GENERATED_VERSION = '1.67.1'
 GRPC_VERSION = grpc.__version__
 _version_not_supported = False
 
@@ -34,6 +34,16 @@ class LoginSessionStub(object):
         Args:
             channel: A grpc.Channel.
         """
+        self.ActivateDevice = channel.unary_unary(
+                '/mobilegateway.protos.LoginSession/ActivateDevice',
+                request_serializer=login__session__pb2.ActivateDeviceRequest.SerializeToString,
+                response_deserializer=login__session__pb2.ActivateDeviceResponse.FromString,
+                _registered_method=True)
+        self.DeviceEnroll = channel.unary_unary(
+                '/mobilegateway.protos.LoginSession/DeviceEnroll',
+                request_serializer=login__session__pb2.DeviceEnrollRequest.SerializeToString,
+                response_deserializer=login__session__pb2.DeviceEnrollResponse.FromString,
+                _registered_method=True)
         self.ConfirmResetPin = channel.unary_unary(
                 '/mobilegateway.protos.LoginSession/ConfirmResetPin',
                 request_serializer=login__session__pb2.ConfirmResetPinRequest.SerializeToString,
@@ -44,10 +54,20 @@ class LoginSessionStub(object):
                 request_serializer=login__session__pb2.GetNewJWTTokenRequest.SerializeToString,
                 response_deserializer=login__session__pb2.GetNewJWTTokenResponse.FromString,
                 _registered_method=True)
+        self.RefreshToken = channel.unary_unary(
+                '/mobilegateway.protos.LoginSession/RefreshToken',
+                request_serializer=login__session__pb2.RefreshTokenRequest.SerializeToString,
+                response_deserializer=login__session__pb2.RefreshTokenResponse.FromString,
+                _registered_method=True)
         self.GetSubscription = channel.unary_unary(
                 '/mobilegateway.protos.LoginSession/GetSubscription',
                 request_serializer=login__session__pb2.GetSubscriptionRequest.SerializeToString,
                 response_deserializer=login__session__pb2.GetSubscriptionResponse.FromString,
+                _registered_method=True)
+        self.UpdateSubscription = channel.unary_unary(
+                '/mobilegateway.protos.LoginSession/UpdateSubscription',
+                request_serializer=login__session__pb2.UpdateSubscriptionRequest.SerializeToString,
+                response_deserializer=login__session__pb2.UpdateSubscriptionResponse.FromString,
                 _registered_method=True)
         self.GetUserVehicles = channel.unary_unary(
                 '/mobilegateway.protos.LoginSession/GetUserVehicles',
@@ -74,15 +94,22 @@ class LoginSessionStub(object):
                 request_serializer=login__session__pb2.SetNickNameRequest.SerializeToString,
                 response_deserializer=login__session__pb2.SetNickNameResponse.FromString,
                 _registered_method=True)
-        self.SetSubscription = channel.unary_unary(
-                '/mobilegateway.protos.LoginSession/SetSubscription',
-                request_serializer=login__session__pb2.SetSubscriptionRequest.SerializeToString,
-                response_deserializer=login__session__pb2.SetSubscriptionResponse.FromString,
-                _registered_method=True)
 
 
 class LoginSessionServicer(object):
     """Missing associated documentation comment in .proto file."""
+
+    def ActivateDevice(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeviceEnroll(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
 
     def ConfirmResetPin(self, request, context):
         """Missing associated documentation comment in .proto file."""
@@ -96,7 +123,19 @@ class LoginSessionServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def RefreshToken(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def GetSubscription(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateSubscription(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -132,15 +171,19 @@ class LoginSessionServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def SetSubscription(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
 
 def add_LoginSessionServicer_to_server(servicer, server):
     rpc_method_handlers = {
+            'ActivateDevice': grpc.unary_unary_rpc_method_handler(
+                    servicer.ActivateDevice,
+                    request_deserializer=login__session__pb2.ActivateDeviceRequest.FromString,
+                    response_serializer=login__session__pb2.ActivateDeviceResponse.SerializeToString,
+            ),
+            'DeviceEnroll': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeviceEnroll,
+                    request_deserializer=login__session__pb2.DeviceEnrollRequest.FromString,
+                    response_serializer=login__session__pb2.DeviceEnrollResponse.SerializeToString,
+            ),
             'ConfirmResetPin': grpc.unary_unary_rpc_method_handler(
                     servicer.ConfirmResetPin,
                     request_deserializer=login__session__pb2.ConfirmResetPinRequest.FromString,
@@ -151,10 +194,20 @@ def add_LoginSessionServicer_to_server(servicer, server):
                     request_deserializer=login__session__pb2.GetNewJWTTokenRequest.FromString,
                     response_serializer=login__session__pb2.GetNewJWTTokenResponse.SerializeToString,
             ),
+            'RefreshToken': grpc.unary_unary_rpc_method_handler(
+                    servicer.RefreshToken,
+                    request_deserializer=login__session__pb2.RefreshTokenRequest.FromString,
+                    response_serializer=login__session__pb2.RefreshTokenResponse.SerializeToString,
+            ),
             'GetSubscription': grpc.unary_unary_rpc_method_handler(
                     servicer.GetSubscription,
                     request_deserializer=login__session__pb2.GetSubscriptionRequest.FromString,
                     response_serializer=login__session__pb2.GetSubscriptionResponse.SerializeToString,
+            ),
+            'UpdateSubscription': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateSubscription,
+                    request_deserializer=login__session__pb2.UpdateSubscriptionRequest.FromString,
+                    response_serializer=login__session__pb2.UpdateSubscriptionResponse.SerializeToString,
             ),
             'GetUserVehicles': grpc.unary_unary_rpc_method_handler(
                     servicer.GetUserVehicles,
@@ -181,11 +234,6 @@ def add_LoginSessionServicer_to_server(servicer, server):
                     request_deserializer=login__session__pb2.SetNickNameRequest.FromString,
                     response_serializer=login__session__pb2.SetNickNameResponse.SerializeToString,
             ),
-            'SetSubscription': grpc.unary_unary_rpc_method_handler(
-                    servicer.SetSubscription,
-                    request_deserializer=login__session__pb2.SetSubscriptionRequest.FromString,
-                    response_serializer=login__session__pb2.SetSubscriptionResponse.SerializeToString,
-            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
             'mobilegateway.protos.LoginSession', rpc_method_handlers)
@@ -196,6 +244,60 @@ def add_LoginSessionServicer_to_server(servicer, server):
  # This class is part of an EXPERIMENTAL API.
 class LoginSession(object):
     """Missing associated documentation comment in .proto file."""
+
+    @staticmethod
+    def ActivateDevice(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.LoginSession/ActivateDevice',
+            login__session__pb2.ActivateDeviceRequest.SerializeToString,
+            login__session__pb2.ActivateDeviceResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def DeviceEnroll(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.LoginSession/DeviceEnroll',
+            login__session__pb2.DeviceEnrollRequest.SerializeToString,
+            login__session__pb2.DeviceEnrollResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
 
     @staticmethod
     def ConfirmResetPin(request,
@@ -252,6 +354,33 @@ class LoginSession(object):
             _registered_method=True)
 
     @staticmethod
+    def RefreshToken(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.LoginSession/RefreshToken',
+            login__session__pb2.RefreshTokenRequest.SerializeToString,
+            login__session__pb2.RefreshTokenResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
     def GetSubscription(request,
             target,
             options=(),
@@ -268,6 +397,33 @@ class LoginSession(object):
             '/mobilegateway.protos.LoginSession/GetSubscription',
             login__session__pb2.GetSubscriptionRequest.SerializeToString,
             login__session__pb2.GetSubscriptionResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def UpdateSubscription(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/mobilegateway.protos.LoginSession/UpdateSubscription',
+            login__session__pb2.UpdateSubscriptionRequest.SerializeToString,
+            login__session__pb2.UpdateSubscriptionResponse.FromString,
             options,
             channel_credentials,
             insecure,
@@ -403,33 +559,6 @@ class LoginSession(object):
             '/mobilegateway.protos.LoginSession/SetNickName',
             login__session__pb2.SetNickNameRequest.SerializeToString,
             login__session__pb2.SetNickNameResponse.FromString,
-            options,
-            channel_credentials,
-            insecure,
-            call_credentials,
-            compression,
-            wait_for_ready,
-            timeout,
-            metadata,
-            _registered_method=True)
-
-    @staticmethod
-    def SetSubscription(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(
-            request,
-            target,
-            '/mobilegateway.protos.LoginSession/SetSubscription',
-            login__session__pb2.SetSubscriptionRequest.SerializeToString,
-            login__session__pb2.SetSubscriptionResponse.FromString,
             options,
             channel_credentials,
             insecure,
