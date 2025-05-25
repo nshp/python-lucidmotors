@@ -84,7 +84,10 @@ message GetUserVehiclesResponse {
     repeated Vehicle user_vehicle_data = 1;
 }
 
-message LogoutRequest {}
+message LogoutRequest {
+    string notification_device_token = 1;
+}
+
 message LogoutResponse {}
 
 message RefreshNotificationTokenRequest {}
