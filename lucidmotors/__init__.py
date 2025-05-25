@@ -473,9 +473,7 @@ class LucidAPI:
         self._salesforce_service = salesforce_service_pb2_grpc.SalesforceServiceStub(
             self._channel
         )
-        self._sentry_service = sentry_service_pb2_grpc.SentryServiceStub(
-            self._channel
-        )
+        self._sentry_service = sentry_service_pb2_grpc.SentryServiceStub(self._channel)
         self._refresh_token = None
         self._gigya_jwt = None
         self._token_expiry_time = None
@@ -998,7 +996,9 @@ class LucidAPI:
 
         await self.charging_control(vehicle, ChargeAction.CHARGE_ACTION_STOP)
 
-    async def sentry_mode_control(self, vehicle: Vehicle, state: SentryModeState) -> None:
+    async def sentry_mode_control(
+        self, vehicle: Vehicle, state: SentryModeState
+    ) -> None:
         """
         Enable or disable sentry mode for a specific vehicle.
         """
@@ -1026,7 +1026,9 @@ class LucidAPI:
 
         await self.sentry_mode_control(vehicle, SentryModeState.SENTRY_MODE_DISABLED)
 
-    async def enhanced_deterrence_control(self, vehicle: Vehicle, state: SentryModeState) -> None:
+    async def enhanced_deterrence_control(
+        self, vehicle: Vehicle, state: SentryModeState
+    ) -> None:
         """
         Enable or disable enhanced deterrence for a specific vehicle.
         """
@@ -1045,16 +1047,22 @@ class LucidAPI:
         Enable enhanced deterrence for a specific vehicle.
         """
 
-        await self.enhanced_deterrence_control(vehicle, SentryModeState.SENTRY_MODE_ENABLED)
+        await self.enhanced_deterrence_control(
+            vehicle, SentryModeState.SENTRY_MODE_ENABLED
+        )
 
     async def enhanced_deterrence_off(self, vehicle: Vehicle) -> None:
         """
         Disable enhanced deterrence for a specific vehicle.
         """
 
-        await self.enhanced_deterrence_control(vehicle, SentryModeState.SENTRY_MODE_DISABLED)
+        await self.enhanced_deterrence_control(
+            vehicle, SentryModeState.SENTRY_MODE_DISABLED
+        )
 
-    async def sentry_mode_at_home_control(self, vehicle: Vehicle, state: SentryModeState) -> None:
+    async def sentry_mode_at_home_control(
+        self, vehicle: Vehicle, state: SentryModeState
+    ) -> None:
         """
         Enable or disable sentry mode at home for a specific vehicle.
         """
@@ -1073,16 +1081,22 @@ class LucidAPI:
         Enable sentry mode at home for a specific vehicle.
         """
 
-        await self.sentry_mode_at_home_control(vehicle, SentryModeState.SENTRY_MODE_ENABLED)
+        await self.sentry_mode_at_home_control(
+            vehicle, SentryModeState.SENTRY_MODE_ENABLED
+        )
 
     async def sentry_mode_at_home_off(self, vehicle: Vehicle) -> None:
         """
         Disable sentry mode at home for a specific vehicle.
         """
 
-        await self.sentry_mode_at_home_control(vehicle, SentryModeState.SENTRY_MODE_DISABLED)
+        await self.sentry_mode_at_home_control(
+            vehicle, SentryModeState.SENTRY_MODE_DISABLED
+        )
 
-    async def sentry_mode_at_work_control(self, vehicle: Vehicle, state: SentryModeState) -> None:
+    async def sentry_mode_at_work_control(
+        self, vehicle: Vehicle, state: SentryModeState
+    ) -> None:
         """
         Enable or disable sentry mode at work for a specific vehicle.
         """
@@ -1101,14 +1115,18 @@ class LucidAPI:
         Enable sentry mode at work for a specific vehicle.
         """
 
-        await self.sentry_mode_at_work_control(vehicle, SentryModeState.SENTRY_MODE_ENABLED)
+        await self.sentry_mode_at_work_control(
+            vehicle, SentryModeState.SENTRY_MODE_ENABLED
+        )
 
     async def sentry_mode_at_work_off(self, vehicle: Vehicle) -> None:
         """
         Disable sentry mode at work for a specific vehicle.
         """
 
-        await self.sentry_mode_at_work_control(vehicle, SentryModeState.SENTRY_MODE_DISABLED)
+        await self.sentry_mode_at_work_control(
+            vehicle, SentryModeState.SENTRY_MODE_DISABLED
+        )
 
     async def turn_off_sentry_alarm(self, vehicle: Vehicle) -> None:
         """
@@ -1133,7 +1151,14 @@ class LucidAPI:
         )
         return await _check_for_api_error(self._sentry_service.GetEvent(request))
 
-    async def get_sentry_events(self, vehicle_id: str, start_time_utc: datetime, end_time_utc: datetime, offset: int = 0, limit: int = 100) -> GetEventsResponse:
+    async def get_sentry_events(
+        self,
+        vehicle_id: str,
+        start_time_utc: datetime,
+        end_time_utc: datetime,
+        offset: int = 0,
+        limit: int = 100,
+    ) -> GetEventsResponse:
         """
         Get all sentry events for a specific vehicle.
         """
@@ -1152,7 +1177,7 @@ class LucidAPI:
             end_time_utc=end_time_utc_pb,
         )
         return await _check_for_api_error(self._sentry_service.GetEvents(request))
-    
+
     async def alarm_control(self, vehicle: Vehicle, mode: AlarmMode) -> None:
         """
         Control the alarm of a specific vehicle.
