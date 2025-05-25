@@ -5,6 +5,7 @@ from typing import Optional, Any, Callable, TypeVar, Awaitable
 from datetime import datetime, timezone, timedelta
 from grpc.aio import ClientCallDetails, UnaryUnaryCall
 from google.protobuf.internal.enum_type_wrapper import EnumTypeWrapper
+from google.protobuf.timestamp_pb2 import Timestamp
 from base64 import b64encode
 
 import uuid
@@ -29,6 +30,8 @@ from .gen import (
     charging_service_pb2_grpc,
     salesforce_service_pb2,
     salesforce_service_pb2_grpc,
+    sentry_service_pb2,
+    sentry_service_pb2_grpc,
 )
 from .gen.login_session_pb2 import NotificationChannelType
 from .gen.user_profile_service_pb2 import UserProfile
@@ -144,6 +147,8 @@ from .gen.salesforce_service_pb2 import (
 )
 from .gen.sentry_service_pb2 import (
     SentryModeState,
+    GetEventResponse,
+    GetEventsResponse,
 )
 
 __version__ = "1.2.3"
@@ -430,6 +435,7 @@ class LucidAPI:
     _vehicle_service: vehicle_state_service_pb2_grpc.VehicleStateServiceStub
     _charging_service: charging_service_pb2_grpc.ChargingServiceStub
     _salesforce_service: salesforce_service_pb2_grpc.SalesforceServiceStub
+    _sentry_service: sentry_service_pb2_grpc.SentryServiceStub
 
     # Automatically wake sleeping vehicle along with commands?
     _auto_wake: bool
@@ -465,6 +471,9 @@ class LucidAPI:
             self._channel
         )
         self._salesforce_service = salesforce_service_pb2_grpc.SalesforceServiceStub(
+            self._channel
+        )
+        self._sentry_service = sentry_service_pb2_grpc.SentryServiceStub(
             self._channel
         )
         self._refresh_token = None
@@ -525,7 +534,7 @@ class LucidAPI:
         request = login_session_pb2.LoginRequest(
             username=username,
             password=password,
-            notification_channel_type=NotificationChannelType.NOTIFICATION_CHANNEL_ONE,
+            notification_channel_type=NotificationChannelType.NOTIFICATION_CHANNEL_FIREBASE,
             notification_device_token=device_id,
             os=login_session_pb2.Os.OS_IOS,
             locale='en_US',
@@ -996,7 +1005,7 @@ class LucidAPI:
 
         if self._auto_wake and not self.vehicle_is_awake(vehicle):
             await self.wakeup_vehicle(vehicle)
-        
+
         request = sentry_service_pb2.SetSentryModeRequest(
             vehicle_id=vehicle.vehicle_id,
             state=state,
@@ -1124,17 +1133,23 @@ class LucidAPI:
         )
         return await _check_for_api_error(self._sentry_service.GetEvent(request))
 
-    async def get_sentry_events(self, vehicle_id: str, offset: int = 0, limit: int = 100, start_time_utc: Optional[datetime] = None, end_time_utc: Optional[datetime] = None) -> GetEventsResponse:
+    async def get_sentry_events(self, vehicle_id: str, start_time_utc: datetime, end_time_utc: datetime, offset: int = 0, limit: int = 100) -> GetEventsResponse:
         """
         Get all sentry events for a specific vehicle.
         """
+
+        start_time_utc_pb = Timestamp()
+        end_time_utc_pb = Timestamp()
+
+        start_time_utc_pb.FromDatetime(start_time_utc)
+        end_time_utc_pb.FromDatetime(end_time_utc)
 
         request = sentry_service_pb2.GetEventsRequest(
             vehicle_id=vehicle_id,
             offset=offset,
             limit=limit,
-            start_time_utc=start_time_utc,
-            end_time_utc=end_time_utc,
+            start_time_utc=start_time_utc_pb,
+            end_time_utc=end_time_utc_pb,
         )
         return await _check_for_api_error(self._sentry_service.GetEvents(request))
     
