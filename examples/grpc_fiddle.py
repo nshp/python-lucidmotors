@@ -94,7 +94,7 @@ def main():
         req = login_session_pb2.LoginRequest(
             username=username,
             password=password,
-            notification_channel_type=login_session_pb2.NotificationChannelType.NOTIFICATION_CHANNEL_ONE,
+            notification_channel_type=login_session_pb2.NotificationChannelType.NOTIFICATION_CHANNEL_FIREBASE,
             notification_device_token=device_id,
             os=login_session_pb2.Os.OS_IOS,
             locale='en_US',

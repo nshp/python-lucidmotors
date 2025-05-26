@@ -318,6 +318,15 @@ class LivingObjectDetectionStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrap
     LIVING_OBJECT_DETECTION_STATUS_LEVEL_2_WARNING: _ClassVar[LivingObjectDetectionStatus]
     LIVING_OBJECT_DETECTION_STATUS_LEVEL_3_WARNING: _ClassVar[LivingObjectDetectionStatus]
 
+class UnattendedOccupantDetectionStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    UNATTENDED_OCCUPANT_DETECTION_STATUS_UNKNOWN: _ClassVar[UnattendedOccupantDetectionStatus]
+    UNATTENDED_OCCUPANT_DETECTION_STATUS_NO_REQUEST: _ClassVar[UnattendedOccupantDetectionStatus]
+    UNATTENDED_OCCUPANT_DETECTION_STATUS_STAGE_1: _ClassVar[UnattendedOccupantDetectionStatus]
+    UNATTENDED_OCCUPANT_DETECTION_STATUS_STAGE_2: _ClassVar[UnattendedOccupantDetectionStatus]
+    UNATTENDED_OCCUPANT_DETECTION_STATUS_STAGE_3: _ClassVar[UnattendedOccupantDetectionStatus]
+    UNATTENDED_OCCUPANT_DETECTION_STATUS_FAULT: _ClassVar[UnattendedOccupantDetectionStatus]
+
 class LightAction(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     LIGHT_ACTION_UNKNOWN: _ClassVar[LightAction]
@@ -766,6 +775,12 @@ class RideHeightStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     RIDE_HEIGHT_STATUS_HIGH: _ClassVar[RideHeightStatus]
     RIDE_HEIGHT_STATUS_HIGHEST: _ClassVar[RideHeightStatus]
 
+class LowPowerModeStatus(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
+    __slots__ = ()
+    LOW_POWER_MODE_STATUS_UNKNOWN: _ClassVar[LowPowerModeStatus]
+    LOW_POWER_MODE_STATUS_INACTIVE: _ClassVar[LowPowerModeStatus]
+    LOW_POWER_MODE_STATUS_ACTIVE: _ClassVar[LowPowerModeStatus]
+
 class ChargeAction(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
     CHARGE_ACTION_UNKNOWN: _ClassVar[ChargeAction]
@@ -1063,6 +1078,12 @@ LIVING_OBJECT_DETECTION_STATUS_NOT_ACTIVE: LivingObjectDetectionStatus
 LIVING_OBJECT_DETECTION_STATUS_LEVEL_1_WARNING: LivingObjectDetectionStatus
 LIVING_OBJECT_DETECTION_STATUS_LEVEL_2_WARNING: LivingObjectDetectionStatus
 LIVING_OBJECT_DETECTION_STATUS_LEVEL_3_WARNING: LivingObjectDetectionStatus
+UNATTENDED_OCCUPANT_DETECTION_STATUS_UNKNOWN: UnattendedOccupantDetectionStatus
+UNATTENDED_OCCUPANT_DETECTION_STATUS_NO_REQUEST: UnattendedOccupantDetectionStatus
+UNATTENDED_OCCUPANT_DETECTION_STATUS_STAGE_1: UnattendedOccupantDetectionStatus
+UNATTENDED_OCCUPANT_DETECTION_STATUS_STAGE_2: UnattendedOccupantDetectionStatus
+UNATTENDED_OCCUPANT_DETECTION_STATUS_STAGE_3: UnattendedOccupantDetectionStatus
+UNATTENDED_OCCUPANT_DETECTION_STATUS_FAULT: UnattendedOccupantDetectionStatus
 LIGHT_ACTION_UNKNOWN: LightAction
 LIGHT_ACTION_FLASH: LightAction
 LIGHT_ACTION_ON: LightAction
@@ -1355,6 +1376,9 @@ RIDE_HEIGHT_STATUS_LOW: RideHeightStatus
 RIDE_HEIGHT_STATUS_STANDARD: RideHeightStatus
 RIDE_HEIGHT_STATUS_HIGH: RideHeightStatus
 RIDE_HEIGHT_STATUS_HIGHEST: RideHeightStatus
+LOW_POWER_MODE_STATUS_UNKNOWN: LowPowerModeStatus
+LOW_POWER_MODE_STATUS_INACTIVE: LowPowerModeStatus
+LOW_POWER_MODE_STATUS_ACTIVE: LowPowerModeStatus
 CHARGE_ACTION_UNKNOWN: ChargeAction
 CHARGE_ACTION_START: ChargeAction
 CHARGE_ACTION_STOP: ChargeAction
@@ -1570,7 +1594,7 @@ class WindowPositionState(_message.Message):
     def __init__(self, left_front: _Optional[_Union[WindowPositionStatus, str]] = ..., left_rear: _Optional[_Union[WindowPositionStatus, str]] = ..., right_front: _Optional[_Union[WindowPositionStatus, str]] = ..., right_rear: _Optional[_Union[WindowPositionStatus, str]] = ...) -> None: ...
 
 class BodyState(_message.Message):
-    __slots__ = ("door_locks", "front_cargo", "rear_cargo", "front_left_door", "front_right_door", "rear_left_door", "rear_right_door", "charge_port", "walkaway_lock", "access_type_status", "keyfob_battery_status", "front_left_mirror_fold_state", "front_right_mirror_fold_state", "all_windows_position", "living_object_detection_status", "window_position")
+    __slots__ = ("door_locks", "front_cargo", "rear_cargo", "front_left_door", "front_right_door", "rear_left_door", "rear_right_door", "charge_port", "walkaway_lock", "access_type_status", "keyfob_battery_status", "front_left_mirror_fold_state", "front_right_mirror_fold_state", "all_windows_position", "living_object_detection_status", "window_position", "air_suspension_level_status", "ride_height_status", "unattended_occupant_detection_status")
     DOOR_LOCKS_FIELD_NUMBER: _ClassVar[int]
     FRONT_CARGO_FIELD_NUMBER: _ClassVar[int]
     REAR_CARGO_FIELD_NUMBER: _ClassVar[int]
@@ -1587,6 +1611,9 @@ class BodyState(_message.Message):
     ALL_WINDOWS_POSITION_FIELD_NUMBER: _ClassVar[int]
     LIVING_OBJECT_DETECTION_STATUS_FIELD_NUMBER: _ClassVar[int]
     WINDOW_POSITION_FIELD_NUMBER: _ClassVar[int]
+    AIR_SUSPENSION_LEVEL_STATUS_FIELD_NUMBER: _ClassVar[int]
+    RIDE_HEIGHT_STATUS_FIELD_NUMBER: _ClassVar[int]
+    UNATTENDED_OCCUPANT_DETECTION_STATUS_FIELD_NUMBER: _ClassVar[int]
     door_locks: LockState
     front_cargo: DoorState
     rear_cargo: DoorState
@@ -1603,7 +1630,10 @@ class BodyState(_message.Message):
     all_windows_position: AllWindowPosition
     living_object_detection_status: LivingObjectDetectionStatus
     window_position: WindowPositionState
-    def __init__(self, door_locks: _Optional[_Union[LockState, str]] = ..., front_cargo: _Optional[_Union[DoorState, str]] = ..., rear_cargo: _Optional[_Union[DoorState, str]] = ..., front_left_door: _Optional[_Union[DoorState, str]] = ..., front_right_door: _Optional[_Union[DoorState, str]] = ..., rear_left_door: _Optional[_Union[DoorState, str]] = ..., rear_right_door: _Optional[_Union[DoorState, str]] = ..., charge_port: _Optional[_Union[DoorState, str]] = ..., walkaway_lock: _Optional[_Union[WalkawayState, str]] = ..., access_type_status: _Optional[_Union[AccessRequest, str]] = ..., keyfob_battery_status: _Optional[_Union[KeyfobBatteryStatus, str]] = ..., front_left_mirror_fold_state: _Optional[_Union[MirrorFoldState, str]] = ..., front_right_mirror_fold_state: _Optional[_Union[MirrorFoldState, str]] = ..., all_windows_position: _Optional[_Union[AllWindowPosition, str]] = ..., living_object_detection_status: _Optional[_Union[LivingObjectDetectionStatus, str]] = ..., window_position: _Optional[_Union[WindowPositionState, _Mapping]] = ...) -> None: ...
+    air_suspension_level_status: AirSuspensionLevelStatus
+    ride_height_status: RideHeightStatus
+    unattended_occupant_detection_status: UnattendedOccupantDetectionStatus
+    def __init__(self, door_locks: _Optional[_Union[LockState, str]] = ..., front_cargo: _Optional[_Union[DoorState, str]] = ..., rear_cargo: _Optional[_Union[DoorState, str]] = ..., front_left_door: _Optional[_Union[DoorState, str]] = ..., front_right_door: _Optional[_Union[DoorState, str]] = ..., rear_left_door: _Optional[_Union[DoorState, str]] = ..., rear_right_door: _Optional[_Union[DoorState, str]] = ..., charge_port: _Optional[_Union[DoorState, str]] = ..., walkaway_lock: _Optional[_Union[WalkawayState, str]] = ..., access_type_status: _Optional[_Union[AccessRequest, str]] = ..., keyfob_battery_status: _Optional[_Union[KeyfobBatteryStatus, str]] = ..., front_left_mirror_fold_state: _Optional[_Union[MirrorFoldState, str]] = ..., front_right_mirror_fold_state: _Optional[_Union[MirrorFoldState, str]] = ..., all_windows_position: _Optional[_Union[AllWindowPosition, str]] = ..., living_object_detection_status: _Optional[_Union[LivingObjectDetectionStatus, str]] = ..., window_position: _Optional[_Union[WindowPositionState, _Mapping]] = ..., air_suspension_level_status: _Optional[_Union[AirSuspensionLevelStatus, str]] = ..., ride_height_status: _Optional[_Union[RideHeightStatus, str]] = ..., unattended_occupant_detection_status: _Optional[_Union[UnattendedOccupantDetectionStatus, str]] = ...) -> None: ...
 
 class ChassisState(_message.Message):
     __slots__ = ("odometer_km", "front_left_tire_pressure_bar", "front_right_tire_pressure_bar", "rear_left_tire_pressure_bar", "rear_right_tire_pressure_bar", "headlights", "hazard_lights", "hard_warn_left_front", "hard_warn_left_rear", "hard_warn_right_front", "hard_warn_right_rear", "soft_warn_left_front", "soft_warn_left_rear", "soft_warn_right_front", "soft_warn_right_rear", "software_version", "speed", "sensor_defective_left_front", "sensor_defective_left_rear", "sensor_defective_right_front", "sensor_defective_right_rear", "tire_pressure_last_updated")
@@ -1961,8 +1991,12 @@ class SentryState(_message.Message):
     sentry_active_state: SentryActiveState
     def __init__(self, enablement_state: _Optional[_Union[SentryEnablementState, str]] = ..., threat_level: _Optional[_Union[SentryThreat, str]] = ..., multiplex_values: _Optional[_Union[SentryMultiplexValues, _Mapping]] = ..., usb_drive_status: _Optional[_Union[SentryUsbDriveStatus, str]] = ..., enhanced_deterrence_state: _Optional[_Union[EnhancedDeterrenceState, str]] = ..., range_cost_per_day: _Optional[int] = ..., remote_alarm_state: _Optional[_Union[SentryRemoteAlarmState, str]] = ..., sentry_active_state: _Optional[_Union[SentryActiveState, _Mapping]] = ...) -> None: ...
 
+class TrailerState(_message.Message):
+    __slots__ = ()
+    def __init__(self) -> None: ...
+
 class VehicleState(_message.Message):
-    __slots__ = ("battery", "power", "cabin", "body", "last_updated_ms", "chassis", "charging", "gps", "software_update", "alarm", "cloud_connection", "keyless_driving", "hvac", "drive_mode", "privacy_mode", "gear_position", "mobile_app_request", "tcu", "tcu_internet", "sentry_state", "fault_state", "notifications", "factory_reset_state", "air_suspension_level_status", "ride_height_status")
+    __slots__ = ("battery", "power", "cabin", "body", "last_updated_ms", "chassis", "charging", "gps", "software_update", "alarm", "cloud_connection", "keyless_driving", "hvac", "drive_mode", "privacy_mode", "gear_position", "mobile_app_request", "tcu", "tcu_internet", "sentry_state", "fault_state", "notifications", "factory_reset_state", "low_power_mode_status", "trailer_state")
     BATTERY_FIELD_NUMBER: _ClassVar[int]
     POWER_FIELD_NUMBER: _ClassVar[int]
     CABIN_FIELD_NUMBER: _ClassVar[int]
@@ -1986,8 +2020,8 @@ class VehicleState(_message.Message):
     FAULT_STATE_FIELD_NUMBER: _ClassVar[int]
     NOTIFICATIONS_FIELD_NUMBER: _ClassVar[int]
     FACTORY_RESET_STATE_FIELD_NUMBER: _ClassVar[int]
-    AIR_SUSPENSION_LEVEL_STATUS_FIELD_NUMBER: _ClassVar[int]
-    RIDE_HEIGHT_STATUS_FIELD_NUMBER: _ClassVar[int]
+    LOW_POWER_MODE_STATUS_FIELD_NUMBER: _ClassVar[int]
+    TRAILER_STATE_FIELD_NUMBER: _ClassVar[int]
     battery: BatteryState
     power: PowerState
     cabin: CabinState
@@ -2011,9 +2045,9 @@ class VehicleState(_message.Message):
     fault_state: FaultState
     notifications: Notifications
     factory_reset_state: FactoryResetState
-    air_suspension_level_status: AirSuspensionLevelStatus
-    ride_height_status: RideHeightStatus
-    def __init__(self, battery: _Optional[_Union[BatteryState, _Mapping]] = ..., power: _Optional[_Union[PowerState, str]] = ..., cabin: _Optional[_Union[CabinState, _Mapping]] = ..., body: _Optional[_Union[BodyState, _Mapping]] = ..., last_updated_ms: _Optional[int] = ..., chassis: _Optional[_Union[ChassisState, _Mapping]] = ..., charging: _Optional[_Union[ChargingState, _Mapping]] = ..., gps: _Optional[_Union[Gps, _Mapping]] = ..., software_update: _Optional[_Union[SoftwareUpdate, _Mapping]] = ..., alarm: _Optional[_Union[AlarmState, _Mapping]] = ..., cloud_connection: _Optional[_Union[CloudConnectionState, str]] = ..., keyless_driving: _Optional[_Union[KeylessDrivingState, str]] = ..., hvac: _Optional[_Union[HvacState, _Mapping]] = ..., drive_mode: _Optional[_Union[DriveMode, str]] = ..., privacy_mode: _Optional[_Union[PrivacyMode, str]] = ..., gear_position: _Optional[_Union[GearPosition, str]] = ..., mobile_app_request: _Optional[_Union[MobileAppReqState, _Mapping]] = ..., tcu: _Optional[_Union[TcuState, str]] = ..., tcu_internet: _Optional[_Union[TcuInternetState, _Mapping]] = ..., sentry_state: _Optional[_Union[SentryState, _Mapping]] = ..., fault_state: _Optional[_Union[FaultState, _Mapping]] = ..., notifications: _Optional[_Union[Notifications, _Mapping]] = ..., factory_reset_state: _Optional[_Union[FactoryResetState, str]] = ..., air_suspension_level_status: _Optional[_Union[AirSuspensionLevelStatus, str]] = ..., ride_height_status: _Optional[_Union[RideHeightStatus, str]] = ...) -> None: ...
+    low_power_mode_status: LowPowerModeStatus
+    trailer_state: TrailerState
+    def __init__(self, battery: _Optional[_Union[BatteryState, _Mapping]] = ..., power: _Optional[_Union[PowerState, str]] = ..., cabin: _Optional[_Union[CabinState, _Mapping]] = ..., body: _Optional[_Union[BodyState, _Mapping]] = ..., last_updated_ms: _Optional[int] = ..., chassis: _Optional[_Union[ChassisState, _Mapping]] = ..., charging: _Optional[_Union[ChargingState, _Mapping]] = ..., gps: _Optional[_Union[Gps, _Mapping]] = ..., software_update: _Optional[_Union[SoftwareUpdate, _Mapping]] = ..., alarm: _Optional[_Union[AlarmState, _Mapping]] = ..., cloud_connection: _Optional[_Union[CloudConnectionState, str]] = ..., keyless_driving: _Optional[_Union[KeylessDrivingState, str]] = ..., hvac: _Optional[_Union[HvacState, _Mapping]] = ..., drive_mode: _Optional[_Union[DriveMode, str]] = ..., privacy_mode: _Optional[_Union[PrivacyMode, str]] = ..., gear_position: _Optional[_Union[GearPosition, str]] = ..., mobile_app_request: _Optional[_Union[MobileAppReqState, _Mapping]] = ..., tcu: _Optional[_Union[TcuState, str]] = ..., tcu_internet: _Optional[_Union[TcuInternetState, _Mapping]] = ..., sentry_state: _Optional[_Union[SentryState, _Mapping]] = ..., fault_state: _Optional[_Union[FaultState, _Mapping]] = ..., notifications: _Optional[_Union[Notifications, _Mapping]] = ..., factory_reset_state: _Optional[_Union[FactoryResetState, str]] = ..., low_power_mode_status: _Optional[_Union[LowPowerModeStatus, str]] = ..., trailer_state: _Optional[_Union[TrailerState, _Mapping]] = ...) -> None: ...
 
 class Vehicle(_message.Message):
     __slots__ = ("vehicle_id", "access_level", "config", "state")

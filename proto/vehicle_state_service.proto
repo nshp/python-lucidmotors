@@ -403,6 +403,15 @@ enum LivingObjectDetectionStatus {
     LIVING_OBJECT_DETECTION_STATUS_LEVEL_3_WARNING = 5;
 }
 
+enum UnattendedOccupantDetectionStatus {
+    UNATTENDED_OCCUPANT_DETECTION_STATUS_UNKNOWN = 0;
+    UNATTENDED_OCCUPANT_DETECTION_STATUS_NO_REQUEST = 1;
+    UNATTENDED_OCCUPANT_DETECTION_STATUS_STAGE_1 = 2;
+    UNATTENDED_OCCUPANT_DETECTION_STATUS_STAGE_2 = 3;
+    UNATTENDED_OCCUPANT_DETECTION_STATUS_STAGE_3 = 4;
+    UNATTENDED_OCCUPANT_DETECTION_STATUS_FAULT = 5;
+}
+
 message BodyState {
     LockState door_locks = 1;
     DoorState front_cargo = 2;
@@ -420,6 +429,9 @@ message BodyState {
     AllWindowPosition all_windows_position = 14;
     LivingObjectDetectionStatus living_object_detection_status = 15;
     WindowPositionState window_position = 16;
+    AirSuspensionLevelStatus air_suspension_level_status = 17;
+    RideHeightStatus ride_height_status = 18;
+    UnattendedOccupantDetectionStatus unattended_occupant_detection_status = 19;
 }
 
 enum LightAction {
@@ -1064,6 +1076,15 @@ enum RideHeightStatus {
   RIDE_HEIGHT_STATUS_HIGHEST = 6;
 }
 
+enum LowPowerModeStatus {
+    LOW_POWER_MODE_STATUS_UNKNOWN = 0;
+    LOW_POWER_MODE_STATUS_INACTIVE = 1;
+    LOW_POWER_MODE_STATUS_ACTIVE = 2;
+}
+
+message TrailerState {
+}
+
 message VehicleState {
     BatteryState battery = 1;
     PowerState power = 2;
@@ -1088,8 +1109,8 @@ message VehicleState {
     FaultState fault_state = 25;
     Notifications notifications = 26;
     FactoryResetState factory_reset_state = 27;
-    AirSuspensionLevelStatus air_suspension_level_status = 28;
-    RideHeightStatus ride_height_status = 29;
+    LowPowerModeStatus low_power_mode_status = 28;
+    TrailerState trailer_state = 29;
 }
 
 message Vehicle {
