@@ -5,7 +5,7 @@ import warnings
 
 from . import salesforce_service_pb2 as salesforce__service__pb2
 
-GRPC_GENERATED_VERSION = '1.67.1'
+GRPC_GENERATED_VERSION = '1.72.1'
 GRPC_VERSION = grpc.__version__
 _version_not_supported = False
 
