@@ -1,4 +1,3 @@
-from . import user_profile_service_pb2 as _user_profile_service_pb2
 from . import vehicle_state_service_pb2 as _vehicle_state_service_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
@@ -110,6 +109,24 @@ class SessionInfo(_message.Message):
     gigya_jwt: str
     def __init__(self, id_token: _Optional[str] = ..., expiry_time_sec: _Optional[int] = ..., refresh_token: _Optional[str] = ..., gigya_jwt: _Optional[str] = ...) -> None: ...
 
+class Profile(_message.Message):
+    __slots__ = ("email", "locale", "username", "photo_url", "first_name", "last_name", "ema_id")
+    EMAIL_FIELD_NUMBER: _ClassVar[int]
+    LOCALE_FIELD_NUMBER: _ClassVar[int]
+    USERNAME_FIELD_NUMBER: _ClassVar[int]
+    PHOTO_URL_FIELD_NUMBER: _ClassVar[int]
+    FIRST_NAME_FIELD_NUMBER: _ClassVar[int]
+    LAST_NAME_FIELD_NUMBER: _ClassVar[int]
+    EMA_ID_FIELD_NUMBER: _ClassVar[int]
+    email: str
+    locale: str
+    username: str
+    photo_url: str
+    first_name: str
+    last_name: str
+    ema_id: str
+    def __init__(self, email: _Optional[str] = ..., locale: _Optional[str] = ..., username: _Optional[str] = ..., photo_url: _Optional[str] = ..., first_name: _Optional[str] = ..., last_name: _Optional[str] = ..., ema_id: _Optional[str] = ...) -> None: ...
+
 class LoginResponse(_message.Message):
     __slots__ = ("uid", "session_info", "user_profile", "user_vehicle_data", "subscriptions", "encryption")
     UID_FIELD_NUMBER: _ClassVar[int]
@@ -120,11 +137,11 @@ class LoginResponse(_message.Message):
     ENCRYPTION_FIELD_NUMBER: _ClassVar[int]
     uid: str
     session_info: SessionInfo
-    user_profile: _user_profile_service_pb2.UserProfile
+    user_profile: Profile
     user_vehicle_data: _containers.RepeatedCompositeFieldContainer[_vehicle_state_service_pb2.Vehicle]
     subscriptions: _containers.RepeatedScalarFieldContainer[NotificationCategory]
     encryption: Encryption
-    def __init__(self, uid: _Optional[str] = ..., session_info: _Optional[_Union[SessionInfo, _Mapping]] = ..., user_profile: _Optional[_Union[_user_profile_service_pb2.UserProfile, _Mapping]] = ..., user_vehicle_data: _Optional[_Iterable[_Union[_vehicle_state_service_pb2.Vehicle, _Mapping]]] = ..., subscriptions: _Optional[_Iterable[_Union[NotificationCategory, str]]] = ..., encryption: _Optional[_Union[Encryption, str]] = ...) -> None: ...
+    def __init__(self, uid: _Optional[str] = ..., session_info: _Optional[_Union[SessionInfo, _Mapping]] = ..., user_profile: _Optional[_Union[Profile, _Mapping]] = ..., user_vehicle_data: _Optional[_Iterable[_Union[_vehicle_state_service_pb2.Vehicle, _Mapping]]] = ..., subscriptions: _Optional[_Iterable[_Union[NotificationCategory, str]]] = ..., encryption: _Optional[_Union[Encryption, str]] = ...) -> None: ...
 
 class GetNewJWTTokenRequest(_message.Message):
     __slots__ = ("refresh_token",)

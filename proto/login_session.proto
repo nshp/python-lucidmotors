@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package mobilegateway.protos;
 
-import "user_profile_service.proto";
 import "vehicle_state_service.proto";
 
 enum NotificationChannelType {
@@ -58,10 +57,20 @@ enum Encryption {
     ENCRYPTION_MUTUAL = 2;
 }
 
+message Profile {
+    string email = 1;
+    string locale = 2;
+    string username = 3;
+    string photo_url = 4;
+    string first_name = 5;
+    string last_name = 6;
+    string ema_id = 7;
+}
+
 message LoginResponse {
     string uid = 1;
     SessionInfo session_info = 2;
-    UserProfile user_profile = 3;
+    Profile user_profile = 3;
     repeated Vehicle user_vehicle_data = 4;
     repeated NotificationCategory subscriptions = 5;
     Encryption encryption = 6;
