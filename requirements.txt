@@ -1,3 +1,5 @@
+async-lru==2.0.4 ; python_version >= "3.12" and python_version < "4.0"
 grpc-stubs==1.* ; python_version >= "3.12" and python_version < "4.0"
 grpcio==1.* ; python_version >= "3.12" and python_version < "4.0"
 protobuf==6.* ; python_version >= "3.12" and python_version < "4.0"
+tenacity==8.2.3 ; python_version >= "3.12" and python_version < "4.0"
