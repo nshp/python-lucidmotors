@@ -1341,4 +1341,3 @@ class LucidAPI:
         await _check_for_api_error(
             self._vehicle_service.SetCreatureComfortMode(request)
         )
-        
