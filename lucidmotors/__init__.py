@@ -8,6 +8,10 @@ from google.protobuf.internal.enum_type_wrapper import EnumTypeWrapper
 from google.protobuf.timestamp_pb2 import Timestamp
 from base64 import b64encode
 
+from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception
+from async_lru import alru_cache
+from grpc import RpcError, StatusCode
+
 import uuid
 import grpc
 import grpc.aio
@@ -401,6 +405,9 @@ class LucidAPIInterceptor(grpc.aio.UnaryUnaryClientInterceptor):
 
         return response
 
+def is_rate_limit_error(exception: RpcError) -> bool:
+    """Return True if the gRPC exception is a rate-limiting error."""
+    return exception.code() == StatusCode.RESOURCE_EXHAUSTED
 
 class LucidAPI:
     """A wrapper around the API used by the Lucid mobile apps"""
@@ -625,6 +632,13 @@ class LucidAPI:
         Note: To get fresh vehicle information, call .fetch_vehicles()
         """
         return self._vehicles
+
+    @alru_cache(maxsize=5, ttl=15)
+    @retry(
+        retry=retry_if_exception(is_rate_limit_error),
+        stop=stop_after_attempt(4),
+        wait=wait_exponential(multiplier=2, min=2, max=30)
+    )
 
     async def fetch_vehicles(self) -> list[Vehicle]:
         """
@@ -1327,3 +1341,4 @@ class LucidAPI:
         await _check_for_api_error(
             self._vehicle_service.SetCreatureComfortMode(request)
         )
+        
