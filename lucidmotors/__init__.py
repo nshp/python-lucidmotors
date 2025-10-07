@@ -405,7 +405,7 @@ class LucidAPIInterceptor(grpc.aio.UnaryUnaryClientInterceptor):
 
         return response
 
-def is_rate_limit_error(exception: RpcError) -> bool:
+def is_rate_limit_error(exception: BaseException) -> bool:
     """Return True if the gRPC exception is a rate-limiting error."""
     return isinstance(exception, RpcError) and exception.code() == StatusCode.RESOURCE_EXHAUSTED
 
