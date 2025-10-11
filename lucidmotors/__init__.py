@@ -18,7 +18,7 @@ import grpc.aio
 import logging
 
 from .const import MOBILE_API_REGIONS, Region
-from .exceptions import APIError, APIValueError, StatusCode
+from .exceptions import APIError, APIValueError
 
 from .gen import (
     login_session_pb2,
@@ -405,9 +405,14 @@ class LucidAPIInterceptor(grpc.aio.UnaryUnaryClientInterceptor):
 
         return response
 
+
 def is_rate_limit_error(exception: BaseException) -> bool:
     """Return True if the gRPC exception is a rate-limiting error."""
-    return isinstance(exception, RpcError) and exception.code() == StatusCode.RESOURCE_EXHAUSTED
+    return (
+        isinstance(exception, RpcError)
+        and exception.code() == StatusCode.RESOURCE_EXHAUSTED
+    )
+
 
 class LucidAPI:
     """A wrapper around the API used by the Lucid mobile apps"""
@@ -637,9 +642,8 @@ class LucidAPI:
     @retry(
         retry=retry_if_exception(is_rate_limit_error),
         stop=stop_after_attempt(4),
-        wait=wait_exponential(multiplier=2, min=2, max=30)
+        wait=wait_exponential(multiplier=2, min=2, max=30),
     )
-
     async def fetch_vehicles(self) -> list[Vehicle]:
         """
         Refresh the list (and status) of vehicles from the API.
