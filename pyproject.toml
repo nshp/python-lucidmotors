@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "lucidmotors"
-version = "1.4.0"
+version = "1.4.1"
 description = ""
 authors = ["Nick Shipp <git@segbrk.com>", "Michael Borohovski <borski@owlpost.lol>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-grpcio = "1.72.1"
+grpcio = "1.75.1"
 grpc-stubs = "^1.53.0"
 protobuf = "^6.31.1"
 

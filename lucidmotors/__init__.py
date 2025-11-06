@@ -155,7 +155,7 @@ from .gen.sentry_service_pb2 import (
     GetEventsResponse,
 )
 
-__version__ = "1.4.0"
+__version__ = "1.4.1"
 
 _LOGGER = logging.getLogger(__name__)
 
