@@ -8,13 +8,17 @@ from google.protobuf.internal.enum_type_wrapper import EnumTypeWrapper
 from google.protobuf.timestamp_pb2 import Timestamp
 from base64 import b64encode
 
+from tenacity import retry, stop_after_attempt, wait_exponential, retry_if_exception
+from async_lru import alru_cache
+from grpc import RpcError, StatusCode
+
 import uuid
 import grpc
 import grpc.aio
 import logging
 
 from .const import MOBILE_API_REGIONS, Region
-from .exceptions import APIError, APIValueError, StatusCode
+from .exceptions import APIError, APIValueError
 
 from .gen import (
     login_session_pb2,
@@ -151,7 +155,7 @@ from .gen.sentry_service_pb2 import (
     GetEventsResponse,
 )
 
-__version__ = "1.3.0"
+__version__ = "1.4.0"
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -402,6 +406,14 @@ class LucidAPIInterceptor(grpc.aio.UnaryUnaryClientInterceptor):
         return response
 
 
+def is_rate_limit_error(exception: BaseException) -> bool:
+    """Return True if the gRPC exception is a rate-limiting error."""
+    return (
+        isinstance(exception, RpcError)
+        and exception.code() == StatusCode.RESOURCE_EXHAUSTED
+    )
+
+
 class LucidAPI:
     """A wrapper around the API used by the Lucid mobile apps"""
 
@@ -626,6 +638,12 @@ class LucidAPI:
         """
         return self._vehicles
 
+    @alru_cache(maxsize=5, ttl=15)
+    @retry(
+        retry=retry_if_exception(is_rate_limit_error),
+        stop=stop_after_attempt(4),
+        wait=wait_exponential(multiplier=2, min=2, max=30),
+    )
     async def fetch_vehicles(self) -> list[Vehicle]:
         """
         Refresh the list (and status) of vehicles from the API.
@@ -1327,3 +1345,54 @@ class LucidAPI:
         await _check_for_api_error(
             self._vehicle_service.SetCreatureComfortMode(request)
         )
+
+    async def set_ac_current_limit(self, vehicle: Vehicle, current_limit: int) -> None:
+        """
+        Set the AC current limit for a specific vehicle.
+
+        :param vehicle: The vehicle to set the AC current limit for
+        :param current_limit: The AC current limit in amperes (A)
+        """
+
+        if self._auto_wake and not self.vehicle_is_awake(vehicle):
+            await self.wakeup_vehicle(vehicle)
+
+        request = vehicle_state_service_pb2.SetACCurrLimitRequest(
+            ac_curr_lim=current_limit,
+            vehicle_id=vehicle.vehicle_id,
+        )
+        await _check_for_api_error(self._vehicle_service.SetACCurrLimit(request))
+
+    async def get_ac_current_settings(self, vehicle: Vehicle) -> dict[str, int]:
+        """
+        Get the current AC current settings for a specific vehicle.
+
+        :param vehicle: The vehicle to get AC current settings for
+        :return: Dictionary containing AC current settings:
+                - 'active_session_limit': Current AC current limit for active charging session (A)
+                - 'energy_limit': Energy AC current limit (A)
+                - 'requested_limit': Requested AC current limit (A)
+        """
+
+        # Get fresh vehicle state to ensure we have current AC current settings
+        await self.fetch_vehicles()
+
+        # Find the updated vehicle data
+        updated_vehicle = next(
+            (v for v in self._vehicles if v.vehicle_id == vehicle.vehicle_id), None
+        )
+
+        if not updated_vehicle:
+            raise APIValueError(f"Vehicle {vehicle.vehicle_id} not found")
+
+        return {
+            'active_session_limit': getattr(
+                updated_vehicle.state.charging, 'active_session_ac_current_limit', 0
+            ),
+            'energy_limit': getattr(
+                updated_vehicle.state.charging, 'energy_ac_current_limit', 0
+            ),
+            'requested_limit': getattr(
+                updated_vehicle.state.mobile_app_request, 'ac_current_limit_req', 0
+            ),
+        }
