@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-grpcio = "1.72.1"
+grpcio = "^1.72.1"
 grpc-stubs = "^1.53.0"
 protobuf = "^6.31.1"
 
@@ -23,7 +23,7 @@ flake8-black = "^0.3.6"
 pyjwt = "^2.8.0"
 mypy-protobuf = "^3.6.0"
 types-protobuf = "^4.24.0.4"
-grpcio-tools = "1.72.1"
+grpcio-tools = "^1.72.1"
 poetry-plugin-export = "^1.6.0"
 
 [tool.black]
