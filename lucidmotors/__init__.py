@@ -563,6 +563,27 @@ class LucidAPI:
         self._user_profile = reply.user_profile
         self._vehicles = reply.user_vehicle_data
 
+    async def login_with_refresh_token(self, refresh_token: str) -> None:
+        """Authenticate using a refresh token from a previous login.
+
+        Lets a long-running application persist a session across restarts
+        without storing the account password. Lucid permits one account per
+        car and the mobile app has no secondary logins, so a stored password
+        is the primary account credential; a refresh token can be revoked
+        with "log out all devices" instead of a password change.
+
+        Note that unlike :meth:`login`, the token exchange returns only
+        session info -- no user profile and no vehicle data -- so
+        :attr:`user` stays ``None`` until you call :meth:`fetch_vehicles`
+        or log in with credentials.
+
+        :param refresh_token: a token previously obtained from
+            :attr:`refresh_token` after a successful login.
+        :raises APIError: if the token has been revoked or is invalid.
+        """
+        self._refresh_token = refresh_token
+        await self.authentication_refresh()
+
     async def set_profile_photo(self, photo_bytes: bytes) -> Optional[str]:
         """Set the logged-in user's profile photo.
 
@@ -624,6 +645,17 @@ class LucidAPI:
         this object is not used as a context manager.
         """
         await self._channel.close(None)
+
+    @property
+    def refresh_token(self) -> Optional[str]:
+        """Return the current refresh token, if authenticated.
+
+        Persist this to re-authenticate later with
+        :meth:`login_with_refresh_token` instead of storing the account
+        password. Treat it as a secret: it is a long-lived bearer credential
+        and does not appear to rotate on use.
+        """
+        return self._refresh_token
 
     @property
     def user(self) -> Optional[UserProfile]:
