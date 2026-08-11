@@ -10,6 +10,8 @@ python = "^3.12"
 grpcio = "^1.75.1"
 grpc-stubs = "^1.53.0"
 protobuf = "^6.31.1"
+tenacity = "^9.0.0"
+async-lru = "^2.0.4"
 
 [tool.poetry.group.dev.dependencies]
 rich = "^13.6.0"
