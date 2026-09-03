@@ -623,8 +623,19 @@ class LucidAPI:
 
         return reply.data
 
+    @retry(
+        retry=retry_if_exception(is_rate_limit_error),
+        stop=stop_after_attempt(4),
+        wait=wait_exponential(multiplier=2, min=2, max=30),
+    )
     async def authentication_refresh(self) -> None:
-        """Get a fresh new token by using the refresh token."""
+        """Get a fresh new token by using the refresh token.
+
+        GetNewJWTToken is rate-limited server-side (RESOURCE_EXHAUSTED). Back
+        off the same way fetch_vehicles does rather than surfacing the first
+        throttle to the caller; a client that re-mints on failure otherwise
+        turns one throttle into a burst.
+        """
         request = login_session_pb2.GetNewJWTTokenRequest(
             refresh_token=self._refresh_token
         )
