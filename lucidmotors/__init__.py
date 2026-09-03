@@ -407,7 +407,15 @@ class LucidAPIInterceptor(grpc.aio.UnaryUnaryClientInterceptor):
 
 
 def is_rate_limit_error(exception: BaseException) -> bool:
-    """Return True if the gRPC exception is a rate-limiting error."""
+    """Return True if the exception is a rate-limiting error.
+
+    Matches both the raw gRPC error and the APIError that
+    _check_for_api_error converts it into. Methods call that converter inside
+    their own body, so by the time a retry decorator sees the exception it is
+    already an APIError -- matching only RpcError meant the retry never fired.
+    """
+    if isinstance(exception, APIError):
+        return exception.code == StatusCode.RESOURCE_EXHAUSTED
     return (
         isinstance(exception, RpcError)
         and exception.code() == StatusCode.RESOURCE_EXHAUSTED
