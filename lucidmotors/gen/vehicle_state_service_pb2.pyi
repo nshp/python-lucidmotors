@@ -1,3 +1,5 @@
+import datetime
+
 from google.protobuf import timestamp_pb2 as _timestamp_pb2
 from google.protobuf.internal import containers as _containers
 from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
@@ -103,6 +105,7 @@ class ChargingVendor(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     CHARGING_VENDOR_ELECTRIFY_AMERICA: _ClassVar[ChargingVendor]
     CHARGING_VENDOR_ELECTRIFY_CANADA: _ClassVar[ChargingVendor]
     CHARGING_VENDOR_BOSCH: _ClassVar[ChargingVendor]
+    CHARGING_VENDOR_TESLA: _ClassVar[ChargingVendor]
 
 class Edition(int, metaclass=_enum_type_wrapper.EnumTypeWrapper):
     __slots__ = ()
@@ -936,6 +939,7 @@ CHARGING_VENDOR_UNKNOWN: ChargingVendor
 CHARGING_VENDOR_ELECTRIFY_AMERICA: ChargingVendor
 CHARGING_VENDOR_ELECTRIFY_CANADA: ChargingVendor
 CHARGING_VENDOR_BOSCH: ChargingVendor
+CHARGING_VENDOR_TESLA: ChargingVendor
 EDITION_UNKNOWN: Edition
 EDITION_PERFORMANCE: Edition
 EDITION_RANGE: Edition
@@ -2158,7 +2162,7 @@ class DocumentInfo(_message.Message):
     revision: str
     description: str
     created_at: _timestamp_pb2.Timestamp
-    def __init__(self, type: _Optional[_Union[DocumentType, str]] = ..., version: _Optional[str] = ..., revision: _Optional[str] = ..., description: _Optional[str] = ..., created_at: _Optional[_Union[_timestamp_pb2.Timestamp, _Mapping]] = ...) -> None: ...
+    def __init__(self, type: _Optional[_Union[DocumentType, str]] = ..., version: _Optional[str] = ..., revision: _Optional[str] = ..., description: _Optional[str] = ..., created_at: _Optional[_Union[datetime.datetime, _timestamp_pb2.Timestamp, _Mapping]] = ...) -> None: ...
 
 class GetDocumentInfoRequest(_message.Message):
     __slots__ = ("vehicle_id", "vin", "version", "document_type", "revision")
@@ -2546,7 +2550,7 @@ class SetScheduledOtaRequest(_message.Message):
     VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
     scheduled_time: _timestamp_pb2.Timestamp
     vehicle_id: str
-    def __init__(self, scheduled_time: _Optional[_Union[_timestamp_pb2.Timestamp, _Mapping]] = ..., vehicle_id: _Optional[str] = ...) -> None: ...
+    def __init__(self, scheduled_time: _Optional[_Union[datetime.datetime, _timestamp_pb2.Timestamp, _Mapping]] = ..., vehicle_id: _Optional[str] = ...) -> None: ...
 
 class SetScheduledOtaResponse(_message.Message):
     __slots__ = ()
