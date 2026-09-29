@@ -1,4 +1,5 @@
 """authentication_refresh must back off on RESOURCE_EXHAUSTED, not surface the first one."""
+
 import asyncio
 from unittest.mock import AsyncMock, MagicMock
 
@@ -13,7 +14,13 @@ from lucidmotors.gen import login_session_pb2
 
 class _RpcError(grpc.aio.AioRpcError):
     def __init__(self, code):
-        super().__init__(code, grpc.aio.Metadata(), grpc.aio.Metadata(), details="", debug_error_string="")
+        super().__init__(
+            code,
+            grpc.aio.Metadata(),
+            grpc.aio.Metadata(),
+            details="",
+            debug_error_string="",
+        )
 
 
 def _session_reply():
@@ -35,9 +42,13 @@ def _api_with_login_service(side_effects):
 
 
 def test_retries_then_succeeds():
-    api = _api_with_login_service([_RpcError(StatusCode.RESOURCE_EXHAUSTED),
-                                   _RpcError(StatusCode.RESOURCE_EXHAUSTED),
-                                   _session_reply()])
+    api = _api_with_login_service(
+        [
+            _RpcError(StatusCode.RESOURCE_EXHAUSTED),
+            _RpcError(StatusCode.RESOURCE_EXHAUSTED),
+            _session_reply(),
+        ]
+    )
     no_wait = lucidmotors.LucidAPI.authentication_refresh.retry_with(wait=wait_none())
     asyncio.run(no_wait(api))
     assert api._login_service.GetNewJWTToken.await_count == 3
