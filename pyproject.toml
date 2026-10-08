@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "lucidmotors"
-version = "1.4.1"
+version = "1.4.2"
 description = ""
 authors = ["Nick Shipp <git@segbrk.com>", "Michael Borohovski <borski@owlpost.lol>"]
 readme = "README.md"
@@ -9,7 +9,7 @@ readme = "README.md"
 python = "^3.12"
 grpcio = "^1.75.1"
 grpc-stubs = "^1.53.0"
-protobuf = "^6.31.1"
+protobuf = ">=6.31.1,<8.0.0"
 tenacity = "^9.0.0"
 async-lru = "^2.0.4"
 
