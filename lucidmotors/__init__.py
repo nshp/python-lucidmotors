@@ -978,13 +978,20 @@ class LucidAPI:
             vehicle, BatteryPreconStatus.BATTERY_PRECON_OFF
         )
 
-    async def get_update_release_notes(self, version: str) -> GetDocumentInfoResponse:
+    async def get_update_release_notes(
+        self, version: str, vehicle: Optional[Vehicle] = None
+    ) -> GetDocumentInfoResponse:
         """
         Fetch release notes and description given a software version, e.g.
         '2.1.47'.
+
+        The API rejects the request with PERMISSION_DENIED unless it names a
+        vehicle, so pass `vehicle`. It is optional only to keep the existing
+        signature valid.
         """
 
         request = vehicle_state_service_pb2.GetDocumentInfoRequest(
+            vehicle_id=vehicle.vehicle_id if vehicle is not None else '',
             version=version,
             document_type=DocumentType.DOCUMENT_TYPE_RELEASE_NOTES_POST,
         )
@@ -993,12 +1000,17 @@ class LucidAPI:
             self._vehicle_service.GetDocumentInfo(request)
         )
 
-    async def get_owners_manual(self, version: str) -> str:
+    async def get_owners_manual(
+        self, version: str, vehicle: Optional[Vehicle] = None
+    ) -> str:
         """
         Fetch owner's manual URL given a software version, e.g. '2.1.47'.
+
+        Like get_update_release_notes(), the API requires `vehicle`.
         """
 
         request = vehicle_state_service_pb2.GetDocumentInfoRequest(
+            vehicle_id=vehicle.vehicle_id if vehicle is not None else '',
             version=version,
             document_type=DocumentType.DOCUMENT_TYPE_OWNERS_MANUAL,
         )
