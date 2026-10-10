@@ -119,6 +119,45 @@ from .gen.vehicle_state_service_pb2 import (
     TcuDownloadStatus,
     SoftwareDownloadStatus,
     SoftwareDownloadInterface,
+    BatteryCellType,
+    BatteryPackType,
+    KeyfobBatteryStatus,
+    MirrorFoldState,
+    LivingObjectDetectionStatus,
+    UnattendedOccupantDetectionStatus,
+    WelcomeAction,
+    TirePressureSensorDefective,
+    MobileDischargingCommand,
+    ChargingSessionRestartAllowed,
+    EaPncStatus,
+    AcOutletUnavailableReason,
+    MobileChargingControlRequestEnum,
+    FastChargingPreConditionRequestEnum,
+    ChargeNotification,
+    HvacKeepClimateCondition,
+    UpdateAvailability,
+    SoftwareRollbackState,
+    KeepClimateStatus,
+    SyncSet,
+    RearWindowHeatingStatus,
+    HvacLimited,
+    MpbFaultStatus,
+    PowertrainMessage,
+    PowertrainNotifyStatus,
+    GeneralChargeStatus,
+    SentryEnablementState,
+    SentryThreat,
+    SentryUsbDriveStatus,
+    EnhancedDeterrenceState,
+    SentryRemoteAlarmState,
+    FactoryResetState,
+    AirSuspensionLevelStatus,
+    RideHeightStatus,
+    LowPowerModeStatus,
+    DoorLocation,
+    DischargeCommand,
+    PanicAlarmAction,
+    PhoneAsKeyStatus,
 )
 from .gen.charging_service_pb2 import (
     DateTime,
@@ -155,7 +194,7 @@ from .gen.sentry_service_pb2 import (
     GetEventsResponse,
 )
 
-__version__ = "1.4.1"
+__version__ = "1.4.2"
 
 _LOGGER = logging.getLogger(__name__)
 
