@@ -102,6 +102,7 @@ from .gen.vehicle_state_service_pb2 import (
     VehicleState,
     Vehicle,
     GetDocumentInfoResponse,
+    DocumentInfo,
     DocumentType,
     WindowSwitchState,
     WindowPositionStatus,
@@ -1058,6 +1059,63 @@ class LucidAPI:
             self._vehicle_service.GetDocumentInfo(request)
         )
         return result.url
+
+    async def get_document_info(
+        self, vehicle: Vehicle, document_type: DocumentType, version: str = ''
+    ) -> GetDocumentInfoResponse:
+        """
+        Fetch the URL and description of a document of any type for a specific
+        vehicle. `version` is the software version the document is for, where
+        the type depends on one.
+        """
+
+        request = vehicle_state_service_pb2.GetDocumentInfoRequest(
+            vehicle_id=vehicle.vehicle_id,
+            version=version,
+            document_type=document_type,
+        )
+
+        return await _check_for_api_error(
+            self._vehicle_service.GetDocumentInfo(request)
+        )
+
+    async def get_service_notice(self, vehicle: Vehicle) -> GetDocumentInfoResponse:
+        """
+        Fetch the service notice for a specific vehicle.
+
+        Gravity has its own document types, so this asks for
+        DOCUMENT_TYPE_GTY_SERVICE_NOTICE on a Gravity and
+        DOCUMENT_TYPE_SERVICE_NOTICE otherwise. Passes the car's installed
+        software version.
+        """
+
+        if vehicle.config.model == Model.MODEL_GRAVITY:
+            document_type = DocumentType.DOCUMENT_TYPE_GTY_SERVICE_NOTICE
+        else:
+            document_type = DocumentType.DOCUMENT_TYPE_SERVICE_NOTICE
+
+        return await self.get_document_info(
+            vehicle, document_type, vehicle.state.chassis.software_version
+        )
+
+    async def get_recall_notice(self, vehicle: Vehicle) -> GetDocumentInfoResponse:
+        """
+        Fetch the recall notice for a specific vehicle.
+
+        Gravity has its own document types, so this asks for
+        DOCUMENT_TYPE_GTY_RECALL_NOTICE on a Gravity and
+        DOCUMENT_TYPE_RECALL_NOTICE otherwise. Passes the car's installed
+        software version.
+        """
+
+        if vehicle.config.model == Model.MODEL_GRAVITY:
+            document_type = DocumentType.DOCUMENT_TYPE_GTY_RECALL_NOTICE
+        else:
+            document_type = DocumentType.DOCUMENT_TYPE_RECALL_NOTICE
+
+        return await self.get_document_info(
+            vehicle, document_type, vehicle.state.chassis.software_version
+        )
 
     async def apply_update(self, vehicle: Vehicle) -> None:
         """
