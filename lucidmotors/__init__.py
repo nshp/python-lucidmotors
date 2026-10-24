@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from typing import Optional, Any, Callable, TypeVar, Awaitable
+from dataclasses import dataclass
 from datetime import datetime, timezone, timedelta
 from grpc.aio import ClientCallDetails, UnaryUnaryCall
 from google.protobuf.internal.enum_type_wrapper import EnumTypeWrapper
@@ -198,6 +199,17 @@ from .gen.sentry_service_pb2 import (
 __version__ = "1.4.2"
 
 _LOGGER = logging.getLogger(__name__)
+
+
+@dataclass(frozen=True)
+class OtaVersion:
+    """One entry of a vehicle's OTA version history."""
+
+    version: str
+    """Software version, e.g. '3.1.51'."""
+
+    update_time: datetime
+    """When Lucid recorded the version, timezone-aware UTC."""
 
 
 T = TypeVar('T')
@@ -1131,6 +1143,84 @@ class LucidAPI:
         )
 
         await _check_for_api_error(self._vehicle_service.ApplySoftwareUpdate(request))
+
+    async def ota_version_history(
+        self, vehicle: Vehicle, limit: int = 100
+    ) -> list[OtaVersion]:
+        """
+        Fetch the software versions a vehicle has had installed, oldest first.
+
+        This reads Lucid's records, not the car, so it does not wake it. The
+        API also returns a build name for each entry; it embeds other
+        vehicles' VINs, so it is deliberately dropped here. Entries without a
+        version or a readable time are skipped.
+
+        :param vehicle: The vehicle to fetch the history for
+        :param limit: Maximum number of entries to ask for
+        """
+
+        request = vehicle_state_service_pb2.GetOtaVersionHistoryRequest(
+            vin=vehicle.config.vin,
+            offset=0,
+            limit=limit,
+        )
+        reply = await _check_for_api_error(
+            self._vehicle_service.GetOtaVersionHistory(request)
+        )
+
+        history = []
+        for value in reply.values:
+            try:
+                when = datetime.fromisoformat(value.updateTime)
+            except ValueError:
+                continue
+            if not value.version:
+                continue
+            # The API sends naive timestamps; they are UTC.
+            when = (
+                when.replace(tzinfo=timezone.utc)
+                if when.tzinfo is None
+                else when.astimezone(timezone.utc)
+            )
+            history.append(OtaVersion(version=value.version, update_time=when))
+
+        history.sort(key=lambda entry: entry.update_time)
+        return history
+
+    async def keyless_driving_control(
+        self, vehicle: Vehicle, state: KeylessDrivingState
+    ) -> None:
+        """
+        Allow or disallow driving without a key present for a specific
+        vehicle.
+        """
+
+        if self._auto_wake and not self.vehicle_is_awake(vehicle):
+            await self.wakeup_vehicle(vehicle)
+
+        request = vehicle_state_service_pb2.KeylessDrivingActionRequest(
+            vehicle_id=vehicle.vehicle_id,
+            action=state,
+        )
+        await _check_for_api_error(self._vehicle_service.KeylessDrivingAction(request))
+
+    async def keyless_driving_on(self, vehicle: Vehicle) -> None:
+        """
+        Allow driving without a key present for a specific vehicle.
+        """
+
+        await self.keyless_driving_control(
+            vehicle, KeylessDrivingState.KEYLESS_DRIVING_ON
+        )
+
+    async def keyless_driving_off(self, vehicle: Vehicle) -> None:
+        """
+        Require a key to drive for a specific vehicle.
+        """
+
+        await self.keyless_driving_control(
+            vehicle, KeylessDrivingState.KEYLESS_DRIVING_OFF
+        )
 
     async def set_charge_limit(self, vehicle: Vehicle, value: int) -> None:
         """
