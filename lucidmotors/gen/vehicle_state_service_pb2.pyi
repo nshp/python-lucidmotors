@@ -2567,3 +2567,15 @@ class WelcomeControlRequest(_message.Message):
 class WelcomeControlResponse(_message.Message):
     __slots__ = ()
     def __init__(self) -> None: ...
+
+class RideHeightControlRequest(_message.Message):
+    __slots__ = ("target_height", "vehicle_id")
+    TARGET_HEIGHT_FIELD_NUMBER: _ClassVar[int]
+    VEHICLE_ID_FIELD_NUMBER: _ClassVar[int]
+    target_height: RideHeightStatus
+    vehicle_id: str
+    def __init__(self, target_height: _Optional[_Union[RideHeightStatus, str]] = ..., vehicle_id: _Optional[str] = ...) -> None: ...
+
+class RideHeightControlResponse(_message.Message):
+    __slots__ = ()
+    def __init__(self) -> None: ...

@@ -1477,6 +1477,12 @@ message WelcomeControlRequest {
 }
 message WelcomeControlResponse {}
 
+message RideHeightControlRequest {
+    RideHeightStatus target_height = 1;
+    string vehicle_id = 2;
+}
+message RideHeightControlResponse {}
+
 service VehicleStateService {
     rpc ApplySoftwareUpdate(ApplySoftwareUpdateRequest) returns (ApplySoftwareUpdateResponse) {}
     rpc CancelScheduledUpdate(CancelScheduledUpdateRequest) returns (CancelScheduledUpdateResponse) {}
@@ -1512,4 +1518,5 @@ service VehicleStateService {
     rpc InitiatePhoneAsKey(InitiatePhoneAsKeyRequest) returns (InitiatePhoneAsKeyResponse) {}
     rpc ReadStatusPhoneAsKey(ReadStatusPhoneAsKeyRequest) returns (ReadStatusPhoneAsKeyResponse) {}
     rpc SetScheduledOta(SetScheduledOtaRequest) returns (SetScheduledOtaResponse) {}
+    rpc RideHeightControl(RideHeightControlRequest) returns (RideHeightControlResponse) {}
 }
