@@ -778,6 +778,22 @@ class LucidAPI:
         )
         await _check_for_api_error(self._vehicle_service.HonkHorn(request))
 
+    async def ride_height_control(
+        self, vehicle: Vehicle, target_height: RideHeightStatus
+    ) -> None:
+        """
+        Set the ride height of a Gravity. The vehicle rejects the call unless the phone is nearby.
+        """
+
+        if self._auto_wake and not self.vehicle_is_awake(vehicle):
+            await self.wakeup_vehicle(vehicle)
+
+        request = vehicle_state_service_pb2.RideHeightControlRequest(
+            target_height=target_height,
+            vehicle_id=vehicle.vehicle_id,
+        )
+        await _check_for_api_error(self._vehicle_service.RideHeightControl(request))
+
     async def lights_control(self, vehicle: Vehicle, action: LightAction) -> None:
         """
         Control the lights of a specific vehicle.
