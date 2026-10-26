@@ -86,7 +86,6 @@ from .gen.vehicle_state_service_pb2 import (
     AlarmState,
     CloudConnectionState,
     KeylessDrivingState,
-    RideHeightStatus,
     HvacPower,
     DefrostState,
     HvacPreconditionStatus,
@@ -779,7 +778,9 @@ class LucidAPI:
         )
         await _check_for_api_error(self._vehicle_service.HonkHorn(request))
 
-    async def ride_height_control(self, vehicle: Vehicle, target_height: RideHeightStatus) -> None:
+    async def ride_height_control(
+        self, vehicle: Vehicle, target_height: RideHeightStatus
+    ) -> None:
         """
         Set the ride height of a Gravity. The vehicle rejects the call unless the phone is nearby.
         """
