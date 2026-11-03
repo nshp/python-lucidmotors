@@ -97,3 +97,22 @@ def test_errors_become_api_errors():
     api._vehicle_service.GetVehicleState.side_effect = _RpcError(StatusCode.UNAVAILABLE)
     with pytest.raises(lucidmotors.exceptions.APIError):
         asyncio.run(api.get_charging_schedule(vehicle))
+
+
+def test_charging_data_records_request_and_reply():
+    from lucidmotors.gen import charging_service_pb2 as cs
+
+    api, _ = _api()
+    api._charging_service = MagicMock()
+    api._charging_service.GetCdrs = AsyncMock(
+        return_value=cs.GetCdrsResponse(
+            cdr=[
+                cs.ChargingDataRecord(id="a", total_energy=12.5),
+                cs.ChargingDataRecord(id="b"),
+            ]
+        )
+    )
+    got = asyncio.run(api.get_charging_data_records("EMA1", offset=5, limit=10))
+    request = api._charging_service.GetCdrs.await_args.args[0]
+    assert (request.ema_id, request.offset, request.limit) == ("EMA1", 5, 10)
+    assert [r.id for r in got] == ["a", "b"] and got[0].total_energy == 12.5

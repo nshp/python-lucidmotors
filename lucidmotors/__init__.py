@@ -1163,7 +1163,9 @@ class LucidAPI:
         request = vehicle_state_service_pb2.GetVehicleStateRequest(
             vehicle_id=vehicle.vehicle_id,
         )
-        reply = await _check_for_api_error(self._vehicle_service.GetVehicleState(request))
+        reply = await _check_for_api_error(
+            self._vehicle_service.GetVehicleState(request)
+        )
         return reply.charging_schedule
 
     async def set_charging_schedule(
@@ -1198,6 +1200,25 @@ class LucidAPI:
         await _check_for_api_error(
             self._vehicle_service.UpdateChargingSchedule(request)
         )
+
+    async def get_charging_data_records(
+        self, ema_id: str, offset: int = 0, limit: int = 50
+    ) -> list[ChargingDataRecord]:
+        """
+        Get the charge detail records Lucid holds for a charging account.
+
+        :param ema_id: The account's `ema_id`, from the vehicle's config
+        :param offset: How many records to skip
+        :param limit: The most records to return
+        :return: The records: id, start and stop time, energy, parking time,
+                 location and currency
+        """
+
+        request = charging_service_pb2.GetCdrsRequest(
+            ema_id=ema_id, offset=offset, limit=limit
+        )
+        reply = await _check_for_api_error(self._charging_service.GetCdrs(request))
+        return list(reply.cdr)
 
     async def charging_control(self, vehicle: Vehicle, action: ChargeAction) -> None:
         """
