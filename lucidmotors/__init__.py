@@ -51,6 +51,7 @@ from .gen.vehicle_state_service_pb2 import (
     ChargingAccountStatus,
     ChargingVendor,
     ChargingAccount,
+    ChargingSchedule,
     Edition,
     BatteryType,
     Interior,
@@ -1145,6 +1146,79 @@ class LucidAPI:
             vehicle_id=vehicle.vehicle_id,
         )
         await _check_for_api_error(self._vehicle_service.SetChargeLimit(request))
+
+    async def get_charging_schedule(self, vehicle: Vehicle) -> ChargingSchedule:
+        """
+        Get the scheduled-charging settings of a specific vehicle.
+
+        The schedule is not part of the vehicle list; it comes from its own
+        request. Times are strings as the car's app sends them; the format is
+        not documented, so read one back before building one to set.
+
+        :param vehicle: The vehicle to read the schedule of
+        :return: The schedule: `schedule_on`, `start_time`, `end_time`,
+                 `weekday_on` and `charging_available`
+        """
+
+        request = vehicle_state_service_pb2.GetVehicleStateRequest(
+            vehicle_id=vehicle.vehicle_id,
+        )
+        reply = await _check_for_api_error(
+            self._vehicle_service.GetVehicleState(request)
+        )
+        return reply.charging_schedule
+
+    async def set_charging_schedule(
+        self,
+        vehicle: Vehicle,
+        schedule_on: bool,
+        start_time: str,
+        end_time: str,
+        weekday_on: bool = False,
+    ) -> None:
+        """
+        Set the scheduled-charging settings of a specific vehicle.
+
+        :param vehicle: The vehicle to set the schedule for
+        :param schedule_on: Whether scheduled charging is enabled
+        :param start_time: When charging may start, in the format
+                           `get_charging_schedule` returns
+        :param end_time: When charging should end, in the same format
+        :param weekday_on: The proto's `weekday_on` flag; false when unsure
+        """
+
+        if self._auto_wake and not self.vehicle_is_awake(vehicle):
+            await self.wakeup_vehicle(vehicle)
+
+        request = vehicle_state_service_pb2.UpdateChargingScheduleRequest(
+            schedule_on=schedule_on,
+            start_time=start_time,
+            end_time=end_time,
+            weekday_on=weekday_on,
+            vehicle_id=vehicle.vehicle_id,
+        )
+        await _check_for_api_error(
+            self._vehicle_service.UpdateChargingSchedule(request)
+        )
+
+    async def get_charging_data_records(
+        self, ema_id: str, offset: int = 0, limit: int = 50
+    ) -> list[ChargingDataRecord]:
+        """
+        Get the charge detail records Lucid holds for a charging account.
+
+        :param ema_id: The account's `ema_id`, from the vehicle's config
+        :param offset: How many records to skip
+        :param limit: The most records to return
+        :return: The records: id, start and stop time, energy, parking time,
+                 location and currency
+        """
+
+        request = charging_service_pb2.GetCdrsRequest(
+            ema_id=ema_id, offset=offset, limit=limit
+        )
+        reply = await _check_for_api_error(self._charging_service.GetCdrs(request))
+        return list(reply.cdr)
 
     async def charging_control(self, vehicle: Vehicle, action: ChargeAction) -> None:
         """
